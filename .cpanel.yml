@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/ioreyuqp/ioreyuqp
+    - /bin/cp * $DEPLOYPATH
+   
