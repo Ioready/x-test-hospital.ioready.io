@@ -556,17 +556,17 @@ class Setting extends Common_Controller {
         
         if (!empty($id)) {
 
-            print_r($id);die;
-            $option = array(
-                'table' => contactus . ' as R',
-                'select' => 'R.*, '
-                . 'U.id as u_id,U.first_name,U.last_name,',
-                'join' => array(
-                    array(USERS . ' as U', 'U.id=R.facility_manager_id', '')),
-                'where' => array('R.id' => $id),
-                'single' => true
-            );
-            $results_row = $this->common_model->customGet($option);
+            // print_r($id);die;
+            // $option = array(
+            //     'table' => contactus . ' as R',
+            //     'select' => 'R.*, '
+            //     . 'U.id as u_id,U.first_name,U.last_name,',
+            //     'join' => array(
+            //         array(USERS . ' as U', 'U.id=R.facility_manager_id', '')),
+            //     'where' => array('R.id' => $id),
+            //     'single' => true
+            // );
+            // $results_row = $this->common_model->customGet($option);
 
            
 
