@@ -552,7 +552,7 @@ class Setting extends Common_Controller {
         $this->data['parent'] = $this->title;
         $this->data['title'] = "Edit " . $this->title;
         $id = decoding($_GET['id']);
-        // print_r($id);die;
+        print_r($id);die;
         
         if (!empty($id)) {
 
