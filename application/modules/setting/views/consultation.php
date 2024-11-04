@@ -147,7 +147,7 @@
                                 <td class="actions">
                                 <td class="actions">
                                     <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/open_consult/edit?id=', '<?php echo encoding($rows->id) ?>', 'userSettings/open_consult');"><i class="fa fa-pencil"></i></a> -->
-                                                    <a href="<?php echo base_url() . 'setting/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-sm btn-default"><i class="fa fa-eye"></i></a>
+                                                    <a href="<?php echo base_url() . 'setting/consultEdit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-sm btn-default"><i class="fa fa-eye"></i></a>
                                                                         
                                     <!-- <a href="<?php echo base_url() . 'index.php/setting/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
                                     <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
@@ -334,7 +334,7 @@
                                 <td class="actions">
                                 <td class="actions">
                                     <!-- <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/userSettings/open_consult/edit?id=', '<?php echo encoding($rows->id) ?>', 'userSettings/open_consult');"><i class="fa fa-pencil"></i></a> -->
-                                                    <a href="<?php echo base_url() . 'setting/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-sm btn-default"><i class="fa fa-eye"></i></a>
+                                                    <a href="<?php echo base_url() . 'setting/consultEdit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-sm btn-default"><i class="fa fa-eye"></i></a>
                                                                         
                                     <!-- <a href="<?php echo base_url() . 'index.php/setting/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
                                     <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
