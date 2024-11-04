@@ -449,7 +449,7 @@ class Setting extends Common_Controller {
         $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
 
         if ($this->form_validation->run() == true) {
-            $this->filedata['status'] = 1;
+            // $this->filedata['status'] = 1;
             
             // if ($this->filedata['status'] == 0) {
             //     $response = array('status' => 0, 'message' => $this->filedata['error']);
