@@ -887,12 +887,13 @@
            </div>
 
                         <div class="row m-2">
-                    <div class="col-lg-6 mt-4">
+                            <!-- comemnt chart code -->
+                    <!-- <div class="col-lg-6 mt-4">
                             <canvas id="myChart" style="width: 100%; height: 100%; background-color: #F9F5FF; padding: 15px;  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
                         </div>
                         <div class="col-lg-6 mt-4">
                             <canvas id="myChart2" style="width: 100%; height: 100%;  background-color: #FFFAEC; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);"></canvas>
-                        </div>   
+                        </div>    -->
                     </div>
                 
 
