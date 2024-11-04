@@ -124,7 +124,7 @@
             <!-- Main Sidebar -->
             <div id="sidebar"  class="bg-light" >
                 <!-- Wrapper for scrolling functionality -->
-                <div id="sidebar-scroll" style=" background-color:#FFFF; height:100vh; overflow-y: scroll;  overflow-x: hidden;">
+                <div id="sidebar-scroll" style=" background-color:#FFFF; height:100vh; width:400px; overflow-y:auto;  overflow-x: hidden;">
                 <!-- <div id="sidebar-scroll" style=" background-color:#FFFF; height:100vh; scrollbar-width: none;  overflow-y: scroll;  overflow-x: hidden;"> -->
                     <!-- Sidebar Content -->
                     <div class="sidebar-content">

@@ -77,26 +77,28 @@ a.status-yellow {
         background-color: #f2f2f2;
     }
 
+    
+ 
 
 
 </style>
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
+
+<div id="page-content">
+        <!-- Datatables Header -->
         <h2><?php echo (isset($headline)) ? ucwords($headline) : "" ?></h2>
-        <ol class="breadcrumb">
-            <li>
-                <a href="<?php echo site_url('pwfpanel'); ?>"><?php echo lang('home'); ?></a>
-            </li>
-            <li>
-                <a href="<?php echo site_url('notification'); ?>"><?php echo "Notification"; ?></a>
-            </li>
-        </ol>
-    </div>
-    <div class="col-lg-2">
+        <ul class="breadcrumb breadcrumb-top">
+        <li>
+        <a href="<?php echo site_url('pwfpanel'); ?>"><?php echo lang('home'); ?></a>
+        </li>
+        <li>
+        <a href="<?php echo site_url('notification'); ?>"><?php echo "Notification"; ?></a>
+        </li>
+        </ul>
+        <!-- END Datatables Header -->
 
-    </div>
-</div>
 
+   <div class="block full">
+ 
 <?php 
                 $all_permission = $this->ion_auth->is_permission();
                 if (!empty($all_permission['form_permission'])) {
@@ -386,6 +388,10 @@ a.status-yellow {
 
 
 </div>
+</div>
+
+</div>
+
 
 <?php } ?>
 

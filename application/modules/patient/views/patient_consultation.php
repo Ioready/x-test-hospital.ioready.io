@@ -123,6 +123,57 @@
     font-weight: 900;
 }
 </style>
+
+<style>
+        /* Button styling */
+        .btn {
+            margin: 1px 0;
+            background-color: #b9adad;
+        }
+
+        /* Styling for dynamically opened forms */
+        .form-section {
+            display: none;
+            /* margin: 20px; */
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #f9f9f9;
+        }
+
+        /* Styling for the save button */
+        .save-btn {
+            font-weight: 700;
+            font-size: 1.5rem;
+            padding: 0.6rem 2.25rem;
+            background: #337ab7;
+            color: #fff;
+        }
+
+        /* Styling for the close button */
+        .close-btn {
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            background-color: darkred;
+        }
+
+        /* Button group styling */
+        .btn-group button {
+            background-color: #337ab7;
+            color: white;
+            border-radius: 5px;
+            margin: 5px;
+        }
+    </style>
 <!-- Page content -->
 <div id="page-content">
     <!-- Breadcrumbs -->
@@ -414,6 +465,7 @@
                                 <input type="hidden" class="form-control" name="type" id="type" value="presenting_complaint" placeholder="Enter Complaint">
                             
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                                <button type="button" class="close-btn" onclick="$('#form-complaint').hide()">Close</button>
                         </form>
                         </div>
                             <!-- Problem Heading -->
@@ -491,6 +543,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                                <button type="button" class="close-btn" onclick="$('#form-problem').hide()">Close</button>
                             </form>
                             </div>
 
@@ -548,6 +601,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                                <button type="button" class="close-btn" onclick="$('#form-exam').hide()">Close</button>
                             </form>
                             </div>
 
@@ -610,6 +664,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                                <button type="button" class="close-btn" onclick="$('#form-allergy').hide()">Close</button>
                             </form>
                             </div>
 
@@ -683,6 +738,8 @@
                                     </div>
                                 </div>
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                                <button type="button" class="close-btn" onclick="$('#form-medical-history').hide()">Close</button>
+                                
                                 </form>
                             </div>
 
@@ -752,6 +809,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                                <button type="button" class="close-btn" onclick="$('#form-family-history').hide()">Close</button>
                                 </form>
                             </div>
 
@@ -822,6 +880,7 @@
                                 </div>
 
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                                <button type="button" class="close-btn" onclick="$('#form-social').hide()">Close</button>
                                 </form>
                             </div>
 
@@ -894,6 +953,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                                <button type="button" class="close-btn" onclick="$('#form-medication').hide()">Close</button>
                                 </form>
                             </div>
 
@@ -967,6 +1027,7 @@
                                 </div>
 
                                 <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                                <button type="button" class="close-btn" onclick="$('#form-product').hide()">Close</button>
                                 </form>
                             </div>
 
@@ -1006,7 +1067,9 @@
                                 <h4>Comment</h4>
                                 <textarea class="form-control" placeholder="Enter Comment" name="comment" id="comment" required></textarea>
 
-                                <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>                                </form>
+                                <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>    
+                                <button type="button" class="close-btn" onclick="$('#form-comment').hide()">Close</button>
+                            </form>
                             </div>
                         </div>
                          </form>
@@ -1037,7 +1100,7 @@
 <!-- CSS for Human Body and Additional Styling -->
 <style>
     .form-section{
-        margin:20px;
+        /* margin:20px; */
     }
     /* Human Body SVG Styles */
     .human-body {
@@ -1058,7 +1121,7 @@
 </style>
 
 <!-- JavaScript for Handling Button Clicks and Form Visibility -->
-<script>
+<!-- <script>
     $(document).ready(function() {
         // Hide all forms initially
         $('.form-section').hide();
@@ -1112,6 +1175,61 @@
         $('#btn-comment').click(function() {
             $('.form-section').hide();
             $('#form-comment').show();
+        });
+    });
+</script> -->
+
+<script>
+    $(document).ready(function() {
+        // Function to toggle form visibility
+        function toggleForm(formId) {
+            const form = $(formId);
+
+            // Toggle visibility
+            form.toggle();
+        }
+
+        
+
+        // Button click handlers to show corresponding forms
+        $('#btn-complaint').click(function() {
+            toggleForm('#form-complaint');
+        });
+
+        $('#btn-problem').click(function() {
+            toggleForm('#form-problem');
+        });
+
+        $('#btn-exam').click(function() {
+            toggleForm('#form-exam');
+        });
+
+        $('#btn-allergy').click(function() {
+            toggleForm('#form-allergy');
+        });
+
+        $('#btn-medical-history').click(function() {
+            toggleForm('#form-medical-history');
+        });
+
+        $('#btn-family-history').click(function() {
+            toggleForm('#form-family-history');
+        });
+
+        $('#btn-social').click(function() {
+            toggleForm('#form-social');
+        });
+
+        $('#btn-medication').click(function() {
+            toggleForm('#form-medication');
+        });
+
+        $('#btn-product').click(function() {
+            toggleForm('#form-product');
+        });
+
+        $('#btn-comment').click(function() {
+            toggleForm('#form-comment');
         });
     });
 </script>

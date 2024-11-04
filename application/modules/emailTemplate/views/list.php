@@ -328,110 +328,9 @@
 
             <?php }?>
 
-            </div>
-<div id="form-modal-box"></div>
-<!-- CKEditor JS (CDN) -->
-<script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>helpers/ckeditor/ckeditor.js"></script>
 
 
-<script>
-    CKEDITOR.replace('editor1');
-    CKEDITOR.replace('recipient_template');
-
-    
-</script>
-<!-- <script>
-     $("#template_list").change(function () {
-        var template_id = this.value;
-        alert(template_id);
-        var firstDropVal = $('#template_data').val();
-    });
-</script> -->
-
-<script>
-    $("#template_list").change(function () {
-        var template_id = this.value;
-        // alert(template_id);
-
-        // Assuming you want to send the template_id as a filter parameter
-        $.ajax({
-            url: '<?php echo base_url(); ?>' + "/emailTemplate/index", // Replace with your controller endpoint URL
-            method: 'GET', // Or 'POST' depending on your preference
-            data: { template_id: template_id },
-            success: function(response) {
-                // Update the content of the div with the response
-                // $('#template_data').text(response);
-            },
-            error: function(xhr, status, error) {
-                // Handle any errors
-                console.error(xhr.responseText);
-            }
-        });
-    });
-
-
-    // $(document).ready(function () {
-    // $("#template_list").change(function () {
-    //     var template_id = this.value;
-
-    //     <?php //echo $EmailTemplates;?>
-
-    //     $.ajax({
-    //         url: '<?php echo base_url(); ?>' + "/emailTemplate/index",
-    //         method: 'GET', 
-    //         data: { template_id: template_id },
-    //         success: function(response) {
-              
-    //             document.write(response);
-    //         },
-    //         error: function(xhr, status, error) {
-                
-    //             console.error(xhr.responseText);
-    //         }
-    //     });
-    // });
-// });
-
-
-
-    // $(document).ready(function(){
-    // $("#template_list").change(function () {
-    //     var template_id = this.value;
-    //     $.ajax({
-    //         url: '<?php echo base_url(); ?>' + "/emailTemplate/index", // Replace with your controller endpoint URL
-    //         method: 'GET', // Or 'POST' depending on your preference
-    //         data: { template_id: template_id },
-    //         success: function(response) {
-    //             // Update the content of the div with the main content area
-    //             $('#template_data').html($(response).find('#main-content').html());
-    //         },
-    //         error: function(xhr, status, error) {
-    //             // Handle any errors
-    //             console.error(xhr.responseText);
-    //         }
-    //     });
-    // });
-// })
-</script>
-
-
-
-<!-- Script to initialize CKEditor -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
+            
         <!-- Datatables Content -->
     <div class="block full">
             <div class="block-title">
@@ -670,6 +569,111 @@
         </div>
         <!-- END Datatables Content -->
     </div>
+
+            </div>
+<div id="form-modal-box"></div>
+<!-- CKEditor JS (CDN) -->
+<script src="<?php echo base_url() . 'backend_asset/admin/js/' ?>helpers/ckeditor/ckeditor.js"></script>
+
+
+<script>
+    CKEDITOR.replace('editor1');
+    CKEDITOR.replace('recipient_template');
+
+    
+</script>
+<!-- <script>
+     $("#template_list").change(function () {
+        var template_id = this.value;
+        alert(template_id);
+        var firstDropVal = $('#template_data').val();
+    });
+</script> -->
+
+<script>
+    $("#template_list").change(function () {
+        var template_id = this.value;
+        // alert(template_id);
+
+        // Assuming you want to send the template_id as a filter parameter
+        $.ajax({
+            url: '<?php echo base_url(); ?>' + "/emailTemplate/index", // Replace with your controller endpoint URL
+            method: 'GET', // Or 'POST' depending on your preference
+            data: { template_id: template_id },
+            success: function(response) {
+                // Update the content of the div with the response
+                // $('#template_data').text(response);
+            },
+            error: function(xhr, status, error) {
+                // Handle any errors
+                console.error(xhr.responseText);
+            }
+        });
+    });
+
+
+    // $(document).ready(function () {
+    // $("#template_list").change(function () {
+    //     var template_id = this.value;
+
+    //     <?php //echo $EmailTemplates;?>
+
+    //     $.ajax({
+    //         url: '<?php echo base_url(); ?>' + "/emailTemplate/index",
+    //         method: 'GET', 
+    //         data: { template_id: template_id },
+    //         success: function(response) {
+              
+    //             document.write(response);
+    //         },
+    //         error: function(xhr, status, error) {
+                
+    //             console.error(xhr.responseText);
+    //         }
+    //     });
+    // });
+// });
+
+
+
+    // $(document).ready(function(){
+    // $("#template_list").change(function () {
+    //     var template_id = this.value;
+    //     $.ajax({
+    //         url: '<?php echo base_url(); ?>' + "/emailTemplate/index", // Replace with your controller endpoint URL
+    //         method: 'GET', // Or 'POST' depending on your preference
+    //         data: { template_id: template_id },
+    //         success: function(response) {
+    //             // Update the content of the div with the main content area
+    //             $('#template_data').html($(response).find('#main-content').html());
+    //         },
+    //         error: function(xhr, status, error) {
+    //             // Handle any errors
+    //             console.error(xhr.responseText);
+    //         }
+    //     });
+    // });
+// })
+</script>
+
+
+
+<!-- Script to initialize CKEditor -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
     <!-- END Page Content -->
 <div id="form-modal-box"></div>
 <div id="message_div">

@@ -7,7 +7,7 @@
     <title>Appointment Panel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"> -->
     <style>
         .highlight { background-color: yellow; }
         header h1, header p { margin: 0; }
@@ -112,6 +112,15 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
 /*  Button  */
     
     .btn {border-radius:0}
+
+    .select2-container .select2-selection--multiple {
+    height: auto;
+}
+
+.select2-container .select2-selection--single {
+    height: auto;
+}
+
 
 
     </style>
@@ -250,7 +259,9 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
 
             <div class="col-sm-6 col-lg-6 col-md-6 m-4">
                 <div class="col-sm-6 col-lg-6 col-md-6 m-4">
-                    <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple"></select>
+                    <!-- <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple"></select> -->
+                    <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="form-control select2"></select>
+
                 </div>
             </div>
             <?php } 
@@ -1138,7 +1149,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script> -->
 
 
     <script>
