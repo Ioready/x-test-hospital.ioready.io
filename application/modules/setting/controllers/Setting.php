@@ -451,10 +451,10 @@ class Setting extends Common_Controller {
         if ($this->form_validation->run() == true) {
             $this->filedata['status'] = 1;
             
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            // }
-            } else {
+            // if ($this->filedata['status'] == 0) {
+            //     $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // // }
+            // } else {
             
                 // $options_data = array(
                 //     'user_id'=> $LoginID,
@@ -497,7 +497,7 @@ class Setting extends Common_Controller {
                 } else {
                     $response = array('status' => 0, 'message' => "Failed to add");
                 }
-            }
+            // }
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
