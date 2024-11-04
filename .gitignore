@@ -29,3 +29,13 @@ config/database.php   # Ignore the database config file to keep it secure
 
 # Logs directory
 application/logs/     # Ignores everything in the logs directory
+
+
+
+
+
+
+
+
+
+
