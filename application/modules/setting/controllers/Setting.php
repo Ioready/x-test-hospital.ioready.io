@@ -552,7 +552,7 @@ class Setting extends Common_Controller {
         $this->data['parent'] = $this->title;
         $this->data['title'] = "Edit " . $this->title;
         $id = decoding($_GET['id']);
-        print_r($id);die;
+        // print_r($id);die;
         
         if (!empty($id)) {
 
@@ -568,7 +568,8 @@ class Setting extends Common_Controller {
             );
             $results_row = $this->common_model->customGet($option);
 
-
+            print_r($id);die;
+            
             // if (!empty($results_row)) {
                 
                 // $this->data['results'] = $results_row;
