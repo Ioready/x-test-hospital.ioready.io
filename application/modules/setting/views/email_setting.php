@@ -42,6 +42,7 @@
                     <span class="sidebar-nav-mini-hide">Bank Transfer</span>
                 </a>
             </li>
+            
           
         </ul>
     </div>
@@ -183,33 +184,40 @@
             <h2><strong>Site Setting</strong> Panel</h2>
         </div>
         <div class="col-sm-6 col-lg-12 text-white">
-    <div class="panel panel-default">
-        <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist">
-            <li class="nav-item">
-                <a href="<?php echo site_url('setting'); ?>" class="save-btn text-white <?php echo (strtolower($this->router->fetch_class()) == "setting" && strtolower($this->router->fetch_method()) == "index") ? "active" : "" ?>">
-                    <span class="sidebar-nav-mini-hide">Basic</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="<?php echo site_url('setting/emailSetting'); ?>" class="save-btn text-white <?php echo (strtolower($this->router->fetch_class()) == "setting" && strtolower($this->router->fetch_method()) == "emailsetting") ? "active" : "" ?>">
-                    <span class="sidebar-nav-mini-hide">Email Setting</span>
-                </a>
-            </li>
+            <div class="panel panel-default">
+                <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a href="<?php echo site_url('setting'); ?>" class="save-btn text-white <?php echo (strtolower($this->router->fetch_class()) == "setting" && strtolower($this->router->fetch_method()) == "index") ? "active" : "" ?>">
+                            <span class="sidebar-nav-mini-hide">Basic</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?php echo site_url('setting/emailSetting'); ?>" class="save-btn text-white <?php echo (strtolower($this->router->fetch_class()) == "setting" && strtolower($this->router->fetch_method()) == "emailsetting") ? "active" : "" ?>">
+                            <span class="sidebar-nav-mini-hide">Email Setting</span>
+                        </a>
+                    </li>
 
-            <li class="nav-item">
-                <a href="<?php echo site_url('setting/paymentSetting'); ?>" class="save-btn text-white <?php echo (strtolower($this->router->fetch_class()) == "setting" && strtolower($this->router->fetch_method()) == "paymentSetting") ? "active" : "" ?>">
-                    <span class="sidebar-nav-mini-hide">Payment setting for stripe</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="<?php echo site_url('setting/bankTransferSetting'); ?>" class="save-btn text-white <?php echo (strtolower($this->router->fetch_class()) == "setting" && strtolower($this->router->fetch_method()) == "paymentSetting") ? "active" : "" ?>">
-                    <span class="sidebar-nav-mini-hide">Bank Transfer</span>
-                </a>
-            </li>
-          
-        </ul>
-    </div>
-</div>
+                    <li class="nav-item">
+                        <a href="<?php echo site_url('setting/paymentSetting'); ?>" class="save-btn text-white <?php echo (strtolower($this->router->fetch_class()) == "setting" && strtolower($this->router->fetch_method()) == "paymentSetting") ? "active" : "" ?>">
+                            <span class="sidebar-nav-mini-hide">Payment setting for stripe</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?php echo site_url('setting/bankTransferSetting'); ?>" class="save-btn text-white <?php echo (strtolower($this->router->fetch_class()) == "setting" && strtolower($this->router->fetch_method()) == "paymentSetting") ? "active" : "" ?>">
+                            <span class="sidebar-nav-mini-hide">Bank Transfer</span>
+                        </a>
+                    </li>
+                
+                <li class="nav-item">
+                    <a href="<?php echo site_url('setting/consultationTemplates'); ?>" class="save-btn text-white <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>">
+                        <span class="sidebar-nav-mini-hide">Consultation Templates</span>
+                    </a>
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
+                </li>
+
+                </ul>
+            </div>
+        </div>
 
 <div class="wrapper wrapper-content animated fadeIn">
     <div class="row">

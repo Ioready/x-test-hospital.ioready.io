@@ -132,6 +132,50 @@ jQuery('body').on('click', '#submit', function () {
     
     var elem1 = document.querySelector('.js-switch1');
     var switchery1 = new Switchery(elem1, {color: '#1AB394'});
+
+    function deleteConsultation(id) {
+        bootbox.confirm({
+            message: "Do you really want to delete task?",
+            buttons: {
+                confirm: {
+                    label: 'Ok',
+                    className: '<?php echo THEME_BUTTON; ?>'
+                },
+                cancel: {
+                    label: 'Cancel',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function(result) {
+                if (result) {
+                    var url = "<?php echo base_url() ?>setting/delete_consultation";
+                    $.ajax({
+                        method: "POST",
+                        url: url,
+                        data: {
+                            id: id
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status == 200) {
+                                $("#msg").html("<div class='alert alert-success'>" + response.message + "</div>");
+                                setTimeout(function() {
+                                    window.location.href = response.url;
+                                }, 1500);
+                            } else {
+                                $("#msg").html("<div class='alert alert-danger'>" + response.message + "</div>");
+                            }
+                        },
+                        error: function(error, ror, r) {
+                            bootbox.alert(error);
+                        },
+                    });
+                } else {
+                    $('.modal-backdrop').remove();
+                }
+            }
+        });
+    }
 </script>
 
 

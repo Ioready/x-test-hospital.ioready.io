@@ -372,4 +372,289 @@ class Setting extends Common_Controller {
     }
 
 
+    function open_consult() {
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = "Add " . $this->title;
+        $this->data['formUrl'] = $this->router->fetch_class() . "/addConsult";
+        $this->data['formUrlModel'] = $this->router->fetch_class() . "/addQuestion";
+
+        
+        $option = "SELECT `vendor_sale_users`.`id`,`vendor_sale_users`.`first_name`, 
+        `vendor_sale_users`.`last_name`
+        FROM `vendor_sale_users` 
+        LEFT JOIN `vendor_sale_users_groups` ON `vendor_sale_users_groups`.`user_id` = `vendor_sale_users`.`id`
+        LEFT JOIN `vendor_sale_groups` ON `vendor_sale_groups`.`id` = `vendor_sale_users_groups`.`group_id`
+        WHERE `vendor_sale_users`.`delete_status` = 0 and `vendor_sale_users_groups`.`group_id` = 5
+        ORDER BY `vendor_sale_users`.`first_name` ASC";
+        
+        $this->data['users'] = $this->common_model->customQuery($option);
+
+        $option = array('table' => 'countries',
+            'select' => '*'
+        );
+        $this->data['countries'] = $this->common_model->customGet($option);
+        $option = array('table' => 'states',
+                    'select' => '*');
+                $this->data['states'] = $this->common_model->customGet($option);
+
+                // print_r($this->data['users']);die;
+
+        $this->load->admin_render('add_consultation', $this->data, 'inner_script');
+    }
+
+    public function consultationTemplates($vendor_profile_activate = "No") {
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = $this->title;
+        $this->data['model'] = $this->router->fetch_class();
+        $role_name = $this->input->post('role_name');
+
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        if($LoginID != 1 && $LoginID != NULL ){
+            $x = $LoginID;
+        }
+        
+        $this->data['roles'] = array(
+            'role_name' => $role_name
+        );
+        if ($vendor_profile_activate == "No") {
+            $vendor_profile_activate = 0;
+        } else {
+            $vendor_profile_activate = 1;
+        }
+
+        $optionheader = array(
+            'table' => 'vendor_sale_user_consultation_setting',
+            'select' => 'vendor_sale_user_consultation_setting`.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_user_consultation_setting.user_id','left')
+            ),
+            // 'where' => array('vendor_sale_user_consultation_setting.user_id' => $LoginID)
+        );
+
+        $this->data['list'] = $this->common_model->customGet($optionheader);
+
+        $this->load->admin_render('consultation', $this->data, 'inner_script');
+    }
+
+
+    public function addConsult() {
+
+        // echo "<pre>";
+        
+
+        // print_r($this->input->post());die;
+        // echo "</pre>";
+
+
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
+
+        if ($this->form_validation->run() == true) {
+            $this->filedata['status'] = 1;
+            
+            if ($this->filedata['status'] == 0) {
+                $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // }
+            } else {
+            
+                // $options_data = array(
+                //     'user_id'=> $LoginID,
+                //     'internal_name' => $this->input->post('internal_name'),
+                //     'name' => $this->input->post('name'),
+                //     'question' => $this->input->post('question'),                    
+                // );
+                $options_data = array(
+                    'user_id'=> $LoginID,
+                    'internal_name' => $this->input->post('internal_name'),
+                    'name' => $this->input->post('name'),
+                    'question' => json_encode($this->input->post('question')), // Convert array to JSON
+                );
+                $option = array('table' => 'vendor_sale_user_consultation_setting', 'data' => $options_data);
+                $this->common_model->customInsert($option);
+
+               $consultation_id = $this->db->insert_id();
+
+
+               $custome_name = $this->input->post('custome_name');
+               $response_type = $this->input->post('response_type');
+
+                $options_data = array(
+                    'custome_name' => $custome_name,
+                    'response_type' => $response_type
+                );
+
+                $options_data1 = array(
+                    'consultation_id' => $consultation_id,
+                    // 'question_name' => json_encode($options_data),
+                    'question_name' => $this->input->post('name'),
+                    'question' => json_encode($this->input->post('question')),                    
+                );
+                $option1 = array('table' => 'vendor_sale_consultation_question', 'data' => $options_data1);
+
+                if ($this->common_model->customInsert($option1)) {
+                    
+                   
+
+                    $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+                } else {
+                    $response = array('status' => 0, 'message' => "Failed to add");
+                }
+            }
+        } else {
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
+        echo json_encode($response);
+    }
+
+    public function addQuestion() {
+
+    
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        $this->form_validation->set_rules('question', "question", 'required|trim');
+       
+        if ($this->form_validation->run() == true) {
+            $this->filedata['status'] = 1;
+            
+            if ($this->filedata['status'] == 0) {
+                $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // }
+            } else {
+             
+
+                $options_data = array(
+                    'user_id'=> $LoginID,
+                    'question' => $this->input->post('question'),
+                    // 'recipient_template' => $this->input->post('bodies_template'),                         
+                );
+                
+                // print_r($options_data);die;
+                $option = array('table' => 'vendor_sale_consultation_question', 'data' => $options_data);
+                if ($this->common_model->customInsert($option)) {
+                    $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
+                } else {
+                    $response = array('status' => 0, 'message' => "Failed to add");
+                }
+            }
+        } else {
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
+        echo json_encode($response);
+    }
+
+    /**
+     * @method user_edit
+     * @description edit dynamic rows
+     * @return array
+     */
+
+     public function consultEdit() {
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = "Edit " . $this->title;
+        $id = decoding($_GET['id']);
+        // print_r($id);die;
+        
+        if (!empty($id)) {
+
+ 
+            $option = array(
+                'table' => contactus . ' as R',
+                'select' => 'R.*, '
+                . 'U.id as u_id,U.first_name,U.last_name,',
+                'join' => array(
+                    array(USERS . ' as U', 'U.id=R.facility_manager_id', '')),
+                'where' => array('R.id' => $id),
+                'single' => true
+            );
+            $results_row = $this->common_model->customGet($option);
+
+
+            // if (!empty($results_row)) {
+                
+                // $this->data['results'] = $results_row;
+
+                $optionheader = array(
+                    'table' => 'vendor_sale_user_consultation_setting',
+                    'select' => 'vendor_sale_user_consultation_setting`.*',
+                    'join' => array(
+                        array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_user_consultation_setting.user_id','left')
+                    ),
+                    'where' => array('vendor_sale_user_consultation_setting.id' => $id),
+                    'single'=>true,
+                );
+        
+                $this->data['list'] = $this->common_model->customGet($optionheader);
+
+                // print_r($this->data['list']);die;
+
+                $this->load->admin_render('edit_consultation', $this->data, 'inner_script');
+            // } else {
+            //     $this->session->set_flashdata('error', lang('not_found'));
+            //     redirect($this->router->fetch_class());
+            // }
+        } else {
+            $this->session->set_flashdata('error', lang('not_found'));
+            redirect($this->router->fetch_class());
+        }
+    }
+
+    public function updateConsultation() {
+       
+        $where_id = $this->input->post('id');
+        $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
+
+        if ($this->form_validation->run() == FALSE):
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        else:
+            $this->filedata['status'] = 1;
+
+            if ($this->filedata['status'] == 0) {
+                $response = array('status' => 1, 'message' => $this->filedata['error']);
+            } else {
+
+              
+                // $options_data = array(
+                //     'internal_name' => $this->input->post('internal_name'),
+                //     'name' => $this->input->post('name'),
+                //     'question' => $this->input->post('question'),                    
+                // );
+
+                $options_data = array(
+                    'internal_name' => $this->input->post('internal_name'),
+                    'name' => $this->input->post('name'),
+                    'question' => json_encode($this->input->post('question')), // Convert array to JSON
+                );
+                // $option = array('table' => 'vendor_sale_user_consultation_setting', 'data' => $options_data);
+
+                
+                $option = array(
+                    'table' =>'user_consultation_setting',
+                    'data' => $options_data,
+                    'where' => array('id' => $where_id)
+                );
+                $update = $this->common_model->customUpdate($option);
+                
+                $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url('contactus/edit'), 'id' => encoding($this->input->post('id')));
+                
+            }
+        endif;
+
+        echo json_encode($response);
+    }
+    function delete_consultation()
+    {
+
+        $option = array(
+            'table' => 'user_consultation_setting',
+            'where' => array('id' => $this->input->post('id'))
+        );
+        
+        $this->common_model->customDelete($option);
+
+        $response = array('status' => 200, 'message' => 'Deleted Successfully', 'url' => base_url($this->router->fetch_class()));
+        echo json_encode($response);
+    }
 }

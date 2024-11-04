@@ -181,6 +181,12 @@
                                     <span class="sidebar-nav-mini-hide">Bank Transfer</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="<?php echo site_url('setting/consultationTemplates'); ?>" class="save-btn text-white <?php echo (strtolower($this->router->fetch_class()) == "consultationTemplates") ? "active" : "" ?>">
+                                    <span class="sidebar-nav-mini-hide">Consultation Templates</span>
+                                </a>
+                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"></a>
+                            </li>
                         </ul>
                     </div>
                 </div>

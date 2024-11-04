@@ -233,6 +233,7 @@
             }
         });
     }
+   
 
     function changeVendorStatus(id,status, txt) {
     
@@ -725,7 +726,7 @@
 
 <link href="<?php echo base_url(); ?>backend_asset/plugins/select2/select2.css" rel="stylesheet">
 <script src="<?php echo base_url(); ?>backend_asset/plugins/select2/select2.js"></script>
-<!-- <script src="<?php echo base_url() . 'backend_asset/plugins/dataTables/datatablepdf/' ?>dataTables.buttons.min.js"></script>   
+<script src="<?php echo base_url() . 'backend_asset/plugins/dataTables/datatablepdf/' ?>dataTables.buttons.min.js"></script>   
 <script src="<?php echo base_url() . 'backend_asset/plugins/dataTables/datatablepdf/' ?>buttons.flash.min.js"></script>   
 <script src="<?php echo base_url() . 'backend_asset/plugins/dataTables/datatablepdf/' ?>buttons.flash.min.js"></script>   
 <script src="<?php echo base_url() . 'backend_asset/plugins/dataTables/datatablepdf/' ?>jszip.min.js"></script>   
