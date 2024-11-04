@@ -440,9 +440,9 @@ class Setting extends Common_Controller {
 
     public function addConsult() {
 
-        echo "<pre>";
-        print_r($this->input->post());die;
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($this->input->post());die;
+        // echo "</pre>";
 
 
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
@@ -474,13 +474,13 @@ class Setting extends Common_Controller {
                $consultation_id = $this->db->insert_id();
 
 
-               $custome_name = $this->input->post('custome_name');
-               $response_type = $this->input->post('response_type');
+            //    $custome_name = $this->input->post('custome_name');
+            //    $response_type = $this->input->post('response_type');
 
-                $options_data = array(
-                    'custome_name' => $custome_name,
-                    'response_type' => $response_type
-                );
+                // $options_data = array(
+                //     'custome_name' => $custome_name,
+                //     'response_type' => $response_type
+                // );
 
                 $options_data1 = array(
                     'consultation_id' => $consultation_id,
@@ -491,8 +491,6 @@ class Setting extends Common_Controller {
                 $option1 = array('table' => 'vendor_sale_consultation_question', 'data' => $options_data1);
 
                 if ($this->common_model->customInsert($option1)) {
-                    
-                   
 
                     $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
                 } else {
