@@ -440,11 +440,9 @@ class Setting extends Common_Controller {
 
     public function addConsult() {
 
-        // echo "<pre>";
-        
-
-        // print_r($this->input->post());die;
-        // echo "</pre>";
+        echo "<pre>";
+        print_r($this->input->post());die;
+        echo "</pre>";
 
 
         $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
