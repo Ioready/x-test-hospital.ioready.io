@@ -603,15 +603,15 @@ class Setting extends Common_Controller {
         $where_id = $this->input->post('id');
         $this->form_validation->set_rules('internal_name', "internal_name", 'required|trim');
 
-        if ($this->form_validation->run() == FALSE):
-            $messages = (validation_errors()) ? validation_errors() : '';
-            $response = array('status' => 0, 'message' => $messages);
-        else:
-            $this->filedata['status'] = 1;
+        if ($this->form_validation->run() == true){
+        //     $messages = (validation_errors()) ? validation_errors() : '';
+        //     $response = array('status' => 0, 'message' => $messages);
+        // else:
+        //     $this->filedata['status'] = 1;
 
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 1, 'message' => $this->filedata['error']);
-            } else {
+        //     if ($this->filedata['status'] == 0) {
+        //         $response = array('status' => 1, 'message' => $this->filedata['error']);
+        //     } else {
 
               
                 // $options_data = array(
@@ -637,8 +637,11 @@ class Setting extends Common_Controller {
                 
                 $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url('contactus/edit'), 'id' => encoding($this->input->post('id')));
                 
-            }
-        endif;
+            
+        } else {
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
 
         echo json_encode($response);
     }
