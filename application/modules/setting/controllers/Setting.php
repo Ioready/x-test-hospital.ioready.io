@@ -469,6 +469,7 @@ class Setting extends Common_Controller {
                     'question' => json_encode($this->input->post('question')), // Convert array to JSON
                 );
                 $option = array('table' => 'vendor_sale_user_consultation_setting', 'data' => $options_data);
+                print_r($option);die;
                 $this->common_model->customInsert($option);
 
                $consultation_id = $this->db->insert_id();

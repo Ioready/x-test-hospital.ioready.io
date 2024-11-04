@@ -14,9 +14,6 @@
 
     <!-- Datatables Content -->
     
-    
- 
-    
     <div class="block full">
         <div class="block-title">
             <h2><strong>Consultation template</strong> Panel</h2>
