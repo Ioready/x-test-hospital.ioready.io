@@ -556,7 +556,7 @@ class Setting extends Common_Controller {
         
         if (!empty($id)) {
 
- 
+            print_r($id);die;
             $option = array(
                 'table' => contactus . ' as R',
                 'select' => 'R.*, '
@@ -568,8 +568,8 @@ class Setting extends Common_Controller {
             );
             $results_row = $this->common_model->customGet($option);
 
-            print_r($id);die;
-            
+           
+
             // if (!empty($results_row)) {
                 
                 // $this->data['results'] = $results_row;
