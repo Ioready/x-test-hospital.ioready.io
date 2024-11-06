@@ -1,118 +1,3 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <style>
-        .tab-content {
-            margin-top: 20px;
-        }
-
-        .table-actions {
-            display: flex;
-            gap: 5px;
-        }
-
-        .modal-content {
-            max-width: 700px;
-            margin: auto;
-        }
-
-        .modal-header {
-            justify-content: center;
-        }
-
-        .btn-icon {
-            padding: 5px;
-            font-size: 14px;
-        }
-
-        .btn-icon.edit {
-            background-color: #5cb85c;
-            color: white;
-        }
-
-        .btn-icon.delete {
-            background-color: #d9534f;
-            color: white;
-        }
-
-        .status-active {
-            color: green;
-        }
-
-        .status-inactive {
-            color: red;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .tab-pane {
-            padding-top: 20px;
-        }
-        .fade {
-            opacity: 1!important;
-        
-        }
-    </style>
-
-    <!-- module permission css -->
-    <style>
-        .card {
-            margin-bottom: 2rem;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .permissions-table {
-            width: 100%;
-        }
-
-        .permission-switch {
-            display: inline-block;
-            width: 3rem;
-        }
-
-        .search-input {
-            max-width: 250px;
-        }
-
-        .container {
-            max-width: 1500px;
-        }
-
-        @media (max-width: 768px) {
-            .permissions-table {
-                font-size: 12px;
-            }
-
-            .card {
-                margin-bottom: 1rem;
-            }
-
-            .search-input {
-                width: 100%;
-                margin-top: 1rem;
-            }
-        }
-        div{
-            font-size: medium;
-        }
-        button{
-            font-size: medium!important;
-        }
-        .button-data{
-            background: cornflowerblue!important;
-            font-size: medium!important;
-            color: cornsilk;
-        }
-        .heading-div{
-            padding-left: 20px;
-        }
-</style>
 <div id="page-content">
   <div class="heading-div">
 <ul class="breadcrumb breadcrumb-top" style="background: white;padding-left: 20px; height: 42px;">
@@ -125,11 +10,6 @@
 </ul>
 </div>
     <!-- END Datatables Header -->
-
-
-
-
-
     <!-- Datatables Content -->
     <div class="block full">
     <div class="block-title" >
@@ -1319,31 +1199,118 @@
     });
 </script>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <style>
+        .tab-content {
+            margin-top: 20px;
+        }
 
+        .table-actions {
+            display: flex;
+            gap: 5px;
+        }
 
+        .modal-content {
+            max-width: 700px;
+            margin: auto;
+        }
 
+        .modal-header {
+            justify-content: center;
+        }
 
+        .btn-icon {
+            padding: 5px;
+            font-size: 14px;
+        }
 
+        .btn-icon.edit {
+            background-color: #5cb85c;
+            color: white;
+        }
 
+        .btn-icon.delete {
+            background-color: #d9534f;
+            color: white;
+        }
 
-<!-- <style>
-    ::-webkit-scrollbar {
-    width: 2px !important;
-    display:none
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1 !important; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888 !important; 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555 !important; 
-  }
-</style> -->
+        .status-active {
+            color: green;
+        }
+
+        .status-inactive {
+            color: red;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .tab-pane {
+            padding-top: 20px;
+        }
+        .fade {
+            opacity: 1!important;
+        
+        }
+    </style>
+
+    <!-- module permission css -->
+    <style>
+        .card {
+            margin-bottom: 2rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .permissions-table {
+            width: 100%;
+        }
+
+        .permission-switch {
+            display: inline-block;
+            width: 3rem;
+        }
+
+        .search-input {
+            max-width: 250px;
+        }
+
+        .container {
+            max-width: 1500px;
+        }
+
+        @media (max-width: 768px) {
+            .permissions-table {
+                font-size: 12px;
+            }
+
+            .card {
+                margin-bottom: 1rem;
+            }
+
+            .search-input {
+                width: 100%;
+                margin-top: 1rem;
+            }
+        }
+        div{
+            font-size: medium;
+        }
+        button{
+            font-size: medium!important;
+        }
+        .button-data{
+            background: cornflowerblue!important;
+            font-size: medium!important;
+            color: cornsilk;
+        }
+        .heading-div{
+            padding-left: 20px;
+        }
+    </style>
