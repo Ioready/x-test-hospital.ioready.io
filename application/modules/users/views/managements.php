@@ -1,6 +1,6 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-<style>
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<!-- <link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet"> -->
+ <style>
         .tab-content {
             margin-top: 20px;
         }
@@ -112,7 +112,7 @@
         .heading-div{
             padding-left: 20px;
         }
-    </style>
+</style>
 <div id="page-content">
   <div class="heading-div">
 <ul class="breadcrumb breadcrumb-top" style="background: white;padding-left: 20px; height: 42px;">
