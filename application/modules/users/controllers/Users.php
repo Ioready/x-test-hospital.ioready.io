@@ -1132,7 +1132,7 @@ class Users extends Common_Controller
         );
         $this->data['module_list'] = $this->common_model->customGet($optionRole);
 
-print_r($this->data);die;
+// print_r($this->data);die;
         $this->load->admin_render('managements', $this->data, 'inner_script');
     }
 
