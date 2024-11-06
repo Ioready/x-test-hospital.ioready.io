@@ -519,7 +519,7 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Problem</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" name="search" class="form-control" placeholder="Search ..." id="problemSearch">
+                                            <input type="search" name="problem_search" class="form-control" placeholder="Search ..." id="problemSearch">
                                             <div id="result_problem"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
@@ -529,19 +529,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="datetime-local" name="since" id="since" class="form-control">
+                                                <input type="datetime-local" name="problem_since" id="since" class="form-control">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" name="condition_type" id="condition_type" class="form-control">
+                                                <input type="text" name="problem_condition_type" id="condition_type" class="form-control">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" name="condition_significance" id="condition_significance" class="form-control">
+                                                <input type="text" name="problem_condition_significance" id="condition_significance" class="form-control">
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control" rows="4" name="problem_comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="showSummary" name="showSummary">
                                             <label for="showSummary"> Show in summary</label>
@@ -571,7 +571,7 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Examination</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="examSearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="examSearch" name="examination_search">
                                             <div id="result_examination"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
@@ -579,9 +579,9 @@
                                         </div>
 
                                         <label>Value</label>
-                                        <input type="text" class="form-control" name="value" id="value">
+                                        <input type="text" class="form-control" name="examination_value" id="value">
                                         <label>Comment</label>
-                                        <textarea class="form-control" name="comment" id="comment" rows="4"></textarea>
+                                        <textarea class="form-control" name="examination_comment" id="comment" rows="4"></textarea>
                                     </div>
                                 </div>
                                 <!-- <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
@@ -607,18 +607,18 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label for="allergySearch">Allergy</label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search allergies" id="allergySearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search allergies" id="allergySearch" name="allergy_search">
                                             <div id="result_allergy"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
                                         </div>
                                         <label>Severity</label>
-                                        <select class="form-control" name="severity" id="severity">
+                                        <select class="form-control" name="allergy_severity" id="severity">
                                             <option value="severity">Select Severity</option>
                                         </select>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control" rows="4" name="allergy_comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="allergySummary" name="allergySummary">
                                             <label for="allergySummary"> Show in summary</label>
@@ -648,7 +648,7 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Medical History</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="medicalHistorySearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="medicalHistorySearch" name="medical_history_search">
                                             <div id="result_medical_history"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
@@ -658,19 +658,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="datetime-local" class="form-control" name="since" id="since">
+                                                <input type="datetime-local" class="form-control" name="medical_history_since" id="since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" class="form-control" name="condition_type" id="condition_type">
+                                                <input type="text" class="form-control" name="medical_history_condition_type" id="condition_type">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance">
+                                                <input type="text" class="form-control" name="medical_history_condition_significance" id="condition_significance">
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control" rows="4" name="medical_history_comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="medicalHistorySummary" name="medicalHistorySummary">
                                             <label for="medicalHistorySummary"> Show in summary</label>
@@ -700,7 +700,7 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label for="familyHistorySearch">Family History</label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="familyHistorySearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="familyHistorySearch" name="family_history_search">
                                             <div id="result_family_history"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
@@ -719,7 +719,7 @@
                                             <option value="other">Other</option>
                                         </select>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control" rows="4" name="family_history_comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="familyHistorySummary" name="familyHistorySummary">
                                             <label for="familyHistorySummary"> Show in summary</label>
@@ -746,7 +746,7 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Social</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="socialSearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="socialSearch" name="social_search">
                                             <div id="result_social"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
@@ -756,19 +756,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="datetime-local" class="form-control" name="since" id="since">
+                                                <input type="datetime-local" class="form-control" name="social_since" id="since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" class="form-control" name="condition_type" id="condition_type">
+                                                <input type="text" class="form-control" name="social_condition_type" id="condition_type">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance">
+                                                <input type="text" class="form-control" name="social_condition_significance" id="condition_significance">
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control" rows="4" name="social_comment" id="comment"></textarea>
                                     </div>
                                 </div>
 
@@ -793,7 +793,7 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Medication</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="medicationSearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="medicationSearch" name="medication_search">
                                             <div id="result_medication"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
@@ -803,19 +803,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="datetime-local" class="form-control" name="since" id="since">
+                                                <input type="datetime-local" class="form-control" name="medication_since" id="since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" class="form-control" name="condition_type" id="condition_type">
+                                                <input type="text" class="form-control" name="medication_condition_type" id="condition_type">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance">
+                                                <input type="text" class="form-control" name="medication_condition_significance" id="condition_significance">
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control" rows="4" name="medication_comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="medicationSummary" name="medicationSummary" >
                                             <label for="medicationSummary"> Show in summary</label>
@@ -841,7 +841,7 @@
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Product</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="productSearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="productSearch" name="product_search">
                                             <div id="result_product"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
@@ -851,19 +851,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="datetime-local" class="form-control" name="since" id="since">
+                                                <input type="datetime-local" class="form-control" name="product_since" id="since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" class="form-control" name="condition_type" id="condition_type">
+                                                <input type="text" class="form-control" name="product_condition_type" id="condition_type">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" class="form-control" name="condition_significance" id="condition_significance">
+                                                <input type="text" class="form-control" name="product_condition_significance" id="condition_significance">
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control" rows="4" name="product_comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="productSummary" name="productSummary">
                                             <label for="productSummary"> Show in summary</label>
