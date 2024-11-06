@@ -1,3 +1,119 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <style>
+        .tab-content {
+            margin-top: 20px;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .modal-content {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .modal-header {
+            justify-content: center;
+        }
+
+        .btn-icon {
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        .btn-icon.edit {
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        .btn-icon.delete {
+            background-color: #d9534f;
+            color: white;
+        }
+
+        .status-active {
+            color: green;
+        }
+
+        .status-inactive {
+            color: red;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .tab-pane {
+            padding-top: 20px;
+        }
+        .fade {
+            opacity: 1!important;
+        
+        }
+    </style>
+
+    <!-- module permission css -->
+    <style>
+        .card {
+            margin-bottom: 2rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .permissions-table {
+            width: 100%;
+        }
+
+        .permission-switch {
+            display: inline-block;
+            width: 3rem;
+        }
+
+        .search-input {
+            max-width: 250px;
+        }
+
+        .container {
+            max-width: 1500px;
+        }
+
+        @media (max-width: 768px) {
+            .permissions-table {
+                font-size: 12px;
+            }
+
+            .card {
+                margin-bottom: 1rem;
+            }
+
+            .search-input {
+                width: 100%;
+                margin-top: 1rem;
+            }
+        }
+        div{
+            font-size: medium;
+        }
+        button{
+            font-size: medium!important;
+        }
+        .button-data{
+            background: cornflowerblue!important;
+            font-size: medium!important;
+            color: cornsilk;
+        }
+        .heading-div{
+            padding-left: 20px;
+        }
+    </style>
+
 <div id="page-content">
   <div class="heading-div">
 <ul class="breadcrumb breadcrumb-top" style="background: white;padding-left: 20px; height: 42px;">
@@ -10,6 +126,7 @@
 </ul>
 </div>
     <!-- END Datatables Header -->
+
     <!-- Datatables Content -->
     <div class="block full">
     <div class="block-title" >
@@ -861,7 +978,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
 
-    <script>
+    <script type="text/javascript">
         // Initialize DataTables for both User and Role & Permission tables
         $(document).ready(function () {
             $('#userTable').DataTable();
@@ -869,7 +986,7 @@
         });
     </script>
 
-    <script>
+<script type="text/javascript">
     function selectAll(menuName) {
         // Get the state of the "View All Records" checkbox
         var isChecked = event.target.checked; // Use 'event.target' to get the checkbox that triggered the event
@@ -882,107 +999,7 @@
             checkbox.checked = isChecked; // Set the checkbox state based on "View All Records"
         });
     }
-    </script>
-
-    
-    <!-- <script type="text/javascript">
-    $(document).on('change', '#role_id', function() {
-        var role = $("#role_id").val(); 
-       
-        $.ajax({
-            url: '<?php echo base_url(); ?>users/menu_settings_onchange',  // Ensure URL is correct
-            data: { 'role': role }, 
-            type: 'POST',
-            dataType: 'json', // Expecting JSON response from the server
-            success: function(data) {
-               
-                // Uncheck all checkboxes initially
-                $(".servicecheck").prop('checked', false);
-                $(".servicecheckviewall").prop('checked', false);
-                $(".servicecheckView").prop('checked', false);
-                $(".servicecheckCreate").prop('checked', false);
-                $(".servicecheckDelete").prop('checked', false);
-                $(".servicecheckUpdate").prop('checked', false);
-                
-                // Check if data is returned and in the correct format
-                if (Array.isArray(data)) {
-                    // Loop through the data returned from the server
-                    $.each(data, function(i, val) {
-                        var svalue = val.menu_id; // Assuming 'menu_id' is in the returned JSON
-                        var view = val.menu_view;
-                        var create = val.menu_create;
-                        var update = val.menu_update;
-                        var deletevalue = val.menu_delete;
-                        
-                        var myCheckbox = "#" + svalue; 
-                        var myview = "#" + view;
-                        var mycreate = "#" + create;
-                        var myupdate = "#" + update;
-                        var mydelete = "#" + deletevalue;
-                        console.log("Checkbox ID: " + myCheckbox); // Debugging: log checkbox ID
-                        console.log("CheckboxView ID: " + myview); // Debugging: log checkbox ID
-                        console.log("CheckboxCreate ID: " + mycreate); // Debugging: log checkbox ID
-                        console.log("CheckboxUpdate ID: " + myupdate); // Debugging: log checkbox ID
-                        console.log("CheckboxDelete ID: " + mydelete); // Debugging: log checkbox ID
-                        // console.log("Checkbox ID: " + myCheckbox); // Debugging: log checkbox ID
-                        
-                        // Check if the checkbox with this ID exists, then set it to checked
-                        if ($(myCheckbox).length) {
-                            $(myCheckbox).prop('checked', true); 	
-                        } else {
-                            console.log("Checkbox not found for ID: " + myCheckbox);
-                        }
-
-                        // view checked
-                        if(svalue){
-
-
-                        if ($(myview).length) {
-                            $('.servicecheckView').prop('checked', true); 
-                            $(myCheckbox).prop('checked', true);	
-                        } else {
-                            console.log("Checkbox not found for ID: " + myview);
-                        }
-
-                        // create checked
-
-                        if ($(mycreate).length) {
-                            $('.servicecheckCreate').prop('checked', true); 	
-                        } else {
-                            console.log("Checkbox not found for ID: " + mycreate);
-                        }
-
-                        // update checked
-
-                        if ($(myupdate).length) {
-                            $('.servicecheckUpdate').prop('checked', true); 	
-                        } else {
-                            console.log("Checkbox not found for ID: " + myupdate);
-                        }
-
-                        // delete checked
-
-                        if ($(mydelete).length) {
-                            $('.servicecheckDelete').prop('checked', true); 	
-                        } else {
-                            console.log("Checkbox not found for ID: " + mydelete);
-                        }
-
-                    }
-                    });
-                } else {
-                    console.error('Unexpected data format', data);  // Error if data is not an array
-                }
-            },
-            error: function(xhr, status, error) {
-                alert("An error occurred: " + error); // Notify user of error
-                console.log("Status: " + status);      // Log the error status
-                console.log("Error: " + error);        // Log the error details
-                console.log(xhr.responseText);         // Log the server response for debugging
-            }
-        });
-    });
-</script> -->
+</script>
 
 <script type="text/javascript">
     $(document).on('change', '#role_id', function() {
@@ -1005,71 +1022,7 @@
                 
                 // Check if data is returned and in the correct format
                 if (Array.isArray(data)) {
-                    // Loop through the data returned from the server
-                    // $.each(data, function(i, val) {
-                    //     var svalue = val.menu_id; // Assuming 'menu_id' is in the returned JSON
-                       
-
-                    //     // Ensure that 'menu_id' (svalue) is not empty before proceeding
-                    //     if (svalue) {
-
-                    //     var view = val.menu_view;
-                    //     var create = val.menu_create;
-                    //     var update = val.menu_update;
-                    //     var deletevalue = val.menu_delete;
-                        
-                    //     var myCheckbox = "#" + svalue; 
-                    //     var myview = "#" + view;
-                    //     var mycreate = "#" + create;
-                    //     var myupdate = "#" + update;
-                    //     var mydelete = "#" + deletevalue;
-
-
-                    //         // Check if the checkbox with this ID exists, then set it to checked
-                    //         if ($(myCheckbox).length) {
-                    //             $(myCheckbox).prop('checked', true); 	
-                    //         } else {
-                    //             console.log("Checkbox not found for ID: " + myCheckbox);
-                    //         }
-
-                    //         // Check 'view' if it's available and non-empty
-                    //         if (view && $(myview).length) {
-                    //             $('.servicecheckView').prop('checked', true); 
-                    //             $(myCheckbox).prop('checked', true);	
-                    //         } else {
-                    //             console.log("View checkbox not found for ID: " + myview);
-                    //         }
-
-                    //         // Check 'create' if it's available and non-empty
-                    //         if (create && $(mycreate).length) {
-                    //             $('.servicecheckCreate').prop('checked', true); 	
-                    //         } else {
-                    //             console.log("Create checkbox not found for ID: " + mycreate);
-                    //         }
-
-                    //         // Check 'update' if it's available and non-empty
-                    //         if (update && $(myupdate).length) {
-                    //             $('.servicecheckUpdate').prop('checked', true); 	
-                    //         } else {
-                    //             console.log("Update checkbox not found for ID: " + myupdate);
-                    //         }
-
-                    //         // Check 'delete' if it's available and non-empty
-                    //         if (deletevalue && $(mydelete).length) {
-                    //             $('.servicecheckDelete').prop('checked', true); 	
-                    //         } else {
-                    //             console.log("Delete checkbox not found for ID: " + mydelete);
-                    //         }
-
-                    //     } else {
-                    //         console.log("menu_id is empty or invalid for this entry.");
-                    //     }
-                    // });
-
-
-
-
-
+                    
                     $.each(data, function(i, val) {
                         var svalue = val.menu_id; // Assuming 'menu_id' is in the returned JSON
                         var menu_key = val.menu_key; // Assuming 'menu_id' is in the returned JSON
@@ -1098,53 +1051,6 @@
                                 var myupdate = "#" + update;
                                 var mydelete = "#" + deletevalue;
                                 
-                            
-                            // if (view && $(myview).length || $(svalue).length){
-                            //     $('.servicecheckView').prop('checked', true ? false); 	
-                            // } 
-
-                            // if (create && $(mycreate).length || $(svalue).length) {
-                            //     $('.servicecheckCreate ').prop('checked', true ? false); 	
-                            // } 
-
-                            // if (update && $(myupdate).length || $(svalue).length) {
-                            //     $('.servicecheckUpdate').prop('checked', true ? false) ; 	
-                            // } 
-
-                            // if (deletevalue && $(mydelete).length || $(svalue).length) {
-                            //     $('.servicecheckDelete').prop('checked', true ? false); 	
-                            // } 
-                            
-                            // Check 'view' if it's available and non-empty
-
-                            
-                                    // if ($(myview).length && $(svalue).length) {
-                                    //     $('.servicecheckView').prop('checked', true);  // Check the checkbox if the conditions are met
-                                    // } else {
-                                    //     $('.servicecheckView').prop('checked', false); // Uncheck if conditions are not met
-                                    // }
-
-                                    // // Check 'create' if it's available and non-empty
-                                    // if ($(mycreate).length && $(svalue).length) {
-                                    //     $('.servicecheckCreate').prop('checked', true); 	
-                                    // } else {
-                                    //     $('.servicecheckCreate').prop('checked', false); 
-                                    // }
-
-                                    // // Check 'update' if it's available and non-empty
-                                    // if (update && $(myupdate).length && $(svalue).length) {
-                                    //     $('.servicecheckUpdate').prop('checked', true); 	
-                                    // } else {
-                                    //     $('.servicecheckUpdate').prop('checked', false); 
-                                    // }
-
-                                    // // Check 'delete' if it's available and non-empty
-                                    // if (deletevalue && $(mydelete).length && $(svalue).length) {
-                                    //     $('.servicecheckDelete').prop('checked', true); 	
-                                    // } else {
-                                    //     $('.servicecheckDelete').prop('checked', false); 
-                                    // }
-
 
                                     if (view && $(myview).length) {
                                         $('.servicecheckView'+menu_key).prop('checked', true);  // Set checked to true if condition is met
@@ -1198,119 +1104,3 @@
         });
     });
 </script>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <style>
-        .tab-content {
-            margin-top: 20px;
-        }
-
-        .table-actions {
-            display: flex;
-            gap: 5px;
-        }
-
-        .modal-content {
-            max-width: 700px;
-            margin: auto;
-        }
-
-        .modal-header {
-            justify-content: center;
-        }
-
-        .btn-icon {
-            padding: 5px;
-            font-size: 14px;
-        }
-
-        .btn-icon.edit {
-            background-color: #5cb85c;
-            color: white;
-        }
-
-        .btn-icon.delete {
-            background-color: #d9534f;
-            color: white;
-        }
-
-        .status-active {
-            color: green;
-        }
-
-        .status-inactive {
-            color: red;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .tab-pane {
-            padding-top: 20px;
-        }
-        .fade {
-            opacity: 1!important;
-        
-        }
-    </style>
-
-    <!-- module permission css -->
-    <style>
-        .card {
-            margin-bottom: 2rem;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .permissions-table {
-            width: 100%;
-        }
-
-        .permission-switch {
-            display: inline-block;
-            width: 3rem;
-        }
-
-        .search-input {
-            max-width: 250px;
-        }
-
-        .container {
-            max-width: 1500px;
-        }
-
-        @media (max-width: 768px) {
-            .permissions-table {
-                font-size: 12px;
-            }
-
-            .card {
-                margin-bottom: 1rem;
-            }
-
-            .search-input {
-                width: 100%;
-                margin-top: 1rem;
-            }
-        }
-        div{
-            font-size: medium;
-        }
-        button{
-            font-size: medium!important;
-        }
-        .button-data{
-            background: cornflowerblue!important;
-            font-size: medium!important;
-            color: cornsilk;
-        }
-        .heading-div{
-            padding-left: 20px;
-        }
-    </style>
