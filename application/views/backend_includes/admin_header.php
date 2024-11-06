@@ -35,6 +35,9 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>backend_asset/admin/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.css">
 
+    <link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-whatever-integrity-code" crossorigin="anonymous">
+
 
     <!-- Related styles of various icon packs and plugins -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>backend_asset/admin/css/plugins.css">
