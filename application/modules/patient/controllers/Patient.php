@@ -3956,16 +3956,16 @@ $option = array(
         }
 
 
-        $this->form_validation->set_rules('type', "type", 'required|trim');
+        $this->form_validation->set_rules('patient_id', "patient_id", 'required|trim');
         if ($this->form_validation->run() == true) {
            
-            if($this->input->post('type')=='product'){
+            if($this->input->post('product_type')=='product'){
 
             
             $options_data = array(
                 'patient_id'=> decoding($this->input->post('patient_id')),
                 'facility_user_id'=> $LoginID,
-                'type' => $this->input->post('type'),
+                'type' => $this->input->post('product_type'),
                 'search' => $this->input->post('search'),  
                 'since' => $this->input->post('since'),                
                 'condition_type' => $this->input->post('condition_type'),                
@@ -3976,11 +3976,12 @@ $option = array(
             $option = array('table' => 'vendor_sale_consultation_product', 'data' => $options_data);
             $this->common_model->customInsert($option);
 
-        }else if($this->input->post('type')=='medication'){
+        }
+         if($this->input->post('medication_type')=='medication'){
             $options_data = array(
                 'patient_id'=> decoding($this->input->post('patient_id')),
                 'facility_user_id'=> $LoginID,
-                'type' => $this->input->post('type'),
+                'type' => $this->input->post('medication_type'),
                 'search' => $this->input->post('search'),  
                 'since' => $this->input->post('since'),                
                 'condition_type' => $this->input->post('condition_type'),                
@@ -3990,11 +3991,13 @@ $option = array(
             );
             $option = array('table' => 'vendor_sale_consultation_medication', 'data' => $options_data);
             $this->common_model->customInsert($option);
-        }else if($this->input->post('type')=='social'){
+        }
+        
+        if($this->input->post('social_type')=='social'){
             $options_data = array(
                 'patient_id'=> decoding($this->input->post('patient_id')),
                 'facility_user_id'=> $LoginID,
-                'type' => $this->input->post('type'),
+                'type' => $this->input->post('social_type'),
                 'search' => $this->input->post('search'),  
                 'since' => $this->input->post('since'),                
                 'condition_type' => $this->input->post('condition_type'),                
@@ -4004,11 +4007,12 @@ $option = array(
             );
             $option = array('table' => 'vendor_sale_consultation_social', 'data' => $options_data);
             $this->common_model->customInsert($option);
-        }else if($this->input->post('type')=='family_history'){
+        }
+         if($this->input->post('family_type')=='family_history'){
             $options_data = array(
                 'patient_id'=> decoding($this->input->post('patient_id')),
                 'facility_user_id'=> $LoginID,
-                'type' => $this->input->post('type'),
+                'type' => $this->input->post('family_type'),
                 'search' => $this->input->post('search'),                 
                 'comment' => $this->input->post('comment'),                               
                 'relationship' => $this->input->post('relationship'),                
@@ -4016,11 +4020,12 @@ $option = array(
             );
             $option = array('table' => 'vendor_sale_consultation_family_history', 'data' => $options_data);
             $this->common_model->customInsert($option);
-        }else if($this->input->post('type')=='medical_history'){
+        }
+         if($this->input->post('medical_type')=='medical_history'){
             $options_data = array(
                 'patient_id'=> decoding($this->input->post('patient_id')),
                 'facility_user_id'=> $LoginID,
-                'type' => $this->input->post('type'),
+                'type' => $this->input->post('medical_type'),
                 'search' => $this->input->post('search'),  
                 'since' => $this->input->post('since'),                
                 'condition_type' => $this->input->post('condition_type'),                
@@ -4030,11 +4035,12 @@ $option = array(
             );
             $option = array('table' => 'vendor_sale_consultation_medical_history', 'data' => $options_data);
             $this->common_model->customInsert($option);
-        }else if($this->input->post('type')=='allergy'){
+        }
+         if($this->input->post('allergy_type')=='allergy'){
             $options_data = array(
                 'patient_id'=> decoding($this->input->post('patient_id')),
                 'facility_user_id'=> $LoginID,
-                'type' => $this->input->post('type'),
+                'type' => $this->input->post('allergy_type'),
                 'search' => $this->input->post('search'),           
                 'comment' => $this->input->post('comment'),                               
                 'severity' => $this->input->post('severity'),                               
@@ -4042,11 +4048,12 @@ $option = array(
             );
             $option = array('table' => 'vendor_sale_consultation_allergy', 'data' => $options_data);
             $this->common_model->customInsert($option);
-        }else if($this->input->post('type')=='examination'){
+        }
+         if($this->input->post('examination_type')=='examination'){
             $options_data = array(
                 'patient_id'=> decoding($this->input->post('patient_id')),
                 'facility_user_id'=> $LoginID,
-                'type' => $this->input->post('type'),
+                'type' => $this->input->post('examination_type'),
                 
                 'search' => $this->input->post('search'),             
                 'comment' => $this->input->post('comment'),                
@@ -4056,11 +4063,11 @@ $option = array(
             $option = array('table' => 'vendor_sale_consultation_examination', 'data' => $options_data);
             $this->common_model->customInsert($option);
         }
-        else if($this->input->post('type')=='problem_heading'){
+         if($this->input->post('problem_type')=='problem_heading'){
             $options_data = array(
                 'patient_id'=> decoding($this->input->post('patient_id')),
                 'facility_user_id'=> $LoginID,
-                'type' => $this->input->post('type'),
+                'type' => $this->input->post('problem_type'),
                 'search' => $this->input->post('search'),  
                 'since' => $this->input->post('since'),                
                 'condition_type' => $this->input->post('condition_type'),                
@@ -4071,11 +4078,12 @@ $option = array(
             $option = array('table' => 'vendor_sale_consultation_problem_heading', 'data' => $options_data);
             $this->common_model->customInsert($option);
 
-        // }else if($this->input->post('type')=='presenting_complaint'){
+        }
+        //  if($this->input->post('presenting_type')=='presenting_complaint'){
         //     $options_data = array(
         //         'patient_id'=> decoding($this->input->post('patient_id')),
         //         'facility_user_id'=> $LoginID,
-        //         'type' => $this->input->post('type'),
+        //         'type' => $this->input->post('presenting_type'),
         //         'search' => $this->input->post('search'),  
         //         'since' => $this->input->post('since'),                
         //         'condition_type' => $this->input->post('condition_type'),                
@@ -4085,11 +4093,13 @@ $option = array(
         //     );
         //     $option = array('table' => 'vendor_sale_consultation_presenting_complaint', 'data' => $options_data);
         //     $this->common_model->customInsert($option);
-        }else if($this->input->post('type')=='medication'){
+
+        // }
+         if($this->input->post('diagram_type')=='diagram'){
             $options_data = array(
                 'patient_id'=> decoding($this->input->post('patient_id')),
                 'facility_user_id'=> $LoginID,
-                'type' => $this->input->post('type'),
+                'type' => $this->input->post('diagram_type'),
                 'search' => $this->input->post('search'),  
                 'since' => $this->input->post('since'),                
                 'condition_type' => $this->input->post('condition_type'),                
@@ -4099,12 +4109,13 @@ $option = array(
             );
             $option = array('table' => 'vendor_sale_consultation_medication', 'data' => $options_data);
             $this->common_model->customInsert($option);
+        
         }
-        // }else if($this->input->post('type')=='comment'){
+        //  if($this->input->post('comments_type')=='comment'){
         //     $options_data = array(
         //         'patient_id'=> decoding($this->input->post('patient_id')),
         //         'facility_user_id'=> $LoginID,
-        //         'type' => $this->input->post('type'),
+        //         'type' => $this->input->post('comments_type'),
         //         'search' => $this->input->post('search'),  
         //         'since' => $this->input->post('since'),                
         //         'condition_type' => $this->input->post('condition_type'),                
@@ -4115,33 +4126,84 @@ $option = array(
         //     $option = array('table' => 'vendor_sale_consultation_comment', 'data' => $options_data);
         //     $this->common_model->customInsert($option);
         // }
+       $diagramurl=  json_encode($this->input->post('question'));
+    //    print_r($diagramurl);die;
+        $options_data = array(
+            'patient_id' => decoding($this->input->post('patient_id')) ?? NULL,
+            'facility_user_id' => $LoginID ?? NULL,
+            'consultation_type' => $this->input->post('consultationType') ?? NULL,
+            'consultation_date' => $this->input->post('consultation_date') ?? NULL,
+            'type' => $this->input->post('diagram_type')
+    ?: $this->input->post('presenting_type')
+    ?: $this->input->post('product_type')
+    ?: $this->input->post('medication_type')
+    ?: $this->input->post('social_type')
+    ?: $this->input->post('family_type')
+    ?: $this->input->post('medical_type')
+    ?: $this->input->post('allergy_type')
+    ?: $this->input->post('examination_type')
+    ?: $this->input->post('problem_type')
+    ?: $this->input->post('comments_type'),
 
-                $options_data = array(
-                    'patient_id'=> decoding($this->input->post('patient_id')),
-                    'facility_user_id'=> $LoginID,
-                    'consultation_type' => $this->input->post('consultationType'),
-                    'consultation_date' => $this->input->post('consultation_date'),
-                    'type' => $this->input->post('type'),
-                    'presenting_complaint' => $this->input->post('presenting_complaint'),
-                    'search' => $this->input->post('search'),  
-                    'since' => $this->input->post('since'),                
-                    'condition_type' => $this->input->post('condition_type'),                
-                    'condition_significance' => $this->input->post('condition_significance'),                
-                    'comment' => $this->input->post('comment'),                
-                    'value' => $this->input->post('value'),                
-                    'severity' => $this->input->post('severity'),                
-                    'relationship' => $this->input->post('relationship'),                
-                    'showSummary' => $this->input->post('showSummary'),                
-                );
-                $option = array('table' => 'vendor_sale_patient_consultation', 'data' => $options_data);
-                if ($this->common_model->customInsert($option)) {
+            // 'type' => $this->input->post('diagram_type') ?? $this->input->post('presenting_type') ?? $this->input->post('product_type') ?? $this->input->post('medication_type') ?? $this->input->post('social_type') ?? $this->input->post('family_type') ?? $this->input->post('medical_type') ?? $this->input->post('allergy_type') ?? $this->input->post('examination_type') ?? $this->input->post('problem_type') ?? $this->input->post('comments_type'),
+            'presenting_type' => $this->input->post('presenting_type') ?? NULL,
+            'product_type' => $this->input->post('product_type') ?? NULL,
+            'medication_type' => $this->input->post('medication_type') ?? NULL,
+            'social_type' => $this->input->post('social_type') ?? NULL,
+            'family_type' => $this->input->post('family_type') ?? NULL,
+            'medical_type' => $this->input->post('medical_type') ?? NULL,
+            'allergy_type' => $this->input->post('allergy_type') ?? NULL,
+            'examination_type' => $this->input->post('examination_type') ?? NULL,
+            'problem_type' => $this->input->post('problem_type') ?? NULL,
+            'comments_type' => $this->input->post('comments_type') ?? NULL,
+            'diagram_type' => $this->input->post('diagram_type') ?? NULL,
+
+            'presenting_complaint' => $this->input->post('presenting_complaint') ?? NULL,
+            'search' => $this->input->post('search') ?? NULL,  
+            'since' => $this->input->post('since') ?? NULL,                
+            'condition_type' => $this->input->post('condition_type') ?? NULL,                
+            'condition_significance' => $this->input->post('condition_significance') ?? NULL,                
+            'comment' => $this->input->post('comment') ?? NULL,                
+            'value' => $this->input->post('value') ?? NULL,                
+            'severity' => $this->input->post('severity') ?? NULL,                
+            'relationship' => $this->input->post('relationship') ?? NULL,                
+            'showSummary' => $this->input->post('showSummary') ?? NULL,                
+            'diagram_url' => json_encode($this->input->post('question')) ?? NULL,
+        );
+        $option = array('table' => 'vendor_sale_patient_consultation', 'data' => $options_data);
+        
+        // Insert data into the table
+        $this->common_model->customInsert($option);
+
+        
+                // $options_data = array(
+                //     'patient_id'=> decoding($this->input->post('patient_id')),
+                //     'facility_user_id'=> $LoginID,
+                //     'consultation_type' => $this->input->post('consultationType'),
+                //     'consultation_date' => $this->input->post('consultation_date'),
+                //     'type' => $this->input->post('diagram_type'),
+                //     'presenting_complaint' => $this->input->post('presenting_complaint'),
+                //     'search' => $this->input->post('search'),  
+                //     'since' => $this->input->post('since'),                
+                //     'condition_type' => $this->input->post('condition_type'),                
+                //     'condition_significance' => $this->input->post('condition_significance'),                
+                //     'comment' => $this->input->post('comment'),                
+                //     'value' => $this->input->post('value'),                
+                //     'severity' => $this->input->post('severity'),                
+                //     'relationship' => $this->input->post('relationship'),                
+                //     'showSummary' => $this->input->post('showSummary'),                
+                //     'diagram_url' => $this->input->post('question'),                
+                // );
+                // $option = array('table' => 'vendor_sale_patient_consultation', 'data' => $options_data);
+                
+                // if ($this->common_model->customInsert($option)) {
                     
-                   
+                    // $this->common_model->customInsert($option);
 
                     $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
-                } else {
-                    $response = array('status' => 0, 'message' => "Failed to add");
-                }
+                // } else {
+                //     $response = array('status' => 0, 'message' => "Failed to add");
+                // }
             // }
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';

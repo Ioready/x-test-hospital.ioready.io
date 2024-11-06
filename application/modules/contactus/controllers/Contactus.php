@@ -194,7 +194,93 @@ class Contactus extends Common_Controller {
         // WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
         // `vendor_sale_doctors_contactus`.`user_id` =$hospitalAndDoctorId
         
+        // $this->data['list'] = $this->common_model->customQuery($option1);
+
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = $this->title;
+        $this->data['model'] = $this->router->fetch_class();
+        $this->data['table'] = $this->_table;
+        $role_name = $this->input->post('role_name');
+
+        // $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+
+        $LoginID = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
+
+    
+    if($this->ion_auth->is_subAdmin()){
+
+        $option = array(
+            'table' => ' doctors',
+            'select' => 'doctors.*',
+            'join' => array(
+                array('users', 'doctors.user_id=users.id', 'left'),
+            ),
+            'where' => array(
+                'users.delete_status' => 0,
+                // 'doctors.user_id'=>$LoginID
+            ),
+            'single' => true,
+        );
+
+        $datadoctors = $this->common_model->customGet($option);
+      $hospitalAndDoctorId=  $datadoctors->facility_user_id;
+
+    } else if ($this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) {
+        
+        
+  $hospitalAndDoctorId = $LoginID;
+        
+    }
+
+        if($hospitalAndDoctorId != 1 && $hospitalAndDoctorId != NULL ){
+            $x = $hospitalAndDoctorId;
+        }
+        
+        $this->data['roles'] = array(
+            'role_name' => $role_name
+        );
+        if ($vendor_profile_activate == "No") {
+            $vendor_profile_activate = 0;
+        } else {
+            $vendor_profile_activate = 1;
+        }
+
+        $option1 ="SELECT `vendor_sale_doctors_contactus`.`title`,`vendor_sale_doctors_contactus`.`first_name`, `vendor_sale_doctors_contactus`.`last_name`,`vendor_sale_doctors_contactus`.`company`,
+        `vendor_sale_doctors_contactus`.`id`, 
+        `vendor_sale_doctors_contactus`.`contacts_clinician`,
+        `vendor_sale_doctors_contactus`.`comment`,
+        `vendor_sale_doctors_contactus`.`created_at`,
+        -- `vendor_sale_users`.`first_name 'as f_name'`,
+        -- `vendor_sale_users`.`last_name as l_name`,
+        `vendor_sale_doctors_contactus`.`user_id`,`vendor_sale_doctors_contactus`.`phone_type`,`vendor_sale_doctors_contactus`.`phone_number`,`vendor_sale_doctors_contactus`.`user_email`
+        ,`vendor_sale_doctors_contactus`.`address_lookup`,`vendor_sale_doctors_contactus`.`streem_address`,`vendor_sale_doctors_contactus`.`city`,`vendor_sale_doctors_contactus`.`post_code`
+        ,`vendor_sale_doctors_contactus`.`country`,`vendor_sale_doctors_contactus`.`billing_detail`,`vendor_sale_doctors_contactus`.`payment_reference`
+        ,`vendor_sale_doctors_contactus`.`System`,`vendor_sale_doctors_contactus`.`healthcode`
+        FROM `vendor_sale_doctors_contactus` 
+        LEFT JOIN `vendor_sale_users` ON 
+        `vendor_sale_users`.`id` = `vendor_sale_doctors_contactus`.`user_id`
+        WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0
+        ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
+        //  WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
+        //  `vendor_sale_doctors_contactus`.`user_id` =$hospitalAndDoctorId
+        // $option1 ="SELECT `vendor_sale_contactus`.`title`, 
+        // `vendor_sale_contactus`.`id`, 
+        // `vendor_sale_contactus`.`description`,
+        // `vendor_sale_contactus`.`is_active`,
+        // `vendor_sale_contactus`.`create_date`,
+        // `vendor_sale_users`.`first_name`,
+        // `vendor_sale_users`.`last_name`,
+        // `vendor_sale_contactus`.`facility_manager_id`
+        // FROM `vendor_sale_contactus` 
+        // LEFT JOIN `vendor_sale_users` ON 
+        // `vendor_sale_users`.`id` = `vendor_sale_contactus`.`facility_manager_id`
+        // WHERE `vendor_sale_contactus`.`delete_status` = 0  and
+        // `vendor_sale_contactus`.`facility_manager_id` =$LoginID
+        // ORDER BY `vendor_sale_contactus`.`id` DESC";
+        
         $this->data['list'] = $this->common_model->customQuery($option1);
+
 
         $this->load->admin_render('directory', $this->data, 'inner_script');
     }
@@ -309,6 +395,7 @@ class Contactus extends Common_Controller {
                     'address_lookup' => $this->input->post('address_lookup'),
                     'streem_address' => $this->input->post('streem_address'),
                     'city' => $this->input->post('city'),
+                    'state' => $this->input->post('state'),
                     'post_code' => $this->input->post('post_code'),
                     'country' => $this->input->post('country'),
                     'billing_detail' => $this->input->post('billing_detail'),
@@ -397,6 +484,70 @@ class Contactus extends Common_Controller {
         }
     }
 
+    public function view() {
+        $this->data['parent'] = $this->title;
+        $this->data['title'] = "View " . $this->title;
+        $this->data['table'] = $this->_table;
+        $id = decoding($_GET['id']);
+       
+        
+
+        if (!empty($id)) {
+            
+        //     $option1 ="SELECT `vendor_sale_doctors_contactus`.`title`,`vendor_sale_doctors_contactus`.`first_name`, `vendor_sale_doctors_contactus`.`last_name`,`vendor_sale_doctors_contactus`.`company`,
+        // `vendor_sale_doctors_contactus`.`id`, 
+        // `vendor_sale_doctors_contactus`.`contacts_clinician`,
+        // `vendor_sale_doctors_contactus`.`comment`,
+        // `vendor_sale_doctors_contactus`.`created_at`,
+        // `vendor_sale_doctors_contactus`.`user_id`,`vendor_sale_doctors_contactus`.`phone_type`,`vendor_sale_doctors_contactus`.`phone_number`,`vendor_sale_doctors_contactus`.`user_email`
+        // ,`vendor_sale_doctors_contactus`.`address_lookup`,`vendor_sale_doctors_contactus`.`streem_address`,`vendor_sale_doctors_contactus`.`city`,`vendor_sale_doctors_contactus`.`post_code`
+        // ,`vendor_sale_doctors_contactus`.`country`,`vendor_sale_doctors_contactus`.`billing_detail`,`vendor_sale_doctors_contactus`.`payment_reference`
+        // ,`vendor_sale_doctors_contactus`.`System`,`vendor_sale_doctors_contactus`.`healthcode`
+        // FROM `vendor_sale_doctors_contactus` 
+        // LEFT JOIN `vendor_sale_users` ON 
+        // `vendor_sale_users`.`id` = `vendor_sale_doctors_contactus`.`user_id`
+        // WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
+        // `vendor_sale_doctors_contactus`.`id` =$id
+        // ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
+        
+        // $results_row= $this->common_model->customQuerySql($option1);
+
+        $option = array('table' => 'countries','select' => '*','where'=>array('shortname'=>'GB'));
+        $this->data['countries'] = $this->common_model->customGet($option);
+
+        $options = array(
+            'table' => 'doctors_contactus',
+            'select' => 'doctors_contactus.*, countries.name AS country_name, states.state AS state_name, cities.city AS city_name',
+            'join' => array(
+                array('countries', 'doctors_contactus.country = countries.id', 'left'),
+                array('states', 'doctors_contactus.state = states.id_state', 'left'),
+                array('cities', 'doctors_contactus.city = cities.id_city', 'left')
+            ),
+            'where' => array('doctors_contactus.id' => $id),  // Use the table name prefix if 'id' is ambiguous
+            'single' => true
+        );
+        
+        $results_row = $this->common_model->customGet($options);
+        
+        
+            if (!empty($results_row)) {
+                
+                // print_r($results_row);die;
+                $this->data['results'] = $results_row;
+
+                // print_r($this->data['results']);die;
+           
+                $this->load->admin_render('view', $this->data, 'inner_script');
+            } else {
+                $this->session->set_flashdata('error', lang('not_found'));
+                redirect($this->router->fetch_class());
+            }
+        } else {
+            $this->session->set_flashdata('error', lang('not_found'));
+            redirect($this->router->fetch_class());
+        }
+    }
+
     /**
      * @method user_update
      * @description update dynamic rows
@@ -434,7 +585,7 @@ class Contactus extends Common_Controller {
                     'address_lookup' => $this->input->post('address_lookup'),
                     'streem_address' => $this->input->post('streem_address'),
                     'country' => $this->input->post('country'),
-                    // 'state' => $this->input->post('state'),
+                    'state' => $this->input->post('state'),
                     'city' => $this->input->post('city'),
                     'post_code' => $this->input->post('post_code'),
                     'billing_detail' => $this->input->post('billing_detail'),

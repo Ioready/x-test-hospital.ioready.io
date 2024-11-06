@@ -353,7 +353,7 @@ window.onclick = function(event) {
 function selectDiagram(diagramName) {
     // Assuming you want to post the selected diagram name to the server
 
-    alert(diagramName);
+    // alert(diagramName);
     $.ajax({
         type: "POST",
         url: "your_server_url_here",

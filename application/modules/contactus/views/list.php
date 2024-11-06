@@ -298,16 +298,16 @@
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Created Date</th>
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;"><?php echo lang('action'); ?></th>
                         <?php }else if($this->ion_auth->is_admin()){ ?>
-                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Query Date</th>
+                        <!-- <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Query Date</th> -->
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;"><?php echo lang('action'); ?></th>
                         <?php } ?>
                         <?php if($this->ion_auth->is_facilityManager()){?>
-                            <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Created Date</th>
-                        <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:70px;"><?php echo lang('action'); ?></th>
+                            <!-- <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Created Date</th> -->
+                        <!-- <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:70px;"><?php echo lang('action'); ?></th> -->
                         <?php } ?>
 
                         <?php if($this->ion_auth->is_subAdmin()){?>
-                            <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Created Date</th>
+                            <!-- <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;">Created Date</th> -->
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width:60px;"><?php echo lang('action'); ?></th>
                         <?php } ?>
                     </tr>
@@ -355,11 +355,11 @@
                         
                             <td class="text-center "><strong><?php echo $rowCount; ?></strong></td>  
 
-                            <?php if($this->ion_auth->is_admin()){ ?>
+                            <?php //if($this->ion_auth->is_admin()){ ?>
 
                             <td class=""><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
 
-                            <?php } ?>
+                            <?php //} ?>
                             
                             <?php if($this->ion_auth->is_subAdmin()){ ?>
                             <td class=""><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
@@ -388,6 +388,7 @@
                             <td class="actions text-center" >
                                 <div class="btn-group btn-group-xs">
                                     <a href="<?php echo base_url() . 'contactus/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                    <a href="<?php echo base_url() . 'contactus/view?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-eye"></i></a>
                                     
                                         <?php
                                         if ($rows->id != '') {
@@ -408,7 +409,7 @@
                                        
                                        <?php }
                                         ?>
-                                        <a href="<?php echo base_url() . 'vendors/paymentList/' . $rows->id; ?>" class="btn btn-sm btn-primary">Client List</a>
+                                        <!-- <a href="<?php echo base_url() . 'vendors/paymentList/' . $rows->id; ?>" class="btn btn-sm btn-primary">Client List</a> -->
                                     </div>
                                 </td>
                             </tr>
