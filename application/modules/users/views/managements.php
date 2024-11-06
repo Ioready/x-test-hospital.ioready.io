@@ -1,4 +1,3 @@
-<!-- Page content -->
 <style>
         .tab-content {
             margin-top: 20px;
