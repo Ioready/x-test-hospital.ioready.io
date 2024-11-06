@@ -1,118 +1,123 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- External CSS Libraries -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Q4CkTX5oQ6KzzkhrlQf9kp9EYBjeHpMZ3z5EFgQ8RHkEtH28yo5liXKiq7TcE9ZG" crossorigin="anonymous">
 <link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <style>
-        .tab-content {
-            margin-top: 20px;
-        }
 
-        .table-actions {
-            display: flex;
-            gap: 5px;
-        }
+<!-- Custom Styles -->
+<style>
+    /* Layout Adjustments */
+    .container {
+        max-width: 1500px;
+    }
 
-        .modal-content {
-            max-width: 700px;
-            margin: auto;
-        }
+    .tab-content {
+        margin-top: 20px;
+    }
 
-        .modal-header {
-            justify-content: center;
-        }
+    .tab-pane {
+        padding-top: 20px;
+    }
 
-        .btn-icon {
-            padding: 5px;
-            font-size: 14px;
-        }
+    /* Modal Customizations */
+    .modal-content {
+        max-width: 700px;
+        margin: auto;
+    }
 
-        .btn-icon.edit {
-            background-color: #5cb85c;
-            color: white;
-        }
+    .modal-header {
+        justify-content: center;
+    }
 
-        .btn-icon.delete {
-            background-color: #d9534f;
-            color: white;
-        }
+    /* Table Actions */
+    .table-actions {
+        display: flex;
+        gap: 5px;
+    }
 
-        .status-active {
-            color: green;
-        }
+    .btn-icon {
+        padding: 5px;
+        font-size: 14px;
+    }
 
-        .status-inactive {
-            color: red;
-        }
+    .btn-icon.edit {
+        background-color: #5cb85c;
+        color: white;
+    }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+    .btn-icon.delete {
+        background-color: #d9534f;
+        color: white;
+    }
 
-        .tab-pane {
-            padding-top: 20px;
-        }
-        .fade {
-            opacity: 1!important;
-        
-        }
-    </style>
+    /* Status Indicators */
+    .status-active {
+        color: green;
+    }
 
-    <!-- module permission css -->
-    <style>
-        .card {
-            margin-bottom: 2rem;
-        }
+    .status-inactive {
+        color: red;
+    }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    /* Form Elements */
+    .form-group {
+        margin-bottom: 15px;
+    }
 
+    /* Fade Animation Override */
+    .fade {
+        opacity: 1 !important;
+    }
+
+    /* Permission Module Styles */
+    .card {
+        margin-bottom: 2rem;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .permissions-table {
+        width: 100%;
+    }
+
+    .permission-switch {
+        display: inline-block;
+        width: 3rem;
+    }
+
+    .search-input {
+        max-width: 250px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
         .permissions-table {
-            width: 100%;
+            font-size: 12px;
         }
 
-        .permission-switch {
-            display: inline-block;
-            width: 3rem;
+        .card {
+            margin-bottom: 1rem;
         }
 
         .search-input {
-            max-width: 250px;
+            width: 100%;
+            margin-top: 1rem;
         }
+    }
 
-        .container {
-            max-width: 1500px;
-        }
+    /* Custom Button and Heading Styles */
+    .button-data {
+        background: cornflowerblue !important;
+        font-size: medium;
+        color: cornsilk;
+    }
 
-        @media (max-width: 768px) {
-            .permissions-table {
-                font-size: 12px;
-            }
-
-            .card {
-                margin-bottom: 1rem;
-            }
-
-            .search-input {
-                width: 100%;
-                margin-top: 1rem;
-            }
-        }
-        div{
-            font-size: medium;
-        }
-        button{
-            font-size: medium!important;
-        }
-        .button-data{
-            background: cornflowerblue!important;
-            font-size: medium!important;
-            color: cornsilk;
-        }
-        .heading-div{
-            padding-left: 20px;
-        }
-    </style>
+    .heading-div {
+        padding-left: 20px;
+    }
+</style>
 
 <div id="page-content">
   <div class="heading-div">
