@@ -1726,12 +1726,90 @@ $(document).ready(function() {
             success: function(data) {
 
                 var consultationDetails = data.first_name + ' ' + data.last_name + ', ' + data.create_date;
-                $('#consultation_details').html(consultationDetails);
+
+                // Construct the consultation details string with additional data fields
+
+
+// Optionally, insert the details into the HTML element with ID 'consultation_details'
+$('#consultation_details').html(consultationDetails);
+
+
+                // alert(consultationDetails);
+                // $('#consultation_details').html(consultationDetails);
+                // $('#consultation_details').html(consultationDetails);
 
                 var consultationType = data.doctor_name;
 
                 $('#consultation_type').html(consultationType);
-                $('.note-content').html(data.presenting_complaint + ', Since: ' + data.since + ', ' + data.condition_type + ', ' + data.condition_significance);
+
+                var notes = 
+    data.first_name + ' ' + data.last_name + ', ' +
+    'Created on: ' + data.create_date + '\n' +
+    'Consultation Type: ' + data.consultation_type + '\n' +
+    'Consultation Date: ' + data.consultation_date + '\n' +
+    'Presenting Complaint: ' + data.presenting_complaint + '\n' +
+    'Comment: ' + data.comment + '\n' +
+    'Relationship: ' + data.relationship +
+    'diagram: <img src=" '+  data.diagram_url + '" alt="Diagram Image" style="max-width:150px; margin: 5px;">';
+   
+   
+
+// $('.note-content').html(notes);
+
+//                 var notes = 
+//     data.first_name + ' ' + data.last_name + ', ' +
+//     'Created on: ' + data.create_date + '\n' +
+//     'Consultation Type: ' + data.consultation_type + '\n' +
+//     'Consultation Date: ' + data.consultation_date + '\n' +
+//     'Presenting Complaint: ' + data.presenting_complaint + '\n' +
+//     'Comment: ' + data.comment + '\n' +
+//     'Relationship: ' + data.relationship +
+
+//     data.diagram_url.forEach(function(url) {
+//          'diagram: <img src="'+ url +'" alt="Diagram Image" style="max-width:150px; margin: 5px;">';
+//     });
+   
+// }
+
+$('.note-content').html(notes);
+
+
+// Assuming `data` is the JavaScript object containing the information
+
+// var notes = `
+//     <h3>${data.first_name} ${data.last_name}</h3>
+//     <p><strong>Consultation Date:</strong> ${data.create_date}</p>
+//     <p><strong>Patient ID:</strong> ${data.patient_id}</p>
+//     <p><strong>Facility User ID:</strong> ${data.facility_user_id}</p>
+//     <p><strong>Consultation Type:</strong> ${data.consultation_type}</p>
+//     <p><strong>Consultation Date:</strong> ${data.consultation_date}</p>
+//     <p><strong>Presenting Complaint:</strong> ${data.presenting_complaint}</p>
+//     <p><strong>Comment:</strong> ${data.comment}</p>
+//     <p><strong>Relationship:</strong> ${data.relationship}</p>
+//     <p><strong>Show Summary:</strong> ${data.showSummary ? "Yes" : "No"}</p>
+// `;
+
+// Add images from diagram_url array
+
+// if (data.diagram_url && data.diagram_url.length > 0) {
+//     notes += '<div><strong>Diagram Images:</strong><br>';
+//     data.diagram_url.forEach(function(url) {
+//         notes += `<img src="${url}" alt="Diagram Image" style="max-width:150px; margin: 5px;">`;
+//     });
+//     notes += '</div>';
+// }
+
+// Add additional details as needed
+// notes += `
+//     <p><strong>Status:</strong> ${data.status === 0 ? 'Inactive' : 'Active'}</p>
+// `;
+
+// Display the content in the `#consultation_details` element
+// $('#consultation_details').html(consultationDetails);
+$('.note-content').html(notes);
+
+
+                // $('.note-content').html(data.presenting_complaint + ', Since: ' + data.since + ', ' + data.condition_type + ', ' + data.condition_significance);
                 
                 // edit consultation 
 
