@@ -789,7 +789,7 @@
            <div class="modal_popup">
            <input  name="id"  id='name' value="<?php echo $results->patient_id; ?>" /> 
            <?php if(empty($results->room_number)){ ?>
-           <input  name="room_number"  id='room_number' value="NULL" /> 
+           <input  name="room_number"  id='room_number' value="NULL"/> 
            <?php   } else{ ?>
            <input  name="room_number"  id='room_number' value="<?php echo $results->room_number; ?>" /> 
             <?php } ?>
