@@ -138,8 +138,8 @@
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background-color: #f9f9f9;
+            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+            /* background-color: #f9f9f9; */
         }
 
         /* Styling for the save button */
@@ -173,6 +173,28 @@
             border-radius: 5px;
             margin: 5px;
         }
+
+        /* Close Button Styling */
+    .close-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #aaa;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .close-icon:hover {
+        color: #333;
+    }
+
+    .form-section {
+        position: relative;
+        display: none;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+    }
     </style>
 <!-- Page content -->
 <div id="page-content">
@@ -455,7 +477,7 @@
                                 </div>
 
                         
-                            <div id="form-complaint" class="form-section" style="display:none;">
+                            <div id="form-complaint" class="form-section mt-4" style="display:none;">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -486,7 +508,8 @@
                                     </div>
                                 </div> -->
 
-                            
+                        
+                                <span class="close-icon" onclick="$('#form-complaint').hide()">&times;</span>
                                 <h4>Presenting Complaint</h4>
                                 <input type="text" class="form-control" name="presenting_complaint" id="presenting_complaint" placeholder="Enter Complaint">
                                 <input type="text" class="form-control" name="presenting_type" id="presenting" placeholder="Enter presenting">
@@ -499,7 +522,7 @@
                             <!-- Problem Heading -->
 
                             
-                            <div id="form-problem" class="form-section" style="display:none;">
+                            <div id="form-problem" class="form-section mt-4" style="display:none;">
 
                             <!-- <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data"> -->
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
@@ -508,7 +531,7 @@
                                                                         
                                
 
-
+                            <span class="close-icon" onclick="$('#form-problem').hide()">&times;</span>
                                 <h4>Problem Heading</h4>
                                 <div class="row">
                                     <span style="padding: 10px; margin-left: 25px;"><b>Problem</b></span>
@@ -554,7 +577,7 @@
                             </div>
 
                             <!-- Examination -->
-                            <div id="form-exam" class="form-section" style="display:none;">
+                            <div id="form-exam" class="form-section mt-4" style="display:none;">
                             <!-- <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data"> -->
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
@@ -563,7 +586,7 @@
 
                                 
 
-
+                            <span class="close-icon" onclick="$('#form-exam').hide()">&times;</span>
                                 <h4>Examination</h4>
                                 <div class="row">
                                 <input type="text" class="form-control" name="examination_type" id="examination" placeholder="Enter Complaint">
@@ -590,7 +613,7 @@
                             </div>
 
                             <!-- Allergy -->
-                            <div id="form-allergy" class="form-section" style="display:none;">
+                            <div id="form-allergy" class="form-section mt-4" style="display:none;">
                             <!-- <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data"> -->
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
@@ -599,7 +622,7 @@
                                                                         
                             
 
-
+                            <span class="close-icon" onclick="$('#form-allergy').hide()">&times;</span>
                                 <h4>Allergy</h4>
                                 <div class="row">
                                 <input type="text" class="form-control" name="allergy_type" id="allergy" placeholder="Enter allergy">
@@ -632,7 +655,7 @@
                             </div>
 
                             <!-- Medical History -->
-                            <div id="form-medical-history" class="form-section" style="display:none;">
+                            <div id="form-medical-history" class="form-section mt-4" style="display:none;">
                             <!-- <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data"> -->
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
@@ -640,7 +663,7 @@
                            
                                                                         
                            
-
+                            <span class="close-icon" onclick="$('#form-medical-history').hide()">&times;</span>
                                 <h4>Medical History</h4>
                                 <div class="row">
                                 <input type="text" class="form-control" name="medical_type" id="medical" placeholder="Enter medical">
@@ -684,7 +707,7 @@
                             </div>
 
                             <!-- Family History -->
-                            <div id="form-family-history" class="form-section" style="display:none;">
+                            <div id="form-family-history" class="form-section mt-4" style="display:none;">
                             <!-- <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data"> -->
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
@@ -692,7 +715,7 @@
                            
 
                             
-
+                            <span class="close-icon" onclick="$('#form-family-history').hide()">&times;</span>
                                 <h4>Family History</h4>
                                 <div class="row">
                                 <input type="text" class="form-control" name="family_type" id="family" placeholder="Enter family">
@@ -738,7 +761,7 @@
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
-                                                                        
+                            <span class="close-icon" onclick="$('#form-social').hide()">&times;</span>                                        
                                 <h4>Social</h4>
                                 <div class="row">
                                 <input type="text" class="form-control" name="social_type" id="social" placeholder="Enter social">
@@ -778,14 +801,14 @@
                             </div>
 
                             <!-- Medication -->
-                            <div id="form-medication" class="form-section" style="display:none;">
+                            <div id="form-medication" class="form-section mt-4" style="display:none;">
                             <!-- <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data"> -->
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                                                                         
                             
-
+                            <span class="close-icon" onclick="$('#form-medication').hide()">&times;</span>
                                 <h4>Medication</h4>
                                 <div class="row">
                                 <input type="text" class="form-control" name="medication_type" id="medication" placeholder="Enter medication">
@@ -828,12 +851,12 @@
                             </div>
 
                             <!-- Product -->
-                            <div id="form-product" class="form-section" style="display:none;">
+                            <div id="form-product" class="form-section mt-4" style="display:none;">
                             <!-- <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data"> -->
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
-
+                            <span class="close-icon" onclick="$('#form-product').hide()">&times;</span>
                                 <h4>Product</h4>
                                 <div class="row">
                                 <input type="text" class="form-control" name="product_type" id="product" placeholder="Enter Complaint">
@@ -877,14 +900,14 @@
                             </div>
 
                             <!-- Comment -->
-                            <div id="form-comment" class="form-section" style="display:none;">
+                            <div id="form-comment" class="form-section mt-4" style="display:none;">
 
                             <!-- <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data"> -->
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
 
-
+                            <span class="close-icon" onclick="$('#form-comment').hide()">&times;</span>
                                 <h4>Comment</h4>
                                 <input type="text" class="form-control" name="comments_type" id="comments" placeholder="Enter Complaint">
                             
@@ -905,7 +928,7 @@
                                                                             
                                 
 
-
+                                <span class="close-icon" onclick="$('#form-diagram').hide()">&times;</span>
                                     <h4>Diagram</h4>
                                     <input type="text" class="form-control" name="diagram_type" id="diagram" placeholder="Enter Complaint">
                                     <button type="button" style="color:green; background:white; border: 1px solid green; border-radius:5px; padding:5px;" data-toggle="modal" data-target="#myModal"> Add a diagram</button>
@@ -919,7 +942,7 @@
                             </div>
                         </div>
                         <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>    
-                                    <button type="button" class="close-btn" onclick="$('#form-comment').hide()">Close</button>
+                                    <button type="button" class="close-btn" >Close</button>
                                 </form>
                          <!-- </form> -->
 
