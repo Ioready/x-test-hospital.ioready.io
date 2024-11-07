@@ -648,7 +648,7 @@ class Patient extends Common_Controller
 
             $optionheader = array(
                 'table' => 'vendor_sale_patient_consultation',
-                'select' => 'vendor_sale_patient_consultation.*,vendor_sale_users.first_name,vendor_sale_users.last_name,,vendor_sale_doctors.name as doctor_name,vendor_sale_consultation_allergy.search as allergy_search,vendor_sale_consultation_allergy.comment as allergy_comment,vendor_sale_consultation_examination.search as examination_search,vendor_sale_consultation_family_history.search as family_search,vendor_sale_consultation_medical_history.search as medical_his_search,vendor_sale_consultation_medication.search as medication_search,vendor_sale_consultation_problem_heading.search as problem_heading_search,vendor_sale_consultation_product.search as product_search,vendor_sale_consultation_social.search as social_search',
+                'select' => 'vendor_sale_patient_consultation.*,vendor_sale_users.first_name,vendor_sale_users.last_name,,vendor_sale_doctors.name as doctor_name,vendor_sale_consultation_allergy.search as allergy_search,vendor_sale_consultation_allergy.comment as allergy_comment,vendor_sale_consultation_allergy.severity as allergy_severity,vendor_sale_consultation_allergy.type as allergy_type,vendor_sale_consultation_examination.search as examination_search,vendor_sale_consultation_examination.comment as examination_comment,vendor_sale_consultation_examination.value as examination_value,vendor_sale_consultation_examination.type as examination_type,vendor_sale_consultation_family_history.comment as family_comment,vendor_sale_consultation_family_history.search as family_search,vendor_sale_consultation_family_history.relationship,vendor_sale_consultation_family_history.type as family_type,vendor_sale_consultation_medical_history.search as medical_his_search,vendor_sale_consultation_medical_history.since as medical_history_since,vendor_sale_consultation_medical_history.condition_type as medical_history_condition_type,vendor_sale_consultation_medical_history.condition_significance as medical_history_condition_significance,vendor_sale_consultation_medical_history.comment as medical_history_comment,vendor_sale_consultation_medical_history.type as medical_history_type,vendor_sale_consultation_medication.search as medication_search,vendor_sale_consultation_medication.since as medication_since,vendor_sale_consultation_medication.condition_type as medication_condition_type,vendor_sale_consultation_medication.condition_significance as medication_condition_significance,vendor_sale_consultation_medication.comment as medication_comment,vendor_sale_consultation_medication.type as medication_type,vendor_sale_consultation_problem_heading.search as problem_heading_search,vendor_sale_consultation_problem_heading.since as problem_since,vendor_sale_consultation_problem_heading.condition_type as problem_condition_type,vendor_sale_consultation_problem_heading.condition_significance as problem_condition_significance,vendor_sale_consultation_problem_heading.comment as problem_comment,vendor_sale_consultation_problem_heading.type as problem_heading_type,vendor_sale_consultation_product.search as product_search,vendor_sale_consultation_product.since as product_since,vendor_sale_consultation_product.condition_type as product_condition_type,vendor_sale_consultation_product.condition_significance as product_condition_significance,vendor_sale_consultation_product.comment as product_comment,vendor_sale_consultation_product.type as product_type,vendor_sale_consultation_social.search as social_search,vendor_sale_consultation_social.since as social_since,vendor_sale_consultation_social.condition_type as social_condition_type,vendor_sale_consultation_social.condition_significance as social_condition_significance,vendor_sale_consultation_social.comment as social_comment,vendor_sale_consultation_social.type as social_type',
                 'join' => array(
                     array('vendor_sale_patient', 'vendor_sale_patient.id=vendor_sale_patient_consultation.patient_id','left'),
                     array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_patient.user_id','left'),
@@ -679,7 +679,57 @@ class Patient extends Common_Controller
         }
     }
 
-    
+    public function editConsultation() {
+        $consultation = '';
+        $query = $this->input->post('consultation_id');
+        if ($query) {
+            // $optionheader = array(
+            //     'table' => 'vendor_sale_patient_consultation',
+            //     'select' => 'vendor_sale_patient_consultation.*,vendor_sale_users.first_name,vendor_sale_users.last_name,vendor_sale_doctors.name as doctor_name',
+            //     'join' => array(
+            //         array('vendor_sale_patient', 'vendor_sale_patient.id=vendor_sale_patient_consultation.patient_id','left'),
+            //         array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_patient.user_id','left'),
+            //         array('vendor_sale_doctors', 'doctors.user_id=vendor_sale_patient_consultation.consultation_type','left'),
+            //     ),
+            //     'where' => array('vendor_sale_patient_consultation.id' => $query),
+            //     'single' => true,
+            // );
+
+            $optionheader = array(
+                'table' => 'vendor_sale_patient_consultation',
+                'select' => 'vendor_sale_patient_consultation.*,vendor_sale_users.first_name,vendor_sale_users.last_name,,vendor_sale_doctors.name as doctor_name,vendor_sale_consultation_allergy.search as allergy_search,vendor_sale_consultation_allergy.comment as allergy_comment,vendor_sale_consultation_allergy.severity as allergy_severity,vendor_sale_consultation_examination.search as examination_search,vendor_sale_consultation_examination.comment as examination_comment,vendor_sale_consultation_examination.value as examination_value,vendor_sale_consultation_family_history.comment as family_comment,vendor_sale_consultation_family_history.search as family_search,vendor_sale_consultation_family_history.relationship,vendor_sale_consultation_medical_history.search as medical_his_search,vendor_sale_consultation_medical_history.since as medical_history_since,vendor_sale_consultation_medical_history.condition_type as medical_history_condition_type,vendor_sale_consultation_medical_history.condition_significance as medical_history_condition_significance,vendor_sale_consultation_medical_history.comment as medical_history_comment,vendor_sale_consultation_medication.search as medication_search,vendor_sale_consultation_medication.since as medication_since,vendor_sale_consultation_medication.condition_type as medication_condition_type,vendor_sale_consultation_medication.condition_significance as medication_condition_significance,vendor_sale_consultation_medication.comment as medication_comment,vendor_sale_consultation_problem_heading.search as problem_heading_search,vendor_sale_consultation_problem_heading.since as problem_since,vendor_sale_consultation_problem_heading.condition_type as problem_condition_type,vendor_sale_consultation_problem_heading.condition_significance as problem_condition_significance,vendor_sale_consultation_problem_heading.comment as problem_comment,vendor_sale_consultation_product.search as product_search,vendor_sale_consultation_product.since as product_since,vendor_sale_consultation_product.condition_type as product_condition_type,vendor_sale_consultation_product.condition_significance as product_condition_significance,vendor_sale_consultation_product.comment as product_comment,vendor_sale_consultation_social.search as social_search,vendor_sale_consultation_social.since as social_since,vendor_sale_consultation_social.condition_type as social_condition_type,vendor_sale_consultation_social.condition_significance as social_condition_significance,vendor_sale_consultation_social.comment as social_comment',
+                'join' => array(
+                    array('vendor_sale_patient', 'vendor_sale_patient.id=vendor_sale_patient_consultation.patient_id','left'),
+                    array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_patient.user_id','left'),
+                    array('vendor_sale_consultation_allergy', 'vendor_sale_consultation_allergy.consultation_id=vendor_sale_patient_consultation.id','left'),
+                    array('vendor_sale_consultation_examination', 'vendor_sale_consultation_examination.consultation_id=vendor_sale_patient_consultation.id','left'),
+                    array('vendor_sale_consultation_family_history', 'vendor_sale_consultation_family_history.consultation_id=vendor_sale_patient_consultation.id','left'),
+                    array('vendor_sale_consultation_medical_history', 'vendor_sale_consultation_medical_history.consultation_id=vendor_sale_patient_consultation.id','left'),
+                    array('vendor_sale_consultation_medication', 'vendor_sale_consultation_medication.consultation_id=vendor_sale_patient_consultation.id','left'),
+                    array('vendor_sale_consultation_problem_heading', 'vendor_sale_consultation_problem_heading.consultation_id=vendor_sale_patient_consultation.id','left'),
+                    array('vendor_sale_consultation_product', 'vendor_sale_consultation_product.consultation_id=vendor_sale_patient_consultation.id','left'),
+                    array('vendor_sale_consultation_social', 'vendor_sale_consultation_social.consultation_id=vendor_sale_patient_consultation.id','left'),
+                    array('vendor_sale_doctors', 'doctors.user_id=vendor_sale_patient_consultation.consultation_type','left'),
+                    // array('vendor_sale_consultation_medical_history', 'doctors.user_id=vendor_sale_patient_consultation.consultation_type','left'),
+                    // array('vendor_sale_consultation_medical_history', 'doctors.user_id=vendor_sale_patient_consultation.consultation_type','left'),
+                    // array('vendor_sale_doctors', 'doctors.user_id=vendor_sale_patient_consultation.consultation_type','left'),
+                    // array('users', 'doctors.user_id=vendor_sale_patient_consultation.consultation_type', 'left'),
+                ),
+                'where' => array('vendor_sale_patient_consultation.id' => $query),
+                 'single' => true,
+               
+            );
+           
+            $this->data['results'] = $this->common_model->customGet($optionheader);
+            
+        // print_r($results);die;
+            
+        $this->load->admin_render('edit_patient_consultation', $this->data, 'inner_script');
+            // echo json_encode($results);
+
+        }
+    }
+
 
     public function patientMedication($vendor_profile_activate = "No") {
 

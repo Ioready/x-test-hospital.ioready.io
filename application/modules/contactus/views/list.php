@@ -263,7 +263,8 @@
         <?php }}}} if($this->ion_auth->is_facilityManager()){?>
             <div class="table-responsive">
             <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
-                <thead>
+              
+            <thead>
                     <tr>
                         <th class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 40px;">Sr. No</th>
                         <!--                                <th><?php echo "Referral Code"; ?></th>-->

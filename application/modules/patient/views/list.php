@@ -267,7 +267,8 @@
         <?php } if($menu_view =='1'){ ?>
         <div class="table-responsive">
             <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
-                <thead>
+               
+            <thead>
                     <tr>
                         <th style="background-color:#DBEAFF;font-size:1.3rem;width:40px !important">Sr. No</th>
                         <th style="background-color:#DBEAFF;font-size:1.3rem">Date Of Start patient frist seen</th>
