@@ -4,8 +4,6 @@
        
     <style>
     .dashboardBoxes{
-       
-      
         padding:2rem;
         
     }
@@ -44,6 +42,10 @@
     /* Add border radius for rounded corners */
     border-bottom: 5px solid #6FD943 !important;  
 }
+
+#page-content {
+        background-color: whitesmoke !important;  
+    }
 
 </style>
 
@@ -731,12 +733,12 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-sm-6 col-lg-1" style="margin-right: 8px;">
-                                        <input type="submit" name="search" class="btn btn-primary btn-sm save-btn" value="Search" />
+                                    <div class="col-sm-6 col-lg-1 rounded" style="margin-right: 20px; ">
+                                        <input type="submit" name="search" class="btn btn-primary btn-sm save-btn rounded fs-4" value="Search" />
                                     </div>
                                     
 
-                                    <!-- <form action="<?php echo site_url('task'); ?>" name="patientFormExport" method="get"> -->
+                                    <form action="<?php echo site_url('task'); ?>" name="patientFormExport" method="get">
                                 <div class="col-sm-12 col-lg-2">
                                     <button type="submit" class="btn btn-primary btn-sm save-btn">
                                         <fa class="fa fa-undo"></fa> Reset
@@ -760,7 +762,7 @@
             </div>
 
             <div class="col-lg-4 col-md-6 dashboardBoxes">
-                <div style="background-color:<?php echo $total_patient > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+                <div style="background-color:<?php echo $total_patient > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
                     <div class="ibox-content">
                         <h1 class="no-margins"><?php echo $total_patient; ?></h1>
                         <h5 class="text-primary"><strong>Total Patient </strong></h5>
@@ -860,7 +862,7 @@
                         
 
            <div class="col-lg-4 col-md-6 dashboardBoxes">
-                                <div style="background-color:<?php echo $total_patient_today > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);" class="ibox float-e-margins">
+                                <div style="background-color:<?php echo $total_patient_today > 0 ? '#F9F5FF' : '#F9F5FF'; ?>; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);" class="ibox float-e-margins">
                                     <div class="ibox-content">
                                         <h1 class="no-margins"><?php echo $total_patient_today; ?></h1>
                                         <h5 class="text-primary"><strong>Total Patient Today </strong></h5>
@@ -979,261 +981,91 @@
 
 
 
-
 <div>
-<div class="row ">
-    <div class="col-md-8 mt-4">
-        <div class="card recent-sales overflow-auto" style="background-color: #FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
-            <div class="card-body">
-                <h5 class="card-title fw-bold">Upcoming Appointments <span>| <a href="<?php echo site_url('appointment'); ?>" class="btn btn-primary btn-sm" style="background: #337ab7;">View all</a></span></h5>
-                <div class="table-responsive">
-                    <table class="table table-borderless datatable" id="todayAppointmentTable">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Address</th>
-                                <th scope="col">Appointment With</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Time</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-
-
-                        <?php $formatted_time = date('Y-m-d');
-
-                            $appointment_found = false;
-                                                 foreach($clinic_appointment as $appointment) {
-                                        
-                                                    // Clinic Appointment
-                                                    // print_r($appointment);die;
-                                                    ?>
-                                                    
-                                                        <?php
-                                                      $appointmentTime = date('g:i A', strtotime($appointment->start_date_appointment));
-                                                    //   print_r($appointmentTime);die;
-                                                      $end_date_appointment = date('g:i A', strtotime($appointment->end_date_appointment));
-                                                      $comment_appointment = $appointment->comment_appointment;
-                                                      $address1 = $appointment->address1;
-                                                      $city = $appointment->city;
-                                                      $first_name = $appointment->first_name;
-                                                      $last_name = $appointment->last_name;
-                                                      $practitioner_name = $appointment->practitioner_name;
-            
-                                                    // Out Of Office
-            
-                                                      $out_start_time_at = date('g:i A', strtotime($appointment->out_start_time_at));
-                                                      $out_end_time_at = date('g:i A', strtotime($appointment->out_end_time_at));
-                                                      $out_of_office_comment = $appointment->out_of_office_comment;
-            
-                                                    // Availability
-            
-                                                      $start_date_availability = date('g:i A', strtotime($appointment->start_date_availability));
-                                                      $end_time_date_availability = date('g:i A', strtotime($appointment->end_time_date_availability));
-                                                      $out_of_office_comment = $appointment->out_of_office_comment;
-            
-                                                     // theatre Appointment
-            
-                                                     $theatre_date_time = date('g:i A', strtotime($appointment->theatre_date_time));
-                                                     $theatre_time_duration = $appointment->theatre_time_duration;
-                                                    //  $theatre_end_time = $appointment->theatre_time_duration + $theatre_date_time;
-                                                    // Convert theatre_time_duration to seconds
-                                                    $durationInSeconds = $theatre_time_duration * 60;
-            
-                                                    // Add duration to theatre_date_time
-                                                    $theatre_end_time = date('g:i A', strtotime($theatre_date_time . " +$durationInSeconds seconds"));
-            
-                                                     $theatre_comment = $appointment->theatre_comment;
-                                                     $theatre_clinician = $appointment->theatre_clinician;
-            
-                                                    //  print_r($theatre_end_time);
-                                                      $appointment_date = date('Y-m-d', strtotime($appointment->start_date_appointment));
-            
-                                                      $out_start_timeAt = date('Y-m-d', strtotime($appointment->out_start_time_at));
-            
-                                                      $start_dateAvailability = date('Y-m-d', strtotime($appointment->start_date_availability));
-            
-                                                      $theatre_dateTime = date('Y-m-d', strtotime($appointment->theatre_date_time));
-            
-                                                    
-                                                      if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
-                                                        $appointment_found = true;
-                                                        break;
-                                                    }
-            
-            
-                                                    if ($formatted_time >= $out_start_time_at && $formatted_time <= $out_end_time_at && $department->id == $appointment->out_of_office_practitioner) {
-                                                      $appointment_found = true;
-                                                      break;
-                                                  }
-            
-                                                  if ($formatted_time >= $start_date_availability && $formatted_time <= $end_time_date_availability && $department->id == $appointment->availability_practitioner) {
-                                                    $appointment_found = true;
-                                                    break;
-                                                }
-            
-            
-                                                if ($formatted_time >= $theatre_date_time && $formatted_time <= $theatre_end_time && $department->id == $appointment->theatre_clinician) {
-                                                  $appointment_found = true;
-                                                  break;
-                                              }
-            
-                                                //   } 
-                                                
-                                                  // Clinic Appointment
-            
-                                                //   if ($formatted_time >= $appointmentTime && $formatted_time <= $end_date_appointment && $department->id == $appointment->clinician_appointment) {
-                                                  ?>
-                                                   
-
-                                                   <tr>
-                                                  <!-- <td class="day-cell appointment-row" data-date="<?php echo $appointment_date; ?>" data-day="<?php echo $department->id; ?>"> -->
-                                                  <td scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></td>
-                                                        <?php 
-                                                            $current_date = date('Y-m-d');
-            
-                                                            // if ($appointment_date == $current_date) {
-                                                                
-                                                                // echo '<label style="background-color:green; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                                // echo '<span style="background-color: green; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$comment_appointment.'<br>'.$appointmentTime.' - '.$end_date_appointment.'</span>';
-                                                                // echo '</label>';
-            
-
-                                                        //         echo '<label style="background-color:pink; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                        //         echo '<span style="background-color: pink; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>'.$out_of_office_comment.'<br>'.$out_start_time_at.' - '.$out_end_time_at.'</span>';
-                                                        //         echo '</label>';
-
-                                                        //         echo '<label style="background-color:#40E0D0; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                        //   echo '<span style="background-color: #40E0D0; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>Available<br>'.$start_date_availability.' - '.$out_end_time_at.'</span>';
-                                                        //   echo '</label>';
-
-
-                                                        //   echo '<label style="background-color:#800080; text-align: center; border: 2px solid; border-radius: 5px; padding: 11px;">';
-                                                        //   echo '<span style="background-color: #800080; color: white;">'.'<strong>'.$first_name.' '.$last_name.'</strong>' .$address1.'<br>'.$city.'<br>theatre_comment<br>'.$theatre_date_time.' - '.$theatre_end_time.'</span>';
-                                                        //   echo '</label>';
-                                                                
-
-                                                            
-                                                        // $time_12_appointmentTime = date('g:i A', strtotime($time_24_appointmentTime)); 
-                                                        // $time_12_hour_format = date('g:i A', strtotime($time_24_hour_format));
-                                                        ?>
-                                                    <!-- </td> -->
-
-                                                    <td><?php echo $address1; ?><br> <?php echo $city; ?></td>
-                                                    <td><?php echo $first_name.' '.$last_name. ' '.$practitioner_name; ?></td>
-                                                    <!-- <td><?php //echo $practitioner_name.' '.$last_name; ?></td> -->
-                                                    <td><?php echo $comment_appointment; ?></td>
-
-                                                    <td>
-                                                        <?php 
-                                                        if ($formatted_time == $appointment_date) {
-                                                            echo $appointmentTime . ' To ' . $end_date_appointment;
-                                                        } elseif ($formatted_time == $out_start_timeAt) {
-                                                            echo $out_start_time_at . ' To ' .  $out_end_time_at;
-                                                        } elseif ($formatted_time == $start_dateAvailability) {
-                                                            echo $start_date_availability . ' To ' .  $end_time_date_availability;
-                                                        } elseif ($formatted_time == $theatre_dateTime) {
-                                                            echo $theatre_date_time . ' To ' .  $theatre_end_time;
-                                                        }
-                                                        ?>
-                                                    </td>
-
-
-                                                    <td><a href="#"><span class="badge bg-primary">Take Up</span></a></td>
-                                                     </tr>
-                                               <?php }
-                                                ?>
-
-                            <!-- <tr>
-                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                                <td><?php echo $list->patient; ?><br> New York, USA</td>
-                                <td></td>
-                                <td>7.00 PM</td>
-                                <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
-                               
-                            </tr>
-                            <tr>
-                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                                <td>B Bernardo Galaviz <br> New York, USA</td>
-                                <td>Dr. Cristina Groves</td>
-                                <td>7.00 PM</td>
-                                <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
-                            </tr> -->
-                            <!-- <tr>
-                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                                <td>B Bernardo Galaviz <br> New York, USA</td>
-                                <td>Dr. Cristina Groves</td>
-                                <td>7.00 PM</td>
-                                <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
-                            </tr>
-                            <tr>
-                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                                <td>B Bernardo Galaviz <br> New York, USA</td>
-                                <td>Dr. Cristina Groves</td>
-                                <td>7.00 PM</td>
-                                <td><a href="appointments.html"><span class="badge bg-primary">Take Up</span></a></td>
-                            </tr> -->
-                        </tbody>
-                    </table>
+    <div class="row">
+        <!-- Upcoming Appointments Table -->
+        <div class="col-md-8 mt-4">
+            <div class="card recent-sales overflow-auto" style="background-color: #FFFFFF;  border-radius: 8px;">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold" style="font-size: 1.2rem; color: #333;">
+                        Upcoming Appointments 
+                        <span> | 
+                            <a href="<?php echo site_url('appointment'); ?>" class="btn btn-primary btn-sm" style="background-color: #337ab7; color: #fff; padding: 0.3rem 0.6rem; border-radius: 5px;">View all</a>
+                        </span>
+                        <!-- <h5 class="card-title fw-bold">Upcoming Appointments <span>| <a href="<?php echo site_url('appointment'); ?>" class="btn btn-primary btn-sm" style="background: #337ab7;">View all</a></span></h5> -->
+                    </h5>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover datatable" id="todayAppointmentTable">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col" style="font-size: 0.9rem;">#</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Address</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Appointment With</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Description</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Time</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($clinic_appointment as $appointment): ?>
+                                    <tr>
+                                        <td style="vertical-align: middle;">
+                                            <img src="https://via.placeholder.com/36" width="36" height="36" alt="Profile" class="rounded-circle">
+                                        </td>
+                                        <td><?php echo $appointment->address1 . ", " . $appointment->city; ?></td>
+                                        <td><?php echo $appointment->first_name . " " . $appointment->last_name . " - " . $appointment->practitioner_name; ?></td>
+                                        <td><?php echo $appointment->comment_appointment; ?></td>
+                                        <td><?php echo date('g:i A', strtotime($appointment->start_date_appointment)) . " to " . date('g:i A', strtotime($appointment->end_date_appointment)); ?></td>
+                                        <td>
+                                            <a href="#"><span class="badge bg-primary" style="font-size: 0.8rem;">Take Up</span></a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-4 mt-4">
-        <div class="card recent-sales overflow-auto" style="background-color: #FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);">
-            <div class="card-body">
-                <h5 class="card-title fw-bold">Doctors</h5>
-                <div class="table-responsive">
-                    <table class="table table-borderless datatable" id="todayDoctor">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Doctors</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($doctors_list as $row){
-                                // print_r($row);die;
-                                ?>
-                        
-                            <tr>
-                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                                <td><?php echo $row->first_name. ''. $row->last_name;?><br><?php echo $row->qualification;?> </td>
-                                <td><span class="badge bg-success">Online</span></td>
-                            </tr>
-                            <?php }?>
-
-                            <!-- <tr>
-                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                                <td>John Doe <br>MBBS, MD</td>
-                                <td><span class="badge bg-danger">Offline</span></td>
-                            </tr> -->
-
-                            <!-- <tr>
-                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                                <td>John Doe <br>MBBS, MD</td>
-                                <td><span class="badge bg-success">Online</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
-                                <td>John Doe <br>MBBS, MD</td>
-                                <td><span class="badge bg-success">Online</span></td>
-                            </tr> -->
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card-footer text-center bg-white">
-                    <a href="<?php echo site_url('dataOperator'); ?>" class="text-muted fw-bold">View all Doctors</a>
+        <!-- Doctors Table -->
+        <div class="col-md-4 mt-4">
+            <div class="card recent-sales overflow-auto" style="background-color: #FFFFFF;  border-radius: 8px;">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold" style="font-size: 1.2rem; color: #333;">Doctors</h5>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover datatable" id="todayDoctor">
+                            <thead class="table-dark" >
+                                <tr>
+                                    <th scope="col" style="font-size: 0.9rem;">#</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Doctor</th>
+                                    <th scope="col" style="font-size: 0.9rem;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($doctors_list as $row): ?>
+                                    <tr>
+                                        <td style="vertical-align: middle;">
+                                            <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle">
+                                        </td>
+                                        <td><?php echo $row->first_name . " " . $row->last_name; ?><br><?php echo $row->qualification; ?></td>
+                                        <td>
+                                            <span class="badge bg-success" style="font-size: 0.8rem;">Online</span>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer text-center bg-white">
+                        <a href="<?php echo site_url('dataOperator'); ?>" class="text-muted fw-bold" style="text-decoration: none;">View all Doctors</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
+
 
 
 
@@ -1246,98 +1078,107 @@
 
 <div>
 <div class="row">
+    <!-- New Patients Table -->
     <div class="col-md-8 mt-4">
         <div class="card recent-sales overflow-auto">
             <div class="card-body">
-                <h5 class="card-title fw-bold">New Patients <span>|  <a href="<?php echo site_url('patient'); ?>" style="background: #337ab7;" class="btn  btn-primary btn-sm <?php echo (strtolower($this->router->fetch_class()) == "patient") ? "active" : "" ?>">View all</a></span></h5>
-                <table class="table table-borderless datatable" id="todayPatient">
-                    <thead>
+                <h5 class="card-title fw-bold">
+                    New Patients
+                    <span>
+                        |  
+                        <a href="<?php echo site_url('patient'); ?>" class="btn btn-primary btn-sm <?php echo (strtolower($this->router->fetch_class()) == 'patient') ? 'active' : ''; ?>" style="background: #337ab7;">
+                            View all
+                        </a>
+                    </span>
+                </h5>
+                <table class="table table-striped table-hover" id="todayPatient">
+                    <thead class="table-dark">
                         <tr>
-                            <th scope="col">Image</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Gmail</th>
-                            <th scope="col">phone</th>
-                            <th scope="col">Status</th>
+                            <th scope="col" style="font-size: 0.9rem;">Image</th>
+                            <th scope="col" style="font-size: 0.9rem;">Name</th>
+                            <th scope="col" style="font-size: 0.9rem;">Email</th>
+                            <th scope="col" style="font-size: 0.9rem;">Phone</th>
+                            <th scope="col" style="font-size: 0.9rem;">Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        
-                    
-                    <?php
-                    $count = 0;
-                    foreach ($today_patient_list as $list) {
-                        if ($count >= 5) break;
-                        // print_r($list);die;
-                                ?>
+                        <?php
+                        $count = 0;
+                        foreach ($today_patient_list as $list) {
+                            if ($count >= 5) break;
+                        ?>
                         <tr>
-                        
-                        <th scope="row" style="vertical-align: middle;"><img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" width="36" height="36" alt="Profile" class="rounded-circle mx-auto d-block"></th>
+                            <td style="vertical-align: middle;">
+                                <img src="https://via.placeholder.com/36" width="36" height="36" alt="Profile" class="rounded-circle">
+                            </td>
                             <td><?php echo $list->patient_name; ?></td>
                             <td><?php echo $list->email; ?></td>
                             <td><?php echo $list->phone; ?></td>
-                            <td><a href="appointments.html"><span class="badge bg-primary"><?php echo $list->md_patient_status; ?></span></a></td>
-                           
+                            <td>
+                                <span class="badge bg-primary"><?php echo $list->md_patient_status; ?></span>
+                            </td>
                         </tr>
                         <?php
-                    $count++;
-                    } ?>
+                            $count++;
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
+    <!-- Hospital Management Table -->
     <div class="col-md-4 mt-4">
         <div class="card recent-sales overflow-auto">
             <div class="card-body">
                 <h5 class="card-title fw-bold">Hospital Management</h5>
-                <table class="table table-borderless datatable">
-                    <thead>
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col"> Patient</th>
-                            <th scope="col">Status</th>
+                            <th scope="col" style="font-size: 0.9rem;">#</th>
+                            <th scope="col" style="font-size: 0.9rem;">Patient</th>
+                            <th scope="col" style="font-size: 0.9rem;">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row"><a href="#">1</a></th>
+                            <td><a href="#">1</a></td>
                             <td>OPD Patient</td>
                             <td><span class="badge bg-warning">16%</span></td>
                         </tr>
                         <tr>
-                            <th scope="row"><a href="#">1</a></th>
+                            <td><a href="#">2</a></td>
                             <td>OPD Patient</td>
-                            <td><span class="badge bg-success">16%</span></td>
+                            <td><span class="badge bg-success">24%</span></td>
                         </tr>
                         <tr>
-                            <th scope="row"><a href="#">1</a></th>
+                            <td><a href="#">3</a></td>
                             <td>OPD Patient</td>
-                            <td><span class="badge bg-success">16%</span></td>
+                            <td><span class="badge bg-success">32%</span></td>
                         </tr>
                         <tr>
-                            <th scope="row"><a href="#">1</a></th>
+                            <td><a href="#">4</a></td>
                             <td>OPD Patient</td>
-                            <td><span class="badge bg-success">16%</span></td>
+                            <td><span class="badge bg-success">45%</span></td>
                         </tr>
                         <tr>
-                            <th scope="row"><a href="#">1</a></th>
+                            <td><a href="#">5</a></td>
                             <td>OPD Patient</td>
-                            <td><span class="badge bg-success">16%</span></td>
+                            <td><span class="badge bg-success">52%</span></td>
                         </tr>
                         <tr>
-                            <th scope="row"><a href="#">1</a></th>
+                            <td><a href="#">6</a></td>
                             <td>OPD Patient</td>
-                            <td><span class="badge bg-success">16%</span></td>
+                            <td><span class="badge bg-success">60%</span></td>
                         </tr>
-                        
                     </tbody>
                 </table>
-              
             </div>
         </div>
     </div>
 </div>
+
 </div>
 
 

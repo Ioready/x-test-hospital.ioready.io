@@ -25,7 +25,8 @@ Homestead.json
 
 
 # Config files
-config/database.php   # Ignore the database config file to keep it secure
+# Config files
+application/config/database.php  # Ignore the database config file to keep it secure
 
 # Logs directory
 application/logs/     # Ignores everything in the logs directory
