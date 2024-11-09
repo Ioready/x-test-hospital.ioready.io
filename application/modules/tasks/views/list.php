@@ -1,5 +1,5 @@
 <!-- Page content -->
-<div id="page-content">
+<div id="page-content"  style="background-color: whitesmoke;">
     <ul class="breadcrumb breadcrumb-top">
         <li>
             <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>

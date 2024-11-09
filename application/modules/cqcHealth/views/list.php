@@ -75,7 +75,7 @@ display:none;
     </style>
 
 <!-- <script src="https://js.stripe.com/v3"></script> -->
-<div id="page-content">
+<div id="page-content" style="background-color: whitesmoke;"s>
     <ul class="breadcrumb breadcrumb-top">
         <li>
             <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>
@@ -230,6 +230,9 @@ display:none;
                     <?php endforeach; ?>
                 </tbody>
             </table>
+
+
+            
             <div>
             </div>
             <div class="row">

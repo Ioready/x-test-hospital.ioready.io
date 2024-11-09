@@ -191,7 +191,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
 
 </head>
 <body>
-    <div id="page-content">
+    <div id="page-content" style="background-color: whitesmoke;">
         <ul class="breadcrumb breadcrumb-top">
             <li><a href="<?php echo site_url('pwfpanel');?>">Home</a></li>
             <li><a href="<?php echo site_url('appointment');?>"><?php echo $title;?></a></li>
@@ -237,12 +237,12 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
             </div>
 
             <div class="block-title d-flex justify-content-center">
-                <h2 style="font-size: 2rem !important; font-weight: 700 !important;">
+                <h2 style="font-size: 1.5rem !important; font-weight: 500 !important;">
                     <strong><?php echo $title;?></strong> Panel
                 </h2>
             </div>
 
-            <div class="modal-header text-center" style="display:flex;border-radius:10px; background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);">
+            <div class="modal-header text-center" style="display:flex;border-radius:10px; background-color:#FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);">
                 <?php if ($this->ion_auth->is_facilityManager()) { ?>
 
              <div class="col-sm-3 col-lg-3 col-md-3 m-4">
@@ -259,8 +259,8 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
 
             <div class="col-sm-6 col-lg-6 col-md-6 m-4">
                 <div class="col-sm-6 col-lg-6 col-md-6 m-4">
-                    <!-- <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple"></select> -->
-                    <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="form-control select2"></select>
+                    <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple"></select>
+                    <!-- <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="form-control select2"></select> -->
 
                 </div>
             </div>

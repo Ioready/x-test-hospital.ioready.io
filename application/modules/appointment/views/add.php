@@ -67,7 +67,7 @@
 
 
 <!-- Page content -->
-<div id="page-content">
+<div id="page-content" style="background-color: whitesmoke;">
     <!-- Datatables Header -->
     <ul class="breadcrumb breadcrumb-top">
         <li>
@@ -946,7 +946,7 @@
                                       
                                         
                                     <div class="tab-pane-second active" id="pills-5" role="tabpanel" aria-labelledby="pills-home-tab">
-    <div class="block full" style="width: 100%; max-width:900px;">
+    <div class="block full" style="width: 100%; w-full">
         <div class="block-title">
             <h2 class="form-head"><strong>Clinic Appointment</strong> Panel</h2>
         
