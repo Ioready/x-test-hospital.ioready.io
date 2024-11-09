@@ -7,7 +7,7 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url('product');?>">product</a>
+            <a href="<?php echo site_url('products');?>">product</a>
         </li>
     </ul>
     <!-- END Datatables Header -->
@@ -17,7 +17,7 @@
     
  
     
-    <div class="block full">
+<div class="block full">
         <div class="block-title">
             <h2><strong>Contacts</strong> Panel</h2>
         </div>
@@ -138,7 +138,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                            <div class="col-md-10">
                                 <div class="col-md-4">
                                     <label class="">Stock Level</label>
-                                    <input type="text" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
+                                    <input type="number" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
                                 </div>
 
                                 <div class="col-md-4">
@@ -186,13 +186,13 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                                     <div class="form-group">
                                         <div class="col-md-1">
 
-                                            <input type="radio" id="send_invoice" name="send_invoice" class="custom-control-input">
+                                            <input type="radio" id="send_invoice" name="send_invoice" class="custom-control-input" value="no"> 
                                             <label class="custom-control-label" for="customRadioInline1">No</label>
                                        
                                     </div>
                                     <div class="col-md-1">
                                         
-                                            <input type="radio" id="send_invoice" name="send_invoice" class="custom-control-input">
+                                            <input type="radio" id="send_invoice" name="send_invoice" class="custom-control-input" value="yes">
                                             <label class="custom-control-label" for="customRadioInline2">Yes</label>                                      
                                     </div>
                                     </div>
@@ -318,7 +318,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                            <div class="col-md-10">
                                 <div class="col-md-4">
                                     <label class="">Stock Level</label>
-                                    <input type="text" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
+                                    <input type="number" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
                                 </div>
 
                                 <div class="col-md-4">
@@ -497,7 +497,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                            <div class="col-md-10">
                                 <div class="col-md-4">
                                     <label class="">Stock Level</label>
-                                    <input type="text" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
+                                    <input type="number" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
                                 </div>
 
                                 <div class="col-md-4">
@@ -828,7 +828,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                            <div class="col-md-10">
                                 <div class="col-md-4">
                                     <label class="">Stock Level</label>
-                                    <input type="text" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
+                                    <input type="number" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
                                 </div>
 
                                 <div class="col-md-4">
@@ -1006,7 +1006,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                            <div class="col-md-10">
                                 <div class="col-md-4">
                                     <label class="">Stock Level</label>
-                                    <input type="text" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
+                                    <input type="number" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
                                 </div>
 
                                 <div class="col-md-4">
@@ -1199,7 +1199,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                            <div class="col-md-10">
                                 <div class="col-md-4">
                                     <label class="">Stock Level</label>
-                                    <input type="text" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
+                                    <input type="number" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
                                 </div>
 
                                 <div class="col-md-4">
@@ -1375,7 +1375,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                            <div class="col-md-10">
                                 <div class="col-md-4">
                                     <label class="">Stock Level</label>
-                                    <input type="text" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
+                                    <input type="number" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
                                 </div>
 
                                 <div class="col-md-4">
@@ -1554,7 +1554,7 @@ You can upload product lists from Semble's lab partners from the Lab settings pa
                            <div class="col-md-10">
                                 <div class="col-md-4">
                                     <label class="">Stock Level</label>
-                                    <input type="text" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
+                                    <input type="number" class="form-control" name="stock_level" id="stock_level" placeholder="<?php echo lang('Stock Level');?>" />
                                 </div>
 
                                 <div class="col-md-4">

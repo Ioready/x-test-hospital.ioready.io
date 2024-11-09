@@ -193,9 +193,9 @@
                             <th style="background-color:#DBEAFF;font-size:1.3rem;width: 150px;" class="text-center" ><?php echo "Facility Manager Name"; ?></th>
                             <?php } ?>
 
-                            <?php if($this->ion_auth->is_subAdmin()){ ?>
+                            <?php //if($this->ion_auth->is_subAdmin()){ ?>
                             <th style="background-color:#DBEAFF;font-size:1.3rem;width: 150px;" class="text-center"><?php echo "Type"; ?></th>
-                            <?php } ?>
+                            <?php //} ?>
 
                             <th  class="text-center" style="background-color:#DBEAFF;font-size:1.3rem;width: 200px;"><?php echo "Renewal"; ?></th>
 
@@ -292,15 +292,15 @@
                             
                                 <td class="text-center"><strong><?php echo $rowCount; ?></strong></td>  
 
-                                <?php if($this->ion_auth->is_admin()){ ?>
+                                <?php //if($this->ion_auth->is_admin()){ ?>
 
-                                <td class=""><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
+                                <!-- <td class=""><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td> -->
 
-                                <?php } ?>
+                                <?php// } ?>
                                 
-                                <?php if($this->ion_auth->is_subAdmin()){ ?>
+                                <?php //if($this->ion_auth->is_subAdmin()){ ?>
                                 <td class=""><?php echo $rows->type; ?></td>
-                                <?php } ?>
+                                <?php //} ?>
 
                                 <td><?php echo $rows->renewal ?></td>
                                 <td><?php echo $rows->name ?></td>
@@ -308,7 +308,13 @@
                                 <td><?php echo $rows->supplier ?></td>
                                 <td><?php echo $rows->product_code ?></td>
                                 <td><?php echo $rows->serial_number ?></td>
-                                <td><?php echo $rows->stock_level ?></td>
+                                <td><?php if($rows->stock_level > 0){ ?>
+                                    <span style="color:green;"><?php echo $rows->stock_level;?></span>
+
+                               <?php } else{ ?>
+                                <span style="color:red;"><?php echo $rows->stock_level;?></span>
+                              <?php  } ?>
+                               </td>
                                 <td><?php echo $rows->tax ?></td>
                                 <td><?php echo $rows->cost ?></td>
                                 <td><?php echo $rows->comment ?></td>
@@ -321,7 +327,7 @@
 
                                 <td class="actions text-center">
                                     <div class="btn-group btn-group-xs">
-                                        <!-- <a href="<?php echo base_url() . 'products/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a> -->
+                                        <a href="<?php echo base_url() . 'products/edit?id=' . encoding($rows->id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
                                                 <?php if($rows->status == 1){ ?>
 
                                                 

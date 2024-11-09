@@ -322,6 +322,7 @@ class Products extends Common_Controller {
                 } else {
                     $response = array('status' => 0, 'message' => "Failed to add");
                 }
+
             // }
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
@@ -338,10 +339,11 @@ class Products extends Common_Controller {
     public function edit() {
         $this->data['parent'] = $this->title;
         $this->data['title'] = "Edit " . $this->title;
+        $this->data['formUrl'] = $this->router->fetch_class() . "/update";
         $id = decoding($_GET['id']);
         
         if (!empty($id)) {
-
+            
         /*     
             $option ="SELECT `vendor_sale_recommendation`.`title`, 
                         `vendor_sale_recommendation`.`id`,
@@ -358,22 +360,81 @@ class Products extends Common_Controller {
             $results_row = $this->common_model->customQuery($option);
  */
 
-            $option = array(
-                'table' => contactus . ' as R',
-                'select' => 'R.*, '
-                . 'U.id as u_id,U.first_name,U.last_name,',
-                'join' => array(
-                    array(USERS . ' as U', 'U.id=R.facility_manager_id', '')),
-                'where' => array('R.id' => $id),
-                'single' => true
-            );
-            $results_row = $this->common_model->customGet($option);
+            // $option = array(
+            //     'table' => contactus . ' as R',
+            //     'select' => 'R.*, '
+            //     . 'U.id as u_id,U.first_name,U.last_name,',
+            //     'join' => array(
+            //         array(USERS . ' as U', 'U.id=R.facility_manager_id', '')),
+            //     'where' => array('R.id' => $id),
+            //     'single' => true
+            // );
+            // $results_row = $this->common_model->customGet($option);
+
+        //     $option1 ="SELECT `vendor_sale_doctor_product`.`id`,`vendor_sale_doctor_product`.`type`, `vendor_sale_doctor_product`.`renewal`,`vendor_sale_doctor_product`.`name`,
+        // `vendor_sale_doctor_product`.`price`, 
+        // `vendor_sale_doctor_product`.`supplier`,
+        // `vendor_sale_doctor_product`.`product_code`,
+        // `vendor_sale_doctor_product`.`create_on`,
+        // -- `vendor_sale_users`.`first_name 'as f_name'`,
+        // -- `vendor_sale_users`.`last_name as l_name`,
+        // `vendor_sale_doctor_product`.`user_id`,`vendor_sale_doctor_product`.`serial_number`,`vendor_sale_doctor_product`.`stock_level`,`vendor_sale_doctor_product`.`tax`
+        // ,`vendor_sale_doctor_product`.`cost`,`vendor_sale_doctor_product`.`comment`,`vendor_sale_doctor_product`.`appointment_booked`,`vendor_sale_doctor_product`.`status`
+        // FROM `vendor_sale_doctor_product` 
+        // LEFT JOIN `vendor_sale_users` ON 
+        // `vendor_sale_users`.`id` = `vendor_sale_doctor_product`.`user_id` 
+        // WHERE `vendor_sale_doctor_product`.`id` =$id
+        // ORDER BY `vendor_sale_doctor_product`.`id` DESC";
+        // $results_row = $this->common_model->customQuerySql($option1);
+
+
+        $option = array(
+            'table' => ' vendor_sale_doctor_product',
+            'select' => 'vendor_sale_doctor_product.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_doctor_product.user_id=vendor_sale_users.id', 'left'),
+            ),
+            
+            'where' => array(
+                // 'vendor_sale_doctor_product.delete_status' => 0,
+                'vendor_sale_doctor_product.id'=>$id
+            ),
+            'single' => true,
+        );
+    
+        $results_row = $this->common_model->customGet($option);
+
+        
+
+        // $results_row = $this->common_model->customQuery($option1);
+        
+        // WHERE `vendor_sale_doctor_product`.`user_id` =$LoginID
+        //   WHERE `vendor_sale_doctor_product`.`status` = 0  and
+        //   `vendor_sale_doctor_product`.`user_id` =$LoginID
+        
+        // $option1 ="SELECT `vendor_sale_contactus`.`title`, 
+        // `vendor_sale_contactus`.`id`, 
+        // `vendor_sale_contactus`.`description`,
+        // `vendor_sale_contactus`.`is_active`,
+        // `vendor_sale_contactus`.`create_date`,
+        // `vendor_sale_users`.`first_name`,
+        // `vendor_sale_users`.`last_name`,
+        // `vendor_sale_contactus`.`facility_manager_id`
+        // FROM `vendor_sale_contactus` 
+        // LEFT JOIN `vendor_sale_users` ON 
+        // `vendor_sale_users`.`id` = `vendor_sale_contactus`.`facility_manager_id`
+        // WHERE `vendor_sale_contactus`.`delete_status` = 0  and
+        // `vendor_sale_contactus`.`facility_manager_id` =$LoginID
+        // ORDER BY `vendor_sale_contactus`.`id` DESC";
+        
+        
 
 
             if (!empty($results_row)) {
                 
                 $this->data['results'] = $results_row;
-
+                // print_r($this->data['results']);die;
+                
 
             $option = "SELECT `vendor_sale_users`.`id`,`vendor_sale_users`.`first_name`, 
                             `vendor_sale_users`.`last_name`
@@ -383,6 +444,8 @@ class Products extends Common_Controller {
                             WHERE `vendor_sale_users`.`delete_status` = 0 and `vendor_sale_users_groups`.`group_id` = 5
                             ORDER BY `vendor_sale_users`.`first_name` ASC";
                 $this->data['care_unit'] = $this->common_model->customQuery($option);
+
+                
                 $this->load->admin_render('edit', $this->data, 'inner_script');
             } else {
                 $this->session->set_flashdata('error', lang('not_found'));
@@ -402,40 +465,94 @@ class Products extends Common_Controller {
 
 
     public function update() {
-        $this->form_validation->set_rules('facility_manager_id', "Facility Manager", 'required|trim');
-        $this->form_validation->set_rules('title', "Title", 'required|trim');
-        $this->form_validation->set_rules('description', "Description", 'required|trim');
+        // $this->form_validation->set_rules('facility_manager_id', "Facility Manager", 'required|trim');
+        // $this->form_validation->set_rules('title', "Title", 'required|trim');
+        // $this->form_validation->set_rules('description', "Description", 'required|trim');
 
+        $this->form_validation->set_rules('id', "id", 'required|trim');
         $where_id = $this->input->post('id');
-
-        if ($this->form_validation->run() == FALSE):
-            $messages = (validation_errors()) ? validation_errors() : '';
-            $response = array('status' => 0, 'message' => $messages);
-        else:
-            $this->filedata['status'] = 1;
-
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            } else {
+        // print_r($where_id);die;
+        if ($this->form_validation->run() == true) {
+            // $this->filedata['status'] = 1;
+            
+            // if ($this->filedata['status'] == 0) {
+            //     $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // } else {
+               
 
                 $options_data = array(
-                    'title' => $this->input->post('title'),
-                    'description' => $this->input->post('description'),
-                    'facility_manager_id' => $this->input->post('facility_manager_id'),
+                    'user_id'=> $LoginID,
+                    'type' => $this->input->post('type')?? null,
+                    'name' => $this->input->post('name')?? null,
+                    'price' => $this->input->post('price')?? null,
+                    'appointment_booked' => $this->input->post('appointment_booked')?? 0,
+                    'supplier' => $this->input->post('supplier')?? null,
+                    'product_code' => $this->input->post('product_code')?? null,
+                    
+                    'serial_number' => $this->input->post('serial_number')?? null,
+                    'stock_level' => $this->input->post('stock_level')?? null,
+                    'tax' => $this->input->post('tax')?? null,
+                    'cost' => $this->input->post('cost')?? null,
+                    'comment' => $this->input->post('comment')?? null,
+
+                    'renewal' => $this->input->post('renewal')?? 0,
+                    'duration' => $this->input->post('duration')?? null,
+                    'color' => $this->input->post('color')?? 0,
+                    'appointment_video_consult' => $this->input->post('appointment_video_consult')?? 0,
+                    'online_booking' => $this->input->post('online_booking')?? 0,
+                    'manually_confirm' => $this->input->post('manually_confirm')?? 0,
+                    'location' => $this->input->post('location')?? null,
+                    'clinicians' => $this->input->post('clinicians')?? null,
+                    'status	' => '0',
+
+                    
                 );
+                // print_r($options_data);die;
+                // $option = $this->db->insert('doctor_product', $options_data); 
+
+                $option = array('table' => $this->_table, 'data' => $options_data, 'where' => array('id' => $where_id));
+                // $update = $this->common_model->customUpdate($option);
+                if ($this->common_model->customUpdate($option)) {
+                    $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url($this->router->fetch_class()));
+                } else {
+                    $response = array('status' => 0, 'message' => "Failed to add");
+                }
+                
+            // }
+        } else {
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+        }
+
+
+        // if ($this->form_validation->run() == FALSE):
+        //     $messages = (validation_errors()) ? validation_errors() : '';
+        //     $response = array('status' => 0, 'message' => $messages);
+        // else:
+        //     $this->filedata['status'] = 1;
+
+        //     if ($this->filedata['status'] == 0) {
+        //         $response = array('status' => 0, 'message' => $this->filedata['error']);
+        //     } else {
+
+        //         $options_data = array(
+        //             'title' => $this->input->post('title'),
+        //             'description' => $this->input->post('description'),
+        //             'facility_manager_id' => $this->input->post('facility_manager_id'),
+        //         );
 
                 
-                $option = array(
-                    'table' => $this->_table,
-                    'data' => $options_data,
-                    'where' => array('id' => $where_id)
-                );
-                $update = $this->common_model->customUpdate($option);
+        //         $option = array(
+        //             'table' => $this->_table,
+        //             'data' => $options_data,
+        //             'where' => array('id' => $where_id)
+        //         );
+        //         $update = $this->common_model->customUpdate($option);
                 
-                $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url('contactus/edit'), 'id' => encoding($this->input->post('id')));
+        //         $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url('contactus/edit'), 'id' => encoding($this->input->post('id')));
                 
-            }
-        endif;
+        //     }
+        // endif;
 
         echo json_encode($response);
     }
