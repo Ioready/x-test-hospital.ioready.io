@@ -119,7 +119,7 @@
     }
 </style>
 
-<div id="page-content">
+<div id="page-content" style="background-color: whitesmoke;">
   <div class="heading-div">
 <ul class="breadcrumb breadcrumb-top" style="background: white;padding-left: 20px; height: 42px;">
     <li style="display: inline-block; ">

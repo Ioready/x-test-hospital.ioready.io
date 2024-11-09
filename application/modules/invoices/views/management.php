@@ -2,10 +2,7 @@
 
 <style>
         /* Custom Styles for Enhanced UI */
-        body {
-            background-color: #f4f6f9;
-            font-family: 'Arial', sans-serif;
-        }
+       
 
         .container {
             
@@ -108,7 +105,7 @@
         }
     </style>
 
-<div id="page-content">
+<div id="page-content" style="background-color: whitesmoke;">
     <div class="block_list full">
       
     </div>
@@ -422,6 +419,8 @@
 
                             </td>
                         </tr>
+
+                        
                         <?php }?>
                         
                         </tbody>

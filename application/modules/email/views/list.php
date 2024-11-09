@@ -44,7 +44,7 @@
 </style>   
                    
                     <!-- Page content -->
-                    <div id="page-content">
+                    <div id="page-content" >
                         <!-- Datatables Header -->
                         <ul class="breadcrumb breadcrumb-top">
                         <li>

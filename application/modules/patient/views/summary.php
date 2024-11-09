@@ -131,7 +131,7 @@
 }
 </style>
 <!-- Page content -->
-<div id="page-content">
+<div id="page-content" style="background-color:whitesmoke;">
     <!-- Datatables Header -->
     <ul class="breadcrumb breadcrumb-top">
         <li>
@@ -303,7 +303,7 @@
         </div>
 
     <?php } ?>
-    
+    <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
 
     <section style="background-color: #eee;">
 
@@ -789,8 +789,10 @@
 </div>
 
 
+
+
     <?php }?>
-<iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+
 </section>
 
 

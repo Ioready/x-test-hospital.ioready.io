@@ -131,12 +131,7 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            padding: 20px;
-        }
-
+       
         .container-data {
             /* display: flex;
             max-width: 1200px;
@@ -305,7 +300,7 @@
             color: black;
         }
     </style>
-<div id="page-content">
+<div id="page-content" style="background-color:whitesmoke">
     <!-- Datatables Header -->
     <ul class="breadcrumb breadcrumb-top">
         <li>
@@ -642,7 +637,6 @@
         <div class="note-details">
             <div class="problem-heading">Free notes</div>
             <div class="note-content">Headache site, Since: 01/07/2024, Acute, Minor. The patient was happy and did want an MRI.</div>
-            <div id="diagram_image"></div>
         </div>
 
 
@@ -650,7 +644,6 @@
 
     <?php }}} } if($this->ion_auth->is_facilityManager()){ ?>
 
-        
         <div class="left-panel">
         <div class="header">
 
@@ -672,8 +665,6 @@
 
                 <!-- <button style="background-color: #007B83; color: white; padding: 10px; border: none; border-radius: 5px;">New</button> -->
         </div>
-
-        
 
         <ul class="note-list">
 
@@ -717,7 +708,6 @@
         </ul>
 
     </div>
-    
 
     <!-- Right panel: Details of the selected consultation -->
     <div class="right-panel">
@@ -753,7 +743,6 @@
         <div class="note-details">
             <div class="problem-heading">Free notes</div>
             <div class="note-content">Headache site, Since: 01/07/2024, Acute, Minor. The patient was happy and did want an MRI.</div>
-            <div id="diagram_image"></div>
         </div>
 
 
@@ -789,7 +778,7 @@
            <div class="modal_popup">
            <input  name="id"  id='name' value="<?php echo $results->patient_id; ?>" /> 
            <?php if(empty($results->room_number)){ ?>
-           <input  name="room_number"  id='room_number' value="NULL"/> 
+           <input  name="room_number"  id='room_number' value="NULL" /> 
            <?php   } else{ ?>
            <input  name="room_number"  id='room_number' value="<?php echo $results->room_number; ?>" /> 
             <?php } ?>
@@ -833,98 +822,7 @@
 
 <!-- Edit Consultation  -->
 
-<style>
-    
-	.modal.left .modal-dialog,
-	.modal.right .modal-dialog {
-		position: fixed;
-		margin: auto;
-		width: 660px;
-		height: 100%;
-		-webkit-transform: translate3d(0%, 0, 0);
-		    -ms-transform: translate3d(0%, 0, 0);
-		     -o-transform: translate3d(0%, 0, 0);
-		        transform: translate3d(0%, 0, 0);
-	}
-
-	.modal.left .modal-content,
-	.modal.right .modal-content {
-		height: 100%;
-		overflow-y: auto;
-	}
-	
-	.modal.left .modal-body,
-	.modal.right .modal-body {
-		padding: 15px 15px 80px;
-	}
-
-
-
-        
-/*Right*/
-	.modal.right.fade .modal-dialog {
-		right: -320px;
-		-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
-		   -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
-		     -o-transition: opacity 0.3s linear, right 0.3s ease-out;
-		        transition: opacity 0.3s linear, right 0.3s ease-out;
-	}
-	.modal.right.fade.in .modal-dialog {
-		right: 0;
-	}
-
-/* ----- MODAL STYLE ----- */
-	.modal-content {
-		border-radius: 0;
-		border: none;
-	}
-
-	.modal-header {
-		border-bottom-color: #EEEEEE;
-		background-color: #FAFAFA;
-	}
-
-/* ----- v CAN BE DELETED v ----- */
-body {
-	background-color: #78909C;
-}
-
-.demo {
-	padding-top: 60px;
-	padding-bottom: 110px;
-}
-
-.btn-demo {
-	margin: 15px;
-	padding: 10px 15px;
-	border-radius: 0;
-	font-size: 16px;
-	background-color: #FFFFFF;
-}
-
-.btn-demo:focus {
-	outline: 0;
-}
-
-.demo-footer {
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	padding: 15px;
-	background-color: #212121;
-	text-align: center;
-}
-
-.demo-footer > a {
-	text-decoration: none;
-	font-weight: bold;
-	font-size: 16px;
-	color: #fff;
-}
-</style>
-
-
-<div class="modal right fade  bd-example-modal-lg" id="exampleModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade  bd-example-modal-lg " id="exampleModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -944,40 +842,39 @@ body {
            <!-- Dynamic Form Sections -->
            <!-- <div id="form-sections"> -->
            
-            <div id="form-complaint" class="form-section" style="display:none;">
+                        <div id="form-complaint" class="form-section" style="display:none;">
 
-            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
+                        <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
 
                         
                         <div class="row">
-                            <div class="col-md-12">
+                                    <div class="col-md-12">
                                             <!-- Consultation Type & Date -->
-                                <div class="form-group row">
-                                    <div class="col-md-4">
-                                        <label for="consultationType">Consultation Type</label>
-                                        <select name="consultationType" id="consultationType" class="form-control" required>
-                                            <option value="">Doctor Consultation</option>
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label for="consultationType">Consultation Type</label>
+                                                    <select name="consultationType" id="consultationType" class="form-control" required>
+                                                        <option value="">Doctor Consultation</option>
 
-                                            <?php if (!empty($doctors)) {
-                                                foreach ($doctors as $doctor) { ?>
-                                                <option value="<?php echo $doctor->id; ?>">
-                                                    <?php echo $doctor->first_name. ' '.$doctor->last_name; ?>
-                                                </option>
-                                            <?php } } ?>
+                                                        <?php if (!empty($doctors)) {
+                                                                    foreach ($doctors as $doctor) { ?>
+                                                                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                        <?php } } ?>
 
-                                        </select>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="consultationDate">Date</label>
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
+                                                </div>
+                                            </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label for="consultationDate">Date</label>
-                                        <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
-                                    </div>
-                                 </div>
-                            </div>
-                            </div>
+                                </div>
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                            
+                            <!-- <input type="text" class="form-control consultationType" name="consultationType" id="consultationType"> -->
                             <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
                            
                             <!-- Presenting Complaint -->
@@ -986,7 +883,8 @@ body {
                                 <input type="text" class="form-control" name="presenting_complaint" id="presenting_complaint" placeholder="Enter Complaint">
                                 <input type="hidden" class="form-control" name="type" id="type" value="presenting_complaint" placeholder="Enter Complaint">
                             
-                               
+                                <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                        </form>
                         </div>
                   
                             <!-- Problem Heading -->
@@ -994,7 +892,7 @@ body {
                             
                             <div id="form-problem" class="form-section" style="display:none;">
 
-                           
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
                             <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -1037,12 +935,13 @@ body {
                                         </div>
                                     </div>
                                 </div>
-                                
+                                <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                            </form>
                             </div>
 
                             <!-- Examination -->
                             <div id="form-exam" class="form-section" style="display:none;">
-                            
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
                             <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -1067,12 +966,13 @@ body {
                                         <textarea class="form-control examination-comment" name="comment" id="comment" rows="4"></textarea>
                                     </div>
                                 </div>
-                               
+                                <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                            </form>
                             </div>
                           
                             <!-- Allergy -->
                             <div id="form-allergy" class="form-section" style="display:none;">
-                            
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
                             <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -1103,12 +1003,13 @@ body {
                                         </div>
                                     </div>
                                 </div>
-                                
+                                <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                            </form>
                             </div>
                             
                             <!-- Medical History -->
                             <div id="form-medical-history" class="form-section" style="display:none;">
-                            
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
                             <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -1148,12 +1049,13 @@ body {
                                         </div>
                                     </div>
                                 </div>
-                                
+                                <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                                </form>
                             </div>
                            
                             <!-- Family History -->
                             <div id="form-family-history" class="form-section" style="display:none;">
-                            
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -1193,13 +1095,14 @@ body {
                                         </div>
                                     </div>
                                 </div>
-                                
+                                <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                                </form>
                             </div>
                             
                             <!-- Social -->
                             <div id="form-social" class="form-section" style="display:none;">
 
-                            
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -1236,12 +1139,39 @@ body {
                                     </div>
                                 </div>
 
-                               
+                                <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                                </form>
                             </div>
                          
                             <!-- Medication -->
                             <div id="form-medication" class="form-section" style="display:none;">
+                                <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
+
                                 
+                            <div class="row">
+                                    <div class="col-md-12">
+                                            <!-- Consultation Type & Date -->
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label for="consultationType">Consultation Type</label>
+                                                    <select name="consultationType" id="consultationType" class="form-control" required>
+                                                        <option value="">Doctor Consultation</option>
+
+                                                        <?php if (!empty($doctors)) {
+                                                                    foreach ($doctors as $doctor) { ?>
+                                                                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                        <?php } } ?>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="consultationDate">Date</label>
+                                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control consultation_date" required>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+
                                     <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                                          <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -1281,12 +1211,13 @@ body {
                                                 </div>
                                             </div>
                                         </div>
-                                   
+                                    <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                                </form>
                             </div>
                             
                             <!-- Product -->
                             <div id="form-product" class="form-section" style="display:none;">
-                            
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -1328,13 +1259,14 @@ body {
                                     </div>
                                 </div>
 
-                                
+                                <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
+                                </form>
                             </div>
                             
                             <!-- Comment -->
                             <div id="form-comment" class="form-section" style="display:none;">
 
-                           
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
                             <input type="hidden" class="form-control" name="type" id="type" value="comment" placeholder="Enter Complaint">
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -1343,7 +1275,8 @@ body {
                                 <h4>Comment</h4>
                                 <textarea class="form-control" placeholder="Enter Comment" name="comment" id="comment"></textarea>
 
-                                
+                                <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>                                
+                            </form>
                             </div>
                            
                         <!-- </div> -->
@@ -1351,23 +1284,22 @@ body {
                         <!-- Diagram -->
                         <div id="form-diagram" class="form-section" style="display:none;">
 
-                            
+                            <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
 
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                                                                         
                                 <h4>Diagram</h4>
                                 <input type="text" class="form-control" name="diagram_type" id="diagram" placeholder="Enter Complaint">
-                                <button type="button" style="color:green; background:white; border: 1px solid green; border-radius:5px; padding:5px;" data-toggle="modal" data-target="#editMyModal"> Add a diagram</button>
+                                <button type="button" style="color:green; background:white; border: 1px solid green; border-radius:5px; padding:5px;" data-toggle="modal" data-target="#myModal"> Add a diagram</button>
                                 <div id="select_question"></div>
 
                                 
                             <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
                            
-                           
+                            </form>
                             
                     </div>
-                    </form>
                  </div>
 
 
@@ -1388,171 +1320,128 @@ body {
   $("#myModal").modal("toggle");
   
 })
+
+// Handle the opening of the "Add a diagram" modal from the "Edit Consultation" modal
+$('#myModal').on('show.bs.modal', function () {
+    // Hide the "Edit Consultation" modal
+    $('#exampleModalEdit').modal('hide');
+
+    // Adjust the z-index of the "Add a diagram" modal to ensure it's on top
+    $(this).css('z-index', 1060);
+
+    // Increase the z-index of the backdrop as well
+    $('.modal-backdrop').css('z-index', 1059);
+});
+
+// Handle the closing of the "Add a diagram" modal
+$('#myModal').on('hidden.bs.modal', function () {
+    // Reopen the "Edit Consultation" modal after closing the "Add a diagram" modal
+    $('#exampleModalEdit').modal('show');
+});
+
 </script>
 
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <form id="myForm" method="post" enctype="multipart/form-data">
 
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Diagram.</h4>
+
+
+<style>
+
+    /* Ensure the z-index is higher for the "Add a diagram" modal */
+#myModal {
+    z-index: 1060;
+}
+
+#exampleModalEdit {
+    z-index: 1050;
+}
+
+.modal-backdrop {
+    z-index: 1040;
+}
+
+</style>
+    <div class="modal fade" id="myModal" role="dialog" style="z-index: 1051;">
+    <div class="modal-dialog" style="max-width: 600px; margin: auto; margin-top:20px;">
+        <form id="myForm" method="post" enctype="multipart/form-data">
+
+            <div class="modal-content" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                <div class="modal-header" style="background-color: #337ab7; color: #fff; border-bottom: 2px solid #2e6da4;">
+                    <button type="button" class="close" data-dismiss="modal" style="color: #fff; font-size: 1.5rem;">&times;</button>
+                    <h4 class="modal-title">Diagram</h4>
                 </div>
-                <div class="modal-body">
-                    <!-- <p>Question.</p> -->
-                    <select name="question" id="question" class="form-control">
+                <div class="modal-body" style="padding: 20px; max-height: 400px; overflow-y: auto;">
+                    <select name="question" id="question" class="form-control" style="margin-bottom: 20px;">
                         <option id="selected_diagram">Diagram</option>
                     </select>
-                    
 
-                        <div id="diagram" >
+                    <div id="diagram" >
                             
                             <div class="row">
-
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_f.jpg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_f.jpg" alt="Body 1" width="145px;" style="margin-left: 39px;">
-                                    <div>Body 1</div>
+                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_f.jpg')" style="padding: 10px; cursor: pointer;">
+                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_f.jpg" alt="Body 1" width="145px;"  style="width: 100%; border-radius: 5px;">
+                                    <div style="text-align: center; margin-top: 5px;">Body 1</div>
                                 </div>
                         
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_m.jpg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_m.jpg" alt="Body 2" width="149px;" style="margin-left: 39px;">
-                                    <div>Body 2</div>
+                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_m.jpg')" style="padding: 10px; cursor: pointer;">
+                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_m.jpg" alt="Body 2" width="149px;"  style="width: 100%; border-radius: 5px;">
+                                    <div style="text-align: center; margin-top: 5px;">Body 2</div>
                                 </div>
 
                             </div>
                             <div class="row">
 
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_m.jpeg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_m.jpeg" alt="Male" width="195px;" style="margin-left: 39px;">
-                                    <div>Male</div>
+                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_m.jpeg')" style="padding: 10px; cursor: pointer;">
+                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_m.jpeg" alt="Male" width="195px;"  style="width: 100%; border-radius: 5px;">
+                                    <div style="text-align: center; margin-top: 5px;">Male</div>
                                 </div>
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_f.jpeg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_f.jpeg" alt="Female" width="145px;" style="margin-left: 39px;">
-                                    <div>Female</div>
+                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_f.jpeg')" style="padding: 10px; cursor: pointer;">
+                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_f.jpeg" alt="Female" width="145px;"  style="width: 100%; border-radius: 5px;">
+                                    <div style="text-align: center; margin-top: 5px;">Female</div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_b.jpeg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_b.jpeg" alt="Boy" width="145px;" style="margin-left: 39px;">
-                                        <div>Boy</div>
+                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_b.jpeg')" style="padding: 10px; cursor: pointer;">
+                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_b.jpeg" alt="Boy" width="145px;"  style="width: 100%; border-radius: 5px;">
+                                        <div style="text-align: center; margin-top: 5px;">Boy</div>
                                 </div>
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_g.jpeg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_g.jpeg" alt="Girl" width="145px;" style="margin-left: 39px;">
-                                    <div>Girl</div>
+                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_g.jpeg')" style="padding: 10px; cursor: pointer;">
+                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_g.jpeg" alt="Girl" width="145px;"  style="width: 100%; border-radius: 5px;">
+                                    <div style="text-align: center; margin-top: 5px;">Girl</div>
                                 </div>
 
                             </div>
                             <div class="row">
 
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/hand.jpeg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/hand.jpeg" alt="Hand" width="145px;" style="margin-left: 39px;">
-                                    <div>Hand</div>
+                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/hand.jpeg')" style="padding: 10px; cursor: pointer;">
+                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/hand.jpeg" alt="Hand" width="145px;"  style="width: 100%; border-radius: 5px;">
+                                    <div style="text-align: center; margin-top: 5px;">Hand</div>
                                 </div>
 
                                 <div class="col-md-6">
-                                           
+                                            <!-- <div class="human-body">
+                                                <svg data-position="head" class="head" xmlns="http://www.w3.org/2000/svg" width="15.594" height="40.031" viewBox="0 0 56.594 95.031"><path d="M15.92 68.5l8.8 12.546 3.97 13.984-9.254-7.38-4.622-15.848zm27.1 0l-8.8 12.546-3.976 13.988 9.254-7.38 4.622-15.848zm6.11-27.775l.108-11.775-21.16-14.742L8.123 26.133 8.09 40.19l-3.24.215 1.462 9.732 5.208 1.81 2.36 11.63 9.72 11.018 10.856-.324 9.56-10.37 1.918-11.952 5.207-1.81 1.342-9.517zm-43.085-1.84l-.257-13.82L28.226 11.9l23.618 15.755-.216 10.37 4.976-17.085L42.556 2.376 25.49 0 10.803 3.673.002 24.415z"></path></svg>
+                                                <svg data-position="shoulder" class="shoulder" xmlns="http://www.w3.org/2000/svg" width="50.532" height="16.594" viewBox="0 0 109.532 46.594"><path d="M38.244-.004l1.98 9.232-11.653 2.857-7.474-2.637zm33.032 0l-1.98 9.232 11.653 2.857 7.474-2.637zm21.238 10.54l4.044-2.187 12.656 14 .07 5.33S92.76 10.66 92.515 10.535zm-1.285.58c-.008.28 17.762 18.922 17.762 18.922l.537 16.557-6.157-10.55L91.5 30.988 83.148 15.6zm-74.224-.58L12.962 8.35l-12.656 14-.062 5.325s16.52-17.015 16.764-17.14zm1.285.58C18.3 11.396.528 30.038.528 30.038L-.01 46.595l6.157-10.55 11.87-5.056L26.374 15.6z"></path></svg>
+                                                <svg data-position="arm" class="arm" xmlns="http://www.w3.org/2000/svg" width="106.344" height="40.25" viewBox="0 0 156.344 119.25"><path d="M21.12 56.5a1.678 1.678 0 0 1-.427.33l.935 8.224 12.977-13.89 1.2-8.958A168.2 168.2 0 0 0 21.12 56.5zm1.387 12.522l-18.07 48.91 5.757 1.333 19.125-39.44 3.518-22.047zm-5.278-18.96l2.638 18.74-17.2 46.023L.01 113.05l6.644-35.518zm118.015 6.44a1.678 1.678 0 0 0 .426.33l-.934 8.222-12.977-13.89-1.2-8.958A168.2 168.2 0 0 1 135.24 56.5zm-1.39 12.52l18.073 48.91-5.758 1.333-19.132-39.44-3.52-22.05zm5.28-18.96l-2.64 18.74 17.2 46.023 2.658-1.775-6.643-35.518zm-103.1-12.323a1.78 1.78 0 0 1 .407-.24l3.666-27.345L33.07.015l-7.258 10.58-6.16 37.04.566 4.973a151.447 151.447 0 0 1 15.808-14.87zm84.3 0a1.824 1.824 0 0 0-.407-.24l-3.666-27.345L123.3.015l7.258 10.58 6.16 37.04-.566 4.973a151.447 151.447 0 0 0-15.822-14.87zM22.288 8.832l-3.3 35.276-2.2-26.238zm111.79 0l3.3 35.276 2.2-26.238z"></path></svg>
+                                                <svg data-position="cheast" class="cheast" xmlns="http://www.w3.org/2000/svg" width="30.594" height="10.063" viewBox="0 0 86.594 45.063"><path d="M19.32 0l-9.225 16.488-10.1 5.056 6.15 4.836 4.832 14.07 11.2 4.616 17.85-8.828-4.452-34.7zm47.934 0l9.225 16.488 10.1 5.056-6.15 4.836-4.833 14.07-11.2 4.616-17.844-8.828 4.45-34.7z"></path></svg>
+                                                <svg data-position="stomach" class="stomach" xmlns="http://www.w3.org/2000/svg" width="20.25" height="30.594" viewBox="0 0 75.25 107.594"><path d="M19.25 7.49l16.6-7.5-.5 12.16-14.943 7.662zm-10.322 8.9l6.9 3.848-.8-9.116zm5.617-8.732L1.32 2.15 6.3 15.6zm-8.17 9.267l9.015 5.514 1.54 11.028-8.795-5.735zm15.53 5.89l.332 8.662 12.286-2.665.664-11.826zm14.61 84.783L33.28 76.062l-.08-20.53-11.654-5.736-1.32 37.5zM22.735 35.64L22.57 46.3l11.787 3.166.166-16.657zm-14.16-5.255L16.49 35.9l1.1 11.25-8.8-7.06zm8.79 22.74l-9.673-7.28-.84 9.78L-.006 68.29l10.564 14.594 5.5.883 1.98-20.735zM56 7.488l-16.6-7.5.5 12.16 14.942 7.66zm10.32 8.9l-6.9 3.847.8-9.116zm-5.617-8.733L73.93 2.148l-4.98 13.447zm8.17 9.267l-9.015 5.514-1.54 11.03 8.8-5.736zm-15.53 5.89l-.332 8.662-12.285-2.665-.664-11.827zm-14.61 84.783l3.234-31.536.082-20.532 11.65-5.735 1.32 37.5zm13.78-71.957l.166 10.66-11.786 3.168-.166-16.657zm14.16-5.256l-7.915 5.514-1.1 11.25 8.794-7.06zm-8.79 22.743l9.673-7.28.84 9.78 6.862 12.66-10.564 14.597-5.5.883-1.975-20.74z"></path></svg>
+                                                <svg data-position="legs" class="legs" xmlns="http://www.w3.org/2000/svg" width="30.626" height="76.625" viewBox="0 0 93.626 286.625"><path d="M17.143 138.643l-.664 5.99 4.647 5.77 1.55 9.1 3.1 1.33 2.655-13.755 1.77-4.88-1.55-3.107zm20.582.444l-3.32 9.318-7.082 13.755 1.77 12.647 5.09-14.2 4.205-7.982zm-26.557-12.645l5.09 27.29-3.32-1.777-2.656 8.875zm22.795 42.374l-1.55 4.88-3.32 20.634-.442 27.51 4.65 26.847-.223-34.39 4.87-13.754.663-15.087zM23.34 181.24l1.106 41.267 8.853 33.28-9.628-4.55-16.045-57.8 5.533-36.384zm15.934 80.536l-.664 18.415-1.55 6.435h-4.647l-1.327-4.437-1.55-.222.332 4.437-5.864-1.778-1.55-.887-6.64-1.442-.22-5.214 6.418-10.87 4.426-5.548 10.844-4.437zM13.63 3.076v22.476l15.71 31.073 9.923 30.85L38.23 66.1zm25.49 30.248l.118-.148-.793-2.024L21.9 12.992l-1.242-.44L31.642 40.93zM32.865 44.09l6.812 17.6 2.274-21.596-1.344-3.43zM6.395 61.91l.827 25.34 12.816 35.257-3.928 10.136L3.5 88.133zM30.96 74.69l.345.826 6.47 15.48-4.177 38.342-6.594-3.526 5.715-35.7zm45.5 63.953l.663 5.99-4.647 5.77-1.55 9.1-3.1 1.33-2.655-13.755-1.77-4.88 1.55-3.107zm-20.582.444l3.32 9.318 7.08 13.755-1.77 12.647-5.09-14.2-4.2-7.987zm3.762 29.73l1.55 4.88 3.32 20.633.442 27.51-4.648 26.847.22-34.39-4.867-13.754-.67-15.087zm10.623 12.424l-1.107 41.267-8.852 33.28 9.627-4.55 16.046-57.8-5.533-36.384zM54.33 261.777l.663 18.415 1.546 6.435h4.648l1.328-4.437 1.55-.222-.333 4.437 5.863-1.778 1.55-.887 6.638-1.442.222-5.214-6.418-10.868-4.426-5.547-10.844-4.437zm25.643-258.7v22.476L64.26 56.625l-9.923 30.85L55.37 66.1zM54.48 33.326l-.118-.15.793-2.023L71.7 12.993l1.24-.44L61.96 40.93zm6.255 10.764l-6.812 17.6-2.274-21.595 1.344-3.43zm26.47 17.82l-.827 25.342-12.816 35.256 3.927 10.136 12.61-44.51zM62.64 74.693l-.346.825-6.47 15.48 4.178 38.342 6.594-3.527-5.715-35.7zm19.792 51.75l-5.09 27.29 3.32-1.776 2.655 8.875zM9.495-.007l.827 21.373-7.028 42.308-3.306-34.155zm2.068 27.323L26.24 59.707l3.307 26-6.2 36.58L9.91 85.046l-.827-38.342zM84.103-.01l-.826 21.375 7.03 42.308 3.306-34.155zm-2.066 27.325L67.36 59.707l-3.308 26 6.2 36.58 13.436-37.24.827-38.34z"></path></svg>
+                                                <svg data-position="hands" class="hands" xmlns="http://www.w3.org/2000/svg" width="68" height="15.938" viewBox="0 0 205 38.938"><path d="M21.255-.002l2.88 6.9 8.412 1.335.664 12.458-4.427 17.8-2.878-.22 2.8-11.847-2.99-.084-4.676 12.6-3.544-.446 4.4-12.736-3.072-.584-5.978 13.543-4.428-.445 6.088-14.1-2.1-1.25-7.528 12.012-3.764-.445L12.4 12.9l-1.107-1.78L.665 15.57 0 13.124l8.635-7.786zm162.49 0l-2.88 6.9-8.412 1.335-.664 12.458 4.427 17.8 2.878-.22-2.8-11.847 2.99-.084 4.676 12.6 3.544-.446-4.4-12.736 3.072-.584 5.978 13.543 4.428-.445-6.088-14.1 2.1-1.25 7.528 12.012 3.764-.445L192.6 12.9l1.107-1.78 10.628 4.45.665-2.447-8.635-7.786z"></path></svg>
+                                            </div> -->
                                 </div>
                             </div>
                         </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;" data-dismiss="modal">Close</button>
-                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-                    <button id="submit" type="submit" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;" data-toggle="modal" data-target="#modalForm">Submit</button>
+                <div class="modal-footer" style="padding: 10px;">
+                    <button type="button" class="btn btn-sm btn-primary" style="background-color: #337ab7; border-color: #2e6da4;" data-dismiss="modal">Close</button>
+                    <button id="submit" type="submit" class="btn btn-sm btn-primary" style="background-color: #337ab7; border-color: #2e6da4;">Submit</button>
                 </div>
             </div>
 
-            </form>
-        </div>
+        </form>
     </div>
+</div>
 
-    <script>
-    $(document).on("click","#cust_btn",function(){
-  
-  $("#editMyModal").modal("toggle");
-  
-})
-</script>
-
-    <div class="modal left fade" id="editMyModal" role="dialog">
-        <div class="modal-dialog">
-            <form id="myForm" method="post" enctype="multipart/form-data">
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Diagram.</h4>
-                </div>
-                <div class="modal-body">
-                    <!-- <p>Question.</p> -->
-                    <select name="question" id="question" class="form-control">
-                        <option id="selected_diagram">Diagram</option>
-                    </select>
-                    
-
-                        <div id="diagram" >
-                            
-                            <div class="row">
-
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_f.jpg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_f.jpg" alt="Body 1" width="145px;" style="margin-left: 39px;">
-                                    <div>Body 1</div>
-                                </div>
-                        
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_m.jpg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_m.jpg" alt="Body 2" width="149px;" style="margin-left: 39px;">
-                                    <div>Body 2</div>
-                                </div>
-
-                            </div>
-                            <div class="row">
-
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_m.jpeg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_m.jpeg" alt="Male" width="195px;" style="margin-left: 39px;">
-                                    <div>Male</div>
-                                </div>
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_f.jpeg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_f.jpeg" alt="Female" width="145px;" style="margin-left: 39px;">
-                                    <div>Female</div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_b.jpeg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_b.jpeg" alt="Boy" width="145px;" style="margin-left: 39px;">
-                                        <div>Boy</div>
-                                </div>
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_g.jpeg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_g.jpeg" alt="Girl" width="145px;" style="margin-left: 39px;">
-                                    <div>Girl</div>
-                                </div>
-
-                            </div>
-                            <div class="row">
-
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/hand.jpeg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/hand.jpeg" alt="Hand" width="145px;" style="margin-left: 39px;">
-                                    <div>Hand</div>
-                                </div>
-
-                                <div class="col-md-6">
-                                           
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;" data-dismiss="modal">Close</button>
-                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-                    <button id="submit" type="submit" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;" data-toggle="modal" data-target="#modalForm">Submit</button>
-                </div>
-            </div>
-
-            </form>
-        </div>
-    </div>
 
 </div>
 
@@ -1868,65 +1757,17 @@ $('#consultation_details').html(consultationDetails);
 
                 $('#consultation_type').html(consultationType);
 
-    //             var notes = 
-    // data.first_name + ' ' + data.last_name + ', ' +
-    // 'Created on: ' + data.create_date + '\n' +
-    // 'Consultation Type: ' + data.consultation_type + '\n' +
-    // 'Consultation Date: ' + data.consultation_date + '\n' +
-    // 'Presenting Complaint: ' + data.presenting_complaint + '\n' +
-    // 'Comment: ' + data.comment + '\n' +
-    // 'Relationship: ' + data.relationship + '\n' +
-    // 'diagram:';
+                var notes = 
+    data.first_name + ' ' + data.last_name + ', ' +
+    'Created on: ' + data.create_date + '\n' +
+    'Consultation Type: ' + data.consultation_type + '\n' +
+    'Consultation Date: ' + data.consultation_date + '\n' +
+    'Presenting Complaint: ' + data.presenting_complaint + '\n' +
+    'Comment: ' + data.comment + '\n' +
+    'Relationship: ' + data.relationship +
+    'diagram: <img src=" '+  data.diagram_url + '" alt="Diagram Image" style="max-width:150px; margin: 5px;">';
    
    
-    var notes = 
-    data.first_name + ' ' + data.last_name + ',\n</br> ' +
-    '<b>Created on: </b>' + data.create_date + '\n</br>' +
-    '<b>Consultation Type: </b>' + data.consultation_type + '\n</br>' +
-    '<b>Consultation Date: </b>' + data.consultation_date + '\n</br>' +
-    '<b>Presenting Complaint: </b>' + data.presenting_complaint + '\n</br>' +
-    '<b>Comment: </b>' + data.comment + '\n</br>' +
-    '<b>Relationship: </b>' + data.relationship + '\n</br>' +
-    '<b>Allergy Search: </b>' + data.allergy_search + '\n</br>' +
-    '<b>Allergy Comment: </b>' + data.allergy_comment + '\n</br>' +
-    '<b>Severity: </b>' + data.severity + '\n</br>' +
-    '<b>Examination Comment: </b>' + data.examination_comment + '\n</br>' +
-    '<b>Family History: </b>' + data.family_comment + '\n</br>' +
-    '<b>Medication Type: </b>' + data.medication_type + '\n</br>' +
-    '<b>Social Comment: </b>' + data.social_comment + '\n</br>' +
-    '<b>Problem Heading: </b>' + data.problem_heading_search + '\n</br>' +
-    '<b>Problem Comment: </b>' + data.problem_comment + '\n</br>' +
-    '<b>Product Comment: </b>' + data.product_comment + '\n</br>' +
-    '<b>Doctor Name: </b>' + data.doctor_name + '\n</br>' +            // Add Doctor Name
-    '<b>Allergy Severity: </b>' + data.allergy_severity + '\n</br>' +  // Add Allergy Severity
-    '<b>Examination Value: </b>' + data.examination_value + '\n</br>' + // Add Examination Value
-    '<b>Medical History Since: </b>' + data.medical_history_since + '\n</br>' + // Add Medical History Since
-    '<b>diagram:</b>';
-
-$('.note-content').html(notes);
-var myArray = jQuery.parseJSON(data.diagram_url);
-
-const images = myArray;
-
-// Get the container element
-const container = document.getElementById('diagram_image');
-
-// Clear previous images
-container.innerHTML = ''; // Removes all existing images
-
-// Add new images from myArray
-images.forEach(image => {
-    const img = document.createElement('img');
-    img.src = image;
-    
-    // Set width and height
-    img.style.width = '200px';  // Adjust as needed
-    img.style.height = '150px'; // Adjust as needed
-
-    // Append the image to the container
-    container.appendChild(img);
-});
-
 
 // $('.note-content').html(notes);
 
@@ -1945,7 +1786,7 @@ images.forEach(image => {
    
 // }
 
-
+$('.note-content').html(notes);
 
 
 // Assuming `data` is the JavaScript object containing the information
@@ -1980,7 +1821,7 @@ images.forEach(image => {
 
 // Display the content in the `#consultation_details` element
 // $('#consultation_details').html(consultationDetails);
-// $('.note-content').html(notes);
+$('.note-content').html(notes);
 
 
                 // $('.note-content').html(data.presenting_complaint + ', Since: ' + data.since + ', ' + data.condition_type + ', ' + data.condition_significance);
@@ -2069,9 +1910,7 @@ images.forEach(image => {
 
                
                 var action = '<button type="button" data-toggle="modal" data-target="#exampleModalEdit" ' +
-             'data-whatever="@mdo" data-type="' + data.type + '" data-product_type="' + data.product_type + '" data-medication_type="' + data.medication_type + '" data-social_type="' + data.social_type + '" data-family_type="' + data.family_type + '" data-medical_type="' + data.medical_type + '" data-allergy_type="' + data.allergy_type + '" data-examination_type="' + data.examination_type + '" data-problem_type="' + data.problem_type + '" data-presenting_type="' + data.presenting_type + '" data-comments_type="' + data.comments_type + '" data-diagram_type="' + data.diagram_type + '" data-id="' + data.id + '">Edit</button>';
-
-           
+             'data-whatever="@mdo" data-type="' + data.type + '" data-id="' + data.id + '">Edit</button>';
 
                     $('#edit_consultation_id').html(action);
                     $('#exampleModalEdit').on('show.bs.modal', function (event) {
@@ -2079,57 +1918,41 @@ images.forEach(image => {
                     var type = button.data('type');      // Extract info from data-* attributes
                     var id = button.data('id');          // Extract the consultation id
 
-                    var product_type = button.data('product_type'); 
-                    var medication_type = button.data('medication_type'); 
-                    var social_type = button.data('social_type'); 
-                    var family_type = button.data('family_type'); 
-                    var medical_type = button.data('medical_type'); 
-                    var allergy_type = button.data('allergy_type'); 
-                    var examination_type = button.data('examination_type'); 
-                    var problem_type = button.data('problem_type'); 
-                    var presenting_type = button.data('presenting_type'); 
-                    var comments_type = button.data('comments_type'); 
-                    var diagram_type = button.data('diagram_type'); 
-
                     // Update the modal content with the consultation type and id
                     
                     $('.consultationType').val(type);  // Insert type into modal
                     $('.consultationId').val(id);
 
-                    if(product_type == 'product'){
+                    if(type == 'product'){
                             $('#form-product').css("display","block");
                     }
-                    if(medication_type == 'medication'){
+                    if(type == 'medication'){
                             $('#form-medication').css("display","block");
                     }
-                    if(social_type == 'social'){
+                    if(type == 'social'){
                             $('#form-social').css("display","block");
                     }
-                    if(family_type == 'family_history'){
+                    if(type == 'family_history'){
                             $('#form-family-history').css("display","block");
                     }
-                    if(medical_type == 'medical_history'){
+                    if(type == 'medical_history'){
                             $('#form-medical-history').css("display","block");
                     }
-                    if(allergy_type == 'allergy'){
+                    if(type == 'allergy'){
                             $('#form-allergy').css("display","block");
                     }
-                    if(examination_type == 'examination'){
+                    if(type == 'examination'){
                             $('#form-exam').css("display","block");
                     }
-                    if(problem_type == 'problem_heading'){
+                    if(type == 'problem_heading'){
                             $('#form-problem').css("display","block");
                     }
-                    if(presenting_type == 'presenting_complaint'){
+                    if(type == 'presenting_complaint'){
                             $('#form-complaint').css("display","block");
                     }
-                    if(comments_type == 'comment'){
+                    if(type == 'comment'){
                             $('#form-comment').css("display","block");
                     }
-                    if(diagram_type == 'diagram'){
-                            $('#form-diagram').css("display","block");
-                    }
-
                     if(type == 'diagram'){
                             $('#form-diagram').css("display","block");
                     }

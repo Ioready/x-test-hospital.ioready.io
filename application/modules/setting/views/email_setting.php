@@ -1,7 +1,7 @@
 <!-- Page content -->
 
 <?php if ($this->ion_auth->is_superAdmin()) { ?>
-<div id="page-content">
+<div id="page-content" style="background-color:whitesmoke;">
     <!-- Datatables Header -->
     <ul class="breadcrumb breadcrumb-top">
         <li>

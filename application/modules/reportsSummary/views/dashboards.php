@@ -131,7 +131,7 @@
 }
     </style>
     <!-- Page content -->
-    <div id="page-content">
+    <div id="page-content" style="background-color: whitesmoke;">
         <!--<div id="msg"></div>-->
         <!-- eShop Overview Block -->
         <?php
@@ -171,8 +171,8 @@
                     </div>
                 </div> -->
 
-                        <div class="panel panel-default filter-background">
-                            <div class="panel-body panel-bodyy ">
+                        <div class="panel panel-default filter-background" style="background-color: whitesmoke;">
+                            <div class="panel-body panel-bodyy " >
                                 <!-- <div></div>
                             <div></div>
                             <div></div> -->

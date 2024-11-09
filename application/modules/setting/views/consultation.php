@@ -1,5 +1,5 @@
 <!-- Page content -->
-<div id="page-content">
+<div id="page-content"  style="background-color: whitesmoke;">
     <!-- Datatables Header -->
     <ul class="breadcrumb breadcrumb-top">
         <li>
@@ -192,7 +192,7 @@
 
     <?php }else if($this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()){?>
 
-        <div class="block full">
+        <div >
         <div class="block-title">
             <h2><strong>Site Setting</strong> Panel</h2>
         </div>
@@ -232,6 +232,8 @@
             </div>
         </div>
     </div>
+
+    
    
     <!-- Datatables Content -->
     <!-- Datatables Content -->

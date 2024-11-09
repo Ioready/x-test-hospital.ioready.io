@@ -83,7 +83,7 @@ a.status-yellow {
 
 </style>
 
-<div id="page-content">
+<div id="page-content" style="background-color: whitesmoke;">
         <!-- Datatables Header -->
         <h2><?php echo (isset($headline)) ? ucwords($headline) : "" ?></h2>
         <ul class="breadcrumb breadcrumb-top">

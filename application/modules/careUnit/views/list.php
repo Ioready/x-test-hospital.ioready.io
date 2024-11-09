@@ -1,5 +1,5 @@
 <!-- Page content -->
-<div id="page-content">
+<div id="page-content"  style="background-color: whitesmoke;">
     
     <!-- <div id="page-content">
     <ul class="breadcrumb breadcrumb-top">
