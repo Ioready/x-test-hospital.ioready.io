@@ -278,7 +278,8 @@
                                        
                        <div class="col-sm-3 nopadding">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products">
+                            <input type="search" class="form-control" id="products" name="products[]" onkeyup="myFunction()" placeholder="Products">
+                            <!-- <div id="result_product"></div> -->
                         </div>
                     </div>
                     <div class="col-sm-3 nopadding">
@@ -299,6 +300,8 @@
 
                             <div id="item_fields">
                             </div>
+
+                            <div id="result_product"></div>
                         </div>
                         <!-- </div> -->
   
@@ -316,6 +319,9 @@
                             <input type="hidden" name="id" value="<?php echo $results->id; ?>" />
 
                             <div class="space-22"></div>
+
+   
+
                         </div>
                     </div>
                 </div>
@@ -364,7 +370,8 @@ function updateTotalPrice() {
     });
 
     // Update the total price field
-    document.getElementById('total_price').value = '£ '+ total.toFixed(2);
+    // document.getElementById('total_price').value = '£ '+ total.toFixed(2);
+    document.getElementById('total_price').value = + total;
 }
 
 
@@ -378,7 +385,7 @@ function education_fields() {
     var divtest = document.createElement("div");
 	divtest.setAttribute("class", "form-group removeclass"+room);
 	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products name"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity" oninput="calculatePrice(this)"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price" readonly></div></div> <div class="col-sm-2"><div class="form-group">  <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> </button></div></div><div class="clear"></div>';
+    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group product_item"> <input type="search" class="form-control" id="product_item" name="products[]" placeholder="Products name" onkeyup="myProductFunction()"><div id="result_productsjkjk"></div></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity" oninput="calculatePrice(this)"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price" readonly></div></div> <div class="col-sm-2"><div class="form-group">  <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> </button></div></div><div class="clear"></div>';
     
     objTo.appendChild(divtest);
     updateTotalPrice();

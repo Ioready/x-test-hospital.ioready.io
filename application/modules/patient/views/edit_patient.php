@@ -34,6 +34,8 @@
     </ul>
     
     <div class="block full">
+
+    <?php //print_r($results);die; ?>
         <div class="block-title">
             <h2><strong>Patient</strong> Panel</h2>
         </div>
@@ -316,23 +318,40 @@
                         <div class="form-group">
                             <label class="m-4 control-label">State</label>
                             <div class="col-md-12">
-                            <span><?php echo $results->state;?></span>
+                            <select id="state_id"  name="state_id" class="form-control select2" size="1">
+                                       
+                            <?php foreach ($states as $state) { ?>
+                                                        
+                                <option value="<?php echo $state->id_state; ?>" <?php echo $results->state ==$state->id_state ?'selected':'';?>><?php echo $state->state; ?></option>
+                                                                
+                            <?php } ?>
+                            </select>
+                            <!-- <span><?php echo $results->state;?></span> -->
                             <!-- <input type="text" class="form-control" name="state_id" id="state_in" placeholder="State Name"/> -->
-                            </div>
-                            <div class="col-md-12" id="state_div">
-                            </div>
+                            
+                        </div>
+                            <!-- <div class="col-md-12" id="state_div"> -->
+                            <!-- </div> -->
                         </div>
                     </div>
                     <div class="col-md-6" >
                         <div class="form-group">
                             <label class="m-4 control-label">City</label>
                             <div class="col-md-12">
-                               <span><?php echo $results->city;?></span>
+                            <select id="city_id"  name="city_id" class="form-control select2" size="1">
+                               
+                            <?php foreach ($cities as $citie) { ?>
+                                                        
+                                    <option value="<?php echo $citie->id_city; ?>" <?php echo $results->city ==$citie->id_city ?'selected':'';?>><?php echo $citie->city; ?></option>
+                                                                
+                                    <?php } ?>
+                            </select>
+                               <!-- <span><?php echo $results->city;?></span> -->
                             <!-- <input type="text" class="form-control" name="city_id" id="city_in" placeholder="City Name"/> -->
                             </div>
-                            <div class="col-md-12" id="city">
+                            <!-- <div class="col-md-12" id="city">
                                
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="col-md-6" >
@@ -741,7 +760,7 @@
                                                                 if (!empty($doctors)) {
                                                                     foreach ($doctors as $doctor) {
                                                                 ?>
-                                                                <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                                <option value="<?php echo $doctor->id; ?>"  <?php echo $results->patient_doctor_id ==$doctor->id ?'selected':''; ?>><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
 
                                                                 <?php
                                                                     }
@@ -781,7 +800,7 @@
                                                                 if (!empty($doctors)) {
                                                                     foreach ($doctors as $doctor) {
                                                                 ?>
-                                                                <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
+                                                                <option value="<?php echo $doctor->id; ?>" <?php echo $results->patient_doctor_id ==$doctor->id ?'selected':''; ?>><?php echo $doctor->first_name. ' '.$doctor->last_name; ?></option>
 
                                                                 <?php
                                                                     }
@@ -1149,24 +1168,32 @@
                                                     <div class="form-group">
                                                         <label class="col-md-3 control-label">Additional Comment</label>
                                                         <div class="col-md-9">
-                                                            <select id="additional_comment_option" name="additional_comment_option[]" onchange="isDirty(this.value)" class="form-control multiple-select select-chosen" size="1" multiple="multiple">
+                                                            <!-- <select id="additional_comment_option" name="additional_comment_option[]" onchange="isDirty(this.value)" class="form-control multiple-select select-chosen" size="1" multiple="multiple">
                                                                 <option value="" disabled>Please select</option>
-                                                                <option value="Does not meet Loeb/ McGeer Criteria"<?php echo ($results->additional_comment_option == "Does not meet Loeb/ McGeer Criteria") ? "selected" : ""; ?> >Does not meet Loeb/ McGeer Criteria</option>
-                                                                <option value="Consider shorter antibiotic course" <?php echo ($results->additional_comment_option == "Consider shorter antibiotic course") ? "selected" : ""; ?>>Consider shorter antibiotic course</option>
-                                                                <option value="Antibiotics not recommended" <?php echo ($results->additional_comment_option == "Antibiotics not recommended") ? "selected" : ""; ?>>Antibiotics not recommended</option>
-                                                                <option value="Other/Free Text" <?php echo ($results->additional_comment_option == "Other/Free Text") ? "selected" : ""; ?>>Other/Free Text</option>
-                                                            </select>
+                                                                <option value="Does not meet Loeb/ McGeer Criteria"<?php echo ($results->additional_comment_option == 'Does not meet Loeb/ McGeer Criteria') ? 'selected' : ''; ?> >Does not meet Loeb/ McGeer Criteria</option>
+                                                                <option value="Consider shorter antibiotic course" <?php echo ($results->additional_comment_option == 'Consider shorter antibiotic course') ? 'selected' : '' ?>>Consider shorter antibiotic course</option>
+                                                                <option value="Antibiotics not recommended" <?php echo ($results->additional_comment_option == 'Antibiotics not recommended') ? 'selected' : '' ?>>Antibiotics not recommended</option>
+                                                                <option value="Other/Free Text" <?php echo ($results->additional_comment_option == 'Other/Free Text') ? 'selected' : '' ?>>Other/Free Text</option>
+                                                            </select> -->
+                                                            <?php
+// Decode the selected values as an array
+$selected_options = json_decode($results->additional_comment_option, true);
+// print_r($selected_options);die;
+?>
+
+<select id="additional_comment_option" name="additional_comment_option[]" onchange="isDirty(this.value)" class="form-control multiple-select select-chosen" multiple="multiple">
+    <option value="" disabled>Please select</option>
+    <option value="Does not meet Loeb/ McGeer Criteria" <?php echo (in_array('Does not meet Loeb/ McGeer Criteria', $selected_options)) ? 'selected' : ''; ?>>Does not meet Loeb/ McGeer Criteria</option>
+    <option value="Consider shorter antibiotic course" <?php echo (in_array('Consider shorter antibiotic course', $selected_options)) ? 'selected' : ''; ?>>Consider shorter antibiotic course</option>
+    <option value="Antibiotics not recommended" <?php echo (in_array('Antibiotics not recommended', $selected_options)) ? 'selected' : ''; ?>>Antibiotics not recommended</option>
+    <option value="Other/Free Text" <?php echo (in_array('Other/Free Text', $selected_options)) ? 'selected' : ''; ?>>Other/Free Text</option>
+</select>
+
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="col-md-3 control-label">Additional Comment</label>
-                                                        <div class="col-md-9">
-                                                            <input type="text" onchange="isDirty(this.value)" class="form-control" name="additional_comment_option[]" id="additional_comment_option" placeholder="Add your comment"  value="<?php echo $results->additional_comment_option;?>"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                               
                                                 <div class="space-22"></div>
                                             </div>
                                         </div>

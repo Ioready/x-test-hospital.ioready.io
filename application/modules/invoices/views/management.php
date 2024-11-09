@@ -735,7 +735,7 @@
                                                     </div>
                                                 <div class="col-sm-3 nopadding">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products">
+                                                <!-- <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products"> -->
                                             </div>
                                             </div>
                                             <div class="col-sm-3 nopadding">

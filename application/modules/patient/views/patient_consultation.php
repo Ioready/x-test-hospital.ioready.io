@@ -432,21 +432,7 @@
                 <div class="row">
                     <!-- Buttons for Form Sections -->
                     <div class="col-md-8" >
-                        <div class="btn-group mb-4" role="group">
-                            <button type="button" id="btn-complaint" onclick="setTypePresenting('presenting_complaint')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Presenting Complaint</button>
-                            <button type="button" id="btn-problem" onclick="setTypeProblem('problem_heading')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Problem Heading</button>
-                            <button type="button" id="btn-exam" onclick="setTypeExamination('examination')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Examination</button>
-                            <button type="button" id="btn-allergy" onclick="setTypeAllergy('allergy')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Allergy</button>
-                            <button type="button" id="btn-medical-history" onclick="setTypeMedical('medical_history')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Medical History</button>
-                            <button type="button" id="btn-family-history" onclick="setTypeFamily('family_history')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Family History</button>
-                            <button type="button" id="btn-social" onclick="setTypeSocial('social')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Social</button>
-                            <button type="button" id="btn-medication" onclick="setTypeMedication('medication')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Medication</button>
-                            <button type="button" id="btn-product" onclick="setTypeProduct('product')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Product</button>
-                            <button type="button" id="btn-comment" onclick="setTypeComment('comment')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Comment</button>
-                            <button type="button" id="btn-diagram" onclick="setTypeDiagram('diagram')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Diagram</button>
-                        </div>
-
-                        
+                    
             
                         <!-- Dynamic Form Sections -->
                         <div id="form-sections">
@@ -512,7 +498,7 @@
                                 <span class="close-icon" onclick="$('#form-complaint').hide()">&times;</span>
                                 <h4>Presenting Complaint</h4>
                                 <input type="text" class="form-control" name="presenting_complaint" id="presenting_complaint" placeholder="Enter Complaint">
-                                <input type="text" class="form-control" name="presenting_type" id="presenting" placeholder="Enter presenting">
+                                <input type="hidden" class="form-control" name="presenting_type" id="presenting" placeholder="Enter presenting">
                             
                                 <!-- <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
                                 <button type="button" class="close-btn" onclick="$('#form-complaint').hide()">Close</button>
@@ -537,7 +523,7 @@
                                     <span style="padding: 10px; margin-left: 25px;"><b>Problem</b></span>
                                 </div>
                                 <div class="row">
-                                <input type="text" class="form-control" name="problem_type" id="problem" placeholder="Enter problem">
+                                <input type="hidden" class="form-control" name="problem_type" id="problem" placeholder="Enter problem">
                             
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Problem</strong></label>
@@ -589,7 +575,7 @@
                             <span class="close-icon" onclick="$('#form-exam').hide()">&times;</span>
                                 <h4>Examination</h4>
                                 <div class="row">
-                                <input type="text" class="form-control" name="examination_type" id="examination" placeholder="Enter Complaint">
+                                <input type="hidden" class="form-control" name="examination_type" id="examination" placeholder="Enter Complaint">
                             
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Examination</strong></label>
@@ -625,7 +611,7 @@
                             <span class="close-icon" onclick="$('#form-allergy').hide()">&times;</span>
                                 <h4>Allergy</h4>
                                 <div class="row">
-                                <input type="text" class="form-control" name="allergy_type" id="allergy" placeholder="Enter allergy">
+                                <input type="hidden" class="form-control" name="allergy_type" id="allergy" placeholder="Enter allergy">
                             
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label for="allergySearch">Allergy</label>
@@ -666,7 +652,7 @@
                             <span class="close-icon" onclick="$('#form-medical-history').hide()">&times;</span>
                                 <h4>Medical History</h4>
                                 <div class="row">
-                                <input type="text" class="form-control" name="medical_type" id="medical" placeholder="Enter medical">
+                                <input type="hidden" class="form-control" name="medical_type" id="medical" placeholder="Enter medical">
                             
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Medical History</strong></label>
@@ -718,7 +704,7 @@
                             <span class="close-icon" onclick="$('#form-family-history').hide()">&times;</span>
                                 <h4>Family History</h4>
                                 <div class="row">
-                                <input type="text" class="form-control" name="family_type" id="family" placeholder="Enter family">
+                                <input type="hidden" class="form-control" name="family_type" id="family" placeholder="Enter family">
                             
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label for="familyHistorySearch">Family History</label>
@@ -764,7 +750,7 @@
                             <span class="close-icon" onclick="$('#form-social').hide()">&times;</span>                                        
                                 <h4>Social</h4>
                                 <div class="row">
-                                <input type="text" class="form-control" name="social_type" id="social" placeholder="Enter social">
+                                <input type="hidden" class="form-control" name="social_type" id="social" placeholder="Enter social">
                             
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Social</strong></label>
@@ -811,7 +797,7 @@
                             <span class="close-icon" onclick="$('#form-medication').hide()">&times;</span>
                                 <h4>Medication</h4>
                                 <div class="row">
-                                <input type="text" class="form-control" name="medication_type" id="medication" placeholder="Enter medication">
+                                <input type="hidden" class="form-control" name="medication_type" id="medication" placeholder="Enter medication">
                             
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Medication</strong></label>
@@ -859,7 +845,7 @@
                             <span class="close-icon" onclick="$('#form-product').hide()">&times;</span>
                                 <h4>Product</h4>
                                 <div class="row">
-                                <input type="text" class="form-control" name="product_type" id="product" placeholder="Enter Complaint">
+                                <input type="hidden" class="form-control" name="product_type" id="product" placeholder="Enter Complaint">
                             
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Product</strong></label>
@@ -909,7 +895,7 @@
 
                             <span class="close-icon" onclick="$('#form-comment').hide()">&times;</span>
                                 <h4>Comment</h4>
-                                <input type="text" class="form-control" name="comments_type" id="comments" placeholder="Enter Complaint">
+                                <input type="hidden" class="form-control" name="comments_type" id="comments" placeholder="Enter Complaint">
                             
                                 <textarea class="form-control" placeholder="Enter Comment" name="comment" id="comment"></textarea>
 
@@ -930,11 +916,12 @@
 
                                 <span class="close-icon" onclick="$('#form-diagram').hide()">&times;</span>
                                     <h4>Diagram</h4>
-                                    <input type="text" class="form-control" name="diagram_type" id="diagram" placeholder="Enter Complaint">
+                                    <input type="hidden" class="form-control" name="diagram_type" id="diagram" placeholder="Enter Complaint">
+                                    
                                     <button type="button" style="color:green; background:white; border: 1px solid green; border-radius:5px; padding:5px;" data-toggle="modal" data-target="#myModal"> Add a diagram</button>
                                     <div id="select_question"></div>
 
-                                    <!-- <textarea class="form-control" placeholder="Enter Comment" name="comment" id="comment"></textarea> -->
+                                    <textarea class="form-control" placeholder="Enter diagram text" name="diagram_comment" id="diagram_comment"></textarea>
 
                                     <!-- <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>    
                                     <button type="button" class="close-btn" onclick="$('#form-comment').hide()">Close</button>
@@ -942,9 +929,25 @@
                             </div>
                         </div>
                         <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>    
-                                    <button type="button" class="close-btn" >Close</button>
-                                </form>
+                                   
+                        </form>
+                        
+                        <hr class="new3">
                          <!-- </form> -->
+
+                         <div class="btn-group mb-4" role="group">
+                            <button type="button" id="btn-complaint" onclick="setTypePresenting('presenting_complaint')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Presenting Complaint</button>
+                            <button type="button" id="btn-problem" onclick="setTypeProblem('problem_heading')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Problem Heading</button>
+                            <button type="button" id="btn-exam" onclick="setTypeExamination('examination')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Examination</button>
+                            <button type="button" id="btn-allergy" onclick="setTypeAllergy('allergy')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Allergy</button>
+                            <button type="button" id="btn-medical-history" onclick="setTypeMedical('medical_history')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Medical History</button>
+                            <button type="button" id="btn-family-history" onclick="setTypeFamily('family_history')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Family History</button>
+                            <button type="button" id="btn-social" onclick="setTypeSocial('social')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Social</button>
+                            <button type="button" id="btn-medication" onclick="setTypeMedication('medication')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Medication</button>
+                            <button type="button" id="btn-product" onclick="setTypeProduct('product')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Product</button>
+                            <button type="button" id="btn-comment" onclick="setTypeComment('comment')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Comment</button>
+                            <button type="button" id="btn-diagram" onclick="setTypeDiagram('diagram')" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Diagram</button>
+                        </div>
 
                     </div>
 
@@ -1105,6 +1108,11 @@
     .human-body svg {
         fill: #57c9d5;
     }
+
+    hr.new3 {
+  border-top: 3px dotted red;
+}
+
 </style>
 
 

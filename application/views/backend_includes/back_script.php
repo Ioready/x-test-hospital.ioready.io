@@ -860,3 +860,150 @@ bootbox.confirm({
     /** end script in application **/
 
 </script>
+
+<!-- <script>
+    $(document).ready(function() {
+        $("#products").keyup(function() {
+            var query = $(this).val();
+            alert(query);
+            console.log(query);
+            if (query != '') {
+                $.ajax({
+                    url: "<?php echo site_url('invoices/fetchAllProduct'); ?>",
+                    method: "POST",
+                    data: {query: query},
+                    success: function(data) {
+                        $('#result_product').html(data);
+                    }
+                });
+            } else {
+                $('#result_product').html('');
+            }
+        });
+    });
+</script>
+
+<script>
+    function getSearchAllProduct() {
+        var searchValue = document.getElementById("consultation_allergy").value;
+
+        document.getElementById("products").value = searchValue;
+    }
+</script> -->
+<script>
+    function myFunction() {
+    let x = document.getElementById("products");
+    query= x.value;
+    if (query != '') {
+                    $.ajax({
+                        url: "<?php echo site_url('invoices/fetchAllProduct'); ?>",
+                        method: "POST",
+                        data: {query: query},
+                        success: function(data) {
+                            $('#result_product').html(data);
+                        }
+                    });
+                } else {
+                    $('#result_product').html('');
+                }
+
+}
+</script>
+<script>
+    function getSearchAllProduct() {
+        var searchValue = document.getElementById("consultation_product").value;
+
+        document.getElementById("products").value = searchValue;
+    }
+</script>
+
+<script>
+    function myProductFunction() {
+    let x = document.getElementById("product_item");
+    // let x = document.getElementsByClassName("product_item");
+    query= x.value;
+    // alert(query); 
+    
+    if (query != '') {
+                    $.ajax({
+                        url: "<?php echo site_url('invoices/fetchAllProductSearch'); ?>",
+                        method: "POST",
+                        data: {query: query},
+                        success: function(data) {
+                            $('#result_productsjkjk').html(data);
+                        }
+                    });
+                } else {
+                    $('#result_productsjkjk').html('');
+                }
+}
+</script>
+<script>
+    function getSearchAllProductAdd() {
+        var searchValue = document.getElementById("consultation_productadd").value;
+
+        document.getElementById("product_item").value = searchValue;
+    }
+</script>
+
+
+<!-- Edit invoice product items -->
+
+<script>
+    function myFunctionUpdate() {
+    let x = document.getElementById("products");
+    query= x.value;
+    if (query != '') {
+                    $.ajax({
+                        url: "<?php echo site_url('invoices/fetchAllProduct'); ?>",
+                        method: "POST",
+                        data: {query: query},
+                        success: function(data) {
+                            $('#result_product').html(data);
+                        }
+                    });
+                } else {
+                    $('#result_product').html('');
+                }
+
+}
+</script>
+<script>
+    function getSearchAllProductUpdate() {
+        var searchValue = document.getElementById("consultation_product_update").value;
+
+        document.getElementById("products").value = searchValue;
+    }
+</script>
+
+<script>
+    function myProductFunctionEdit() {
+    let x = document.getElementById("product_item");
+    // let x = document.getElementsByClassName("product_item");
+    query= x.value;
+    // alert(query); 
+    
+    if (query != '') {
+                    $.ajax({
+                        url: "<?php echo site_url('invoices/fetchAllProductSearchEdit '); ?>",
+                        method: "POST",
+                        data: {query: query},
+                        success: function(data) {
+                            $('#result_productsjkjk').html(data);
+                        }
+                    });
+                } else {
+                    $('#result_productsjkjk').html('');
+                }
+}
+</script>
+<script>
+    function getSearchAllProductEdit() {
+        var searchValue = document.getElementById("consultation_product_edit").value;
+
+        document.getElementById("product_item").value = searchValue;
+    }
+</script>
+
+
+

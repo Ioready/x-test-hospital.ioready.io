@@ -488,7 +488,8 @@ class Invoices extends Common_Controller {
 
                     if ($invoice_id) {
                         // Insert products linked to the invoice
-                        $products = $this->input->post('products');
+                        // $products = $this->input->post('products');
+                        $products = $this->input->post('consultation_product');
                         $rates = $this->input->post('rate');
                         $quantities = $this->input->post('quantity');
                         $prices = $this->input->post('price');
@@ -1855,6 +1856,85 @@ public function process() {
     }
 
     
+    public function fetchAllProduct() {
+        $output = '';
+        $query = $this->input->post('query');
+        if ($query) {
+            $results = $this->common_model->fetchAllProducts($query);
+            // print_r($results);die;
+            $output .= '<select class="form-control select2" name="consultation_product[]" id="consultation_product" onclick="getSearchAllProduct()">';
+            if (!empty($results)) {
+                foreach ($results as $row) {
+                    $output .= '<option value="'.$row['name'].'">'.$row['name'].'</option>';
+                   
+                }
+            } else {
+                $output .= '<option>No Data Found</option>';
+            }
+            $output .= '</select>';
+            echo $output;
+        }
+    }
+    public function fetchAllProductSearch() {
+        $output = '';
+        $query = $this->input->post('query');
+        if ($query) {
+            $results = $this->common_model->fetchAllProducts($query);
+            // print_r($results);die;
+            $output .= '<select class="form-control select2" name="consultation_product[]" id="consultation_productadd" onclick="getSearchAllProductAdd()">';
+            if (!empty($results)) {
+                foreach ($results as $row) {
+                    $output .= '<option value="'.$row['name'].'">'.$row['name'].'</option>';
+                   
+                }
+            } else {
+                $output .= '<option>No Data Found</option>';
+            }
+            $output .= '</select>';
+            echo $output;
+        }
+    }
 
+
+    // Edit item search function 
+
+    public function fetchAllProductEdit() {
+        $output = '';
+        $query = $this->input->post('query');
+        if ($query) {
+            $results = $this->common_model->fetchAllProducts($query);
+            // print_r($results);die;
+            $output .= '<select class="form-control select2" name="consultation_product[]" id="consultation_product_update" onclick="getSearchAllProductUpdate()">';
+            if (!empty($results)) {
+                foreach ($results as $row) {
+                    $output .= '<option value="'.$row['name'].'">'.$row['name'].'</option>';
+                   
+                }
+            } else {
+                $output .= '<option>No Data Found</option>';
+            }
+            $output .= '</select>';
+            echo $output;
+        }
+    }
+    public function fetchAllProductSearchEdit() {
+        $output = '';
+        $query = $this->input->post('query');
+        if ($query) {
+            $results = $this->common_model->fetchAllProducts($query);
+            // print_r($results);die;
+            $output .= '<select class="form-control select2" name="consultation_product[]" id="consultation_product_edit" onclick="getSearchAllProductEdit()">';
+            if (!empty($results)) {
+                foreach ($results as $row) {
+                    $output .= '<option value="'.$row['name'].'">'.$row['name'].'</option>';
+                   
+                }
+            } else {
+                $output .= '<option>No Data Found</option>';
+            }
+            $output .= '</select>';
+            echo $output;
+        }
+    }
 
 }

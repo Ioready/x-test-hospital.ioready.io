@@ -158,7 +158,7 @@
         <div class="form-group">
             <div class="col-md-12">
                 <label class="control-label">Patient comments(optional)</label>
-                <textarea class="form-control" name="comment" id="comment" rows="10"></textarea>
+                <textarea class="form-control" name="patient_comment" id="comment" rows="10"></textarea>
             </div>
         </div>
     </div>

@@ -303,7 +303,7 @@
                                 <div class="row-container">
                                     <div class="col-sm-3 nopadding">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="products" name="products[]" value="<?php echo $item->product_name ?>" placeholder="Products">
+                                            <input type="search" class="form-control" id="products" name="products[]" value="<?php echo $item->product_name ?>" placeholder="Products" onkeyup="myFunctionUpdate()">
                                         </div>
                                     </div>
                                     <div class="col-sm-3 nopadding">
@@ -324,7 +324,7 @@
                                 </div>
                             <?php } ?>
 
-
+                            <div id="result_product"></div>
                         <div class="clear"></div>
                         
                         </div>
@@ -495,7 +495,7 @@ function education_fields() {
     divtest.innerHTML = `
         <div class="col-sm-3 nopadding">
             <div class="form-group">
-                <input type="text" class="form-control" name="products[]" placeholder="Products name">
+                <input type="search" class="form-control" name="products[]" placeholder="Products name" id="product_item" onkeyup="myProductFunctionEdit()"><div id="result_productsjkjk"></div>
             </div>
         </div>
         <div class="col-sm-2 nopadding">

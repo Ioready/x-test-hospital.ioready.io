@@ -2478,7 +2478,8 @@ $hospital_id = $user_id;
                     'patient_id' => $patient_unique,
                     
                     'address' => ucwords($this->input->post('address_lookup')) ? $this->input->post('address_lookup') : null,
-                    'additional_comment_option' => $this->input->post('comment') ? $this->input->post('comment') : null,
+                    'additional_comment_option' => json_encode($this->input->post('additional_comment_option')) ? json_encode($this->input->post('additional_comment_option')) : null,
+                    'comment' => $this->input->post('patient_comment') ? $this->input->post('patient_comment') : null,
 
                     'room_number' => (!empty($this->input->post('room_number'))) ? $this->input->post('room_number') : null,
                     'symptom_onset' => $this->input->post('symptom_onset') ? $this->input->post('symptom_onset') : null,
@@ -2746,10 +2747,10 @@ $hospital_id = $user_id;
         $option = array('table' => 'countries','select' => '*','where'=>array('shortname'=>'GB'));
         $this->data['countries'] = $this->common_model->customGet($option);
 
-        $option = array('table' => 'states',
-                    'select' => '*');
-                $this->data['states'] = $this->common_model->customGet($option);
-
+        // $option = array('table' => 'states',
+        //             'select' => '*');
+        // $this->data['states'] = $this->common_model->customGet($option);
+       
      
                 $AdminCareUnitID = isset($_SESSION['admin_care_unit_id']) ? $_SESSION['admin_care_unit_id'] : '';
 
@@ -2763,10 +2764,22 @@ $hospital_id = $user_id;
                 $this->data['countries'] = $this->common_model->customGet($option);
         
                 $option = array('table' => 'states',
-                            'select' => '*');
+                            'select' => '*','where'=>array('country_id'=>'230'));
                         $this->data['states'] = $this->common_model->customGet($option);
         
-        
+        $allstatesId = [];
+        $allData = [];
+        foreach($this->data['states'] as $state_ids){
+            $allstatesId['all_state_id'] = $state_ids->id_state;
+           $allData = $allstatesId['all_state_id'];
+
+           $option = array('table' => 'cities',
+                        'select' => '*','where_in'=>array('state_id'=>$allData));
+                $this->data['cities'] = $this->common_model->customGet($option);
+
+                // $this->data['cities']);
+        }       
+                
         
                 $this->data['careUnitss'] = json_decode($AdminCareUnitID);
         
@@ -2945,10 +2958,10 @@ $hospital_id = $user_id;
                 'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,U.first_name as patient_first_name,U.last_name as patient_last_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                     . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                     . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password,U.gender,U.*,PCR.*,PBD.*,PNS.*,UAS.*',
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,P.additional_comment_option,P.comment,U.email as patient_email,U.email as password,U.gender,U.*,PCR.*,PBD.*,PNS.*,UAS.*,P.doctor_id as patient_doctor_id',
                 'join' => array(
                     array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
-                    array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
+                    array('doctors DOC', 'DOC.user_id=P.doctor_id', 'left'),
                     array('users U', 'U.id=P.user_id', 'left'),
                     array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
                     array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
@@ -2959,13 +2972,10 @@ $hospital_id = $user_id;
                     array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
                     array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left'),
                     array('patient_communication_relation PCR', 'PCR.user_id=U.id', 'left'),
-
                     array('patient_billing_detail PBD', 'PCR.user_id=U.id', 'left'),
                     array('notifications PNS', 'PNS.user_id=U.id', 'left'),
                     array('user_address UAS', 'UAS.user_id=U.id', 'left'),
                     
-
-
                 ),
                 'single' => true
             );
