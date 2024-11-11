@@ -18,13 +18,13 @@
     </div>
     <!-- END Quick Stats -->
     <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) { ?>
-        <div class="block full">
-            <div class="row text-center">
+        <!-- <div class="block full"> -->
+            <!-- <div class="row text-center">
 
             <div class="col-sm-6 col-lg-12">
             
-            </div>
-                <div class="col-sm-6 col-lg-12">
+            </div> -->
+                <!-- <div class="col-sm-6 col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="tab-pane-second" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -51,9 +51,9 @@
                             </div>
                         </div> 
                     </div>
-                </div>
-            </div>
-        </div>
+                </div> -->
+            <!-- </div> -->
+        <!-- </div> -->
 
     <?php } ?>
     <!-- Datatables Content -->
@@ -80,6 +80,11 @@
                         if ($menu_view =='1') { ?>
 
                 <div class="table-responsive">
+                <ul class="nav nav-pills-second nav-fill nav-tab-appointment active" id="pills-tab" role="tablist">
+                                    <li class="nav-item-second col-md-4 p-2">
+                                        <a  style="background:#337ab7;" class="btn btn-sm btn-primary mt-2 nav-link-second new-contact save-btn" data-target="#pills-5" role="tab" href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model">New</a>
+                                    </li>
+                        </ul>
                     <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
                         <thead>
                             <tr>
@@ -184,6 +189,12 @@
         <?php }}}} if($this->ion_auth->is_facilityManager()){?>
 
             <div class="table-responsive">
+            <ul class="nav nav-pills-second nav-fill nav-tab-appointment active" id="pills-tab" role="tablist">
+                                    <li class="nav-item-second col-md-4 p-2">
+                                        <a  style="background:#337ab7;" class="btn btn-sm btn-primary mt-2 nav-link-second new-contact save-btn" data-target="#pills-5" role="tab" href="<?php echo base_url() . $this->router->fetch_class(); ?>/open_model">New</a>
+                                    </li>
+                        </ul>
+
                 <table id="common_datatable_users" class="table table-vcenter table-condensed table-bordered">
                     <thead>
                         <tr>

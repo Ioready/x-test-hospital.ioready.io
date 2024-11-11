@@ -894,7 +894,7 @@
                             <!-- Presenting Complaint -->
                             
                                 <h4>Presenting Complaint</h4>
-                                <input type="text" class="form-control" name="presenting_complaint" id="presenting_complaint" placeholder="Enter Complaint">
+                                <input type="hidden" class="form-control" name="presenting_complaint" id="presenting_complaint" placeholder="Enter Complaint">
                                 <!-- <input type="hidden" class="form-control" name="type" id="type" value="presenting_complaint" placeholder="Enter Complaint"> -->
                                 <input type="hidden" class="form-control" name="presenting_type" id="presenting" value="presenting_complaint" placeholder="Enter presenting">
                             

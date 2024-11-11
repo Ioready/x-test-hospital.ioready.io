@@ -17,8 +17,6 @@
                 <div class="col-sm-6 col-lg-12 mt-4">
                     <div class="panel panel-default">
                        
-
-
                         <div class="p-4">
                 <div class="row">
                     <div class="col-lg-2">
@@ -423,7 +421,7 @@
 
                                 <td><?php echo $rows->task_name; ?></td>
                                 <td><?php echo $rows->f_name. ' '.$rows->l_name; ?></td>
-                                <td><?php echo $rows->patient_name; ?></td>
+                                <td><?php echo $rows->patient_fname. ' '.$rows->patient_lname; ?></td>
                                 <td><?php echo $rows->type_name; ?></td>
                                 <td><?php echo $rows->task_comment; ?></td>
                                 <td><?php echo $rows->culture_source_name; ?></td>
@@ -532,7 +530,7 @@
 
                                 <td><?php echo $rows->task_name; ?></td>
                                 <td><?php echo $rows->f_name. ' '.$rows->l_name; ?></td>
-                                <td><?php echo $rows->patient_name; ?></td>
+                                <td><?php echo $rows->patient_fname. ' '.$rows->patient_lname; ?></td>
                                 <td><?php echo $rows->type_name; ?></td>
                                 <td><?php echo $rows->task_comment; ?></td>
                                 <td><?php echo $rows->culture_source_name; ?></td>
