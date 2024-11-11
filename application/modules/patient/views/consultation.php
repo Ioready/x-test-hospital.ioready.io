@@ -62,6 +62,7 @@
 
 
         .card {
+    padding: 30px;
     background-color: #fff;
     border-radius: 10px;
     border: none;
@@ -834,7 +835,7 @@
 <!-- Edit Consultation  -->
 
 <div class="modal right fade  bd-example-modal-lg" id="exampleModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-lg scrollbar" role="document">
     <div class="modal-content">
       <div class="modal-header">
       <button type="button" class="close" style="margin-top:-40px;" data-dismiss="modal" aria-label="Close" onclick="closeAndReload()">
@@ -853,7 +854,7 @@
            <!-- Dynamic Form Sections -->
            <!-- <div id="form-sections"> -->
            
-            <div id="form-complaint" class="form-section" style="display:none;">
+            
 
             <form id="addFormAjax" method="post" action="<?php echo base_url('patient/updateConsultation') ?>" enctype="multipart/form-data">
 
@@ -878,11 +879,12 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label for="consultationDate">Date</label>
-                                        <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
+                                        <input type="datetime-local consultation_dates" name="consultation_date" id="consultation_date" class="form-control" required>
                                     </div>
                                  </div>
                             </div>
                             </div>
+                            <div id="form-complaint" class="form-section" style="display:none;">
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
             
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
@@ -893,7 +895,8 @@
                             
                                 <h4>Presenting Complaint</h4>
                                 <input type="text" class="form-control" name="presenting_complaint" id="presenting_complaint" placeholder="Enter Complaint">
-                                <input type="hidden" class="form-control" name="type" id="type" value="presenting_complaint" placeholder="Enter Complaint">
+                                <!-- <input type="hidden" class="form-control" name="type" id="type" value="presenting_complaint" placeholder="Enter Complaint"> -->
+                                <input type="hidden" class="form-control" name="presenting_type" id="presenting" value="presenting_complaint" placeholder="Enter presenting">
                             
                                
                         </div>
@@ -913,12 +916,16 @@
                                     <span style="padding: 10px; margin-left: 25px;"><b>Problem</b></span>
                                 </div>
                                 <div class="row">
-                                <input type="hidden" class="form-control" name="type" id="type" value="problem_heading" placeholder="Enter Complaint">
+                                <!-- <input type="hidden" class="form-control" name="type" id="type" value="problem_heading" placeholder="Enter Complaint"> -->
                             
+                                <input type="hidden" class="form-control" name="problem_type" id="problem" value="problem_heading">
+                            
+
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Problem</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" name="search" class="form-control" placeholder="Search ..." id="problemSearch">
+                                            <input type="search" name="problem_search" class="form-control" placeholder="Search ..." id="problemSearch">
+                                            <div id="result_problem"></div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
@@ -927,19 +934,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="datetime-local" name="since" id="since" class="form-control problem-heading-since">
+                                                <input type="datetime-local" name="problem_since" id="since" class="form-control problem-heading-since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" name="condition_type" id="condition_type" class="form-control problem-heading-condition-type">
+                                                <input type="text" name="problem_condition_type" id="condition_type" class="form-control problem-heading-condition-type">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" name="condition_significance" id="condition_significance" class="form-control problem-heading-condition-significance">
+                                                <input type="text" name="problem_condition_significance" id="condition_significance" class="form-control problem-heading-condition-significance">
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control problem-heading-comment" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control problem-heading-comment" rows="4" name="problem_comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="showSummary" name="showSummary">
                                             <label for="showSummary"> Show in summary</label>
@@ -959,21 +966,21 @@
 
                                 <h4>Examination</h4>
                                 <div class="row">
-                                <input type="hidden" class="form-control" name="type" id="type" value="examination" placeholder="Enter Complaint">
+                                <input type="hidden" class="form-control" name="examination_type" id="type" value="examination" placeholder="Enter Complaint">
                             
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Examination</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="examSearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="examSearch" name="examination_search">
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
                                         </div>
 
                                         <label>Value</label>
-                                        <input type="text" class="form-control" name="value" id="value">
+                                        <input type="text" class="form-control" name="examination_value" id="value">
                                         <label>Comment</label>
-                                        <textarea class="form-control examination-comment" name="comment" id="comment" rows="4"></textarea>
+                                        <textarea class="form-control examination-comment" name="examination_comment" id="comment" rows="4"></textarea>
                                     </div>
                                 </div>
                                
@@ -988,24 +995,24 @@
                            
                                 <h4>Allergy</h4>
                                 <div class="row">
-                                <input type="hidden" class="form-control" name="type" id="type" value="allergy" placeholder="Enter Complaint">
+                                <input type="hidden" class="form-control" name="allergy_type" id="type" value="allergy" placeholder="Enter Complaint">
                                 <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label for="allergySearch">Allergy</label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search allergies" id="allergySearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search allergies" id="allergySearch" name="allergy_search">
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
                                         </div>
                                         <label>Severity</label>
-                                        <select class="form-control allergy-severity" name="severity" id="severity">
+                                        <select class="form-control allergy-severity" name="allergy_severity" id="severity">
                                             <option value="severity">Select Severity</option>
                                             <option value="severity1"> Severity 1</option>
                                             <option value="severity2"> Severity 2</option>
                                         </select>
                                         <label>Comment</label>
-                                        <textarea class="form-control allergy-comment" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control allergy-comment" rows="4" name="allergy_comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="allergySummary" name="allergySummary">
                                             <label for="allergySummary"> Show in summary</label>
@@ -1024,12 +1031,12 @@
                            
                                 <h4>Medical History</h4>
                                 <div class="row">
-                                <input type="hidden" class="form-control" name="type" id="type" value="medical_history" placeholder="Enter Complaint">
+                                <input type="hidden" class="form-control" name="medical_type" id="type" value="medical_history" placeholder="Enter Complaint">
                             
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Medical History</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="medicalHistorySearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="medicalHistorySearch" name="medical_history_search">
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
@@ -1038,19 +1045,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="datetime-local" class="form-control medical-history-since" name="since" id="since">
+                                                <input type="datetime-local" class="form-control medical-history-since" name="medical_history_since" id="since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" class="form-control medical-history-condition-type" name="condition_type" id="condition_type">
+                                                <input type="text" class="form-control medical-history-condition-type" name="medical_history_condition_type" id="condition_type">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" class="form-control medical-history-condition-significance" name="condition_significance" id="condition_significance">
+                                                <input type="text" class="form-control medical-history-condition-significance" name="medical_history_condition_significance" id="condition_significance">
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control medical-history-comment" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control medical-history-comment" rows="4" name="medical_history_comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="medicalHistorySummary" name="medicalHistorySummary">
                                             <label for="medicalHistorySummary"> Show in summary</label>
@@ -1071,12 +1078,12 @@
                                 <h4>Family History</h4>
                                 <div class="row">
                                 <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
-                                <input type="hidden" class="form-control" name="type" id="type" value="family_history" placeholder="Enter Complaint">
+                                <input type="hidden" class="form-control" name="family_type" id="type" value="family_history" placeholder="Enter Complaint">
                             
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label for="familyHistorySearch">Family History</label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="familyHistorySearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="familyHistorySearch" name="family_history_search">
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
@@ -1095,7 +1102,7 @@
                                             <option value="other">Other</option>
                                         </select>
                                         <label>Comment</label>
-                                        <textarea class="form-control family-comment" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control family-comment" rows="4" name="family_history_comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="familyHistorySummary" name="familyHistorySummary">
                                             <label for="familyHistorySummary"> Show in summary</label>
@@ -1115,12 +1122,12 @@
                            
                                 <h4>Social</h4>
                                 <div class="row">
-                                <input type="hidden" class="form-control" name="type" id="type" value="social" placeholder="Enter Complaint">
+                                <input type="hidden" class="form-control" name="social_type" id="type" value="social" placeholder="Enter Complaint">
                                 <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Social</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="socialSearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="socialSearch" name="social_search">
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
@@ -1129,19 +1136,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="datetime-local" class="form-control social-since" name="since" id="since">
+                                                <input type="datetime-local" class="form-control social-since" name="social_since" id="since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" class="form-control social-condition-type" name="condition_type" id="condition_type">
+                                                <input type="text" class="form-control social-condition-type" name="social_condition_type" id="condition_type">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" class="form-control social-condition-significance" name="condition_significance" id="condition_significance">
+                                                <input type="text" class="form-control social-condition-significance" name="social_condition_significance" id="condition_significance">
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control social-comment" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control social-comment" rows="4" name="social_comment" id="comment"></textarea>
                                     </div>
                                 </div>
 
@@ -1157,12 +1164,12 @@
                            
                                          <h4>Medication</h4>
                                         <div class="row">
-                                        <input type="hidden" class="form-control" name="type" id="type" value="medication" placeholder="Enter Complaint">
+                                        <input type="hidden" class="form-control" name="medication_type" id="type" value="medication" placeholder="Enter Complaint">
                                         <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
                                             <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                              <label><strong>Medication</strong></label>
                                             <div class="input-group mb-3">
-                                                <input type="search" class="form-control" placeholder="Search ..." id="medicationSearch" name="search">
+                                                <input type="search" class="form-control" placeholder="Search ..." id="medicationSearch" name="medication_search">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text"><i class="fa fa-search"></i></span>
                                                 </div>
@@ -1171,19 +1178,19 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label>Since</label>
-                                                        <input type="datetime-local" class="form-control medication-since" name="since" id="since">
+                                                        <input type="datetime-local" class="form-control medication-since" name="medication_since" id="since">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label>Condition Type</label>
-                                                        <input type="text" class="form-control medication-condition-type" name="condition_type" id="condition_type">
+                                                        <input type="text" class="form-control medication-condition-type" name="medication_condition_type" id="condition_type">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label>Condition Significance</label>
-                                                        <input type="text" class="form-control medication-condition-significance" name="condition_significance" id="condition_significance">
+                                                        <input type="text" class="form-control medication-condition-significance" name="medication_condition_significance" id="condition_significance">
                                                     </div>
                                                 </div>
                                                 <label>Comment</label>
-                                                <textarea class="form-control medication-comment" rows="4" name="comment" id="comment"></textarea>
+                                                <textarea class="form-control medication-comment" rows="4" name="medication_comment" id="comment"></textarea>
                                                 <div>
                                                     <input type="checkbox" id="medicationSummary" name="medicationSummary">
                                                     <label for="medicationSummary"> Show in summary</label>
@@ -1203,12 +1210,12 @@
 
                                 <h4>Product</h4>
                                 <div class="row">
-                                <input type="hidden" class="form-control" name="type" id="type" value="product" placeholder="Enter Complaint">
+                                <input type="hidden" class="form-control" name="product_type" id="type" value="product" placeholder="Enter Complaint">
                                 <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
                                     <div class="col-md-11" style="border: 3px groove; border-radius: 10px; padding: 16px; margin-left: 31px;">
                                         <label><strong>Product</strong></label>
                                         <div class="input-group mb-3">
-                                            <input type="search" class="form-control" placeholder="Search ..." id="productSearch" name="search">
+                                            <input type="search" class="form-control" placeholder="Search ..." id="productSearch" name="product_search">
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                                             </div>
@@ -1217,19 +1224,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Since</label>
-                                                <input type="datetime-local" class="form-control product-since" name="since" id="since">
+                                                <input type="datetime-local" class="form-control product-since" name="product_since" id="since">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Type</label>
-                                                <input type="text" class="form-control product-condition-type" name="condition_type" id="condition_type">
+                                                <input type="text" class="form-control product-condition-type" name="product_condition_type" id="condition_type">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Condition Significance</label>
-                                                <input type="text" class="form-control product-condition-significance" name="condition_significance" id="condition_significance">
+                                                <input type="text" class="form-control product-condition-significance" name="product_condition_significance" id="condition_significance">
                                             </div>
                                         </div>
                                         <label>Comment</label>
-                                        <textarea class="form-control product-comment" rows="4" name="comment" id="comment"></textarea>
+                                        <textarea class="form-control product-comment" rows="4" name="product_comment" id="comment"></textarea>
                                         <div>
                                             <input type="checkbox" id="productSummary" name="productSummary">
                                             <label for="productSummary"> Show in summary</label>
@@ -1245,11 +1252,12 @@
 
                            
                             <div class="alert alert-danger" id="error-box" style="display: none"></div>
-                            <input type="hidden" class="form-control" name="type" id="type" value="comment" placeholder="Enter Complaint">
+                            <input type="hidden" class="form-control" name="comments_type" id="type" value="comment" placeholder="Enter Complaint">
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                             <input type="hidden" class="form-control consultationId" name="consultationId" id="consultationId" >
 
                                 <h4>Comment</h4>
+                                
                                 <textarea class="form-control" placeholder="Enter Comment" name="comment" id="comment"></textarea>
 
                                 
@@ -1266,9 +1274,13 @@
                             <input type="hidden" class="form-control" name="patient_id" id="patient_id" value="<?php echo encoding($patient_id);?>" placeholder="Enter Complaint">
                                                                         
                                 <h4>Diagram</h4>
-                                <input type="text" class="form-control" name="diagram_type" id="diagram" placeholder="Enter Complaint">
+                                <input type="hidden" class="form-control" name="diagram_type" id="diagram" value="diagram">
+                                
                                 <button type="button" style="color:green; background:white; border: 1px solid green; border-radius:5px; padding:5px;" data-toggle="modal" data-target="#editMyModal"> Add a diagram</button>
                                 <div id="select_question"></div>
+                                <div id="edit_diagram"></div>
+                            
+                                <textarea class="form-control" placeholder="Enter diagram text" name="diagram_comment" id="diagram_comment"></textarea>
 
                                 
                             <button type="submit" id="submit" class="btn btn-sm m-2" style="background-color:#337ab7; color: white;" >Save</button>
@@ -1291,91 +1303,15 @@
      
     </div>
   </div>
-  <script>
+  <!-- <script>
     $(document).on("click","#cust_btn",function(){
   
   $("#myModal").modal("toggle");
   
 })
-</script>
+</script> -->
 
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <form id="myForm" method="post" enctype="multipart/form-data">
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Diagram.</h4>
-                </div>
-                <div class="modal-body">
-                    <!-- <p>Question.</p> -->
-                    <select name="question" id="question" class="form-control">
-                        <option id="selected_diagram">Diagram</option>
-                    </select>
-                    
-
-                        <div id="diagram" >
-                            
-                            <div class="row">
-
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_f.jpg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_f.jpg" alt="Body 1" width="145px;" style="margin-left: 39px;">
-                                    <div>Body 1</div>
-                                </div>
-                        
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_m.jpg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_m.jpg" alt="Body 2" width="149px;" style="margin-left: 39px;">
-                                    <div>Body 2</div>
-                                </div>
-
-                            </div>
-                            <div class="row">
-
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_m.jpeg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_m.jpeg" alt="Male" width="195px;" style="margin-left: 39px;">
-                                    <div>Male</div>
-                                </div>
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_f.jpeg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_f.jpeg" alt="Female" width="145px;" style="margin-left: 39px;">
-                                    <div>Female</div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_b.jpeg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_b.jpeg" alt="Boy" width="145px;" style="margin-left: 39px;">
-                                        <div>Boy</div>
-                                </div>
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_g.jpeg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_g.jpeg" alt="Girl" width="145px;" style="margin-left: 39px;">
-                                    <div>Girl</div>
-                                </div>
-
-                            </div>
-                            <div class="row">
-
-                                <div class="col-md-6 card" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/hand.jpeg')">
-                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/hand.jpeg" alt="Hand" width="145px;" style="margin-left: 39px;">
-                                    <div>Hand</div>
-                                </div>
-
-                                <div class="col-md-6">
-                                           
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;" data-dismiss="modal">Close</button>
-                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-                    <button id="submit" type="submit" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;" data-toggle="modal" data-target="#modalForm">Submit</button>
-                </div>
-            </div>
-
-            </form>
-        </div>
-    </div>
+  
 
     <script>
     $(document).on("click","#cust_btn",function(){
@@ -1385,7 +1321,7 @@
 })
 </script>
 
-    <div class="modal left fade" id="editMyModal" role="dialog">
+    <!-- <div class="modal fade" id="editMyModal" role="dialog">
         <div class="modal-dialog">
             <form id="myForm" method="post" enctype="multipart/form-data">
 
@@ -1395,7 +1331,7 @@
                     <h4 class="modal-title">Diagram.</h4>
                 </div>
                 <div class="modal-body">
-                    <!-- <p>Question.</p> -->
+                  
                     <select name="question" id="question" class="form-control">
                         <option id="selected_diagram">Diagram</option>
                     </select>
@@ -1454,16 +1390,147 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;" data-dismiss="modal">Close</button>
-                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                    
                     <button id="submit" type="submit" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;" data-toggle="modal" data-target="#modalForm">Submit</button>
                 </div>
             </div>
 
             </form>
         </div>
-    </div>
+    </div> -->
+
 
 </div>
+
+
+    <div class="modal fade" id="editMyModal" role="dialog">
+        <div class="modal-dialog">
+
+            <form id="myForm" method="post" enctype="multipart/form-data">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Diagram.</h4>
+                </div>
+                <div class="modal-body">
+                  
+                    <select name="question" id="question" class="form-control">
+                        <option id="selected_diagram">Diagram</option>
+                    </select>
+                    
+
+                        <div id="diagram" >
+                            
+                            <div class="row">
+
+                                <div class="col-md-6 card diagram-img" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_f.jpg')">
+                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_f.jpg" alt="Body 1" width="140px;" style="margin-left: 24px;">
+                                    <div>Body 1</div>
+                                </div>
+                        
+                                <div class="col-md-6 card diagram-img" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_m.jpg')">
+                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_m.jpg" alt="Body 2" width="140px;" style="margin-left: 24px;">
+                                    <div>Body 2</div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6 card diagram-img" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_m.jpeg')">
+                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_m.jpeg" alt="Male" width="140px;" style="margin-left: 24px;">
+                                    <div>Male</div>
+                                </div>
+                                <div class="col-md-6 card diagram-img" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_f.jpeg')">
+                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_f.jpeg" alt="Female" width="140px;" style="margin-left: 24px;">
+                                    <div>Female</div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 card diagram-img" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_b.jpeg')">
+                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_b.jpeg" alt="Boy" width="140px;" style="margin-left: 24px;">
+                                        <div>Boy</div>
+                                </div>
+                                <div class="col-md-6 card diagram-img" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_g.jpeg')">
+                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/body_2_g.jpeg" alt="Girl" width="140px;" style="margin-left: 24px;">
+                                    <div>Girl</div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6 card diagram-img" onclick="selectDiagram('https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/hand.jpeg')">
+                                    <img src="https://s3.eu-west-2.amazonaws.com/app.heydoc.co.uk-assets/diagrams/hand.jpeg" alt="Hand" width="140px;" style="margin-left: 24px;">
+                                    <div>Hand</div>
+                                </div>
+
+                                <div class="col-md-6">
+                                           
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;" data-dismiss="modal">Close</button>
+                    
+                    <button id="submitDiagramBtn" type="button" class="btn btn-sm btn-primary mt-2" style="background:#337ab7;" data-toggle="modal" data-target="#modalForm">Submit</button>
+                </div>
+            </div>
+
+            </form>
+        </div>
+    </div>
+    
+
+
+
+<!-- Bootstrap JS and jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    let select_question = '';
+
+    // Open Edit Consultation Modal
+    $('#editConsultationBtn').on('click', function () {
+      $('#editConsultationModal').modal('show');
+    });
+
+    // Open Add Diagram Modal
+    $('#addDiagramBtn').on('click', function () {
+      $('#addDiagramModal').modal('show');
+    });
+
+    // Handle Diagram Selection
+    $('.diagram-img').on('click', function () {
+      $('.diagram-img').removeClass('selected');
+      $(this).addClass('selected');
+      select_question = $(this).data('diagram');
+    });
+
+    // Submit Diagram Selection
+    // $('#submitDiagramBtn').on('click', function () {
+    //   if (select_question) {
+    //     $('#select_question').html(`<p>Selected Diagram: <strong>${select_question}</strong></p>`);
+    //     $('#addDiagramModal').modal('hide');
+    //   } else {
+    //     alert('Please select a diagram.');
+    //   }
+    // });
+
+    // Save Consultation
+    $('#saveConsultationBtn').on('click', function () {
+      const complaint = $('#complaintInput').val();
+      if (!complaint) {
+        alert('Please enter a complaint.');
+        return;
+      }
+      alert(`Complaint: ${complaint}\nSelected Diagram: ${select_question}`);
+      $('#editConsultationModal').modal('hide');
+    });
+  });
+</script>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -1501,6 +1568,17 @@ $(document).ready(function(){
 </script>
 
 <style>
+    .scrollbar
+{
+
+    max-height: 96%;
+    overflow: auto;
+}
+
+    .selected-card {
+    background-color: pink;
+}
+
 .highlight {
     background-color: yellow; /* Change this to the desired highlight color */
   }
@@ -1909,37 +1987,100 @@ images.forEach(image => {
                 var id = data.id; 
                 var consultation_type = data.consultation_type; 
                 var consultation_date = data.consultation_date; 
-// alert(since);
                 
+                var presenting_type = data.presenting_type; 
+                var product_type = data.product_type; 
+                var medication_type = data.medication_type; 
+                var social_type = data.social_type; 
+                var family_type = data.family_type; 
+                var medical_type = data.medical_type; 
+                var allergy_type = data.allergy_type; 
+                var examination_type = data.examination_type; 
+                var problem_type = data.problem_type; 
+                var comments_type = data.comments_type; 
+                var diagram_type = data.diagram_type; 
+                var allergy_search = data.allergy_search; 
+                var allergy_comment = data.allergy_comment; 
+                var allergy_severity = data.allergy_severity; 
+                var examination_search = data.examination_search; 
+                var examination_comment = data.examination_comment; 
+                var examination_value = data.examination_value; 
+                var family_comment = data.family_comment; 
+                var family_search = data.family_search; 
+                var medical_his_search = data.medical_his_search; 
+                var medical_history_since = data.medical_history_since; 
+                var medical_history_condition_type = data.medical_history_condition_type; 
+                var medical_history_condition_significance = data.medical_history_condition_significance; 
+                var medical_history_comment = data.medical_history_comment; 
+
+                var medical_history_type = data.medical_history_type; 
+                var medication_search = data.medication_search; 
+                var medication_since = data.medication_since; 
+                var medication_condition_type = data.medication_condition_type; 
+                var medication_condition_significance = data.medication_condition_significance; 
+                var medication_comment = data.medication_comment; 
+                var problem_heading_search = data.problem_heading_search; 
+                var problem_since = data.problem_since; 
+                var problem_condition_type = data.problem_condition_type; 
+                var problem_condition_significance = data.problem_condition_significance; 
+                var problem_comment = data.problem_comment; 
+                var problem_heading_type = data.problem_heading_type; 
+                var product_search = data.product_search; 
+                var product_since = data.product_since;
+                var product_condition_type = data.product_condition_type;
+                var product_condition_significance = data.product_condition_significance;
+                var product_comment = data.product_comment;
+                var social_search = data.social_search;
+                var social_since = data.social_since;
+                var social_condition_type = data.social_condition_type;
+                var social_condition_significance = data.social_condition_significance;
+                var social_comment = data.social_comment;
+ 
+                var myArray = jQuery.parseJSON(data.diagram_url);
+                const diagram = document.getElementById('edit_diagram');
+                diagram.innerHTML = ''; // Clears any existing content
+
+                myArray.forEach(image => {
+                    const img = document.createElement('img');
+                    img.src = image;
+                    img.style.width = '120px';
+                    img.style.height = '120px';
+                    img.style.border= '1px dotted gray';
+                    img.style.padding= '15px';
+                    diagram.appendChild(img); // Append the image to the 'edit_diagram' container
+                });
+
                 $('#presenting_complaint').val(presenting_complaint);
                 // $('#since').val(since);
-                $('.medication-since').val(since);
-                $('.product-since').val(since);
-                $('.social-since').val(since);
-                $('.medical-history-since').val(since);
-                $('.problem-heading-since').val(since);
+                $('.medication-since').val(medication_since);
+                $('.product-since').val(product_since);
+                $('.social-since').val(social_since);
+                $('.medical-history-since').val(medical_history_since);
+                $('.problem-heading-since').val(problem_since);
                
 
                 // $('#condition_type').val(condition_type);
-                $('.problem-heading-condition-type').val(condition_type);
-                $('.medical-history-condition-type').val(condition_type);
-                $('.social-condition-type').val(condition_type);
-                $('.medication-condition-type').val(condition_type);
-                $('.product-condition-type').val(condition_type);
+                $('.problem-heading-condition-type').val(problem_condition_type);
+                $('.medical-history-condition-type').val(medical_history_condition_type);
+                $('.social-condition-type').val(social_condition_type);
+                $('.medication-condition-type').val(medication_condition_type);
+                $('.product-condition-type').val(product_condition_type);
 
                 // $('#comment').val(comment);
 
-                $('.problem-heading-comment').val(comment);
+                $('.problem-heading-comment').val(problem_comment);
                 $('.medical-history-comment').val(comment);
-                $('.social-comment').val(comment);
+                $('.social-comment').val(social_comment);
                 $('.medication-comment').val(comment);
-                $('.product-comment').val(comment);
+                $('.product-comment').val(product_comment);
                 // $('#comment').val(comment);
                 // $('#comment').val(comment);
 
                 $('#value').val(value);
-                $('.consultation_date').val(consultation_date);
-                // $('.problem-heading-severity').val(severity);
+
+                $('#consultation_date').val(consultation_date);
+                
+                // $(".consultation_dates").val(consultation_date).prop("selected", true);       // $('.problem-heading-severity').val(severity);
                 // $('.medical-history-severity').val(severity);
                 // $('.social-severity').val(severity);
                 // $('.medication-severity').val(severity);
@@ -1949,11 +2090,11 @@ images.forEach(image => {
                 // $('#severity').val(severity);
                 // $('#severity').val(severity);
 
-                $('.problem-heading-condition-significance').val(condition_significance);
-                $('.medical-history-condition-significance').val(condition_significance);
-                $('.social-condition-significance').val(condition_significance);
-                $('.medication-condition-significance').val(condition_significance);
-                $('.product-condition-significance').val(condition_significance);
+                $('.problem-heading-condition-significance').val(problem_condition_significance);
+                $('.medical-history-condition-significance').val(medical_history_condition_significance);
+                $('.social-condition-significance').val(social_condition_significance);
+                $('.medication-condition-significance').val(medication_condition_significance);
+                $('.product-condition-significance').val(product_condition_significance);
 
                 
                 // $('#condition_significance').val(condition_significance);
@@ -1964,14 +2105,14 @@ images.forEach(image => {
                 $('#showSummary').val(showSummary);
                 $('#id').val(id);
 
-                $('#problemSearch').val(search);
-                $('#examSearch').val(search);
-                $('#allergySearch').val(search);
-                $('#medicalHistorySearch').val(search);
-                $('#familyHistorySearch').val(search);
-                $('#socialSearch').val(search);
-                $('#medicationSearch').val(search);
-                $('#productSearch').val(search);
+                $('#problemSearch').val(problem_heading_search);
+                $('#examSearch').val(examination_search);
+                $('#allergySearch').val(allergy_search);
+                $('#medicalHistorySearch').val(medical_his_search);
+                $('#familyHistorySearch').val(family_search);
+                $('#socialSearch').val(social_search);
+                $('#medicationSearch').val(medication_search);
+                $('#productSearch').val(product_search);
 
 
                 $(".allergy-severity option[value='" + severity + "']").prop("selected", true);
@@ -2065,10 +2206,30 @@ images.forEach(image => {
 function selectDiagram(diagramName) {
     // Assuming you want to post the selected diagram name to the server
 
+    $('#submitDiagramBtn').on('click', function () {
+      if (diagramName) {
+        // $('#select_question').html(`<p>Selected Diagram: <strong>${diagramName}</strong></p>`);
+        $("#select_question").append('<input type="hidden" name="patient_diagram[]" value="' + diagramName + '">');
+        $("#select_question").append('<input type="hidden" name="question[]" value="' + diagramName + '">');
+
+        $("#select_question").append('<img width="150px" src="' + diagramName + '" alt="Selected Question Image">');
+
+        // $('#addDiagramModal').modal('hide');
+      } else {
+        alert('Please select a diagram.');
+      }
+    });
+
     // alert(diagramName);
     // var diagramvalue = val('#question');
-    // document.getElementById('question').value = diagramName;
+    document.getElementById('question').value = diagramName;
     document.getElementById('selected_diagram').value = diagramName;
+
+    document.querySelectorAll('.card').forEach(card => card.classList.remove('selected-card'));
+
+    // Add the 'selected-card' class to the clicked card
+    event.currentTarget.classList.add('selected-card');
+
 
     $.ajax({
         type: "POST",
@@ -2118,15 +2279,15 @@ function selectDiagram(diagramName) {
     });
 
 
-    $('#myForm').on('submit', function(event) {
+    $('#submitDiagramBtn').on('submit', function(event) {
         event.preventDefault();
         var selectQuestion = $('select#question').find(':selected').val();
 
         $("#addQuestion").append('<div style="padding-top: 15px;"><i class="fa fa-bars"></i> ' + selectQuestion + ' <button type="button" class="btn btn-danger" style="float: right;">Delete</button></div>');
         
-        $("#select_question").append('<input type="hidden" name="question[]" value="' + selectQuestion + '">');
+        $("#select_question").append('<input type="text" name="question[]" value="' + selectQuestion + '">');
 
-        $("#select_question").append('<img width="150px" src="' + selectQuestion + '" alt="Selected Question Image">');
+        $("#select_question").append('<img width="50px" src="' + selectQuestion + '" alt="Selected Question Image">');
     });
 
     // If you want to handle the change event of the dropdown to add data

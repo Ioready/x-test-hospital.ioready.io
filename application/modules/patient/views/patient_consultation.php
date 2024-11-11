@@ -438,7 +438,7 @@
                         <div id="form-sections">
                             <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
                         
-                            <div class="row">
+                                <div class="row">
                                     <div class="col-md-12">
                                             <!-- Consultation Type & Date -->
                                             <div class="form-group row">
