@@ -567,56 +567,9 @@
                             </tr>
 
                         <?php
-                        }
-                        //}
-                    } else {
-                        $rowCount = 0;
-                        foreach ($list as $rows) :
-                            $rowCount++;
-                        ?>
-                            <tr>
-                                
-                                <td><?php echo $rowCount; ?></td>
-                                <td><?php if($rows->priority =="High"){ 
-                                    ?>
-                                    <label class="priority-label" data-priority="High">
-                                    <i class="fa fa-flag-o fa_custom"></i>
-                                    <?php
-                                    echo 'H'; 
-                                } else if($rows->priority =="Low"){
-                                    ?>
-                                    <label class="priority-label" data-priority="Low">
-                                    <i class="fa fa-flag-o fa_custom"></i>
-                                    <?php
-                                echo 'L';
-                                }else if($rows->priority =="Medium"){
-                                    ?>
-                                    <label class="priority-label" data-priority="Medium">
-                                    <i class="fa fa-flag-o fa_custom"></i>
-                                    <?php
-                                    
-                                    echo 'M';
-                                } ?></td>
-
-                                <td><?php echo $rows->task_name; ?></td>
-                                <td><?php echo $rows->f_name. ' '.$rows->l_name; ?></td>
-                                <td><?php echo $rows->patient_name; ?></td>
-                                <td><?php echo $rows->type_name; ?></td>
-                                <td><?php echo $rows->task_comment; ?></td>
-                                <td><?php echo $rows->culture_source_name; ?></td>
-                                
-                                
-                                <td class="actions">
-                                    
-                                    <a href="javascript:void(0)" class="btn btn-default" onclick="editFn('index.php/tasks', 'edit_patient', '<?php echo encoding($rows->task_id) ?>', 'tasks');"><i class="fa fa-pencil"></i></a>
-                                    <a href="<?php echo base_url() . 'index.php/tasks/existing_list/' . $rows->task_id; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a>
-                                    <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->task_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-
-                                </td>
-                            </tr>
-                    <?php
-                        endforeach;
+                       }
                     }
+                    
                     ?>
 
                 </tbody>

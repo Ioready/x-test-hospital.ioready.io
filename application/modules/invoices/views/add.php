@@ -279,12 +279,16 @@
                        <div class="col-sm-3 nopadding">
                         <div class="form-group">
                             <input type="search" class="form-control" id="products" name="products[]" onkeyup="myFunction()" placeholder="Products">
+                            <input type="hidden" class="form-control" id="products_idss" name="products_idss[]" onkeyup="myFunction()" placeholder="Products">
+                            
+                            
+                            
                             <!-- <div id="result_product"></div> -->
                         </div>
                     </div>
                     <div class="col-sm-3 nopadding">
                         <div class="form-group">
-                            <input type="number" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)">
+                            <input type="text" class="form-control product_rate" id="rate" name="rate[]" placeholder="Rate" oninput="calculatePrice(this)" readonly>
                         </div>
                     </div>
                     <div class="col-sm-3 nopadding">
@@ -298,6 +302,7 @@
                         </div>
                     </div>
 
+                    <span id="productStock" style="color: red;"></span>
                             <div id="item_fields">
                             </div>
 
@@ -308,7 +313,7 @@
                             <!-- Total Amount at the bottom -->
                             <div class="save-invoice-section">
                                 <div class="total-amount">
-                                    Total amount:  <input type="text" class="form-control" id="total_price" name="total_price" value="£ 0.00" readonly>
+                                    Total amount:  <input type="text" class="form-control" id="total_price" name="total_price" value="" readonly>
                                     <!-- <span id="total_price"></span> -->
                                 </div>
                                 <button class="add-invoice-item" type="button"  onclick="education_fields();"> <span class="add-invoice-item" aria-hidden="true">+ Add invoice item</span> </button>
@@ -328,7 +333,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
                     
-                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7">Save invoice</button>
+                    <button type="submit" id="submit" class="btn btn-sm btn-primary m-2 submit_stock"  style="background: #337ab7">Save invoice</button>
                 </div>
             </form>
         </div> <!-- /.modal-content -->
@@ -385,7 +390,7 @@ function education_fields() {
     var divtest = document.createElement("div");
 	divtest.setAttribute("class", "form-group removeclass"+room);
 	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group product_item"> <input type="search" class="form-control" id="product_item" name="products[]" placeholder="Products name" onkeyup="myProductFunction()"><div id="result_productsjkjk"></div></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity" oninput="calculatePrice(this)"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price" readonly></div></div> <div class="col-sm-2"><div class="form-group">  <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> </button></div></div><div class="clear"></div>';
+    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group product_item"> <input type="search" class="form-control" id="product_item" name="products[]" placeholder="Products name" onkeyup="myProductFunction()"><input type="hidden" class="form-control" id="products_iditem" name="products_idss[]" onkeyup="myFunction()" placeholder="Products"><span id="productStockNew" style="color: red;"></span><div id="result_productsjkjk"></div></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control product_rates" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)" readOnly></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity" oninput="calculatePrice(this)"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price" readonly></div></div> <div class="col-sm-2"><div class="form-group">  <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> </button></div></div><div class="clear"></div>';
     
     objTo.appendChild(divtest);
     updateTotalPrice();

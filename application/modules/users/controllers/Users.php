@@ -398,7 +398,7 @@ class Users extends Common_Controller
         $this->data['title'] = lang("add_user");
         $option = array(
             'table' => 'countries',
-            'select' => '*'
+            'select' => '*','where'=>array('shortname'=>'GB')
         );
         $this->data['countries'] = $this->common_model->customGet($option);
         $this->load->admin_render('add', $this->data, 'inner_script');
@@ -417,7 +417,9 @@ class Users extends Common_Controller
     {
         
         $user_id = $this->session->userdata('user_id');
+        
 
+        
         $tables = $this->config->item('tables', 'ion_auth');
         $identity_column = $this->config->item('identity', 'ion_auth');
         $this->data['identity_column'] = $identity_column;
@@ -425,26 +427,30 @@ class Users extends Common_Controller
         $this->form_validation->set_rules('first_name', lang('first_name'), 'required|trim|xss_clean');
         //$this->form_validation->set_rules('last_name', lang('last_name'), 'required|trim|xss_clean');
         //$this->form_validation->set_rules('user_email', lang('user_email'), 'required|trim|xss_clean');
-        $this->form_validation->set_rules('user_email', lang('user_email'), 'trim|xss_clean|is_unique[users.email]');
-        $this->form_validation->set_rules('password', lang('password'), 'trim|required|xss_clean|min_length[6]|max_length[14]');
-        if (!preg_match('/(?=.*[a-z])(?=.*[0-9]).{6,}/i', $this->input->post('password'))) {
-            $response = array('status' => 0, 'message' => "The Password Should be required alphabetic and numeric");
-            echo json_encode($response);
-            exit;
-        }
+        // $this->form_validation->set_rules('user_email', lang('user_email'), 'trim|xss_clean|is_unique[users.email]');
+        // $this->form_validation->set_rules('password', lang('password'), 'trim|required|xss_clean|min_length[6]|max_length[14]');
+        // if (!preg_match('/(?=.*[a-z])(?=.*[0-9]).{6,}/i', $this->input->post('password'))) {
+        //     $response = array('status' => 0, 'message' => "The Password Should be required alphabetic and numeric");
+        //     echo json_encode($response);
+        //     exit;
+        // }
+
         if ($this->form_validation->run() == true) {
+
+            // print_r($this->input->post());die;
 
             // $this->filedata['status'] = 1;
             $image = "";
             if (!empty($_FILES['user_image']['name'])) {
                 $this->filedata = $this->commonUploadImage($_POST, 'users', 'user_image');
-                if ($this->filedata['status'] == 1) {
+                // if ($this->filedata['status'] == 1) {
                     $image = 'uploads/users/' . $this->filedata['upload_data']['file_name'];
-                }
+                // }
             }
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 0, 'message' => $this->filedata['error']);
-            } else {
+            // if ($this->filedata['status'] == 0) {
+            //     $response = array('status' => 0, 'message' => $this->filedata['error']);
+            // } else {
+
                 $email = strtolower($this->input->post('user_email'));
                 $identity = ($identity_column === 'email') ? $email : $this->input->post('user_email');
                 $password = $this->input->post('password');
@@ -452,48 +458,20 @@ class Users extends Common_Controller
                 $digits = 5;
                 $code = strtoupper(substr(preg_replace('/[^A-Za-z0-9\-]/', '', $username[0]), 0, 5)) . rand(pow(10, $digits - 1), pow(10, $digits) - 1);
                 $group_ids = $this->input->post('role');
-                $additional_data = array(
-                    'first_name' => $this->input->post('first_name'),
-                    'last_name' => $this->input->post('last_name'),
-                    'team_code' => $code,
-                    'username' => $username[0],
-                    'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
-                    'profile_pic' => $image,
-                    'phone' => $this->input->post('phone_no'),
-                    'email_verify' => 1,
-                    'is_pass_token' => $password,
-                    'hospital_id' =>$user_id,
-                    'created_on' => strtotime(datetime())
-                );
-                // if ($this->ion_auth->is_vendor()) {
+                
 
-                    
-                //     $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array(4));
+                // print_r($this->input->post());die;
+
+               
+
+
                 if ($this->ion_auth->is_facilityManager()) {
-
-                    $additional_dataHospital = array(
-                        'first_name' => $this->input->post('first_name'),
-                        'last_name' => $this->input->post('last_name'),
-                        'team_code' => $code,
-                        'username' => $username[0],
-                        'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
-                        'profile_pic' => $image,
-                        'phone' => $this->input->post('phone_no'),
-                        'email_verify' => 1,
-                        'is_pass_token' => $password,
-                        'hospital_id' =>$user_id,
-                        'created_on' => strtotime(datetime())
-                    );
-
-                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_dataHospital, array($group_ids));
-
                     $user_id = $this->session->userdata('user_id');
-                    
+                $hospital_id = $user_id;
+        
                 } else if($this->ion_auth->is_all_roleslogin()) {
-
                     $user_id = $this->session->userdata('user_id');
-
-                    $option = array(
+                    $optionData = array(
                         'table' => USERS . ' as user',
                         'select' => 'user.*,group.name as group_name',
                         'join' => array(
@@ -505,30 +483,31 @@ class Users extends Common_Controller
                         'single'=>true,
                     );
             
-                    $authUser = $this->common_model->customGet($option);
-
-                    $additional_dataHospital = array(
-                        'first_name' => $this->input->post('first_name'),
-                        'last_name' => $this->input->post('last_name'),
-                        'team_code' => $code,
-                        'username' => $username[0],
-                        'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
-                        'profile_pic' => $image,
-                        'phone' => $this->input->post('phone_no'),
-                        'email_verify' => 1,
-                        'is_pass_token' => $password,
-                        'hospital_id' =>$authUser->hospital_id,
-                        'created_on' => strtotime(datetime())
-                    );
-
-
-                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_dataHospital, array($group_ids));
-                
-                } else {
-
-                  
-                    $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_data, array($group_ids));
+                    $authUser = $this->common_model->customGet($optionData);
+        
+                    $hospital_id = $authUser->hospital_id;
+                    // 'users.hospital_id'=>$hospital_id
+                    
                 }
+                $additional_dataHospital = array(
+                    'first_name' => $this->input->post('first_name'),
+                    'last_name' => $this->input->post('last_name'),
+                    'team_code' => $code,
+                    'username' => $username[0],
+                    // 'date_of_birth' => (!empty($this->input->post('date_of_birth'))) ? date('Y-m-d', strtotime($this->input->post('date_of_birth'))) : date('Y-m-d'),
+                    'profile_pic' => $image,
+                    'phone' => $this->input->post('phone_no'),
+                    'country_code' => $this->input->post('country'),
+                    'email_verify' => 1,
+                    'is_pass_token' => $password,
+                    'hospital_id' =>$hospital_id,
+                    'created_on' => strtotime(datetime())
+                );
+
+               
+                $insert_id = $this->ion_auth->register($identity, $password, $email, $additional_dataHospital, array($group_ids));
+               
+                
 
                 if ($insert_id) {
 
@@ -602,7 +581,7 @@ class Users extends Common_Controller
                 redirect($this->router->fetch_class().'/managements');
                     // $response = array('status' => 1, 'message' => lang('user_success_update'), 'url' => base_url('users/managements'));
                 }
-            }
+            // }
         
             } else {
                 $this->session->set_flashdata('message', 'The email address already exists');
@@ -678,7 +657,7 @@ class Users extends Common_Controller
               ); */
             $option = array(
                 'table' => 'countries',
-                'select' => '*'
+                'select' => '*','where'=>array('shortname'=>'GB')
             );
             $this->data['countries'] = $this->common_model->customGet($option);
             $option = array(
@@ -1042,7 +1021,7 @@ class Users extends Common_Controller
         $this->data['title'] = lang("add_user");
         $option = array(
             'table' => 'countries',
-            'select' => '*'
+            'select' => '*','where'=>array('shortname'=>'GB')
         );
         $this->data['countries'] = $this->common_model->customGet($option);
 
@@ -1351,7 +1330,7 @@ class Users extends Common_Controller
 // print_r($id);die;
         $option = array(
             'table' => 'countries',
-            'select' => '*'
+            'select' => '*','where'=>array('shortname'=>'GB')
         );
         $this->data['countries'] = $this->common_model->customGet($option);
 

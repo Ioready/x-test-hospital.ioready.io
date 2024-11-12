@@ -303,12 +303,14 @@
                                 <div class="row-container">
                                     <div class="col-sm-3 nopadding">
                                         <div class="form-group">
-                                            <input type="search" class="form-control" id="products" name="products[]" value="<?php echo $item->product_name ?>" placeholder="Products" onkeyup="myFunctionUpdate()">
+                                            <input type="search" class="form-control" id="products" name="products[]" value="<?php echo $item->invoice_product_name ?>" placeholder="Products" onkeyup="myFunctionUpdate()">
+                                            <input type="hidden" class="form-control" id="products_idss" name="products_idss[]" onkeyup="myFunctionUpdate()" placeholder="Products">
+                            
                                         </div>
                                     </div>
                                     <div class="col-sm-3 nopadding">
                                         <div class="form-group">
-                                            <input type="number" class="form-control" id="rate" name="rate[]" value="<?php echo $item->rate ?>" placeholder="Rate" oninput="calculatePrice(this)">
+                                            <input type="number" class="form-control product_rate" id="rate" name="rate[]" value="<?php echo $item->rate ?>" placeholder="Rate" oninput="calculatePrice(this)">
                                         </div>
                                     </div>
                                     <div class="col-sm-3 nopadding">
@@ -495,12 +497,12 @@ function education_fields() {
     divtest.innerHTML = `
         <div class="col-sm-3 nopadding">
             <div class="form-group">
-                <input type="search" class="form-control" name="products[]" placeholder="Products name" id="product_item" onkeyup="myProductFunctionEdit()"><div id="result_productsjkjk"></div>
+                <input type="search" class="form-control" name="products[]" placeholder="Products name" id="product_item" onkeyup="myProductFunctionEdit()"><input type="hidden" class="form-control" id="products_iditem" name="products_idss[]" onkeyup="getSearchAllProductEdit()" placeholder="Products"><div id="result_productsjkjk"></div>
             </div>
         </div>
         <div class="col-sm-2 nopadding">
             <div class="form-group">
-                <input type="number" class="form-control" name="rate[]" placeholder="Rate" oninput="calculatePrice(this)">
+                <input type="number" class="form-control product_rates" name="rate[]" placeholder="Rate" oninput="calculatePrice(this)" readOnly>
             </div>
         </div>
         <div class="col-sm-2 nopadding">

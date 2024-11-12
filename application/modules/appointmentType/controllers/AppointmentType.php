@@ -28,7 +28,35 @@ class AppointmentType extends Common_Controller {
         $this->data['title'] = $this->title;
         $this->data['tablePrefix'] = 'vendor_sale_' . $this->_table;
         $this->data['table'] = $this->_table;
-        $option = array('table' => $this->_table, 'where' => array('delete_status' => 0),'order'=>array('name'=>'asc'));
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+
+        $option = array('table' => $this->_table, 'where' => array('user_id'=>$hospital_id,'delete_status' => 0),'order'=>array('name'=>'desc'));
+        
         $this->data['list'] = $this->common_model->customGet($option);
         $this->load->admin_render('list', $this->data, 'inner_script');
     }
@@ -50,6 +78,31 @@ class AppointmentType extends Common_Controller {
      * @return array
      */
     public function add() {
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+        
 
         $this->form_validation->set_rules('name', "Name", 'required|trim');
         if ($this->form_validation->run() == true) {
@@ -65,6 +118,7 @@ class AppointmentType extends Common_Controller {
                 $response = array('status' => 0, 'message' => $this->filedata['error']);
             } else {
                 $options_data = array(
+                    'user_id' => $hospital_id,
                     'name' => $this->input->post('name'),
                     'is_active' => 1,
                     'create_date' => datetime()

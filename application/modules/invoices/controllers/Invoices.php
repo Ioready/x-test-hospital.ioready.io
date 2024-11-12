@@ -473,7 +473,8 @@ class Invoices extends Common_Controller {
                     'patient_id' => $this->input->post('patient'),
                     'invoice_number' => $new_invoice_number,                         
                     'invoice_date' => $this->input->post('invoice_date'),                         
-                    'total_amount' => $this->input->post('total_price'),                         
+                    'total_amount' => $this->input->post('total_price'),
+                    'Outstanding' => $this->input->post('total_price'),                         
                     'header' => $this->input->post('header'),                         
                     'billing_to' => $this->input->post('billing_to'),                         
                     'practitioner' => $this->input->post('practitioner'),                         
@@ -488,8 +489,8 @@ class Invoices extends Common_Controller {
 
                     if ($invoice_id) {
                         // Insert products linked to the invoice
-                        // $products = $this->input->post('products');
-                        $products = $this->input->post('consultation_product');
+                        $products = $this->input->post('products_idss');
+                        // $products = $this->input->post('consultation_product');
                         $rates = $this->input->post('rate');
                         $quantities = $this->input->post('quantity');
                         $prices = $this->input->post('price');
@@ -507,7 +508,31 @@ class Invoices extends Common_Controller {
                             // Insert each product into the database
                             $optionItem = array('table' => 'vendor_sale_invoice_items', 'data' => $productData);
                             $this->common_model->customInsert($optionItem);
-                            // $this->invoice_model->insert_invoice_product($productData);
+
+                            $option = array(
+                                'table' => ' vendor_sale_doctor_product',
+                                'select' => 'vendor_sale_doctor_product.*',
+                               
+                                'where' => array(
+                                    'vendor_sale_doctor_product.id'=>$products[$i]
+                                ),
+                                'single' => true,
+                            );
+                        
+                            $results_row = $this->common_model->customGet($option);
+                            $stock_level= $results_row->stock_level;
+                            $totalstock_level = $stock_level - $quantities[$i];
+                            $options_data = array(
+                                'stock_level' => $totalstock_level ?? null,
+                            );
+
+                            // print_r($options_data);die;
+                            // $option = $this->db->insert('doctor_product', $options_data); 
+            
+                            $option = array('table' => 'vendor_sale_doctor_product', 'data' => $options_data, 'where' => array('id' => $products[$i]));
+                            
+                            $this->common_model->customUpdate($option);
+                            
                         }
                 
                     }
@@ -527,18 +552,18 @@ class Invoices extends Common_Controller {
 
                     // print_r($total_prices->total_price);die;
 
-                    $options_data = array(    
+                    // $options_data = array(    
                          
-                        'total_amount'=> $total_prices->total_price,                                              
-                        'Paid' => '0.00',                         
-                        'Outstanding' => $total_prices->total_price,                                            
-                    );
-                    $optionUpdate = array(
-                        'table' => $this->_table,
-                        'data' => $options_data,
-                        'where' => array('id' => $invoice_id)
-                    );
-                    $update = $this->common_model->customUpdate($optionUpdate);
+                    //     'total_amount'=> $total_prices->total_price,                                              
+                    //     'Paid' => '0.00',                         
+                    //     'Outstanding' => $total_prices->total_price,                                            
+                    // );
+                    // $optionUpdate = array(
+                    //     'table' => $this->_table,
+                    //     'data' => $options_data,
+                    //     'where' => array('id' => $invoice_id)
+                    // );
+                    // $update = $this->common_model->customUpdate($optionUpdate);
 
 
                     $response = array('status' => 1, 'message' => "Successfully added", 'url' => base_url($this->router->fetch_class()));
@@ -731,7 +756,8 @@ class Invoices extends Common_Controller {
 
             $optionItem = array(
                 'table' => 'vendor_sale_invoice_items',
-                'select'=>'vendor_sale_invoice_items.*',
+                'select'=>'vendor_sale_invoice_items.*,vendor_sale_doctor_product.name as invoice_product_name,vendor_sale_doctor_product.id as invoice_product_id',
+                'join'=>array(array('vendor_sale_doctor_product','vendor_sale_doctor_product.id =vendor_sale_invoice_items.product_name','left')),
                 'where' => array('vendor_sale_invoice_items.invoice_id' => $id),
             );
             $results_rowItem = $this->common_model->customGet($optionItem);
@@ -1862,38 +1888,105 @@ public function process() {
         if ($query) {
             $results = $this->common_model->fetchAllProducts($query);
             // print_r($results);die;
-            $output .= '<select class="form-control select2" name="consultation_product[]" id="consultation_product" onclick="getSearchAllProduct()">';
-            if (!empty($results)) {
-                foreach ($results as $row) {
-                    $output .= '<option value="'.$row['name'].'">'.$row['name'].'</option>';
+            // $output .= '<select class="form-control select2" name="consultation_product[]" id="consultation_product" onclick="getSearchAllProduct()">';
+            // if (!empty($results)) {
+            //     foreach ($results as $row) {
+            //         $output .= '<option value="'.$row['name'].'">'.$row['name'].'</option>';
                    
-                }
-            } else {
-                $output .= '<option>No Data Found</option>';
-            }
-            $output .= '</select>';
-            echo $output;
+            //     }
+            // } else {
+            //     $output .= '<option>No Data Found</option>';
+            // }
+            // $output .= '</select>';
+            // echo $output;
+
+            // $output .= '<select class="form-control select2" name="consultation_product[]" id="consultation_product" onclick="getSearchAllProduct()">';
+            // if (!empty($results)) {
+            //     foreach ($results as $row) {
+            //         $output .= '<option value="'.$row['name'].'">'.$row['name'].'</option>';
+                   
+            //     }
+            // } else {
+            //     $output .= '<option>No Data Found</option>';
+            // }
+            // $output .= '</select>';
+
+            echo json_encode($results);
         }
     }
+
+    public function fetchProductDetail(){
+        $query = $this->input->post('query');
+
+
+        $option = array(
+            'table' => ' vendor_sale_doctor_product',
+            'select' => 'vendor_sale_doctor_product.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_doctor_product.user_id=vendor_sale_users.id', 'left'),
+            ),
+            
+            'where' => array(
+                // 'vendor_sale_doctor_product.delete_status' => 0,
+                'vendor_sale_doctor_product.id'=>$query
+            ),
+            'single' => true,
+        );
+    
+        $results_row = $this->common_model->customGet($option);
+        echo json_encode($results_row);
+        // print_r($results_row);die;
+
+    }
+
     public function fetchAllProductSearch() {
         $output = '';
         $query = $this->input->post('query');
+        
         if ($query) {
-            $results = $this->common_model->fetchAllProducts($query);
-            // print_r($results);die;
-            $output .= '<select class="form-control select2" name="consultation_product[]" id="consultation_productadd" onclick="getSearchAllProductAdd()">';
-            if (!empty($results)) {
-                foreach ($results as $row) {
-                    $output .= '<option value="'.$row['name'].'">'.$row['name'].'</option>';
+            $results = $this->common_model->fetchAllProductsItem($query);
+
+        //     $results = $this->common_model->fetchAllProductsItem($query);
+        //     // print_r($results);die;
+        //     $output .= '<select class="form-control select2" name="consultation_product[]" id="consultation_productadd" onclick="getSearchAllProductAdd()">';
+        //     if (!empty($results)) {
+        //         foreach ($results as $row) {
+        //             $output .= '<option value="'.$row['name'].'">'.$row['name'].'</option>';
                    
-                }
-            } else {
-                $output .= '<option>No Data Found</option>';
-            }
-            $output .= '</select>';
-            echo $output;
+        //         }
+        //     } else {
+        //         $output .= '<option>No Data Found</option>';
+        //     }
+        //     $output .= '</select>';
+        //     echo $output;
+        echo json_encode($results);
         }
     }
+
+    public function fetchProductDetailAdd(){
+        $query = $this->input->post('query');
+
+
+        $option = array(
+            'table' => ' vendor_sale_doctor_product',
+            'select' => 'vendor_sale_doctor_product.*',
+            'join' => array(
+                array('vendor_sale_users', 'vendor_sale_doctor_product.user_id=vendor_sale_users.id', 'left'),
+            ),
+            
+            'where' => array(
+                // 'vendor_sale_doctor_product.delete_status' => 0,
+                'vendor_sale_doctor_product.id'=>$query
+            ),
+            'single' => true,
+        );
+    
+        $results_row = $this->common_model->customGet($option);
+        echo json_encode($results_row);
+        // print_r($results_row);die;
+
+    }
+    
 
 
     // Edit item search function 
@@ -1923,17 +2016,17 @@ public function process() {
         if ($query) {
             $results = $this->common_model->fetchAllProducts($query);
             // print_r($results);die;
-            $output .= '<select class="form-control select2" name="consultation_product[]" id="consultation_product_edit" onclick="getSearchAllProductEdit()">';
-            if (!empty($results)) {
-                foreach ($results as $row) {
-                    $output .= '<option value="'.$row['name'].'">'.$row['name'].'</option>';
+            // $output .= '<select class="form-control select2" name="consultation_product[]" id="consultation_product_edit" onclick="getSearchAllProductEdit()">';
+            // if (!empty($results)) {
+            //     foreach ($results as $row) {
+            //         $output .= '<option value="'.$row['name'].'">'.$row['name'].'</option>';
                    
-                }
-            } else {
-                $output .= '<option>No Data Found</option>';
-            }
-            $output .= '</select>';
-            echo $output;
+            //     }
+            // } else {
+            //     $output .= '<option>No Data Found</option>';
+            // }
+            // $output .= '</select>';
+            echo json_encode($results);
         }
     }
 
