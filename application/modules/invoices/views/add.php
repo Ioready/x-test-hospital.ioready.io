@@ -178,11 +178,19 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url($formUrl) ?>" enctype="multipart/form-data">
-                <div class="modal-header text-center">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo "Add invoice" ?></h2>
-                </div>
-                <div class="modal-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+    <!-- Close Button -->
+    <button type="button" onclick="closeModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #333;">
+        <span aria-hidden="true">&times;</span><span style="font-size: 14px; margin-left: 5px;">Close</span>
+    </button>
+
+    <!-- Modal Title -->
+    <h2 style="font-size: 20px; font-weight: bold; color: #007bff; margin: 0;">
+        <i class="fa fa-pencil" style="margin-right: 10px;"></i> <?php echo "Add invoice"; ?>
+    </h2>
+</div>
+
+                <div class="modal-body"style="padding: 20px;" >
                     <!-- <div class="loaders">
                         <img src="<?php echo base_url() . 'backend_asset/images/Preloader_2.gif'; ?>" class="loaders-img" class="img-responsive">
                     </div> -->
@@ -192,83 +200,86 @@
 
                        
 
-                        <!-- Invoice Form Section -->
-                        <div class="form-container">
-                            <!-- Invoice Form -->
-                            <div class="form-section">
-                                <h2>Create new Invoice</h2>
-                                <div class="form-group">
-                                    <label for="header">Header <span class="required" style="color:red;">*</span></label>
-                                    <select name="header" id="header" required>
-                                    
-                                    <?php  foreach($doctors as $row){ ?>
-                                        <option value="<?php echo $row->id;?>"><?php echo $row->first_name.' '.$row->last_name;?></option>
-                                        <?php } ?>
-                                        <!-- <option value="Droitwich Knee Clinic & Bromsgrove P...">Droitwich Knee Clinic & Bromsgrove P...</option> -->
-                                    </select>
-                                </div>
+                          <!-- Form Body -->
+    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
 
-                                <div class="form-group">
-                                    <label for="select-date">Select Date <span class="required" style="color:red;">*</span></label>
-                                    <input type="date" name="invoice_date" id="invoice_date" required>
-                                </div>
+<!-- Invoice Form Section -->
+<div style="flex: 1; min-width: 300px;">
 
-                                <div class="form-group">
-                                    <label for="practitioner">Practitioner</label>
-                                    
-                                    <select name="practitioner" id="practitioner">
-                                    <?php  foreach($practitioner as $row){
-                                        if(!empty($row->name)){
-                                         ?>
-                                        <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
-                                        <?php } } ?>
-                                    </select>
-                                    <!-- <input type="text" name="practitioner" id="practitioner" placeholder="Select Practitioner"> -->
-                                </div>
-                            </div>
+    <!-- Create New Invoice -->
+    <h2 style="font-size: 20px; margin-bottom: 15px;">Create New Invoice</h2>
 
-                            <!-- Billing and Comments -->
-                            <div class="form-section">
-                                <h2>Billing</h2>
-                                <div class="form-group">
-                                    <label for="patient">Patient <span style="color:red;">*</span></label>
-                                    
-                                    <select name="patient" id="patient">
-                                    <?php  foreach($patient as $row){ 
-                                        if(!empty($row->name)){
-                                            ?>
-                                        <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
-                                        <?php } } ?>
-                                    </select>
+    <!-- Header -->
+    <div style="margin-bottom: 15px;">
+        <label for="header">Header <span style="color: red;">*</span></label>
+        <select id="header" name="header" required style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px;">
+            <?php foreach ($doctors as $row) { ?>
+                <option value="<?php echo $row->id; ?>"><?php echo $row->first_name . ' ' . $row->last_name; ?></option>
+            <?php } ?>
+        </select>
+    </div>
 
-                                    <!-- <input type="hidden" name="patient" id="patient" value="<?php echo $patient->id;?>"><h3><span><?php echo $patient->name;?></span></h3> -->
-                                </div>
+    <!-- Select Date -->
+    <div style="margin-bottom: 15px;">
+        <label for="invoice_date">Select Date <span style="color: red;">*</span></label>
+        <input type="date" id="invoice_date" name="invoice_date" required style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px;">
+    </div>
 
-                                <div class="form-group">
-                                    <label for="billing">Billing to <span style="color:red;">*</span></label>
-                                    <select name="billing_to" id="billing_to">
-                                    <option value="">Select Billing Type</option>
-                                    <option value="Self Pay">Self Pay</option>
-                                    <option value="Insurance">Insurance</option>
-                                    <option value="Medicare">Medicare</option>
-                                    <option value="Company">Company</option>
-                                    <option value="Government Program">Government Program</option>
-                                    <option value="Other">Other</option>
-                                    </select>
-                                </div>
+    <!-- Practitioner -->
+    <div style="margin-bottom: 15px;">
+        <label for="practitioner">Practitioner</label>
+        <select id="practitioner" name="practitioner" style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px;">
+            <?php foreach ($practitioner as $row) {
+                if (!empty($row->name)) { ?>
+                    <option value="<?php echo $row->id; ?>"><?php echo $row->name; ?></option>
+            <?php } } ?>
+        </select>
+    </div>
+</div>
 
-                                <h2>Comments</h2>
-                                <div class="form-group">
-                                    <label for="notes">Notes</label>
-                                    <textarea name="notes" id="notes" placeholder="Enter notes"></textarea>
-                                </div>
+<!-- Billing and Comments Section -->
+<div style="flex: 1; min-width: 300px;">
 
-                                <div class="form-group">
-                                    <label for="internal-notes">Internal notes</label>
-                                    <textarea name="internal_notes" id="internal_notes" placeholder="Enter internal notes"></textarea>
-                                </div>
-                            </div>
-                        </div>
+    <!-- Billing -->
+    <h2 style="font-size: 20px; margin-bottom: 15px;">Billing</h2>
+
+    <div style="margin-bottom: 15px;">
+        <label for="patient">Patient <span style="color: red;">*</span></label>
+        <select id="patient" name="patient" style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px;">
+            <?php foreach ($patient as $row) {
+                if (!empty($row->name)) { ?>
+                    <option value="<?php echo $row->id; ?>"><?php echo $row->name; ?></option>
+            <?php } } ?>
+        </select>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label for="billing_to">Billing to <span style="color: red;">*</span></label>
+        <select id="billing_to" name="billing_to" style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px;">
+            <option value="">Select Billing Type</option>
+            <option value="Self Pay">Self Pay</option>
+            <option value="Insurance">Insurance</option>
+            <option value="Medicare">Medicare</option>
+            <option value="Company">Company</option>
+            <option value="Government Program">Government Program</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+
+    <!-- Comments -->
+    <h2 style="font-size: 20px; margin-bottom: 15px;">Comments</h2>
+
+    <div style="margin-bottom: 15px;">
+        <label for="notes">Notes</label>
+        <textarea id="notes" name="notes" placeholder="Enter notes" style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px;"></textarea>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label for="internal_notes">Internal Notes</label>
+        <textarea id="internal_notes" name="internal_notes" placeholder="Enter internal notes" style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px;"></textarea>
+    </div>
+</div>
+</div>
 
                         
                         <div class="panel panel-default">
@@ -306,12 +317,18 @@
                         <!-- </div> -->
   
                             <!-- Total Amount at the bottom -->
-                            <div class="save-invoice-section">
-                                <div class="total-amount">
-                                    Total amount:  <input type="text" class="form-control" id="total_price" name="total_price" value="£ 0.00" readonly>
-                                    <!-- <span id="total_price"></span> -->
-                                </div>
-                                <button class="add-invoice-item" type="button"  onclick="education_fields();"> <span class="add-invoice-item" aria-hidden="true">+ Add invoice item</span> </button>
+                            <div class="save-invoice-section mb-4">
+                               
+                               
+
+                                    <!-- Total Amount Section -->
+    <div style="margin-top: 20px; text-align: right;">
+        <label>Total Amount:</label>
+        <input type="text" id="total_price" name="total_price" value="£ 0.00" readonly style="padding: 10px; width: 150px; border: 1px solid #ced4da; border-radius: 4px;">
+    </div>
+
+    <!-- Add Item Button -->
+    <button type="button" onclick="education_fields();" style="margin-top: 15px; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer;">+ Add Invoice Item</button>
 
                                 <!-- <button type="button" id="submit" class="add-invoice-item">+ Add invoice item</button> -->
 

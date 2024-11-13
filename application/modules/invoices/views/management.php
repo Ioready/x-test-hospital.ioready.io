@@ -574,8 +574,9 @@
 
 <?php }}} if($this->ion_auth->is_facilityManager()){?>
 
-    <div class="mt-5">
-                <h2 class="mb-4">Invoice Management</h2>
+    <div class="">
+    <p style="margin-bottom: 10px;font-weight:bold; font-size: 19px; color: #333;">Invoice Management</p>
+
 
                 <div class="d-flex justify-content-between mb-3 align-items-center flex-wrap">
                     <!-- <button class="btn btn-primary">New Invoice +</button> -->
@@ -592,49 +593,79 @@
                 </div>
                 
                 <div class="table-responsive">
-                    <table id="invoiceTable" class="table table-bordered table-hover align-middle text-center">
-                        <thead class="table-light text-center ">
-                        <tr>
-                            <th>Invoice</th>
-                            <th>Patient</th>
-                            <th>Total</th>
-                            <th>Invoice Date</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
+                    <table id="invoiceTable" class="table table-bordered align-middle text-center">
+                    <thead>
+    <tr  style="background-color: #f8f9fa; text-align: center; ">
+        <th style="padding: 10px; font-weight: bold; font-size: 14px;">Invoice</th>
+        <th style="padding: 10px; font-weight: bold; font-size: 14px;">Patient</th>
+        <th style="padding: 10px; font-weight: bold; font-size: 14px;">Total</th>
+        <th style="padding: 10px; font-weight: bold; font-size: 14px;">Invoice Date</th>
+        <th style="padding: 10px; font-weight: bold; font-size: 14px;">Action</th>
+    </tr>
+</thead>
+
                         <tbody>
                             <?php foreach($invoice_list as $row){ ?>
-                        <tr>
-                            <td><?php echo $row->invoice_number;?></td>
-                            <td><?php echo $row->patient_name;?></td>
-                            <td>
-                                <div class="invoice-status">
-                                    <span class="total">Total: £ <?php echo $row->total_amount;?></span><br>
-                                    <span class="paid">Paid: £<?php echo $row->Paid;?></span><br>
-                                    <span class="outstanding">Outstanding: £ <?php echo $row->Outstanding;?></span>
-                                </div>
-                            </td>
-                            <td><?php echo date("d/m/Y", strtotime($row->invoice_date)); ?></td>
+                                <tr>
+    <!-- Invoice Number -->
+    <td style="padding: 10px; font-size: 14px;"><?php echo $row->invoice_number; ?></td>
 
-                            <td>
-                            
-                            <?php if(empty($row->Paid)){?>
-                                
-                            <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a>
-                            <!-- <a href="javascript:void(0)" class="btn btn-primary" onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Pay</a> -->
-                            
-                            <?php }else{?>
-                                <a href="javascript:void(0)" class="btn btn-success" onclick="pdfInvoiceReceipt('<?php echo $model; ?>', 'pdfInvoiceReceipt','<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">Receipt</a>
-                            <?php }?>
-                           
-                            <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
-                            
-                            <a href="javascript:void(0)" onclick="deleteFnInvoice('<?php echo GROUPS;?>','id','<?php echo encoding($row->id); ?>','invoices/managements')" class="on-default edit-row text-danger"><img width="20" src="<?php echo base_url().DELETE_ICON;?>" /></a>
-                            
-                            <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="pdfInvoice('<?php echo $model; ?>', 'pdfInvoice','<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-solid fa-download"></i> </a>
+    <!-- Patient Name -->
+    <td style="padding: 10px; font-size: 14px;"><?php echo $row->patient_name; ?></td>
 
-                            </td>
-                        </tr>
+    <!-- Invoice Status (Total, Paid, Outstanding) -->
+    <td style="padding: 10px; font-size: 14px;">
+        <div style="font-size: 13px; line-height: 1.5;">
+            <span style="font-weight: bold; color: #333;">Total: £ <?php echo $row->total_amount; ?></span><br>
+            <span style="color: #28a745;">Paid: £ <?php echo $row->Paid; ?></span><br>
+            <span style="color: #dc3545;">Outstanding: £ <?php echo $row->Outstanding; ?></span>
+        </div>
+    </td>
+
+    <!-- Invoice Date -->
+    <td style="padding: 10px; font-size: 14px;"><?php echo date("d/m/Y", strtotime($row->invoice_date)); ?></td>
+
+    <!-- Action Buttons -->
+    <td style="padding: 10px; text-align: center;">
+        <!-- Pay Button (if unpaid) -->
+        <?php if (empty($row->Paid)) { ?>
+            <a href="javascript:void(0)" 
+               style="background-color: #007bff; color: #fff; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 13px;" 
+               onclick="payFn('<?php echo $model; ?>', 'pay', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">
+               Pay
+            </a>
+        <?php } else { ?>
+            <!-- Receipt Button (if paid) -->
+            <a href="javascript:void(0)" 
+               style="background-color: #28a745; color: #fff; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 13px;" 
+               onclick="pdfInvoiceReceipt('<?php echo $model; ?>', 'pdfInvoiceReceipt', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">
+               Receipt
+            </a>
+        <?php } ?>
+
+        <!-- Edit Button -->
+        <a href="javascript:void(0)" 
+           style="padding: 5px; font-size: 13px; color: #6c757d; margin-left: 5px;" 
+           onclick="editFn('<?php echo $model; ?>', 'edit', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">
+           <i class="fa fa-pencil"></i>
+        </a>
+
+        <!-- Delete Button -->
+        <a href="javascript:void(0)" 
+           style="margin-left: 5px; color: #dc3545;" 
+           onclick="deleteFnInvoice('<?php echo GROUPS; ?>', 'id', '<?php echo encoding($row->id); ?>', 'invoices/managements');">
+           <img width="20" src="<?php echo base_url() . DELETE_ICON; ?>" alt="Delete">
+        </a>
+
+        <!-- Download PDF Button -->
+        <a href="javascript:void(0)" 
+           style="padding: 5px; font-size: 13px; color: #6c757d; margin-left: 5px;" 
+           onclick="pdfInvoice('<?php echo $model; ?>', 'pdfInvoice', '<?php echo encoding($row->id) ?>', '<?php echo $model; ?>');">
+           <i class="fa fa-download"></i>
+        </a>
+    </td>
+</tr>
+
                         <?php }?>
                         
                         </tbody>

@@ -1,7 +1,5 @@
 <?php if ($this->ion_auth->is_superAdmin() || $this->ion_auth->is_admin() || $this->ion_auth->is_user() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_facilityManager() || $this->ion_auth->is_all_roleslogin()) { ?>
-       <!-- Include chart.js for chart rendering -->
-   
-       
+       <!-- Include chart.js for chart rendering -->       
     <style>
     .dashboardBoxes{
         padding:2rem;
@@ -44,7 +42,7 @@
 }
 
 #page-content {
-        background-color: whitesmoke !important;  
+    background-color: whitesmoke !important;  
     }
 
 </style>
@@ -994,8 +992,8 @@
                         </span>
                         <!-- <h5 class="card-title fw-bold">Upcoming Appointments <span>| <a href="<?php echo site_url('appointment'); ?>" class="btn btn-primary btn-sm" style="background: #337ab7;">View all</a></span></h5> -->
                     </h5>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover datatable" id="todayAppointmentTable">
+                    <div class="table-responsive" >
+                        <table class="table table-striped table-hover datatable" id="todayAppointmentTable" style="height:300px ;overflow-y: scroll;">
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col" style="font-size: 0.9rem;">#</th>
@@ -1091,7 +1089,7 @@
                         </a>
                     </span>
                 </h5>
-                <table class="table table-striped table-hover" id="todayPatient">
+                <table class="table table-striped table-hover" id="todayPatient" style="height:170px">
                     <thead class="table-dark">
                         <tr>
                             <th scope="col" style="font-size: 0.9rem;">Image</th>

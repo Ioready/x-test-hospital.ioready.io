@@ -133,8 +133,8 @@
     <!-- END Datatables Header -->
 
     <!-- Datatables Content -->
-    <div class="block full">
-    <div class="block-title" >
+    <div class="block full" style="border-radius:10px; background-color:#FFFF;  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);border:1px solid #d3d3d3;">
+    <div class="" >
             <!-- <h2 class="fw-bold text-dark">Users Panel</h2> -->
             <ul class="nav nav-tabs" id="userRoleTab" role="tablist">
             <?php 
@@ -176,11 +176,11 @@
     <?php if($this->ion_auth->is_facilityManager()){?>
 
 
-        <div class="block-title" >
+        <div class="" style="border-radius:10px; background-color:#f7fbff; border:1px solid #d3d3d3;" >
             <!-- <h2 class="fw-bold text-dark">Users Panel</h2> -->
-            <ul class="nav nav-tabs" id="userRoleTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="user-tab" data-bs-toggle="tab" href="#user" role="tab" aria-controls="user"
+            <ul class="nav nav-tabs" id="userRoleTab" role="tablist" >
+                <li class="nav-item" role="presentation" >
+                    <a class="nav-link active"  id="user-tab" data-bs-toggle="tab" href="#user" role="tab" aria-controls="user"
                         aria-selected="true">User</a>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -316,21 +316,21 @@
                     <!-- User Tab -->
                     <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4>User Management</h4>
-                            <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#addUserModal">+ Add
+                            <h4 style="font-weight:bold;font-size:15px">User Management</h4>
+                            <button class="btn btn-primary button-data" style="font-weight:600px;font-size:15px" data-bs-toggle="modal" data-bs-target="#addUserModal">+ Add
                                 User</button>
                         </div>
                         <table id="userTable" class="table table-striped table-bordered" style="width:100%">
                             <thead>
-                                <tr>
-                                    <th><input type="checkbox"></th>
-                                    <th>User ID</th>
-                                    <th>Name</th>
-                                    <th>Contact</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                <tr >
+                                    <th style="font-weight:600px;font-size:15px"><input type="checkbox"></th>
+                                    <th style="font-weight:600px;font-size:15px" >User ID</th>
+                                    <th style="font-weight:600px;font-size:15px">Name</th>
+                                    <th style="font-weight:600px;font-size:15px">Contact</th>
+                                    <th style="font-weight:600px;font-size:15px">Email</th>
+                                    <th style="font-weight:600px;font-size:15px">Role</th>
+                                    <th style="font-weight:600px;font-size:15px">Status</th>
+                                    <th style="font-weight:600px;font-size:15px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -501,20 +501,20 @@
                         <!-- Role & Permission Tab -->
                     <div class="tab-pane fade" id="role" role="tabpanel" aria-labelledby="role-tab">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4>Role & Permission Management</h4>
-                            <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#addRoleModal">+ Create Role
+                            <h4 style="font-weight:bold;font-size:15px">Role & Permission Management</h4>
+                            <button class="btn btn-primary button-data" style="font-weight:600px;font-size:15px" data-bs-toggle="modal" data-bs-target="#addRoleModal">+ Create Role
                                 & Permission</button>
                         </div>
 
                         <table id="roleTable" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox"></th>
-                                    <th>Role</th>
-                                    <th>Descriptions</th>
-                                    <th>Permission</th>
+                                    <th style="font-weight:bold;font-size:15px"><input type="checkbox"></th>
+                                    <th style="font-weight:bold;font-size:15px">Role</th>
+                                    <th style="font-weight:bold;font-size:15px">Descriptions</th>
+                                    <th style="font-weight:bold;font-size:15px">Permission</th>
                                     <!-- <th>status</th> -->
-                                    <th>Action</th>
+                                    <th style="font-weight:bold;font-size:15px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -601,7 +601,8 @@
                     <div class="tab-pane fade" id="module" role="tabpanel" aria-labelledby="role-tab">
                         
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3>Group Permission</h3>
+                    
+                        <h3>Group Permission</h3>
                     <input type="text" class="form-control search-input" placeholder="Search...">
                     </div>
 
@@ -701,10 +702,11 @@
                        <!--module permission tab -->
                     <div class="tab-pane fade" id="module" role="tabpanel" aria-labelledby="role-tab">
                         
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3>Group Permission</h3>
-                    <input type="text" class="form-control search-input" placeholder="Search...">
-                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 10px; ">
+    <h3 style="margin: 0; font-size: 22px; font-weight: bold; color: #333;">Group Permission</h3>
+    <input type="text" style="width: 300px; padding: 8px 12px; font-size: 14px; border: 1px solid #ccc; border-radius: 5px;" placeholder="Search...">
+</div>
+
 
                     <form class="form-horizontal p-4" role="form" id="addFormAjax" method="post" action="<?php echo base_url('users/rolePermission') ?>" enctype="multipart/form-data">
                             

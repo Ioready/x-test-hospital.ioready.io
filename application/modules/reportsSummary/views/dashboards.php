@@ -1,135 +1,176 @@
 <?php //if ($this->ion_auth->is_admin() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_user() || $this->ion_auth->is_facilityManager()) { ?>
 
-    <style>
-        /* .col-lg-4 {
-        width: 28.333333% !important;
+   
+<style>
+    /* Optimized styles for responsive design */
+    .container {
+        background-color: #f5f5f5;
+        padding: 20px;
+    }
+    .filter-panel {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        background-color: #ececec;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .filter-item {
+        flex: 1 1 200px;
+        min-width: 180px;
     }
 
-    .col-lg-3 {
-        width: 30% !important;
-    } */
-        #Graph-chart49 {
-            white-space: nowrap;
-            /* Prevents line breaks */
-        }
+    
+    .btn-primary, .btn-success {
+        width: 100%;
+    }
+    .graph-container {
+        width: 100%;
+        overflow-x: auto;
+        padding: 10px 0;
+    }
+    .text-truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
-        /* .panel-bodyy {
-            display: flex;
-            width: fit-content;
-        } */
-
-        .filter-background {
-            background-color: #d7cace;
-            border-color: #d7cace;
-        }
-
-        @media only screen and (max-width: 600px) {
-            .panel-bodyy {
-                flex-direction: column;
-            }
-
-            .ajay1 {
-                width: 190%;
-            }
-            /* .ajay1-btn {
-                width: 103%;
-            } */
-        }
+   
 
 
-        @media only screen and (max-width: 600px) {
-            .exportbutton {
-                width: 100%;
-            }
-
-            .exportbutton1 {
-                margin-top: -24px;
-                float: left;
-                width: 192px;
-                font-size: 11px;
-                padding-left: 4px;
-                /* margin-left:-175 */
-            }
-
-            .exportbutton2 {
-                padding-bottom: 24px;
-                margin-top: 10px;
-            }
-        }
-
-        @media only screen and (max-width: 600px) {
-            .exportbutton {
-                width: 50%;
-            }
-
-            .exportbutton3 {
-                margin-top: -24px;
-                float: left;
-                width: 192px;
-            }
-
-            .exportbutton2 {
-                padding-bottom: 24px;
-                margin-top: 10px;
-            }
-
-        }
-
-
-        @media only screen and (min-width: 668px) and (max-width: 1600px) {
-            .exportbutton1 {
-                margin-top: -24px;
-                margin-right: -33px;
-                float: right;
-                width: 246px;
-            }
-
-            .exportbutton {
-                max-width: 95%;
-            }
-
-            .exportbutton2 {
-                padding-bottom: 24px;
-                margin-top: 10px;
-            }
-        }
-
-        .cultur_source {
-            padding: 0px 1px;
-        }
-
-        @media only screen and (min-width: 668px) and (max-width: 1600px) {
-            .exportbutton3 {
-                margin-top: -24px;
-                margin-right: -33px;
-                float: right;
-                width: 196px;
-            }
-
-            .exportbutton {
-                max-width: 95%;
-            }
-
-            .exportbutton2 {
-                padding-bottom: 24px;
-                margin-top: 10px;
-            }
-        }
-
-        .cultur_source {
-            padding: 0px 1px;
-        }
-
-
-        #Graph-chart21 {
-            height: 540px;
-        }
-        .text-truncate {
+/* Panel Styles */
+.panel {
+    border-radius: 10px;
     overflow: hidden;
+    margin-bottom: 20px;
+}
+ /* Updated .panel-success styles with unique color scheme */
+ .panel-success {
+    border-color: #b0daf0; /* Light blue border */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.panel-success > .panel-heading {
+    color: #0a2f52; /* Dark navy blue text */
+    background-color: #d2f4ff; /* Soft blue background */
+    border-color: #b0daf0; /* Matching border color */
+    font-weight: 600;
+    padding: 12px 16px;
+    border-radius: 8px 8px 0 0;
+}
+
+.panel-success > .panel-body {
+    background-color: #f7fbff; /* Lightest blue for body background */
+    color: #08415c; /* Darker blue for text */
+    padding: 20px;
+    border-radius: 0 0 8px 8px;
+}
+
+.panel-success > .panel-footer {
+    background-color: #d2f4ff; /* Consistent footer background */
+    border-top: 1px solid #b0daf0;
+    padding: 10px 15px;
+    border-radius: 0 0 8px 8px;
+}
+
+.panel-success {
+    border: 1px solid #b0daf0;
+    background-color: #d2f4ff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.panel-heading {
+    padding: 15px;
+    background-color: #d2f4ff;
+    color: #0a2f52;
+    font-weight: bold;
+    border-bottom: 1px solid #b0daf0;
+}
+
+.panel-body {
+    padding: 20px;
+    background-color: #f7fbff;
+    color: #08415c;
+}
+
+.panel-footer {
+    padding: 15px;
+    background-color: #d2f4ff;
+    border-top: 1px solid #b0daf0;
+}
+
+
+
+
+
+
+select,
+button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #b0daf0;
+    font-size: 14px;
+}
+
+button {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.btn-primary {
+    background-color: #1a73e8;
+    color: #fff;
+    border: none;
+}
+
+button.btn-primary:hover {
+    background-color: #155bb5;
+}
+
+button.btn-success {
+    background-color: #34a853;
+    color: #fff;
+    border: none;
+}
+
+button.btn-success:hover {
+    background-color: #2a8a3f;
+}
+
+button.btn-danger {
+    background-color: #d93025;
+    color: #fff;
+    border: none;
+}
+
+button.btn-danger:hover {
+    background-color: #b2271d;
+}
+
+/* Text Truncate */
+.text-truncate {
     white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
-    </style>
+
+/* Graph Container */
+.graph-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 20px 0;
+}
+
+
+
+
+
+
+
+</style>
+
     <!-- Page content -->
     <div id="page-content" style="background-color: whitesmoke;">
         <!--<div id="msg"></div>-->

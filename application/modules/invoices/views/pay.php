@@ -183,12 +183,28 @@
             
             <form class="form-horizontal form-validation" role="form" id="addFormAjaxData" method="post" action="<?php echo site_url('/invoices/process'); ?>" enctype="multipart/form-data">
 
-            <div class="modal-header text-center">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h2 class="modal-title"><?php echo "Add Payment on account" ?></h2>
-                    <h4 style="margin-left: 233px;"><span><strong><?php echo $results->invoice_number;?></strong></span></h2>
-                    <input type="hidden" name="invoice_number" value="<?php echo $results->invoice_number;?>">
-                </div>
+            <div class="modal-header text-center" style="padding: 20px; background-color: #f5f5f5; border-bottom: 1px solid #ddd;">
+    <!-- Close Button -->
+    <button type="button" class="close" data-dismiss="modal" style="position: absolute; top: 15px; right: 20px; font-size: 24px;">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+
+    <!-- Modal Title -->
+    <h2 class="modal-title" style="font-weight: 600;font-size:20px; color: #333; margin-bottom: 10px;">
+        <?php echo "Add Payment on Account"; ?>
+      &nbsp;  &nbsp;  &nbsp;  <span><strong><?php echo $results->invoice_number; ?></strong></span>
+    </h2>
+
+    <!-- Invoice Number -->
+    <h4 style="margin-left: 20px; color: #555;">
+       
+    </h4>
+
+    <!-- Hidden Input for Invoice Number -->
+    <input type="hidden" name="invoice_number" value="<?php echo $results->invoice_number; ?>">
+</div>
+
                 
 
                 <!-- stripe payment gateway -->
@@ -276,277 +292,139 @@
 
                             <div class="space-22"></div>
                         </div>
-                        <div class="total-amount">
-                                    Total amount: £<?php echo $results->total_amount; ?>
-                                </div>
+                      <!-- Total Amount Section -->
+<div class="total-amount" style="font-size: 18px; font-weight: bold; margin-bottom: 20px;;">
+    Total amount: £<?php echo $results->total_amount; ?>
+</div>
+
+<!-- Payment Sidebar and Tabs -->
+<div class="card card0" style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; height:300px;overflow-y:auto">
+    <div style="display: flex;" id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper" style="width: 250px;background-color: #f8f9fa; border-right: 1px solid #dee2e6;">
+            <div style="font-size: 18px; color: #007bff; text-align: center; padding: 20px 0; font-weight: bold;">PAY WITH</div>
+            <div class="customNavMenus" style="padding: 10px;">
+
+                <!-- Payment Methods -->
+                <a data-toggle="tab" href="#menu2" id="tab2" style="display: block; padding: 10px; font-size: 14px; color: #333; text-decoration: none; background-color: #fff; margin-bottom: 5px; border-radius: 4px;">
+                    <div style="display: flex; align-items: center;">
+                        <div class="fa fa-credit-card" style="margin-right: 10px;"></div> Card
                     </div>
+                </a>
 
-                    <div class="card card0">
-                                <div class="d-flex" id="wrapper">
-                                    <!-- Sidebar -->
-                                    <div class="bg-light border-right" id="sidebar-wrapper">
-                                        <div class="sidebar-heading pt-5 pb-4"><strong>PAY WITH</strong></div>
-                                        <div class="list-group list-group-flush customNavMenus"> 
-
-                                            <!-- <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item bg-light active1">
-                                                <div class="list-div my-2">
-                                                    <div class="fa fa-credit-card"></div> &nbsp;&nbsp; Card
-                                                </div>
-                                            </a> 
-                                            <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light active1">
-                                                <div class="list-div my-2">
-                                                    <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
-                                                </div>
-                                            </a> 
-
-                                            <a data-toggle="tab" href="#menu4" id="tab4" class="tabs list-group-item bg-light active1">
-                                                <div class="list-div my-2">
-                                                    <div class="fa fa-money"></div> &nbsp;&nbsp; Cash
-                                                </div>
-                                            </a>
-
-                                            
-                                            <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light active1">
-                                                <div class="list-div my-2">
-                                                    <div class="fa fa-qrcode"></div> &nbsp;&nbsp;&nbsp; Visa QR <span id="new-label">NEW</span>
-                                                </div>
-                                            </a>  -->
-
-                                    <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item bg-light">
-                                        <div class="list-div my-2">
-                                            <div class="fa fa-credit-card"></div> &nbsp;&nbsp; Card
-                                        </div>
-                                    </a>
-                                    <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light">
-                                        <div class="list-div my-2">
-                                            <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
-                                        </div>
-                                    </a>
-                                    <a data-toggle="tab" href="#menu4" id="tab4" class="tabs list-group-item bg-light">
-                                        <div class="list-div my-2">
-                                            <div class="fa fa-money"></div> &nbsp;&nbsp; Cash
-                                        </div>
-                                    </a>
-                                    <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light">
-                                        <div class="list-div my-2">
-                                            <div class="fa fa-qrcode"></div> &nbsp;&nbsp;&nbsp; Visa QR <span id="new-label">NEW</span>
-                                        </div>
-                                    </a>
-
-                                    <!-- Add the CSS and jQuery code -->
-                                    <style>
-                                    /* Subscribe me on Youtube
-                                    https://bit.ly/3m9avif
-                                    */
-
-                                    #customNavMenus a{
-                                        list-style:none;
-                                        width:60px;
-                                    }
-                                    #customNavMenus a{
-                                        cursor:pointer;
-                                    }
-                                    .active{
-                                        /* background-color:royalblue; */
-                                        /* color:white; */
-                                    }
-
-                                    /* Not nessessary css start */
-                                    #customNavMenus a{display:inline-block;}
-
-                                    </style>
-
-                                <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-
-                                <script>
-                       
-                                $("#customNavMenus").on('click', 'a', function () {
-                                    $("#customNavMenus a.active").removeClass("active");
-                                    // adding classname 'active' to current click li 
-                                    $(this).addClass("active");
-                                });
-
-                                </script>
-
-                                            
-
-                                        </div>
-                                    </div> <!-- Page Content -->
-                                    <div id="page-content-wrapper">
-
-                                        <div class="tab-content">
-                                        <div id="menu4" class="tab-pane">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-11">
-                                                        <div class="form-card">
-                                                            <h3 class="mt-0 mb-4 text-center">Enter Cash details to pay</h3>
-                                                            
-
-                                                        <div class="row">
-                                                       
-                                                            <!-- Total Amount -->
-                                                            <div class="form-group">
-                                                                <label for="totalAmount">Total Amount</label>
-                                                                <input type="number" class="form-control" id="totalAmount" name="totalAmount" placeholder="Enter total amount" readonly value="<?php echo $results->total_amount; ?>">
-                                                            </div>
-
-                                                            <!-- Cash Received -->
-                                                            <div class="form-group">
-                                                                <label for="cashReceived">Cash Received</label>
-                                                                <input type="number" class="form-control" id="cashReceived" name="cashReceived" placeholder="Enter cash received" oninput="updateTotals()">
-                                                            </div>
-
-                                                            <!-- Total Paid -->
-                                                            <div class="form-group">
-                                                                <label for="totalPaid">Total Paid</label>
-                                                                <input type="number" class="form-control" id="totalPaid" name="totalPaid" readonly>
-                                                            </div>
-
-                                                            <!-- Balance -->
-                                                            <div class="form-group">
-                                                                <label for="balance">Balance</label>
-                                                                <input type="number" class="form-control" id="balance" readonly>
-                                                            </div>
-                                                       
-                                                    </div>
-
-                                                    <script>
-                                                        function updateTotals() {
-                                                            const totalAmount = parseFloat(document.getElementById('totalAmount').value) || 0;
-                                                            const cashReceived = parseFloat(document.getElementById('cashReceived').value) || 0;
-
-                                                            // Calculate Total Paid
-                                                            const totalPaid = cashReceived;
-
-                                                            // Calculate Balance
-                                                            const balance = totalAmount - totalPaid;
-
-                                                            // Update fields
-                                                            document.getElementById('totalPaid').value = totalPaid.toFixed(2);
-                                                            document.getElementById('balance').value = balance.toFixed(2);
-                                                        }
-                                                    </script>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div id="menu1" class="tab-pane">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-11">
-                                                        <!-- <div class="form-card">
-                                                            <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
-                                                            
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="input-group"> <input type="text" id="bk_nm" name="bank_name" placeholder="BBB Bank"> <label>BANK NAME</label> </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-
-                                                                    <div class="col-12">
-                                                                        <div class="input-group"> <input type="text" name="ben_nm" id="ben-nm" placeholder="John Smith"> <label>BENEFICIARY NAME</label> </div>
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <div class="input-group"> <input type="text" name="ben_account" id="ben_account" placeholder="123456789"> <label>Bank Account</label> </div>
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <div class="input-group"> <input type="text" name="scode" placeholder="ABCDAB1S" class="placeicon" minlength="8" maxlength="11"> <label>SWIFT CODE</label> </div>
-                                                                    </div>
-                                                                </div>
-                                                               
-                                                        </div> -->
-
-                                                        <div class="form-card">
-                                                            <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
-                                                            <span>Cardholder's name:</span>
-                                                                <input 
-                                                                    type="text" name="user_name" id="user_name"
-                                                                    class="form-control mb-3" 
-                                                                    placeholder="Cardholder name" 
-                                                                    
-                                                                    title="Name should contain only letters and spaces" 
-                                                                    >
-
-                                                                    <span>Cardholder's Email:</span>
-                                                                <input 
-                                                                    type="email" name="email" id="email"
-                                                                    class="form-control mb-3" 
-                                                                    placeholder="text@email" 
-                                                                    
-                                                                    title="Name should contain only letters and spaces" 
-                                                                    >
-                                                                <br>
-
-                                                        <label>Transaction ID:</label><input type="text" name="transaction_id" id="transaction_id" placeholder="Transaction ID">
-                                                        <!-- <input type="text" name="bank_name" placeholder="BBB Bank"> -->
-                                                        <!-- <input type="text" name="beneficiary_name" placeholder="John Smith"> -->
-                                                        <!-- <input type="text" name="account_number" placeholder="123456789"> -->
-                                                        <!-- <input type="text" name="swift_code" placeholder="ABCDAB1S"> -->
-                                                        <label>Upload PDF Receipt:</label> <input type="file" name="receipt_pdf" accept=".pdf">
-                                                        <label>Upload PNG Receipt:</label> <input type="file" name="receipt_png" accept=".png">
-
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="menu2" class="tab-pane in active">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-11">
-                                                        
-                                                        <div class="form-card">
-                                                            <h3 class="mt-0 mb-4 text-center">Enter your card details to pay</h3>
-                                                           
-                                                                <span>Cardholder's name:</span>
-                                                                <input 
-                                                                    type="text" name="user_name" id="user_name"
-                                                                    class="form-control mb-3" 
-                                                                    placeholder="Cardholder name" 
-                                                                    pattern="^[a-zA-Z\s]+$" 
-                                                                    title="Name should contain only letters and spaces" 
-                                                                    >
-
-                                                                    <span>Cardholder's Email:</span>
-                                                                <input 
-                                                                    type="email" name="email" id="email"
-                                                                    class="form-control mb-3" 
-                                                                    placeholder="text@email" 
-                                                                    
-                                                                    title="Name should contain only letters and spaces" 
-                                                                    >
-                                                                <br>
-                                                                <div class="form-control" id="card-element">
-
-                                                                </div>
-                                                                
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="menu3" class="tab-pane">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-11">
-                                                        <h3 class="mt-0 mb-4 text-center">Scan the QR code to pay</h3>
-                                                        <div class="row justify-content-center" style="width: 200px;">
-                                                            <!-- Display the QR Code Image -->
-                                                            <?php if (!empty($qr_code_url)): ?>
-                                                               
-                                                                <img src="<?= $qr_code_url ?>" alt="Invoice QR Code">
-                                                            <?php endif; ?>
-                                                            <!-- <div id="qr"> <img src="https://i.imgur.com/DD4Npfw.jpg" width="200px" height="200px"> </div> -->
-                                                       
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                <a data-toggle="tab" href="#menu1" id="tab1" style="display: block; padding: 10px; font-size: 14px; color: #333; text-decoration: none; background-color: #fff; margin-bottom: 5px; border-radius: 4px;">
+                    <div style="display: flex; align-items: center;">
+                        <div class="fa fa-home" style="margin-right: 10px;"></div> Bank
                     </div>
+                </a>
+
+                <a data-toggle="tab" href="#menu4" id="tab4" style="display: block; padding: 10px; font-size: 14px; color: #333; text-decoration: none; background-color: #fff; margin-bottom: 5px; border-radius: 4px;">
+                    <div style="display: flex; align-items: center;">
+                        <div class="fa fa-money" style="margin-right: 10px;"></div> Cash
+                    </div>
+                </a>
+
+                <a data-toggle="tab" href="#menu3" id="tab3" style="display: block; padding: 10px; font-size: 14px; color: #333; text-decoration: none; background-color: #fff; margin-bottom: 5px; border-radius: 4px;">
+                    <div style="display: flex; align-items: center;">
+                        <div class="fa fa-qrcode" style="margin-right: 10px;"></div> Visa QR <span style="color: #dc3545; font-weight: bold;">NEW</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div id="page-content-wrapper" style="flex-grow: 1; padding: 20px;">
+            <div class="tab-content">
+
+                <!-- Cash Payment Tab -->
+                <div id="menu4" class="tab-pane">
+                    <h3 style="text-align: center; margin-bottom: 20px;">Enter Cash details to pay</h3>
+                    <div class="form-group">
+                        <label for="totalAmount">Total Amount</label>
+                        <input type="number" id="totalAmount" name="totalAmount" class="form-control" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" readonly value="<?php echo $results->total_amount; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="cashReceived">Cash Received</label>
+                        <input type="number" id="cashReceived" name="cashReceived" class="form-control" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" placeholder="Enter cash received" oninput="updateTotals()">
+                    </div>
+                    <div class="form-group">
+                        <label for="totalPaid">Total Paid</label>
+                        <input type="number" id="totalPaid" name="totalPaid" class="form-control" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="balance">Balance</label>
+                        <input type="number" id="balance" class="form-control" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" readonly>
+                    </div>
+                </div>
+
+                <div id="menu4" class="tab-pane">
+                <h3 style="text-align: center; margin-bottom: 20px;">Enter Cash details to pay</h3>
+
+                <!-- Total Amount Input -->
+                <div style="margin-bottom: 15px;">
+                    <label>Total Amount</label>
+                    <input type="number" id="totalAmount" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" readonly value="<?php echo $results->total_amount; ?>">
+                </div>
+
+                <!-- Cash Received Input -->
+                <div style="margin-bottom: 15px;">
+                    <label>Cash Received</label>
+                    <input type="number" id="cashReceived" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" placeholder="Enter cash received" oninput="updateTotals()">
+                </div>
+
+                <!-- Total Paid Input -->
+                <div style="margin-bottom: 15px;">
+                    <label>Total Paid</label>
+                    <input type="number" id="totalPaid" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" readonly>
+                </div>
+
+                <!-- Balance Input -->
+                <div style="margin-bottom: 15px;">
+                    <label>Balance</label>
+                    <input type="number" id="balance" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ced4da;" readonly>
+                </div>
+            </div>
+
+
+                <!-- Bank Payment Tab -->
+                <div id="menu1" class="tab-pane">
+                    <h3 style="text-align: center; margin-bottom: 20px;">Enter bank details to pay</h3>
+                    <label>Cardholder's Name:</label>
+                    <input type="text" id="user_name" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="Cardholder name">
+                    <label>Cardholder's Email:</label>
+                    <input type="email" id="email" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="text@email.com">
+                    <label>Transaction ID:</label>
+                    <input type="text" id="transaction_id" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="Transaction ID">
+                    <label>Upload PDF Receipt:</label>
+                    <input type="file" accept=".pdf" style="width: 100%; padding: 5px; margin-bottom: 15px;">
+                    <label>Upload PNG Receipt:</label>
+                    <input type="file" accept=".png" style="width: 100%; padding: 5px;">
+                </div>
+
+                <!-- Card Payment Tab -->
+                <div id="menu2" class="tab-pane in active">
+                    <h3 style="text-align: center; margin-bottom: 20px;">Enter your card details to pay</h3>
+                    <label>Cardholder's Name:</label>
+                    <input type="text" id="user_name_card" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="Cardholder name">
+                    <label>Cardholder's Email:</label>
+                    <input type="email" id="email_card" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px;" placeholder="text@email.com">
+                    <div class="form-control" id="card-element" style="padding: 10px; border-radius: 4px; margin-bottom: 15px;"></div>
+                </div>
+
+                <!-- QR Payment Tab -->
+                <div id="menu3" class="tab-pane">
+                    <h3 style="text-align: center; margin-bottom: 20px;">Scan the QR code to pay</h3>
+                    <?php if (!empty($qr_code_url)): ?>
+                        <img src="<?= $qr_code_url ?>" alt="Invoice QR Code" style="width: 200px; height: 200px; display: block; margin: 0 auto;">
+                    <?php endif; ?>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
                         
 
                     </div>
@@ -555,7 +433,7 @@
 
             </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-default" class="close" data-dismiss="modal" >Close</button>
                     
                     <button type="submit" id="submit" class="btn btn-sm btn-primary m-2"  style="background: #337ab7" value="Pay $ <?php echo $results->total_amount; ?>" >Pay $ <?php echo $results->total_amount; ?></button>
                     <!-- <div class="col-md-12"> <input type="submit" id="submit"  value="Pay $ <?php echo $results->total_amount; ?>" class="btn btn-success placeicon"> </div> -->

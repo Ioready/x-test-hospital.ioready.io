@@ -1,72 +1,24 @@
 <style>
-.select2-container, .select2-drop, .select2-search, .select2-search input {
-    width: 290px !important;
-}
+    .custom-badge {
+        border-radius: 4px;
+        font-size: 12px;
+        min-width: 95px;
+        padding: 2px 10px;
+        text-align: center;
+    }
 
-.dataTables_wrapper {
-            margin-top: 20px;
-        }
+    .status-red { background-color: red; color: white; }
+    .status-green { background-color: green; color: white; }
+    .status-yellow { background-color: yellow; color: black; }
 
-        .dataTables_paginate {
-            margin-top: 10px;
-        }
-
-        .dataTables_length {
-            margin-bottom: 10px;
-        }
-
-        .dataTables_info {
-            margin-bottom: 10px;
-        }
-
-        .dataTables_filter {
-            margin-top: 10px;
-        }
-
-
-.custom-badge {
-	border-radius: 4px;
-	display: inline-block;
-	font-size: 12px;
-	min-width: 95px;
-	padding: 1px 10px;
-	text-align: center;
-}
-
-    .status-red,
-a.status-red {
-	background-color: red;
-	border: 1px solid #fe0000;
-	color: white;
-    border-radius:10px;
-    padding:2px;
-}
-.status-green,
-a.status-green {
-	background-color: green;
-	border: 1px solid #00ce7c;
-    border-radius:10px;
-    padding:2px;
-	color: white;
-}
-
-.status-yellow,
-a.status-yellow {
-	background-color: red;
-	border: 1px solid #fe0000;
-	color: white;
-}
-
-    /* Center table data */
     #appointmentTable {
         margin: 20px auto;
         border-collapse: collapse;
         width: 100%;
     }
 
-    #appointmentTable th,
-    #appointmentTable td {
-        font-size:14px;
+    #appointmentTable th, #appointmentTable td {
+        font-size: 14px;
         text-align: center;
         vertical-align: middle;
         border: 1px solid #dddddd;
@@ -74,14 +26,26 @@ a.status-yellow {
     }
 
     #appointmentTable th {
-        background-color: #f2f2f2;
+        background-color: #f7fbff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
-    
- 
+    .table-responsive {
+        margin-top: 20px;
+    }
 
+    .save-btn {
+        text-align: left;
+        margin-bottom: 20px;
+    }
 
+    h4 {
+        text-align: center;
+        font-weight: 600;
+        margin: 10px 0;
+    }
 </style>
+
 
 <div id="page-content" style="background-color: whitesmoke;">
         <!-- Datatables Header -->
@@ -128,8 +92,8 @@ a.status-yellow {
                                     <div class="col-sm-12">     
                                             <div class="table-responsive">
                                             <table id="appointmentTable" class="table table-striped custom-table">
-                                            <thead>
-                                                <tr> <th>ID</th>
+                                            <thead >
+                                                <tr > <th>ID</th>
                                                     <th>Appointment Type ID</th>
                                                     <th>Patient Name</th>
                                                     <!-- <th>Doctor Name</th> -->
@@ -244,9 +208,10 @@ a.status-yellow {
 
     <?php }}}} if ($this->ion_auth->is_facilityManager()){ ?>
 
-   <div class="wrapper wrapper-content animated fadeIn m-4">
+   <div class="wrapper wrapper-content animated fadeIn">
 
-   <h3>Approve Appointment</h3> 
+   <h4 >Approve Appointment</h4>
+
     <div class="row">
 
         <div class="col-lg-12">
@@ -272,7 +237,7 @@ a.status-yellow {
                                 <div class="table-responsive" >
                                 
 
-                                    <table id="appointmentTable" class="table table-bordered table-hover align-middle text-center">
+                                    <table id="appointmentTable" class="table table-bordered  align-middle text-center">
 								
                                     <thead>
 									<tr>
@@ -286,7 +251,7 @@ a.status-yellow {
 										<th>Status</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody style=" box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
                                 <?php $formatted_time = date('Y-m-d');
 
                                 foreach ($notifications as $notification)
