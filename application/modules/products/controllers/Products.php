@@ -505,7 +505,6 @@ class Products extends Common_Controller {
                     'clinicians' => $this->input->post('clinicians')?? null,
                     'status	' => '0',
 
-                    
                 );
                 // print_r($options_data);die;
                 // $option = $this->db->insert('doctor_product', $options_data); 

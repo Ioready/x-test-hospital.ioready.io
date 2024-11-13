@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"> -->
     <style>
+        .caret {
+            display: none!important;
+        }
         .highlight { background-color: yellow; }
         header h1, header p { margin: 0; }
         footer { padding: 7vh 5vw; border-top: 1px solid #ddd; }

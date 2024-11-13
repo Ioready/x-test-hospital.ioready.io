@@ -29,8 +29,33 @@ class CareUnit extends Common_Controller {
         $this->data['tablePrefix'] = 'vendor_sale_' . $this->_table;
         $this->data['table'] = $this->_table;
 
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         //$AdminCareUnitID = isset($_SESSION['admin_care_unit_id']) ? $_SESSION['admin_care_unit_id'] : '';
-        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        $CareUnitID = $hospital_id;
                 // $option = array('table' => 'care_unit', 'where' => array('delete_status' => 0, 'is_active' => 1), 'order' => array('name' => 'ASC'));
                 // $Sql = "SELECT vendor_sale_users.care_unit_id FROM vendor_sale_users WHERE vendor_sale_users.id = '$CareUnitID'"; 
                 $Sql = "SELECT vendor_sale_users.care_unit_id FROM vendor_sale_users"; 
@@ -49,7 +74,7 @@ class CareUnit extends Common_Controller {
                 $careunit_facility_counts =[];
                 foreach($careUnit_lists as $uids){
                 // $Sql = "SELECT vendor_sale_care_unit.id,vendor_sale_care_unit.care_unit_code,vendor_sale_care_unit.name,vendor_sale_care_unit.email FROM vendor_sale_care_unit WHERE vendor_sale_care_unit.id ='$uids'"; 
-                $Sql = "SELECT vendor_sale_care_unit.id,vendor_sale_care_unit.care_unit_code,vendor_sale_care_unit.name,vendor_sale_care_unit.email FROM vendor_sale_care_unit"; 
+                $Sql = "SELECT vendor_sale_care_unit.id,vendor_sale_care_unit.care_unit_code,vendor_sale_care_unit.name,vendor_sale_care_unit.email FROM vendor_sale_care_unit WHERE vendor_sale_care_unit.facility_user_id ='$hospital_id'"; 
                 $careunit_facility_counts[] = $this->common_model->customQuery($Sql);
                    }
                 $arraySingle = call_user_func_array('array_merge', $careunit_facility_counts);
@@ -62,7 +87,7 @@ class CareUnit extends Common_Controller {
                 $this->data['careUnit_user_id'] = $careunit_facility_user_id;
                 //print_r($this->data['careUnit_user_id']);die;
 
-        $option = array('table' => $this->_table, 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC'));
+        $option = array('table' => $this->_table, 'where' => array('facility_user_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC'));
         $this->data['list'] = $this->common_model->customGet($option);
         $this->load->admin_render('list', $this->data, 'inner_script');
     }

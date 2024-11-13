@@ -28,7 +28,33 @@ class Attributes extends Common_Controller {
         $this->data['title'] = $this->title;
         $this->data['tablePrefix'] = 'vendor_sale_' . $this->_table;
         $this->data['table'] = $this->_table;
-        $option = array('table' => $this->_table, 'where' => array('delete_status' => 0),'order'=>array('name'=>'asc'));
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+        
+        $option = array('table' => $this->_table, 'where' => array('user_id'=>$hospital_id,'delete_status' => 0),'order'=>array('name'=>'asc'));
         $this->data['list'] = $this->common_model->customGet($option);
         $this->load->admin_render('list', $this->data, 'inner_script');
     }
@@ -64,7 +90,34 @@ class Attributes extends Common_Controller {
             if ($this->filedata['status'] == 0) {
                 $response = array('status' => 0, 'message' => $this->filedata['error']);
             } else {
+
+                if ($this->ion_auth->is_facilityManager()) {
+                    $user_id = $this->session->userdata('user_id');
+                $hospital_id = $user_id;
+        
+                } else if($this->ion_auth->is_all_roleslogin()) {
+                    $user_id = $this->session->userdata('user_id');
+                    $optionData = array(
+                        'table' => USERS . ' as user',
+                        'select' => 'user.*,group.name as group_name',
+                        'join' => array(
+                            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                        ),
+                        'order' => array('user.id' => 'DESC'),
+                        'where' => array('user.id'=>$user_id),
+                        'single'=>true,
+                    );
+            
+                    $authUser = $this->common_model->customGet($optionData);
+        
+                    $hospital_id = $authUser->hospital_id;
+                    // 'users.hospital_id'=>$hospital_id
+                    
+                }
+
                 $options_data = array(
+                    'user_id' =>$hospital_id,
                     'name' => $this->input->post('name'),
                     'is_active' => 1,
                     'create_date' => datetime()
@@ -165,8 +218,34 @@ class Attributes extends Common_Controller {
         $this->data['title'] = 'clinic';
         $this->data['tablePrefix'] = 'vendor_sale_' . 'clinic';
         $this->data['table'] = 'clinic';
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         $option = array('table' => 'clinic',
-        //  'where' => array('hospital_id'=>$user_id,'delete_status' => 0),
+         'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0),
          'order'=>array('name'=>'asc'));
         $this->data['list'] = $this->common_model->customGet($option);
         $this->load->admin_render('list_clinic', $this->data, 'inner_script');
@@ -194,11 +273,36 @@ class Attributes extends Common_Controller {
         $this->form_validation->set_rules('clinic_location', "Clinic Location", 'required|trim');
         if ($this->form_validation->run() == true) {
             
-                $user_id = $this->session->userdata('user_id');
+                // $user_id = $this->session->userdata('user_id');
+                if ($this->ion_auth->is_facilityManager()) {
+                    $user_id = $this->session->userdata('user_id');
+                $hospital_id = $user_id;
+        
+                } else if($this->ion_auth->is_all_roleslogin()) {
+                    $user_id = $this->session->userdata('user_id');
+                    $optionData = array(
+                        'table' => USERS . ' as user',
+                        'select' => 'user.*,group.name as group_name',
+                        'join' => array(
+                            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                        ),
+                        'order' => array('user.id' => 'DESC'),
+                        'where' => array('user.id'=>$user_id),
+                        'single'=>true,
+                    );
+            
+                    $authUser = $this->common_model->customGet($optionData);
+        
+                    $hospital_id = $authUser->hospital_id;
+                    // 'users.hospital_id'=>$hospital_id
+                    
+                }
+
                 $options_data = array(
                     'name' => $this->input->post('name'),
                     'clinic_location' => $this->input->post('clinic_location'),
-                    'hospital_id' => $user_id,
+                    'hospital_id' => $hospital_id,
                     'is_active' => 1,
                     'create_date' => datetime()
                 );
@@ -289,8 +393,34 @@ class Attributes extends Common_Controller {
         $this->data['title'] = $this->title;
         $this->data['tablePrefix'] = 'vendor_sale_' . 'practitioner';
         $this->data['table'] = 'practitioner';
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         $option = array('table' => 'practitioner', 
-        // 'where' => array('hospital_id'=>$user_id,'delete_status' => 0),
+        'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0),
         'order'=>array('name'=>'asc'));
         $this->data['list'] = $this->common_model->customGet($option);
         $this->load->admin_render('list_practitioner', $this->data, 'inner_script');
@@ -333,12 +463,37 @@ class Attributes extends Common_Controller {
 
         if ($this->form_validation->run() == true) {
             
-                $user_id = $this->session->userdata('user_id');
+                // $user_id = $this->session->userdata('user_id');
+
+                if ($this->ion_auth->is_facilityManager()) {
+                    $user_id = $this->session->userdata('user_id');
+                $hospital_id = $user_id;
+        
+                } else if($this->ion_auth->is_all_roleslogin()) {
+                    $user_id = $this->session->userdata('user_id');
+                    $optionData = array(
+                        'table' => USERS . ' as user',
+                        'select' => 'user.*,group.name as group_name',
+                        'join' => array(
+                            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                        ),
+                        'order' => array('user.id' => 'DESC'),
+                        'where' => array('user.id'=>$user_id),
+                        'single'=>true,
+                    );
+            
+                    $authUser = $this->common_model->customGet($optionData);
+        
+                    $hospital_id = $authUser->hospital_id;
+                    // 'users.hospital_id'=>$hospital_id
+                    
+                }
 
                 $options_data = array(
                     'name' => $this->input->post('name'),
                     'email' => $this->input->post('email'),
-                    'hospital_id' => $user_id,
+                    'hospital_id' => $hospital_id,
                     'is_active' => 1,
                     'create_date' => datetime()
                 );

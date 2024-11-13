@@ -890,7 +890,8 @@ bootbox.confirm({
         document.getElementById("products").value = searchValue;
     }
 </script> -->
-<script>
+
+<!-- <script>
     function myFunction() {
     let x = document.getElementById("products");
     query= x.value;
@@ -900,7 +901,21 @@ bootbox.confirm({
                         method: "POST",
                         data: {query: query},
                         success: function(data) {
-                            $('#result_product').html(data);
+                    var output = '<select class="form-control select2 customerdataid" name="customer_id" id="customer_id" onchange="updateFields(this)">';
+
+                    if (data) {
+                        $.each(data, function(index, element) {
+                            output += '<option value="' + element.id + '">' + element.name +  '</option>';
+                        });
+                    } else {
+                        output += '<option>No Data Found</option>';
+                    }
+
+                    output += '</select>';
+                    $('#result_product').html(output); // Append the generated output into the #result div
+
+
+                            // $('#result_product').html(data);
                         }
                     });
                 } else {
@@ -908,16 +923,92 @@ bootbox.confirm({
                 }
 
 }
-</script>
-<script>
-    function getSearchAllProduct() {
-        var searchValue = document.getElementById("consultation_product").value;
+</script> -->
 
-        document.getElementById("products").value = searchValue;
+<script>
+    function myFunction() {
+        let x = document.getElementById("products");
+        let query = x.value;
+        
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('invoices/fetchAllProduct'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+
+                    let output = '<select class="form-control select2 customerdataid" name="consultation_product" id="consultation_product" onchange="getSearchAllProduct(this)">';
+                    
+                    // Check if data is an array and has content
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function(index, element) {
+                            output += '<option value="' + element.id + '">' + element.name + '</option>';
+                        });
+                    } else {
+                        output += '<option>No Data Found</option>';
+                    }
+
+                    output += '</select>';
+                    $('#result_product').html(output);  // Set the HTML content of the #result_product div
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + status + error);  // Log error if AJAX fails
+                }
+            });
+        } else {
+            $('#result_product').html('');  // Clear the result when query is empty
+        }
+
+
+
+        
     }
 </script>
 
+
 <script>
+    function getSearchAllProduct() {
+        var searchValue = document.getElementById("consultation_product").value;
+        var query = searchValue;
+
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('invoices/fetchProductDetail'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+                    name = data.name;
+                    id = data.id;
+                    price = data.price;
+                    stock_level = data.stock_level;
+                    // alert(data);
+                $('#products').val(name);
+                $('#products_idss').val(id);
+                $('.product_rate').val(price);
+
+
+                if (stock_level === '0' || stock_level === '') { 
+                        $('#productStock')
+                            .text('Product Stock is empty = 0')
+                            .css('color', 'red');
+                        $('.submit_stock').prop('disabled', true); // Disable submit button
+                    } else {
+                        // alert(stock_level);
+                        $('#productStock')
+                            .text('Total Product Stock is available = ' + stock_level) // Corrected to use .text()
+                            .css('color', 'green');
+                        $('.submit_stock').prop('disabled', false); // Enable submit button
+                    }
+
+                }
+            });
+        }
+    }
+</script>
+
+<!-- <script>
     function myProductFunction() {
     let x = document.getElementById("product_item");
     // let x = document.getElementsByClassName("product_item");
@@ -930,19 +1021,113 @@ bootbox.confirm({
                         method: "POST",
                         data: {query: query},
                         success: function(data) {
-                            $('#result_productsjkjk').html(data);
-                        }
+                    
+                    let output = '<select class="form-control select2 customerdataid" name="consultation_productadd" id="consultation_productadd" onchange="getSearchAllProductAdd(this)">';
+                    
+                    // Check if data is an array and has content
+                    if (Array.isArray(data) && data.length > 0) {
+                        alert(data);
+                        $.each(data, function(index, element) {
+                            output += '<option value="' + element.id + '">' + element.name + '</option>';
+                        });
+                    } else {
+                        output += '<option>No Data Found</option>';
+                    }
+
+                    output += '</select>';
+                    $('#result_productsjkjk').html(output);  // Set the HTML content of the #result_product div
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + status + error);  // Log error if AJAX fails
+                }
+
+                        // success: function(data) {
+                        //     $('#result_productsjkjk').html(data);
+                        // }
                     });
                 } else {
                     $('#result_productsjkjk').html('');
                 }
 }
+</script> -->
+
+<script>
+    function myProductFunction() {
+        let x = document.getElementById("product_item");
+        let query = x.value;  // Get the value from the #product_item element
+        
+        if (query !== '') {  // Check if query is not empty
+            $.ajax({
+                url: "<?php echo site_url('invoices/fetchAllProductSearch'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the response is treated as JSON
+                success: function(data) {
+                    let output = '<select class="form-control select2 customerdataid" name="consultation_productadd" id="consultation_productadd" onchange="getSearchAllProductAdd(this)">';
+                    
+                    // Check if data is an array and contains elements
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function(index, element) {
+                            output += '<option value="' + element.id + '">' + element.name + '</option>';
+                        });
+                    } else {
+                        output += '<option>No Data Found</option>';
+                    }
+
+                    output += '</select>';
+                    $('#result_productsjkjk').html(output);  // Update #result_productsjkjk with the generated output
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + status + " " + error);  // Log errors to console if AJAX fails
+                }
+            });
+        } else {
+            $('#result_productsjkjk').html('');  // Clear the result if the query is empty
+        }
+    }
 </script>
+
 <script>
     function getSearchAllProductAdd() {
         var searchValue = document.getElementById("consultation_productadd").value;
 
-        document.getElementById("product_item").value = searchValue;
+        var query = searchValue;
+
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('invoices/fetchProductDetailAdd'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+                    name = data.name;
+                    price = data.price;
+                    stock_level = data.stock_level;
+                    id = data.id;
+                    // alert(price);
+                $('#products_iditem').val(id);
+                $('#product_item').val(name);
+                $('.product_rates').val(price);
+
+                if (stock_level === '0' || stock_level === '') { 
+                        $('#productStockNew')
+                            .text('Product Stock is empty = 0')
+                            .css('color', 'red');
+                        $('.submit_stock').prop('disabled', true); // Disable submit button
+                    } else {
+                        // alert(stock_level);
+                        $('#productStockNew')
+                            .text('Total Product Stock is available = ' + stock_level) // Corrected to use .text()
+                            .css('color', 'green');
+                        $('.submit_stock').prop('disabled', false); // Enable submit button
+                    }
+
+                
+                }
+            });
+        }
+
+        // document.getElementById("product_item").value = searchValue;
     }
 </script>
 
@@ -951,16 +1136,37 @@ bootbox.confirm({
 
 <script>
     function myFunctionUpdate() {
+        // alert(id);
     let x = document.getElementById("products");
     query= x.value;
     if (query != '') {
                     $.ajax({
                         url: "<?php echo site_url('invoices/fetchAllProduct'); ?>",
                         method: "POST",
+                        dataType: "json",
                         data: {query: query},
                         success: function(data) {
-                            $('#result_product').html(data);
-                        }
+
+                                let output = '<select class="form-control select2 customerdataid" name="consultation_product_update" id="consultation_product_update" onchange="getSearchAllProductUpdate(this)">';
+
+                                // Check if data is an array and has content
+                                if (Array.isArray(data) && data.length > 0) {
+                                    $.each(data, function(index, element) {
+                                        output += '<option value="' + element.id + '">' + element.name + '</option>';
+                                    });
+                                } else {
+                                    output += '<option>No Data Found</option>';
+                                }
+
+                                output += '</select>';
+                                $('#result_product').html(output);  // Set the HTML content of the #result_product div
+                                },
+                                error: function(xhr, status, error) {
+                                console.error("AJAX Error: " + status + error);  // Log error if AJAX fails
+                                }
+                        // success: function(data) {
+                        //     $('#result_product').html(data);
+                        // }
                     });
                 } else {
                     $('#result_product').html('');
@@ -972,7 +1178,26 @@ bootbox.confirm({
     function getSearchAllProductUpdate() {
         var searchValue = document.getElementById("consultation_product_update").value;
 
-        document.getElementById("products").value = searchValue;
+        var query = searchValue;
+
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('invoices/fetchProductDetail'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+                    name = data.name;
+                    id = data.id;
+                    price = data.price;
+                    // alert(price);
+                $('#products').val(name);
+                $('#products_idss').val(id);
+                $('.product_rate').val(price);
+                }
+            });
+        }
+        // document.getElementById("products").value = searchValue;
     }
 </script>
 
@@ -987,10 +1212,30 @@ bootbox.confirm({
                     $.ajax({
                         url: "<?php echo site_url('invoices/fetchAllProductSearchEdit '); ?>",
                         method: "POST",
+                        dataType: "json",
                         data: {query: query},
                         success: function(data) {
-                            $('#result_productsjkjk').html(data);
-                        }
+
+                            let output = '<select class="form-control select2 customerdataid" name="consultation_product_edit" id="consultation_product_edit" onchange="getSearchAllProductEdit(this)">';
+
+                            // Check if data is an array and has content
+                            if (Array.isArray(data) && data.length > 0) {
+                                $.each(data, function(index, element) {
+                                    output += '<option value="' + element.id + '">' + element.name + '</option>';
+                                });
+                            } else {
+                                output += '<option>No Data Found</option>';
+                            }
+
+                            output += '</select>';
+                            $('#result_productsjkjk').html(output);  // Set the HTML content of the #result_product div
+                            },
+                            error: function(xhr, status, error) {
+                            console.error("AJAX Error: " + status + error);  // Log error if AJAX fails
+                            }
+                        // success: function(data) {
+                        //     $('#result_productsjkjk').html(data);
+                        // }
                     });
                 } else {
                     $('#result_productsjkjk').html('');
@@ -1000,8 +1245,26 @@ bootbox.confirm({
 <script>
     function getSearchAllProductEdit() {
         var searchValue = document.getElementById("consultation_product_edit").value;
+        var query = searchValue;
 
-        document.getElementById("product_item").value = searchValue;
+        if (query !== '') {
+            $.ajax({
+                url: "<?php echo site_url('invoices/fetchProductDetailAdd'); ?>",
+                method: "POST",
+                data: {query: query},
+                dataType: "json",  // Ensure the data is interpreted as JSON
+                success: function(data) {
+                    name = data.name;
+                    price = data.price;
+                    id = data.id;
+                    // alert(price);
+                $('#products_iditem').val(id);
+                $('#product_item').val(name);
+                $('.product_rates').val(price);
+                }
+            });
+        }
+        // document.getElementById("product_item").value = searchValue;
     }
 </script>
 

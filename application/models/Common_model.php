@@ -969,5 +969,38 @@ class Common_model extends MY_Model {
         return $query->result_array(); // Ensure result_array() is used
     }
 
+    public function fetchAllProductsItem($query) {
+
+        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+       
+        if($this->ion_auth->is_subAdmin()){
+    
+            $option = array(
+                'table' => ' doctors',
+                'select' => 'doctors.*',
+                'join' => array(
+                    array('users', 'doctors.user_id=users.id', 'left'),
+                ),
+                'where' => array(
+                    'users.delete_status' => 0,
+                    'doctors.user_id'=>$CareUnitID
+                ),
+                'single' => true,
+            );
+    
+            $datadoctors = $this->common_model->customGet($option);
+            $this->db->like('name', $query);
+       
+        $query = $this->db->get('vendor_sale_doctor_product');
+
+        } else if ($this->ion_auth->is_facilityManager()) {
+            
+            $this->db->like('name', $query);
+            
+            $query = $this->db->get('vendor_sale_doctor_product');
+        }
+        return $query->result_array(); // Ensure result_array() is used
+    }
+
     
 }

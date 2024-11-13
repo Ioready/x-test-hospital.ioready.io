@@ -39,7 +39,7 @@ class FacilityManager extends Common_Controller {
 
             $option = array(
                 'table' => USERS . ' as user',
-                'select' => 'user.*, group.name as group_name, UP.doc_file, CU.care_unit_code, CU.name, h.admin_id',
+                'select' => 'user.*, group.name as group_name, UP.doc_file, CU.care_unit_code, CU.name, h.admin_id,h.token_uniq',
                 'join' => array(
                     array(USER_GROUPS . ' as ugroup', 'ugroup.user_id = user.id', 'left'),
                     array(GROUPS . ' as group', 'group.id = ugroup.group_id', 'left'),
@@ -101,7 +101,7 @@ class FacilityManager extends Common_Controller {
         //$this->data['list'] = $this->common_model->customGet($option);
          $this->data['list'] = $dataArray;
          //print_r($dataArray);die;
-       //print_r( $this->data['list']);die;
+    //    print_r($this->data['list']);die;
        
 
         /* $option = array('table' => USERS . ' as user',
