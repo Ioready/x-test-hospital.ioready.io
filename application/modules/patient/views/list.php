@@ -396,25 +396,24 @@
         <div class="table-responsive">
             <table id="common_datatable_menucat" class="table table-vcenter table-condensed table-bordered text-center">
                 <thead>
-                    <tr>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:40px !important">Sr. No</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Date Of Start patient frist seen</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Patient ID</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Patient Name</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Specility</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Provider MD</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Diagnosis</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Room Number</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Complication</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Nect appointment</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Investigation</th>
-                        <!-- <th style="background-color:#DBEAFF;font-size:1.3rem">Culture Source</th> -->
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Lettercomplete/Notcomplete</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Invoice</th>
-                        <!-- <th style="background-color:#DBEAFF;font-size:1.3rem">MD Steward</th> -->
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Pending task</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
-                    </tr>
+                <tr>
+    <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; width: 40px; text-align: center; border-bottom: 2px solid #ccc;">Sr. No</th>
+    <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; text-align: left; border-bottom: 2px solid #ccc;">Date Of Start Patient First Seen</th>
+    <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; text-align: left; border-bottom: 2px solid #ccc;">Patient ID</th>
+    <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; text-align: left; border-bottom: 2px solid #ccc;">Patient Name</th>
+    <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; text-align: left; border-bottom: 2px solid #ccc;">Specialty</th>
+    <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; text-align: left; border-bottom: 2px solid #ccc;">Provider MD</th>
+    <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; text-align: left; border-bottom: 2px solid #ccc;">Diagnosis</th>
+    <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; text-align: left; border-bottom: 2px solid #ccc;">Room Number</th>
+    <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; text-align: left; border-bottom: 2px solid #ccc;">Complication</th>
+    <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; text-align: left; border-bottom: 2px solid #ccc;">Next Appointment</th>
+    <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; text-align: left; border-bottom: 2px solid #ccc;">Investigation</th>
+    <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; text-align: left; border-bottom: 2px solid #ccc;">Letter Complete/Not Complete</th>
+    <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; text-align: left; border-bottom: 2px solid #ccc;">Invoice</th>
+    <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; text-align: left; border-bottom: 2px solid #ccc;">Pending Task</th>
+    <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 12px; text-align: left; border-bottom: 2px solid #ccc;"><?php echo lang('action'); ?></th>
+</tr>
+
                 </thead>
                 <tbody>
 
@@ -442,55 +441,56 @@
                             $rowCount++;
                             
                         ?>
-                            <tr>
-                                <td><?php echo $rowCount; ?></td>
-                                <td><?php echo date('m/d/Y', strtotime($rows->date_of_start_abx)); ?></td>
-                                <td><?php echo $rows->pid; ?></td>
-                                <td><?php echo $rows->patient_name; ?></td>
-                                <td><?php echo $rows->care_unit_name; ?></td>
-                                <td><?php echo $rows->doctor_name; ?></td>
-                                <td><?php echo $rows->initial_dx_name; ?></td>
-                                <td><?php echo $rows->room_number; ?></td>
-                                <?php if ($rows->symptom_onset == 'Facility') { ?>
-                                    <td><?php echo 'Facility/HAI'; ?></td>
-                                <?php } else if ($rows->symptom_onset == 'Hospital') { ?>
-                                    <td><?php echo 'Hospital/CAI'; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
+                         <tr style="border-bottom: 1px solid #ddd;">
+    <td style="padding: 10px;"><?php echo $rowCount; ?></td>
+    <td style="padding: 10px;"><?php echo date('m/d/Y', strtotime($rows->date_of_start_abx)); ?></td>
+    <td style="padding: 10px;"><?php echo $rows->pid; ?></td>
+    <td style="padding: 10px;"><?php echo $rows->patient_name; ?></td>
+    <td style="padding: 10px;"><?php echo $rows->care_unit_name; ?></td>
+    <td style="padding: 10px;"><?php echo $rows->doctor_name; ?></td>
+    <td style="padding: 10px;"><?php echo $rows->initial_dx_name; ?></td>
+    <td style="padding: 10px;"><?php echo $rows->room_number; ?></td>
 
-                                <td><?php echo $rows->total_days_of_patient_stay; ?></td>
+    <td style="padding: 10px;">
+        <?php echo ($rows->symptom_onset == 'Facility') ? 'Facility/HAI' : (($rows->symptom_onset == 'Hospital') ? 'Hospital/CAI' : 'NULL'); ?>
+    </td>
 
-                                <?php if (!empty($rows->culture_source_name)) { ?>
-                                    <td><?php echo $rows->culture_source_name; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
+    <td style="padding: 10px;"><?php echo $rows->total_days_of_patient_stay; ?></td>
 
-                                <?php if (!empty($rows->organism_name)) { ?>
-                                    <td><?php echo $rows->organism_name; ?></td>
-                                <?php } else { ?>
-                                    <td><?php echo 'NULL'; ?></td>
-                                <?php } ?>
+    <td style="padding: 10px;">
+        <?php echo !empty($rows->culture_source_name) ? $rows->culture_source_name : 'NULL'; ?>
+    </td>
 
-                                <td><?php echo $rows->initial_rx_name; ?></td>
-                                <td><?php echo ucfirst($rows->md_patient_status); ?></td>
-                    
-            <td class="actions">
-                <!-- <a href="javascript:void(0)" class="btn btn btn-xs  btn-warning" onclick="editFn('index.php/patient', 'edit_patient', '<?php echo encoding($rows->patient_id) ?>', 'patient');"> -->
-                <!-- <i class="fa fa-pencil"></i>
-                </a> -->
-                <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i></a>
-                <!-- <a href="<?php echo base_url() . 'patient/edit_parient?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-default" target="_blank"><i class="fa fa-pencil"></i></a> -->
-                <!-- <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-default">View History</a> -->
-                <!-- <a href="<?php echo base_url() . 'index.php/patient/existing_list/' . $rows->pid; ?>" target='_blank' data-toggle="tooltip" class="btn btn-xs  btn-success"><i class="fa fa-eye"></i></a> -->
-                <!-- <a href="<?php echo base_url() . 'index.php/patient/patientDetails?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a> -->
-                <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($rows->patient_id); ?>" data-toggle="tooltip" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
-                
-                <a href="javascript:void(0)" onclick="deletePatient('<?php echo $rows->patient_id; ?>')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                </td>
+    <td style="padding: 10px;">
+        <?php echo !empty($rows->organism_name) ? $rows->organism_name : 'NULL'; ?>
+    </td>
 
-                            </tr>
+    <td style="padding: 10px;"><?php echo $rows->initial_rx_name; ?></td>
+    <td style="padding: 10px;"><?php echo ucfirst($rows->md_patient_status); ?></td>
+
+    <td class="actions" style="padding: 10px; text-align: center; display: flex; justify-content: center; gap: 5px;">
+    <!-- Edit Button -->
+    <a href="<?php echo base_url() . 'patient/edit?id=' . encoding($rows->patient_id); ?>"
+       style="color: #337ab7; border: 1px solid #337ab7; padding: 5px 10px; border-radius: 4px; display: inline-block; text-decoration: none;">
+        <i class="fa fa-pencil"></i>
+    </a>
+
+    <!-- View Summary Button -->
+    <a href="<?php echo base_url() . 'index.php/patient/summary?id=' . encoding($rows->patient_id); ?>"
+       style="color: #fff; background-color: #5cb85c; padding: 5px 10px; border-radius: 4px; display: inline-block; text-decoration: none;">
+        <i class="fa fa-eye"></i>
+    </a>
+
+    <!-- Delete Button -->
+    <a href="javascript:void(0)"
+       onclick="deletePatient('<?php echo $rows->patient_id; ?>')"
+       style="color: #fff; background-color: #d9534f; padding: 5px 10px; border-radius: 4px; display: inline-block; text-decoration: none;">
+        <i class="fa fa-trash"></i>
+    </a>
+</td>
+
+</tr>
+
                     <?php
                         endforeach;
                     // }

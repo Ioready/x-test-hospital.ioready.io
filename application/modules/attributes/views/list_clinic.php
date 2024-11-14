@@ -169,13 +169,20 @@
                                 <td><?php echo $rowCount; ?></td>            
                                 <td><?php echo $rows->name; ?></td>
                                 <td><?php echo $rows->clinic_location; ?></td>
-                                <td><?php if($rows->is_active == 1){ ?>
-                                    <!-- <button type="button" class="btn btn-success">Active</button> -->
-                                    <button type="button" class="btn btn-success" style="background-color: green;">Active</button>
-                                 <?php }else{ ?>
-                                 <button type="button" class="btn btn-danger">Inactive</button>
+                             
 
-                                <?php   }  ?></td>
+                                  <!-- Status -->
+            <td style="padding: 10px; text-align: center;">
+                <?php if ($rows->is_active == 1): ?>
+                    <button type="button" style="padding: 5px 10px; background-color: #28a745; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
+                        Active
+                    </button>
+                <?php else: ?>
+                    <button type="button" style="padding: 5px 10px; background-color: #dc3545; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
+                        Inactive
+                    </button>
+                <?php endif; ?>
+            </td>
 
                                 <td class="actions">
                                     <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('<?php echo $model; ?>', 'edit_clinic', '<?php echo encoding($rows->id) ?>', '<?php echo $model; ?>');"><i class="fa fa-pencil"></i></a>
