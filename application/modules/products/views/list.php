@@ -59,7 +59,7 @@
     <!-- Datatables Content -->
     <!-- Datatables Content -->
 
-    <div class="block full">
+    <div class="">
 
 
             <?php 
