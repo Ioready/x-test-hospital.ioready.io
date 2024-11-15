@@ -698,40 +698,6 @@
 </div>
 
 
-        <table id="consultationTable" class="display" style="width:100%">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Patient Name</th>
-            <th>Date Created</th>
-            <th>Search</th>
-            <th>Type & Comment</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        $rowCount = 0;
-        foreach ($list as $rows) :
-            $rowCount++;
-        ?>
-            <tr onclick="viewConsultationDetails(<?php echo $rows->id; ?>)">
-                <td><?php echo $rowCount; ?></td>
-                <td><?php echo $rows->first_name . ' ' . $rows->last_name; ?></td>
-                <td><?php echo $rows->create_date; ?></td>
-                <td><?php echo $rows->search; ?></td>
-                <!-- <td ><?php echo $rows->type . ' ' . $rows->comment; ?></td> -->
-                <td>
-    <a href="javascript:void(0);" onclick="handleClick('<?php echo $rows->id; ?>')" style="color: #007bff; text-decoration: underline; cursor: pointer;">
-        <?php echo $rows->type . ' ' . $rows->comment; ?>
-    </a>
-</td>
-
-            </tr>
-        <?php
-        endforeach;
-        ?>
-    </tbody>
-</table>
 
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
