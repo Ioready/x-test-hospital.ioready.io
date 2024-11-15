@@ -217,113 +217,81 @@
 
                 <?php if(!empty($useTemplate)){ ?>
 
-                <form class="form-horizontal" role="form" id="addFormAjax" method="post" action="<?php echo base_url('/emailTemplate/sendEmailTemplate') ?>" enctype="multipart/form-data">
-                <div class="alert alert-danger" id="error-box" style="display: none"></div>
-                    
-                    <div class="form-body" id="template_data">
+                    <form class="form-horizontal mb-4" id="addFormAjax" method="post" action="<?php echo base_url('/emailTemplate/sendEmailTemplate') ?>" enctype="multipart/form-data">
+    <div class="alert alert-danger" id="error-box" style="display: none;"></div>
 
-                        <div class="row">
-                            <div class="col-md-5">
-                            <?php $image_url = base_url('/uploads/'); ?>
-                            <img width="100px;" src="<?php echo $image_url. $useTemplate->image; ?>" alt="Header">
-                            </div>
+    <div class="form-body" id="template_data">
+        <!-- Header Image Section -->
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-5 text-center">
+                <?php $image_url = base_url('/uploads/'); ?>
+                <img src="<?php echo $image_url . $useTemplate->image; ?>" alt="Header Image" style="width: 150px; border-radius: 8px;">
+            </div>
+            <div class="col-md-7">
+                <h3 class="fw-bold text-center"><?php echo ucwords($useTemplate->title); ?></h3>
+            </div>
+        </div>
 
-                            <div class="col-md-4">
-                                    <div class="form-group">
-                                    <h3 class="m-4 fw-bold"> <label for="input1"><strong class="fw-bold"><?php echo ucwords($useTemplate->title);?></strong></label> </h3>
-                                    </div>
-                                </div>
-                            </div>
+        <!-- Form Fields Section -->
+        <div class="row mb-4 p-4" style="background-color: #f9f9f9; ">
+            <div class="col-md-4 mb-3">
+                <label for="app_name" class="form-label">App Name</label>
+                <input type="text" class="form-control" name="app_name" id="app_name" value="<?php echo $useTemplate->title; ?>" placeholder="App Name">
+            </div>
 
-                    
+            <div class="col-md-4 mb-3">
+                <label for="company_name" class="form-label">Company Name</label>
+                <input type="text" class="form-control" name="company_name" id="company_name" placeholder="Company Name">
+            </div>
 
-                        <!-- <h3 class="m-4 fw-bold"><?php echo $useTemplate->internal_name;?></h3> -->
-                        <div class="row m-4 p-4"  style="background-color: #FFFF; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);">
+            <div class="col-md-4 mb-3">
+                <label for="app_url" class="form-label">App URL</label>
+                <input type="text" class="form-control" name="app_url" id="app_url" placeholder="App URL">
+            </div>
 
-                        
-                        
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="input1">App Name : <strong class="fw-bold"><input type="text" class="form-control" name="app_name" id="app_name" value="<?php echo $useTemplate->title;?>" placeholder="<?php echo lang('password');?>" /></strong></label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="input1">Company Name : <strong class="fw-bold"><input type="text" class="form-control" name="company_name" id="company_name" placeholder="<?php echo lang('Company name');?>" /></strong></label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="input1">App Url : <strong class="fw-bold"><input type="text" class="form-control" name="app_url" id="app_url" placeholder="<?php echo lang('app url');?>" /></strong></label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="input1">Email : <strong class="fw-bold"><input type="email" class="form-control" name="email" id="email" placeholder="<?php echo lang('Email');?>" /></strong></label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="input1">Password : <strong class="fw-bold">
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="<?php echo lang('password');?>" />
-                                    
-                                    </strong></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row m-4">
-                            <div class="col-md-6">
-                                <label class=" control-label">Subject*</label>
-                                <div class="form-group"> 
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" name="subject" id="subject" placeholder="<?php echo lang('subject');?>" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class=" control-label">From*</label>
-                                <div class="form-group"> 
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" name="from_mail" id="from_mail" placeholder="<?php echo lang('from_mail');?>" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="col-md-12">
-                        <label class="control-label mb-4">Create Letter template*</label>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <textarea id="editor" name="description"><?php echo $useTemplate->bodies_template;?></textarea>
-                                </div>
-                            </div>
-                        </div> -->
-                        <label class="control-label mb-4">Create Recipient*</label>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                <textarea id="recipient_template" name="description"><?php echo $useTemplate->recipient_template;?></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5">
-                            <img width="100px;" src="<?php echo $image_url. $useTemplate->footer_logo; ?>" alt="footer">
-                            </div>
+            <div class="col-md-4 mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+            </div>
 
-                            <div class="col-md-4">
-                                    <div class="form-group">
-                                    <!-- <textarea id="recipient_template" name="description"><?php echo $useTemplate->recipient_template;?></textarea> -->
-                                    <!-- <h3 class="m-4 fw-bold"> <label for="input1"><strong class="fw-bold"><?php echo ucwords($useTemplate->recipient_template);?></strong></label> </h3> -->
-                                    </div>
-                            </div>
-                        </div>
+            <div class="col-md-4 mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+            </div>
+        </div>
 
-                        <div class="text-right">
-                            <button type="submit" id="submit"  class="btn btn-sm btn-primary mt-2" style="background:#337ab7;">Save</button>
-                        </div>
-                        <?php //}?>
-                        <?php //}?>
-                    </div>
-                </form>
+        <!-- Subject and From Fields -->
+        <div class="row mb-4">
+            <div class="col-md-6 mb-3">
+                <label for="subject" class="form-label">Subject*</label>
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="from_mail" class="form-label">From*</label>
+                <input type="text" class="form-control" name="from_mail" id="from_mail" placeholder="From Email">
+            </div>
+        </div>
+
+        <!-- Recipient Template Section -->
+        <div class="mb-4">
+            <label for="recipient_template" class="form-label">Create Recipient*</label>
+            <textarea id="recipient_template" name="description" class="form-control" rows="5" placeholder="Enter recipient template..."><?php echo $useTemplate->recipient_template; ?></textarea>
+        </div>
+
+        <!-- Footer Image Section -->
+        <div class="row mb-4">
+            <div class="col-md-5 text-center">
+                <img src="<?php echo $image_url . $useTemplate->footer_logo; ?>" alt="Footer Logo" style="width: 150px; border-radius: 8px;">
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-end">
+            <button type="submit" id="submit" class="btn text-white" style="padding: 10px 20px; border-radius: 5px;background-color:#337ab7;">Save</button>
+        </div>
+    </div>
+</form>
                 <?php  }?>
 
             <?php }?>
