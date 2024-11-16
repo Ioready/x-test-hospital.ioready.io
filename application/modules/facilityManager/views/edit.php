@@ -7,7 +7,7 @@
             <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url($this->router->fetch_class()); ?>"><?php echo $title;?></a>
+            <a href="<?php echo site_url($this->router->fetch_class()); ?>"><strong>Back</strong></a>
         </li>
     </ul>
     <!-- END Datatables Header -->

@@ -465,9 +465,9 @@ hh
                                 <!-- <li title="Contact Us">
                                     <a href="<?php echo site_url('contactus'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "contactus") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/contact.svg" height="23px" width="23px"><span class="sidebar-nav-mini-hide text-dark">Contact Us</span></a>
                                 </li> -->
-                                <li title="setting">
+                                <!-- <li title="setting">
                                     <a href="<?php echo site_url('setting'); ?>" class=" <?php echo (strtolower($this->router->fetch_class()) == "setting") ? "active" : "" ?>"><img src="<?php echo base_url(); ?>uploads/icons/setting.png" style="height: 23px;width:23px;" alt="avatar"><span class="sidebar-nav-mini-hide text-dark">Admin Setting</span></a>
-                                </li>
+                                </li> -->
                             <?php //} elseif ($this->ion_auth->is_subAdmin()) { ?>
 
                                 <!-- <li>

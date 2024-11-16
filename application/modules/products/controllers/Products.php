@@ -42,6 +42,31 @@ class Products extends Common_Controller {
             $vendor_profile_activate = 1;
         }
 
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         $option1 ="SELECT `vendor_sale_doctor_product`.`id`,`vendor_sale_doctor_product`.`type`, `vendor_sale_doctor_product`.`renewal`,`vendor_sale_doctor_product`.`name`,
         `vendor_sale_doctor_product`.`price`, 
         `vendor_sale_doctor_product`.`supplier`,
@@ -53,7 +78,7 @@ class Products extends Common_Controller {
         ,`vendor_sale_doctor_product`.`cost`,`vendor_sale_doctor_product`.`comment`,`vendor_sale_doctor_product`.`appointment_booked`,`vendor_sale_doctor_product`.`status`
         FROM `vendor_sale_doctor_product` 
         LEFT JOIN `vendor_sale_users` ON 
-        `vendor_sale_users`.`id` = `vendor_sale_doctor_product`.`user_id`
+        `vendor_sale_users`.`id` = `vendor_sale_doctor_product`.`user_id` WHERE `vendor_sale_doctor_product`.`hospital_id` =$hospital_id
         ORDER BY `vendor_sale_doctor_product`.`id` DESC";
         // WHERE `vendor_sale_doctor_product`.`user_id` =$LoginID
         //   WHERE `vendor_sale_doctor_product`.`status` = 0  and
@@ -284,8 +309,34 @@ class Products extends Common_Controller {
             //     $response = array('status' => 0, 'message' => $this->filedata['error']);
             // } else {
                
+            if ($this->ion_auth->is_facilityManager()) {
+                $user_id = $this->session->userdata('user_id');
+            $hospital_id = $user_id;
+    
+            } else if($this->ion_auth->is_all_roleslogin()) {
+                $user_id = $this->session->userdata('user_id');
+                $optionData = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.*,group.name as group_name',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                    ),
+                    'order' => array('user.id' => 'DESC'),
+                    'where' => array('user.id'=>$user_id),
+                    'single'=>true,
+                );
+        
+                $authUser = $this->common_model->customGet($optionData);
+    
+                $hospital_id = $authUser->hospital_id;
+                // 'users.hospital_id'=>$hospital_id
+                
+            }
+
 
                 $options_data = array(
+                    'hospital_id'=>$hospital_id,
                     'user_id'=> $LoginID,
                     'type' => $this->input->post('type')?? null,
                     'name' => $this->input->post('name')?? null,

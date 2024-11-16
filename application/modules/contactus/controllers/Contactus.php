@@ -26,51 +26,40 @@ class Contactus extends Common_Controller {
         $this->data['title'] = $this->title;
         $this->data['model'] = $this->router->fetch_class();
         $this->data['table'] = $this->_table;
+
+
+
         $role_name = $this->input->post('role_name');
 
         // $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
 
-        $LoginID = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
 
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
     
-    if($this->ion_auth->is_subAdmin()){
+            $authUser = $this->common_model->customGet($optionData);
 
-        $option = array(
-            'table' => ' doctors',
-            'select' => 'doctors.*',
-            'join' => array(
-                array('users', 'doctors.user_id=users.id', 'left'),
-            ),
-            'where' => array(
-                'users.delete_status' => 0,
-                // 'doctors.user_id'=>$LoginID
-            ),
-            'single' => true,
-        );
-
-        $datadoctors = $this->common_model->customGet($option);
-      $hospitalAndDoctorId=  $datadoctors->facility_user_id;
-
-    } else if ($this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) {
-        
-        
-  $hospitalAndDoctorId = $LoginID;
-        
-    }
-
-        if($hospitalAndDoctorId != 1 && $hospitalAndDoctorId != NULL ){
-            $x = $hospitalAndDoctorId;
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
         }
-        
-        $this->data['roles'] = array(
-            'role_name' => $role_name
-        );
-        if ($vendor_profile_activate == "No") {
-            $vendor_profile_activate = 0;
-        } else {
-            $vendor_profile_activate = 1;
-        }
+
+
 
         $option1 ="SELECT `vendor_sale_doctors_contactus`.`title`,`vendor_sale_doctors_contactus`.`first_name`, `vendor_sale_doctors_contactus`.`last_name`,`vendor_sale_doctors_contactus`.`company`,
         `vendor_sale_doctors_contactus`.`id`, 
@@ -86,7 +75,7 @@ class Contactus extends Common_Controller {
         FROM `vendor_sale_doctors_contactus` 
         LEFT JOIN `vendor_sale_users` ON 
         `vendor_sale_users`.`id` = `vendor_sale_doctors_contactus`.`user_id`
-        WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0
+        WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0 AND `vendor_sale_doctors_contactus`.`hospital_id` = $hospital_id
         ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
         //  WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
         //  `vendor_sale_doctors_contactus`.`user_id` =$hospitalAndDoctorId
@@ -137,44 +126,33 @@ class Contactus extends Common_Controller {
         $this->data['table'] = $this->_table;
         $role_name = $this->input->post('role_name');
 
-        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-        if($this->ion_auth->is_subAdmin() ){
+        
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
 
-            $option = array(
-                'table' => ' doctors',
-                'select' => 'doctors.*',
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
                 'join' => array(
-                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
                 ),
-                'where' => array(
-                    'users.delete_status' => 0,
-                    'doctors.user_id'=>$LoginID
-                ),
-                'single' => true,
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
             );
     
-            $datadoctors = $this->common_model->customGet($option);
-          $hospitalAndDoctorId=  $datadoctors->facility_user_id;
-    
-        } else if ($this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) {
-            
-            
-      $hospitalAndDoctorId = $LoginID;
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
             
         }
 
-        if($hospitalAndDoctorId != 1 && $hospitalAndDoctorId != NULL ){
-            $x = $hospitalAndDoctorId;
-        }
-        
-        $this->data['roles'] = array(
-            'role_name' => $role_name
-        );
-        if ($vendor_profile_activate == "No") {
-            $vendor_profile_activate = 0;
-        } else {
-            $vendor_profile_activate = 1;
-        }
+
 
         $option1 ="SELECT `vendor_sale_doctors_contactus`.`title`,`vendor_sale_doctors_contactus`.`first_name`, `vendor_sale_doctors_contactus`.`last_name`,`vendor_sale_doctors_contactus`.`company`,
         `vendor_sale_doctors_contactus`.`id`, 
@@ -190,77 +168,7 @@ class Contactus extends Common_Controller {
         FROM `vendor_sale_doctors_contactus` 
         LEFT JOIN `vendor_sale_users` ON 
         `vendor_sale_users`.`id` = `vendor_sale_doctors_contactus`.`user_id`
-        ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
-        // WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
-        // `vendor_sale_doctors_contactus`.`user_id` =$hospitalAndDoctorId
-        
-        // $this->data['list'] = $this->common_model->customQuery($option1);
-
-        $this->data['parent'] = $this->title;
-        $this->data['title'] = $this->title;
-        $this->data['model'] = $this->router->fetch_class();
-        $this->data['table'] = $this->_table;
-        $role_name = $this->input->post('role_name');
-
-        // $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-
-
-        $LoginID = ($this->ion_auth->is_admin()) ? 0 : $this->session->userdata('user_id');
-
-    
-    if($this->ion_auth->is_subAdmin()){
-
-        $option = array(
-            'table' => ' doctors',
-            'select' => 'doctors.*',
-            'join' => array(
-                array('users', 'doctors.user_id=users.id', 'left'),
-            ),
-            'where' => array(
-                'users.delete_status' => 0,
-                // 'doctors.user_id'=>$LoginID
-            ),
-            'single' => true,
-        );
-
-        $datadoctors = $this->common_model->customGet($option);
-      $hospitalAndDoctorId=  $datadoctors->facility_user_id;
-
-    } else if ($this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) {
-        
-        
-  $hospitalAndDoctorId = $LoginID;
-        
-    }
-
-        if($hospitalAndDoctorId != 1 && $hospitalAndDoctorId != NULL ){
-            $x = $hospitalAndDoctorId;
-        }
-        
-        $this->data['roles'] = array(
-            'role_name' => $role_name
-        );
-        if ($vendor_profile_activate == "No") {
-            $vendor_profile_activate = 0;
-        } else {
-            $vendor_profile_activate = 1;
-        }
-
-        $option1 ="SELECT `vendor_sale_doctors_contactus`.`title`,`vendor_sale_doctors_contactus`.`first_name`, `vendor_sale_doctors_contactus`.`last_name`,`vendor_sale_doctors_contactus`.`company`,
-        `vendor_sale_doctors_contactus`.`id`, 
-        `vendor_sale_doctors_contactus`.`contacts_clinician`,
-        `vendor_sale_doctors_contactus`.`comment`,
-        `vendor_sale_doctors_contactus`.`created_at`,
-        -- `vendor_sale_users`.`first_name 'as f_name'`,
-        -- `vendor_sale_users`.`last_name as l_name`,
-        `vendor_sale_doctors_contactus`.`user_id`,`vendor_sale_doctors_contactus`.`phone_type`,`vendor_sale_doctors_contactus`.`phone_number`,`vendor_sale_doctors_contactus`.`user_email`
-        ,`vendor_sale_doctors_contactus`.`address_lookup`,`vendor_sale_doctors_contactus`.`streem_address`,`vendor_sale_doctors_contactus`.`city`,`vendor_sale_doctors_contactus`.`post_code`
-        ,`vendor_sale_doctors_contactus`.`country`,`vendor_sale_doctors_contactus`.`billing_detail`,`vendor_sale_doctors_contactus`.`payment_reference`
-        ,`vendor_sale_doctors_contactus`.`System`,`vendor_sale_doctors_contactus`.`healthcode`
-        FROM `vendor_sale_doctors_contactus` 
-        LEFT JOIN `vendor_sale_users` ON 
-        `vendor_sale_users`.`id` = `vendor_sale_doctors_contactus`.`user_id`
-        WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0
+        WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0 AND `vendor_sale_doctors_contactus`.`hospital_id` = $hospital_id
         ORDER BY `vendor_sale_doctors_contactus`.`id` DESC";
         //  WHERE `vendor_sale_doctors_contactus`.`delete_status` = 0  and
         //  `vendor_sale_doctors_contactus`.`user_id` =$hospitalAndDoctorId
@@ -381,7 +289,34 @@ class Contactus extends Common_Controller {
                 //     'create_date' => strtotime(datetime()),
                 // );
 
+                if ($this->ion_auth->is_facilityManager()) {
+                    $user_id = $this->session->userdata('user_id');
+                $hospital_id = $user_id;
+        
+                } else if($this->ion_auth->is_all_roleslogin()) {
+                    $user_id = $this->session->userdata('user_id');
+                    $optionData = array(
+                        'table' => USERS . ' as user',
+                        'select' => 'user.*,group.name as group_name',
+                        'join' => array(
+                            array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                            array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                        ),
+                        'order' => array('user.id' => 'DESC'),
+                        'where' => array('user.id'=>$user_id),
+                        'single'=>true,
+                    );
+            
+                    $authUser = $this->common_model->customGet($optionData);
+        
+                    $hospital_id = $authUser->hospital_id;
+                    // 'users.hospital_id'=>$hospital_id
+                    
+                }
+
+
                 $options_data = array(
+                    'hospital_id'=>$hospital_id,
                     'user_id'=> $LoginID,
                     'first_name' => $this->input->post('first_name'),
                     'last_name' => $this->input->post('last_name'),

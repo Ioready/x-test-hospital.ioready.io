@@ -29,7 +29,7 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url('patient');?>">patient</a>
+            <a href="<?php echo site_url('patient');?>"><strong>Back</strong></a>
         </li>
     </ul>
     
