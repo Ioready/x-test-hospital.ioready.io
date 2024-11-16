@@ -55,7 +55,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">Create Letter template*</label>
                         <div class="col-md-10">
-                            <textarea id="editor" name="bodies_template"></textarea>
+                            <textarea id="editor1" name="bodies_template"></textarea>
                         </div>
                     </div>
                 </div>

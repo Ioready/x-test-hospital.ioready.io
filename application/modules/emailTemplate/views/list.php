@@ -379,21 +379,21 @@
                     </thead>
                     <tbody>
                     <?php
-                    if (isset($list) && !empty($list)):
+                    if (isset($all_template) && !empty($all_template)):
                         $rowCount = 0;
-                        foreach ($list as $rows):
+                        foreach ($all_template as $rows):
                             $rowCount++;
                             ?>
                             <tr>
                                 <td><?php echo $rowCount; ?></td>            
                                 <!-- <td><?php echo $rows->email_type; ?></td> -->
-                                <td><?php echo $rows->title; ?>
-                            
+                                <td>
+                                <?php echo $rows->header_names; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <?php $image_url = base_url('/uploads/'); ?>
                                 
 
-                               <img width="100" src="<?php if (!empty($rows->image)) {
-                                    echo $image_url.$rows->image;
+                               <img width="100" src="<?php if (!empty($rows->logo)) {
+                                    echo $image_url.$rows->logo;
                                 
                             } else {
                                 echo base_url() . DEFAULT_NO_IMG_PATH;
@@ -427,7 +427,7 @@
                                 
 
                                 <td><img width="100" src="<?php if (!empty($rows->footer_logo)) {
-                                    echo $image_url.$rows->footer_logo;
+                                    echo $image_url.$rows->footer_logo. ' '.$rows->footer_internal_name;
                                 
                             } else {
                                 echo base_url() . DEFAULT_NO_IMG_PATH;
@@ -483,21 +483,21 @@
                     </thead>
                     <tbody>
                     <?php
-                    if (isset($list) && !empty($list)):
+                    if (isset($all_template) && !empty($all_template)):
                         $rowCount = 0;
-                        foreach ($list as $rows):
+                        foreach ($all_template as $rows):
                             $rowCount++;
                             ?>
                             <tr>
-                                <td><?php echo $rowCount; ?></td>            
+                            <td><?php echo $rowCount; ?></td>            
                                 <!-- <td><?php echo $rows->email_type; ?></td> -->
-                                <td><?php echo $rows->title; ?>
-                            
+                                <td>
+                                <?php echo $rows->header_names; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <?php $image_url = base_url('/uploads/'); ?>
                                 
 
-                               <img width="100" src="<?php if (!empty($rows->image)) {
-                                    echo $image_url.$rows->image;
+                               <img width="100" src="<?php if (!empty($rows->logo)) {
+                                    echo $image_url.$rows->logo;
                                 
                             } else {
                                 echo base_url() . DEFAULT_NO_IMG_PATH;
@@ -530,7 +530,7 @@
                                     <?php $image_url = base_url('/uploads/'); ?>
                                 
 
-                                <td><img width="100" src="<?php if (!empty($rows->footer_logo)) {
+                                <td><?php echo $rows->footer_internal_name; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="100" src="<?php if (!empty($rows->footer_logo)) {
                                     echo $image_url.$rows->footer_logo;
                                 
                             } else {
@@ -538,23 +538,30 @@
                             } ?>" /></td>
 
                                 <td class="actions">
-                                <?php if($rows->active_template != 1 && $rows->is_active == 1) {?>
-                                    <a href="javascript:void(0)" onclick="useTemplate('<?php echo $rows->id; ?>')" class="btn save-btn" style="color:white;">Use template</a>
-                                    <?php } else { ?>
-                                        <button type="button" class="btn btn-success" style="background:green;">Active template</button> 
-                                    <?php }  ?>
-                                    <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('emailTemplate','template_edit','<?php echo encoding($rows->id) ?>');"><i class="fa fa-pencil"></i></a> -->
-                                    <?php if($rows->is_active == 1) {?>
-                                    <!-- <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id);?>','<?php echo $rows->is_active;?>')" title="Inactive Now"><i class="fa fa-check"></i></a> -->
-                                    <?php } else { ?>
-                                    <!-- <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->is_active;?>')" title="Active Now"><i class="fa fa-times"></i></a> -->
-                                    <?php } ?>
-                                    <a href="javascript:void(0)" onclick="deleteFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','emailTemplate')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                                
-                                    <form id="templateForm_<?php echo $rows->id; ?>" style="display: none;">
-                                        <input type="hidden" name="id" value="<?php echo $rows->id; ?>">
-                                       
-                                    </form>
+
+                                    <?php if($rows->active_template != 1 && $rows->is_active == 1) { ?>
+
+                                        <?php //if ($menu_update =='1') { ?>
+
+                                        <a href="javascript:void(0)" onclick="useTemplate('<?php echo $rows->header_id; ?>')" class="btn save-btn" style="color:white;">Use template</a>
+                                        <?php } else { ?>
+                                            <button type="button" class="btn btn-success" style="background:green;">Active template</button> 
+                                        <?php } ?>
+                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-default" onclick="editFn('emailTemplate','template_edit','<?php echo encoding($rows->id) ?>');"><i class="fa fa-pencil"></i></a> -->
+                                        <?php if($rows->is_active == 1) {?>
+                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-success" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id);?>','<?php echo $rows->is_active;?>')" title="Inactive Now"><i class="fa fa-check"></i></a> -->
+                                        <?php } else { ?>
+                                        <!-- <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="editStatusFn('vendor_sale_email_template','id','<?php echo encoding($rows->id); ?>','<?php echo $rows->is_active;?>')" title="Active Now"><i class="fa fa-times"></i></a> -->
+                                        <?php } 
+                                    //} if ($menu_delete =='1') {?>
+                                        <!-- <a href="javascript:void(0)" onclick="deleteFn('vendor_sale_email_template','id','<?php echo encoding($rows->header_id); ?>','emailTemplate')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a> -->
+                                        <a href="javascript:void(0)" data-toggle="tooltip"   onclick="deleteFn('<?php echo 'vendor_sale_lettel_header'; ?>', 'id', '<?php echo encoding($rows->header_id); ?>', 'index.php/emailTemplate', 'index.php/emailTemplate/delVendors','<?php echo $rows->header_id . ' ' . $rows->header_id; ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                            
+                                        <form id="templateForm_<?php echo $rows->header_id; ?>" style="display: none;">
+                                            <input type="hidden" name="id" value="<?php echo $rows->header_id; ?>">
+                                        
+                                        </form>
+                                        <?php //}?>
 
                                 </td>
                             </tr>
@@ -577,7 +584,7 @@
 
 
 <script>
-    CKEDITOR.replace('editor1');
+    CKEDITOR.replace('recipient_template');
     CKEDITOR.replace('recipient_template');
 
     

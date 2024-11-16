@@ -75,23 +75,50 @@ class EmailTemplate extends Common_Controller {
         $this->data['formUrl'] = $this->router->fetch_class() . "/sendEmailTemplate";
         $defaultTemplateId = 4;
     
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+    
+            $authUser = $this->common_model->customGet($optionData);
+
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         $alloptionEmailTemplate = [
             'table' => 'vendor_sale_lettel_header',
-            'select' => 'vendor_sale_lettel_header.*, vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*, vendor_sale_lettel_recipients.*, vendor_sale_lettel_footer.*, vendor_sale_lettel_footer.internal_name as footer_internal_name',
+            'select' => 'vendor_sale_lettel_header.*,vendor_sale_lettel_header.id as header_id,vendor_sale_lettel_header.internal_name as header_names, vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*, vendor_sale_lettel_recipients.*, vendor_sale_lettel_footer.*, vendor_sale_lettel_footer.internal_name as footer_internal_name,vendor_sale_lettel_footer.logo as footer_logo',
             'join' => [
                 ['vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id', 'left'],
                 ['vendor_sale_lettel_bodies', 'vendor_sale_lettel_header.id=vendor_sale_lettel_bodies.header_id', 'left'],
                 ['vendor_sale_lettel_recipients', 'vendor_sale_lettel_bodies.id=vendor_sale_lettel_recipients.body_id', 'left'],
                 ['vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id', 'left']
             ],
+            'where' => array('vendor_sale_lettel_header.user_id' => $hospital_id),
+            
         ];
     
         $this->data['all_template'] = $this->common_model->customGet($alloptionEmailTemplate);
-    
+    // print_r($this->data['all_template']);die;
 
         $optionEmailTemplate = array(
             'table' => 'vendor_sale_lettel_header',
-            'select' => 'vendor_sale_lettel_header.*,vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*,vendor_sale_lettel_recipients.*,vendor_sale_lettel_footer.*,vendor_sale_lettel_footer.internal_name as footer_internal_name',
+            'select' => 'vendor_sale_lettel_header.*,vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*,vendor_sale_lettel_recipients.*,vendor_sale_lettel_footer.*,vendor_sale_lettel_footer.internal_name as footer_internal_name,vendor_sale_lettel_footer.logo as footer_logo',
             'join' => array(
                 array('vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id','left'),
                 array('vendor_sale_lettel_bodies', 'vendor_sale_lettel_header.id=vendor_sale_lettel_bodies.header_id','left'),
@@ -101,6 +128,7 @@ class EmailTemplate extends Common_Controller {
             ),
             // 'single'=>true,
         );
+
         if ($defaultTemplateId == "4") {
 
             $optionEmailTemplate['where'] = ['vendor_sale_lettel_header.id' => $defaultTemplateId];
@@ -1391,4 +1419,32 @@ class EmailTemplate extends Common_Controller {
         echo json_encode($response);
         
     }
+
+    public function delVendors() {
+        $response = "";
+        $id = decoding($this->input->post('id')); // delete id
+        // print_r($id);die;
+        // $table = 'vendor_sale_lettel_header'; //table name
+        // $id_name = $this->input->post('id_name'); // table field name
+        // if (!empty($table) && !empty($id)) {
+            // $option = array(
+            //     'table' => $table,
+            //     'data' => array('delete_status' => 1),
+            //     'where' => array('id' => $id)
+            // );
+            $option = array(
+                'table' => 'vendor_sale_lettel_header',
+                'where' => array('id' => $id)
+            );
+            // $this->common_model->customDelete($option);
+
+            if (!$this->common_model->customDelete($option)) {
+                $response = array('status' => 0, 'message' => 'Failed to Deleted');
+            }else{
+                $response = array('status' => 1, 'message' => 'Successfully Deleted', 'url' => base_url('emailTemplate'));
+                
+            }
+            echo json_encode($response);
+        }
+    // }
 }

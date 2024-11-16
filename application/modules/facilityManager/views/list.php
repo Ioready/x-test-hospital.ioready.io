@@ -304,6 +304,7 @@ CKEDITOR.replace('editor');
                                                 <?php } ?>
                                         
                                                 <a href="javascript:void(0)" data-toggle="tooltip"   onclick="deleteFn('<?php echo USERS; ?>', 'id', '<?php echo encoding($rows->id); ?>', 'index.php/facilityManager', 'index.php/facilityManager/delVendors','<?php echo $rows->first_name . ' ' . $rows->last_name; ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                            
                                             <?php }
                                             ?>
                         <!-- <a href="<?php echo base_url() . 'vendors/paymentList/' . $rows->id; ?>" class="btn btn-sm btn-primary">Client List</a> -->
