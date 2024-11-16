@@ -167,7 +167,7 @@
 
     <?php } ?>
     <!-- Datatables Content -->
-    <div class="block full">
+    <div class=>
         
     <?php 
                 $all_permission = $this->ion_auth->is_permission();
@@ -193,7 +193,7 @@
                 </h2>
             </div>
             <?php }}}} if($this->ion_auth->is_facilityManager()){?>
-
+<!-- 
                 <div class="block-title">
             <h2><strong><?php echo $title; ?></strong> Panel</h2>
             <h2>
@@ -202,17 +202,28 @@
                         <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
                     </a>
                 </h2>
-            </div>
+            </div> -->
 
                 <?php }?>
             <div class="modal" id="myModal">
             <div class="modal-dialog modal-lg">
         <div class="modal-content">
         <form class="form-horizontal" role="form" method="post" action="<?php echo base_url('tasks/add') ?>" enctype="multipart/form-data">
-    <div class="modal-header text-center">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h2 class="modal-title fw-bold"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
-    </div>
+        <div class="modal-header" style="text-align: center; padding: 15px; border-bottom: 1px solid #ddd; position: relative; background-color: #f8f9fa;">
+    <!-- Close Button -->
+    <button type="button" class="close" data-dismiss="modal"
+        style="position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: #333; border: none; cursor: pointer;">
+        <span aria-hidden="true">&times; Close</span>
+        <span class="sr-only">Close</span>
+    </button>
+
+    <!-- Modal Title -->
+    <h2 style="margin: 0; font-size: 1.6rem; font-weight: bold; color: #333; display: inline-flex; align-items: center;">
+        <i class="fa fa-pencil" style="margin-right: 10px; color: #007bff;"></i>
+        <?php echo (isset($title)) ? ucwords($title) : ""; ?>
+    </h2>
+</div>
+
     <div class="modal-body">
         <div class="alert alert-danger" id="error-box" style="display: none"></div>
         <div class="form-body">
@@ -366,6 +377,7 @@
                  -->
                  <div class="col-sm-12"> 
                          <div class="table-responsive" >
+                            
                              <table id="appointmentTable" class="table table-bordered table-hover align-middle text-center">
                          
             <thead>
@@ -475,104 +487,113 @@
                 -->
                 <div class="col-sm-12"> 
                          <div class="table-responsive" >
-                             <table id="appointmentTable" class="table table-bordered table-hover align-middle text-center">
-                         
-            <thead>
-                    <tr>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem;width:40px !important">Sr. No</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Priority</th>
-                        
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Task Name</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Assign To</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Patient Name</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Type</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Task Comment</th>
-                        <th style="background-color:#DBEAFF;font-size:1.3rem">Due Date</th>
-                        <!-- <th style="background-color:#DBEAFF;font-size:1.3rem">MD Steward</th> -->
-                        <th style="background-color:#DBEAFF;font-size:1.3rem"><?php echo lang('action'); ?></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    //if(!empty($careUnitsUser_list)){
+                             <table id="appointmentTable" class="table table-bordered  align-middle text-center">
+  
 
 
-                    if (!empty($careUnitsUser_list)) {
-                        $rowCount = 0;
-                        foreach ($careUnitsUser_list as $rows) {
-                            $rowCount++;
-                        
-                            // print_r($rows);die;
-                            
-                    ?>
-                            <tr>
-                                <td><?php echo $rowCount; ?></td>
-                                <td><?php if($rows->priority =="High"){ 
-                                    ?>
-                                    <label class="priority-label" data-priority="High">
-                                    <i class="fa fa-flag-o fa_custom"></i>
-                                    <?php
-                                    echo 'H'; 
-                                } else if($rows->priority =="Low"){
-                                    ?>
-                                    <label class="priority-label" data-priority="Low">
-                                    <i class="fa fa-flag-o fa_custom"></i>
-                                    <?php
-                                echo 'L';
-                                }else if($rows->priority =="Medium"){
-                                    ?>
-                                    <label class="priority-label" data-priority="Medium">
-                                    <i class="fa fa-flag-o fa_custom"></i>
-                                    <?php
-                                    
-                                    echo 'M';
-                                } ?></td>
+<div class=""style=" display: flex; justify-content: space-between; align-items: center;">
+<h2 style=" font-weight: bold;font-size:20px">
+        <strong><?php echo $title; ?></strong> Panel
+    </h2>
+               
+                    <a href="#" class="btn btn-sm btn-primary save-btn" data-toggle="modal" data-target="#myModal" >
+                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    </a>
+                </h2>
+            </div>
 
-                                <td><?php echo $rows->task_name; ?></td>
-                                <td><?php echo $rows->f_name. ' '.$rows->l_name; ?></td>
-                                <td><?php echo $rows->patient_fname. ' '.$rows->patient_lname; ?></td>
-                                <td><?php echo $rows->type_name; ?></td>
-                                <td><?php echo $rows->task_comment; ?></td>
-                                <td><?php echo $rows->culture_source_name; ?></td>
+                             <thead>
+    <tr style="border-bottom: 2px solid #ccc;">
+        <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 10px; width: 40px; text-align: center; border-right: 1px solid #ccc;">Sr. No</th>
+        <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 10px; text-align: left; border-right: 1px solid #ccc;">Priority</th>
+        <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 10px; text-align: left; border-right: 1px solid #ccc;">Task Name</th>
+        <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 10px; text-align: left; border-right: 1px solid #ccc;">Assign To</th>
+        <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 10px; text-align: left; border-right: 1px solid #ccc;">Patient Name</th>
+        <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 10px; text-align: left; border-right: 1px solid #ccc;">Type</th>
+        <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 10px; text-align: left; border-right: 1px solid #ccc;">Task Comment</th>
+        <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 10px; text-align: left; border-right: 1px solid #ccc;">Due Date</th>
+        <th style="background-color: #DBEAFF; font-size: 1.3rem; font-weight: bold; padding: 10px; text-align: center;">Action</th>
+    </tr>
+</thead>
 
-                                <td>
-                                
-                                            <?php 
-                                            if ($this->ion_auth->is_subAdmin()){
-                    
-                                                if ($rows->task_status == 'Done'): ?>
-                                                    <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
-                                                    <select class="statusDropdown custom-badge <?php echo ($rows->task_status == 'Done') ? 'status-green' : 'status-red'; ?>">
-                                                        <option value="Done" selected><strong>Done</strong></option>
-                                                        <option value="Pending"><strong>Pending</strong></option>
-                                                    </select>
-                                                <?php else: ?>
-                                                    <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
-                                                    <select class="statusDropdown custom-badge <?php echo ($rows->task_status == 'Pending') ? 'status-red' : 'status-green'; ?>">
-                                                        <option value="Done"><strong>Done</strong></option>
-                                                        <option value="Pending" selected><strong>Pending</strong></option>
-                                                    </select>
-                                                <?php endif; 
-                                                
+<tbody>
+    <?php
+    if (!empty($careUnitsUser_list)) {
+        $rowCount = 0;
+        foreach ($careUnitsUser_list as $rows) {
+            $rowCount++;
+    ?>
+        <tr style="border-bottom: 1px solid #ccc;">
+            <!-- Serial Number -->
+            <td style="padding: 10px; text-align: center;"><?php echo $rowCount; ?></td>
 
-                                             }else if($this->ion_auth->is_facilityManager()){ 
-                                                if($rows->task_status == 'Done'): ?>
-                                                <span class="custom-badge status-green"><?php echo $rows->task_status; ?></span> 
-                                                
-                                            <?php else: ?>
-                                                <span class="custom-badge status-red"><?php echo $rows->task_status; ?></span> 
-                                
-                                             <?php endif; } ?>
-                                        </td>
-                            </tr>
+            <!-- Priority -->
+            <td style="padding: 10px; text-align: center;">
+                <?php if ($rows->priority == "High") { ?>
+                    <label style="color: #d9534f; font-weight: bold; display: inline-flex; align-items: center;">
+                        <i class="fa fa-flag-o" style="margin-right: 5px; color: #d9534f;"></i> H
+                    </label>
+                <?php } elseif ($rows->priority == "Medium") { ?>
+                    <label style="color: #f0ad4e; font-weight: bold; display: inline-flex; align-items: center;">
+                        <i class="fa fa-flag-o" style="margin-right: 5px; color: #f0ad4e;"></i> M
+                    </label>
+                <?php } elseif ($rows->priority == "Low") { ?>
+                    <label style="color: #5bc0de; font-weight: bold; display: inline-flex; align-items: center;">
+                        <i class="fa fa-flag-o" style="margin-right: 5px; color: #5bc0de;"></i> L
+                    </label>
+                <?php } ?>
+            </td>
 
-                        <?php
-                       }
-                    }
-                    
-                    ?>
+            <!-- Task Name -->
+            <td style="padding: 10px;"><?php echo $rows->task_name; ?></td>
 
-                </tbody>
+            <!-- Assigned To -->
+            <td style="padding: 10px;"><?php echo $rows->f_name . ' ' . $rows->l_name; ?></td>
+
+            <!-- Patient Name -->
+            <td style="padding: 10px;"><?php echo $rows->patient_fname . ' ' . $rows->patient_lname; ?></td>
+
+            <!-- Type -->
+            <td style="padding: 10px;"><?php echo $rows->type_name; ?></td>
+
+            <!-- Task Comment -->
+            <td style="padding: 10px;"><?php echo $rows->task_comment; ?></td>
+
+            <!-- Culture Source Name -->
+            <td style="padding: 10px;"><?php echo $rows->culture_source_name; ?></td>
+
+            <!-- Task Status -->
+            <td style="padding: 10px; text-align: center;">
+                <?php 
+                if ($this->ion_auth->is_subAdmin()) {
+                    if ($rows->task_status == 'Done') { ?>
+                        <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
+                        <select style="padding: 5px; border-radius: 4px; background-color: #dff0d8; color: #3c763d; border: 1px solid #3c763d;">
+                            <option value="Done" selected>Done</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                    <?php } else { ?>
+                        <input type="hidden" class="notification-id" value="<?php echo $rows->patient_id; ?>">
+                        <select style="padding: 5px; border-radius: 4px; background-color: #f2dede; color: #a94442; border: 1px solid #a94442;">
+                            <option value="Done">Done</option>
+                            <option value="Pending" selected>Pending</option>
+                        </select>
+                    <?php } 
+                } elseif ($this->ion_auth->is_facilityManager()) {
+                    if ($rows->task_status == 'Done') { ?>
+                        <span style="padding: 5px 10px; border-radius: 4px; background-color: #dff0d8; color: #3c763d;">Done</span>
+                    <?php } else { ?>
+                        <span style="padding: 5px 10px; border-radius: 4px; background-color: #f2dede; color: #a94442;">Pending</span>
+                    <?php }
+                } ?>
+            </td>
+        </tr>
+    <?php
+        }
+    }
+    ?>
+</tbody>
+
             </table>
         </div>
         </div>

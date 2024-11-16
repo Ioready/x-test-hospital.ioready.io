@@ -158,7 +158,7 @@
                     <h2><strong>Site Setting</strong> Panel</h2>
                 </div>
                 <div class="col-sm-6 col-lg-12 text-white">
-                    <div class="panel panel-default">
+                    <div class="panel ">
                         <ul class="nav nav-pills nav-fill nav-tabss" id="pills-tab" role="tablist">
                             <li class="nav-item">
                                 <a href="<?php echo site_url('setting'); ?>" class="save-btn text-white <?php echo (strtolower($this->router->fetch_class()) == "setting" && strtolower($this->router->fetch_method()) == "index") ? "active" : "" ?>">

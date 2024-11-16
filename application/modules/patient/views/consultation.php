@@ -676,46 +676,131 @@
 
         
 
-        <ul class="note-list">
 
-            <?php
-                      
-                        $rowCount = 0;
-                        foreach ($list as $rows) :
-                            $rowCount++;
-                        ?>
-            <li class="active" onclick="viewConsultationDetails(<?php echo $rows->id; ?>)">
-                <div class="note-title"><?php echo $rows->first_name. ' '. $rows->last_name; ?></div>
+        <div id="pagination-container">
+    <ul class="note-list" id="noteList">
+        <?php
+        $rowCount = 0;
+        foreach ($list as $rows) :
+            $rowCount++;
+        ?>
+            <li class="active note-item" onclick="viewConsultationDetails(<?php echo $rows->id; ?>)">
+                <div class="note-title"><?php echo $rows->first_name . ' ' . $rows->last_name; ?></div>
                 <div class="note-meta"><?php echo $rows->create_date; ?></div>
-                <div class="consultation-note" ><?php echo $rows->search; ?></div>
-                <div class="consultation-note" ><?php echo $rows->type; ?> <?php echo $rows->comment; ?></div>
+                <div class="consultation-note"><?php echo $rows->search; ?></div>
+                <div class="consultation-note"><?php echo $rows->type . ' ' . $rows->comment; ?></div>
             </li>
+        <?php endforeach; ?>
+    </ul>
 
-            <!-- <li>
-                <div class="note-title">Kirti Moholkar</div>
-                <div class="note-meta">30 Jul 2024, 20:39</div>
-                <div class="consultation-note">Consultation note</div>
-            </li> -->
-            <!-- <li>
-                <div class="note-title">Kirti Moholkar</div>
-                <div class="note-meta">30 Jul 2024, 20:38</div>
-                <div class="consultation-note">Consultation note</div>
-            </li>
-            <li>
-                <div class="note-title">Kirti Moholkar</div>
-                <div class="note-meta">30 Jul 2024, 20:36</div>
-                <div class="consultation-note">Consultation note</div>
-            </li>
-            <li>
-                <div class="note-title">Kirti Moholkar</div>
-                <div class="note-meta">21 Jun 2024, 15:50</div>
-                <div class="consultation-note">Knee pain</div>
-            </li> -->
-            <?php
-                        endforeach;
-                    
-                    ?>
-        </ul>
+    <!-- Pagination Controls -->
+    <div id="pagination-controls" style="text-align: center; margin-top: 10px;"></div>
+</div>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+    $('#consultationTable').DataTable({
+        paging: true,
+        searching: true,
+        ordering: true,
+        pageLength: 10,
+        lengthMenu: [5, 10, 20, 50],
+        responsive: true,
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const itemsPerPage = 5;
+    const noteList = document.querySelectorAll(".note-item");
+    const paginationControls = document.getElementById("pagination-controls");
+    const totalItems = noteList.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    function showPage(pageNumber) {
+        const startIndex = (pageNumber - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        // Hide all items
+        noteList.forEach((item, index) => {
+            item.style.display = index >= startIndex && index < endIndex ? "block" : "none";
+        });
+
+        // Update pagination controls
+        updatePaginationControls(pageNumber);
+    }
+
+    function updatePaginationControls(currentPage) {
+        paginationControls.innerHTML = "";
+
+        // Previous Button
+        if (currentPage > 1) {
+            const prevButton = document.createElement("button");
+            prevButton.textContent = "Previous";
+            styleButton(prevButton, currentPage === 1);
+            prevButton.onclick = () => showPage(currentPage - 1);
+            paginationControls.appendChild(prevButton);
+        }
+
+        // Page Number Buttons
+        for (let i = 1; i <= totalPages; i++) {
+            const pageButton = document.createElement("button");
+            pageButton.textContent = i;
+            styleButton(pageButton, currentPage === i);
+            pageButton.onclick = () => showPage(i);
+            paginationControls.appendChild(pageButton);
+        }
+
+        // Next Button
+        if (currentPage < totalPages) {
+            const nextButton = document.createElement("button");
+            nextButton.textContent = "Next";
+            styleButton(nextButton, currentPage === totalPages);
+            nextButton.onclick = () => showPage(currentPage + 1);
+            paginationControls.appendChild(nextButton);
+        }
+    }
+
+    // Helper function to style the buttons
+    function styleButton(button, isActive) {
+        button.style.padding = "8px 15px";
+        button.style.margin = "0 5px";
+        button.style.fontSize = "1rem";
+        button.style.cursor = "pointer";
+        button.style.border = isActive ? "2px solid #007bff" : "1px solid #ccc";
+        button.style.borderRadius = "5px";
+        button.style.backgroundColor = isActive ? "#007bff" : "#f0f0f0";
+        button.style.color = isActive ? "#fff" : "#333";
+        button.style.textAlign = "center";
+        button.style.transition = "background-color 0.2s, color 0.2s";
+        button.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.1)";
+        button.onmouseover = () => {
+            if (!isActive) {
+                button.style.backgroundColor = "#e0e0e0";
+                button.style.color = "#007bff";
+            }
+        };
+        button.onmouseout = () => {
+            if (!isActive) {
+                button.style.backgroundColor = "#f0f0f0";
+                button.style.color = "#333";
+            }
+        };
+    }
+
+    // Initialize the first page
+    if (totalItems > 0) {
+        showPage(1);
+    }
+});
+
+</script>
 
     </div>
     
