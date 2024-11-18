@@ -278,7 +278,7 @@ class Patient extends Common_Controller
                     'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                         . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                         . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                        . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
+                        . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code,P.blood_group,P.blood_pressure,P.heart_rate,P.temperature',
                     'join' => array(
                         array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
                         array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
@@ -369,7 +369,7 @@ class Patient extends Common_Controller
                     'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                         . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                         . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                        . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
+                        . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code,P.blood_group,P.blood_pressure,P.heart_rate,P.temperature',
                     'join' => array(
                         array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
                         array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
@@ -517,7 +517,7 @@ class Patient extends Common_Controller
                 // array('vendor_sale_doctors', 'doctors.user_id=vendor_sale_patient_consultation.consultation_type','left'),
                 // array('users', 'doctors.user_id=vendor_sale_patient_consultation.consultation_type', 'left'),
             ),
-            // 'where' => array('vendor_sale_patient_consultation.patient_id' => $id),
+            'where' => array('vendor_sale_patient_consultation.patient_id' => $id),
             'order' => array('vendor_sale_patient_consultation.id' => 'DESC')
         );
         
@@ -532,7 +532,7 @@ class Patient extends Common_Controller
                 'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                     . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                     . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code,P.blood_group,P.blood_pressure,P.heart_rate,P.temperature',
                 'join' => array(
                     array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
                     array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
@@ -824,7 +824,7 @@ class Patient extends Common_Controller
                 'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                     . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                     . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code,P.blood_group,P.blood_pressure,P.heart_rate,P.temperature',
                 'join' => array(
                     array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
                     array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
@@ -1055,7 +1055,7 @@ class Patient extends Common_Controller
             'select' => 'P.id as patient_id,P.patient_id as pid,P.name as patient_name,P.date_of_start_abx,P.total_days_of_patient_stay,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                 . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_stayward,'
                 . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.comment',
+                . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.comment,P.blood_group,P.blood_pressure,P.heart_rate,P.temperature',
             'join' => array(
                 array('care_unit CI', 'CI.id=P.care_unit_id', 'inner'),
                 array('doctors DOC', 'DOC.id=P.doctor_id', 'inner'),
@@ -1398,7 +1398,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 'select' => 'P.infection_surveillance_checklist,P.total_days_of_patient_stay,P.patient_id as patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                     . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,Pre.name as precautions_name,CS.name as culture_source_name,Org.name as organism_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_stayward,'
                     . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,IRX.price as price1,IRX2.price as price2,P.created_date,P.date_of_start_abx',
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,IRX.price as price1,IRX2.price as price2,P.created_date,P.date_of_start_abx,P.blood_group,P.blood_pressure,P.heart_rate,P.temperature',
                 'join' => array(
                     array('care_unit CI', 'CI.id=P.care_unit_id', 'inner'),
                     array('doctors DOC', 'DOC.id=P.doctor_id', 'inner'),
@@ -1600,7 +1600,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 'select' => 'P.infection_surveillance_checklist,P.total_days_of_patient_stay,P.patient_id as patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                     . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,Pre.name as precautions_name,CS.name as culture_source_name,Org.name as organism_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_stayward,'
                     . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,IRX.price as price1,IRX2.price as price2,P.created_date,P.date_of_start_abx',
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,IRX.price as price1,IRX2.price as price2,P.created_date,P.date_of_start_abx,P.blood_group,P.blood_pressure,P.heart_rate,P.temperature',
                 'join' => array(
                     array('care_unit CI', 'CI.id=P.care_unit_id', 'inner'),
                     array('doctors DOC', 'DOC.id=P.doctor_id', 'inner'),
@@ -2985,7 +2985,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,U.first_name as patient_first_name,U.last_name as patient_last_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                     . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                     . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,P.additional_comment_option,P.comment,U.email as patient_email,U.email as password,U.gender,U.*,PCR.*,PBD.*,PNS.*,UAS.*,P.doctor_id as patient_doctor_id',
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,P.additional_comment_option,P.comment,U.email as patient_email,U.email as password,U.gender,U.*,PCR.*,PBD.*,PNS.*,UAS.*,P.doctor_id as patient_doctor_id,P.blood_group,P.blood_pressure,P.heart_rate,P.temperature',
                 'join' => array(
                     array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
                     array('doctors DOC', 'DOC.user_id=P.doctor_id', 'left'),
@@ -3043,7 +3043,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                 'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                     . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                     . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password,U.date_of_birth',
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password,U.date_of_birth,P.blood_group,P.blood_pressure,P.heart_rate,P.temperature',
                 'join' => array(
                     array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
                     array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
@@ -3380,7 +3380,7 @@ $option = array(
                 'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id as patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                     . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                     . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option',
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,P.blood_group,P.blood_pressure,P.heart_rate,P.temperature',
                 'join' => array(
                     array('care_unit CI', 'CI.id=P.care_unit_id', 'inner'),
                     array('doctors DOC', 'DOC.id=P.doctor_id', 'inner'),
@@ -3504,7 +3504,83 @@ $option = array(
                 ),
                 'where' => array('patient_id' => $where_id)
             );
-            $Update = $this->common_model->customupdate($option);
+           
+           
+            
+            $insert_id = $this->common_model->customupdate($option);
+
+            $option2 = array(
+                'table' => 'user_address',
+                'data' => array(
+                    'company_name' => $this->input->post('Company') ? $this->input->post('Company') : null,
+                    'occupation' => $this->input->post('Occupation') ? $this->input->post('Occupation') : null,
+                    'religion' => $this->input->post('religion') ? $this->input->post('religion') : null,
+                    'ethnicity' => $this->input->post('ethnicity') ? $this->input->post('ethnicity') : null,
+                    'address1' => $this->input->post('address_lookup') ? $this->input->post('address_lookup') : null,
+                    'address2' => $this->input->post('streem_address') ? $this->input->post('streem_address') : null,
+                    'city' => $this->input->post('city') ? $this->input->post('city') : null,
+                    'country' => $this->input->post('country') ? $this->input->post('country') : null,
+                    'pin_code' => $this->input->post('post_code') ? $this->input->post('post_code') : null,
+                    'is_billing' => $this->input->post('initial_rx') ? $this->input->post('initial_rx') : null,
+                    'date_of_death' => $this->input->post('death_day') ? $this->input->post('death_day') : null .'/'.($this->input->post('death_month') ? $this->input->post('death_month') : null) .'/'.($this->input->post('death_year') ? $this->input->post('death_year') : null),
+
+                ),
+                'where' => array('user_id' => $patient_id->user_id)
+            );
+          
+            $insert_id1 = $this->common_model->customupdate($option2);
+       
+            $option3 = array(
+                'table' => 'patient_communication_relation',
+                'data' => array(
+                    'relation' => $this->input->post('relation') ? $this->input->post('relation') : null,
+                    'relation_number' => $this->input->post('storedData') ? $this->input->post('storedData') : null,
+                    'policy_number' => $this->input->post('policy_number') ? $this->input->post('policy_number') : null,
+                    'authorisation_code' => $this->input->post('authorisation_code') ? $this->input->post('authorisation_code') : null,
+                    'receive_emails' => $this->input->post('receive_emails') ? $this->input->post('receive_emails') : null,
+                    'receive_sms_messages' => $this->input->post('receive_sms_messages') ? $this->input->post('receive_sms_messages') : null,
+                    'has_consented_to_promotional_marketing' => $this->input->post('has_consented_to_promotional_marketing') ? $this->input->post('has_consented_to_promotional_marketing') : null,
+                    'receive_payment_reminders' => $this->input->post('receive_payment_reminders') ? $this->input->post('receive_payment_reminders') : null,
+                    'privacy_policy' => $this->input->post('privacy_policy') ? $this->input->post('privacy_policy') : null,
+                    'System_id' => $this->input->post('System_id') ? $this->input->post('System_id') : null,
+                ),
+                'where' => array('user_id' => $patient_id->user_id)
+            );
+           
+            $insert_id2 = $this->common_model->customupdate($option3);
+
+            $option4 = array(
+                'table' => 'patient_billing_detail',
+                'data' => array(
+                    'billing_detail' => $this->input->post('billing_detail') ? $this->input->post('billing_detail') : null,
+                    'payment_reference' => $this->input->post('payment_reference') ? $this->input->post('payment_reference') : null,
+                    'card_number' => $this->input->post('card_number') ? $this->input->post('card_number') : null,
+                    'exp_month_year' => $this->input->post('exp_month_year') ? $this->input->post('exp_month_year') : null,
+                    'cvv' => $this->input->post('cvv') ? $this->input->post('cvv') : null,
+                ),
+                'where' => array('user_id' => $patient_id->user_id)
+            );
+            $insert_id3 = $this->common_model->customupdate($option4);
+
+                $option5 = array(
+                    'table' => 'notifications',
+                    'data' => array(
+                        'sender_id' => 1,
+                        'message' => "ID: $patient_unique_id New patient added",
+                        'user_type' => "USER",
+                        'care_unit_id' => $this->input->post('care_unit_id') ? $this->input->post('care_unit_id') : null,
+                        'sent_time' => date('Y-m-d H:i:s')
+                    ),
+                    'where' => array('user_id' => $patient_id->user_id)
+                );
+                $this->common_model->customupdate($option5);
+              
+            // }
+
+
+
+
+
             if ($this->input->post('infection_surveillance_checklist') == 'N/A') {
                 $redirect_to = base_url($this->router->fetch_class());
                 $show_redirection_alert = false;
@@ -5121,7 +5197,7 @@ $option = array(
                 'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                     . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                     . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
+                    . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code,P.blood_group,P.blood_pressure,P.heart_rate,P.temperature',
                 'join' => array(
                     array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
                     array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
@@ -6043,7 +6119,7 @@ $option = array(
                     'select' => 'P.total_days_of_patient_stay,P.infection_surveillance_checklist,P.date_of_start_abx,P.md_patient_status,P.id ,P.patient_id,P.name as patient_name,P.address,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.created_date,'
                         . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_steward,'
                         . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
-                        . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code',
+                        . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.additional_comment_option,PC.comment,U.email as patient_email,U.email as password, U.phone as patient_phone_number,U.date_of_birth,U.gender,U.phone_code,P.blood_group,P.blood_pressure,P.heart_rate,P.temperature',
                     'join' => array(
                         array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
                         array('doctors DOC', 'DOC.id=P.doctor_id', 'left'),
@@ -7000,5 +7076,138 @@ echo json_encode($response);
         }
     }
 
+
+    public function updatePatientBloodGroup() {
+
+        $id = $this->input->post('id');
+        $field = $this->input->post('field');
+        $value = $this->input->post('value');
+    
+        // Validate input
+        if (!$id || !$field || !$value) {
+            echo json_encode(['success' => false, 'message' => 'Invalid input']);
+            return;
+        }
+    
+        // Load your model
+
+        $option = array(
+            'table' => 'vendor_sale_patient',
+            'data' => array('vendor_sale_patient.blood_group' => $this->input->post('value')),
+            'where' => array('vendor_sale_patient.id' => $id)
+        );
+        $update = $this->common_model->customUpdate($option);
+
+       
+        // Update the field in the database
+        // $result = $this->YourModel->updateField($id, $field, $value);
+    
+        if ($update) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to update']);
+        }
+    }
+
+
+    public function updatePatientBloodPressure() {
+
+        $id = $this->input->post('id');
+        $field = $this->input->post('field');
+        $value = $this->input->post('value');
+    
+        // Validate input
+        if (!$id || !$field || !$value) {
+            echo json_encode(['success' => false, 'message' => 'Invalid input']);
+            return;
+        }
+    
+        // Load your model
+
+        $option = array(
+            'table' => 'vendor_sale_patient',
+            'data' => array('vendor_sale_patient.blood_pressure' => $this->input->post('value')),
+            'where' => array('vendor_sale_patient.id' => $id)
+        );
+        $update = $this->common_model->customUpdate($option);
+
+       
+        // Update the field in the database
+        // $result = $this->YourModel->updateField($id, $field, $value);
+    
+        if ($update) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to update']);
+        }
+    }
+
+
+    public function updatePatientHeartRate() {
+
+        $id = $this->input->post('id');
+        $field = $this->input->post('field');
+        $value = $this->input->post('value');
+    
+        // Validate input
+        if (!$id || !$field || !$value) {
+            echo json_encode(['success' => false, 'message' => 'Invalid input']);
+            return;
+        }
+    
+        // Load your model
+
+        $option = array(
+            'table' => 'vendor_sale_patient',
+            'data' => array('vendor_sale_patient.heart_rate' => $this->input->post('value')),
+            'where' => array('vendor_sale_patient.id' => $id)
+        );
+        $update = $this->common_model->customUpdate($option);
+
+       
+        // Update the field in the database
+        // $result = $this->YourModel->updateField($id, $field, $value);
+    
+        if ($update) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to update']);
+        }
+    }
+
+    public function updatePatienteditFieldTemperature() {
+
+        $id = $this->input->post('id');
+        $field = $this->input->post('field');
+        $value = $this->input->post('value');
+    
+        // Validate input
+        if (!$id || !$field || !$value) {
+            echo json_encode(['success' => false, 'message' => 'Invalid input']);
+            return;
+        }
+    
+        // Load your model
+
+        $option = array(
+            'table' => 'vendor_sale_patient',
+            'data' => array('vendor_sale_patient.temperature' => $this->input->post('value')),
+            'where' => array('vendor_sale_patient.id' => $id)
+        );
+        $update = $this->common_model->customUpdate($option);
+
+       
+        // Update the field in the database
+        // $result = $this->YourModel->updateField($id, $field, $value);
+    
+        if ($update) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to update']);
+        }
+    }
+    
+
+    
     
 }

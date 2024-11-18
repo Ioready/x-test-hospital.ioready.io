@@ -322,7 +322,7 @@
                         <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
                     </a>
                 </div>
-                <div class="col-sm-6 col-lg-2 mb-4">
+                <!-- <div class="col-sm-6 col-lg-2 mb-4">
                 <a href="<?php echo base_url(). 'index.php/patient/consultationTemplates?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Account statements</h4>
@@ -330,7 +330,7 @@
                         <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
                     </a>
                 </div>
-                
+                 -->
                 <div class="col-sm-6 col-lg-2 mb-4">
                 <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
@@ -421,27 +421,41 @@
                     </div>  -->
 
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="=" crossorigin="anonymous" />
+                    
+    <div class="row text-center">
+                
+                <div class="col-sm-6 col-lg-12">
+                    <div class="panel panel-default">
+                   
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="=" crossorigin="anonymous" />
                 <div class="m-4">
                     <div class="row">
+                    
+
                         <div class="col-md-3 col-lg-3">
                             <div class="card l-bg-cherry">
                                 <div class="card-statistic-3 m-4">
-                            
-                                    <div class="card-icon card-icon-large"><i class="fas fa-tint" style="font-size:3em;"></i></div> <!-- Using fa-tint icon -->
+                                    <div class="card-icon card-icon-large"><i class="fas fa-tint" style="font-size:3em;"></i></div>
                                     <div class="mb-4">
                                         <h4 class="card-title mb-0">Blood Group</h4>
-                                        <h4 class="text-center fw-bold m-2">A+</h4>
-                                    </div>
+                                        <h4 class="text-center fw-bold m-2 editable" 
+                                            data-id="<?php echo $results->id; ?>" data-field="blood_group" onclick="editField(this)"> <?php if(!empty($results->blood_group)){ echo $results->blood_group;  }else{ echo "NULL";  } ?></h4>
+                                   
+                                        </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-3 col-lg-3">
                             <div class="card l-bg-blue-dark">
                                 <div class="card-statistic-3 m-4">
                                     <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> <!-- Using fa-heartbeat icon -->
                                     <div class="mb-4">
                                         <h4 class="card-title mb-0">Blood Pressure</h4>
-                                        <h4 class="text-center fw-bold m-2">120/80</h4>
+                                        <h4 class="text-center fw-bold m-2 editable" 
+                                            data-id="<?php echo $results->id; ?>" data-field="blood_pressure" onclick="editFieldPressure(this)"><?php if(!empty($results->blood_pressure)){ echo $results->blood_pressure;  }else{ echo "NULL";  } ?></h4>
+                                   
+                                        <!-- <h4 class="text-center fw-bold m-2">120/80</h4> -->
                                     </div>
                                 </div>
                             </div>
@@ -451,8 +465,11 @@
                                 <div class="card-statistic-3 m-4">
                                     <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> <!-- Using fa-heartbeat icon -->
                                     <div class="mb-4">
-                                        <h4 class="card-title mb-0">Hert rate</h4>
-                                        <h4 class="text-center fw-bold m-2">120/80</h4>
+                                        <h4 class="card-title mb-0">Heart rate</h4>
+                                        <h4 class="text-center fw-bold m-2 editable" 
+                                            data-id="<?php echo $results->id; ?>" data-field="heart_rate" onclick="editFieldHeartRate(this)"><?php if(!empty($results->heart_rate)){ echo $results->heart_rate;  }else{ echo "NULL";  } ?></h4>
+                                   
+                                        <!-- <h4 class="text-center fw-bold m-2">120/80</h4> -->
                                     </div>
                                 </div>
                             </div>
@@ -463,16 +480,23 @@
                                     <div class="card-icon card-icon-large"><i class="fas fa-thermometer-half" style="font-size:3em;"></i></div> <!-- Using fa-thermometer-half icon -->
                                     <div class="mb-4">
                                         <h4 class="card-title mb-0">Temperature</h4>
-                                        <h4 class="text-center fw-bold m-2">98.6°F</h4> <!-- Example temperature value in Fahrenheit -->
+                                        <h4 class="text-center fw-bold m-2 editable" 
+                                            data-id="<?php echo $results->id; ?>" data-field="temperature" onclick="editFieldTemperature(this)"><?php if(!empty($results->temperature)){ echo $results->temperature;  }else{ echo "NULL";  } ?></h4>
+                                   
+                                        <!-- <h4 class="text-center fw-bold m-2">98.6°F</h4> -->
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="panel-body">
                     </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
             </div>
         </div>
         

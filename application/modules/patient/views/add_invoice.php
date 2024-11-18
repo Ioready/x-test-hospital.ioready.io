@@ -285,12 +285,14 @@
                                        
                        <div class="col-sm-3 nopadding">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products">
+                            <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products" onkeyup="myFunction()">
+                            <input type="hidden" class="form-control" id="products_idss" name="products_idss[]" onkeyup="myFunction()" placeholder="Products">
+                            
                         </div>
                     </div>
                     <div class="col-sm-3 nopadding">
                         <div class="form-group">
-                            <input type="number" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)">
+                            <input type="number" class="form-control product_rate" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)">
                         </div>
                     </div>
                     <div class="col-sm-3 nopadding">
@@ -304,8 +306,13 @@
                         </div>
                     </div>
 
+                    <span id="productStock" style="color: red;"></span>
                             <div id="item_fields">
                             </div>
+
+                            <div id="result_product"></div>
+                            
+                            
                         </div>
                         <!-- </div> -->
   
@@ -387,7 +394,7 @@ function education_fields() {
     var divtest = document.createElement("div");
 	divtest.setAttribute("class", "form-group removeclass"+room);
 	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="products" name="products[]" value="" placeholder="Products name"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity" oninput="calculatePrice(this)"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price" readonly></div></div> <div class="col-sm-2"><div class="form-group">  <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> </button></div></div><div class="clear"></div>';
+    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="product_item" name="products[]" placeholder="Products name" onkeyup="myProductFunction()"><input type="hidden" class="form-control" id="products_iditem" name="products_idss[]" onkeyup="myFunction()" placeholder="Products"><span id="productStockNew" style="color: red;"></span><div id="result_productsjkjk"></div></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control product_rates" id="rate" name="rate[]" value="" placeholder="Rate" oninput="calculatePrice(this)"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="number" class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity" oninput="calculatePrice(this)"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price" readonly></div></div> <div class="col-sm-2"><div class="form-group">  <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> </button></div></div><div class="clear"></div>';
     
     objTo.appendChild(divtest);
     updateTotalPrice();

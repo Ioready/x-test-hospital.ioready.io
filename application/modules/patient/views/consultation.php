@@ -139,14 +139,9 @@
         }
 
         .container-data {
-            /* display: flex;
-            max-width: 1200px;
-            margin: auto;
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
-
+           
             display: flex;
-            max-width: 1100px;
+            /* max-width: 1100px; */
             margin: auto;
             background-color: white;
         }
@@ -159,7 +154,7 @@
         .left-panel {
             flex: 1;
             border-right: 1px solid #e5e5e5;
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .left-panel .header {
@@ -381,14 +376,14 @@
                         <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
                     </a>
                 </div>
-                <div class="col-sm-6 col-lg-2 mb-4">
+                <!-- <div class="col-sm-6 col-lg-2 mb-4">
                 <a href="<?php echo base_url(). 'index.php/accountStatement?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
                         <div class="widget-extra themed-background" style="background-color:#337ab7; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);">
                             <h4 style="font-size:16px; font-weight:600; color:white;">Account statements</h4>
                         </div>
                         <div class="widget-extra-full"><span class="h2 animation-expandOpen fw-bold text-dark"><?php echo $inactive;?></span></div>
                     </a>
-                </div>
+                </div> -->
                 
                 <div class="col-sm-6 col-lg-2 mb-4">
                 <a href="<?php echo base_url() . 'index.php/patient/communication?id=' . encoding($results->id); ?>" class="widget widget-hover-effect2 rounded" style="border-radius: 20px;;">
@@ -426,25 +421,32 @@
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="=" crossorigin="anonymous" />
                 <div class="m-4">
                     <div class="row">
+                    
+
                         <div class="col-md-3 col-lg-3">
                             <div class="card l-bg-cherry">
                                 <div class="card-statistic-3 m-4">
-                            
-                                    <div class="card-icon card-icon-large"><i class="fas fa-tint" style="font-size:3em;"></i></div> <!-- Using fa-tint icon -->
+                                    <div class="card-icon card-icon-large"><i class="fas fa-tint" style="font-size:3em;"></i></div>
                                     <div class="mb-4">
                                         <h4 class="card-title mb-0">Blood Group</h4>
-                                        <h4 class="text-center fw-bold m-2">A+</h4>
-                                    </div>
+                                        <h4 class="text-center fw-bold m-2 editable" 
+                                            data-id="<?php echo $results->id; ?>" data-field="blood_group" onclick="editField(this)"> <?php if(!empty($results->blood_group)){ echo $results->blood_group;  }else{ echo "NULL";  } ?></h4>
+                                   
+                                        </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-3 col-lg-3">
                             <div class="card l-bg-blue-dark">
                                 <div class="card-statistic-3 m-4">
                                     <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> <!-- Using fa-heartbeat icon -->
                                     <div class="mb-4">
                                         <h4 class="card-title mb-0">Blood Pressure</h4>
-                                        <h4 class="text-center fw-bold m-2">120/80</h4>
+                                        <h4 class="text-center fw-bold m-2 editable" 
+                                            data-id="<?php echo $results->id; ?>" data-field="blood_pressure" onclick="editFieldPressure(this)"><?php if(!empty($results->blood_pressure)){ echo $results->blood_pressure;  }else{ echo "NULL";  } ?></h4>
+                                   
+                                        <!-- <h4 class="text-center fw-bold m-2">120/80</h4> -->
                                     </div>
                                 </div>
                             </div>
@@ -454,8 +456,11 @@
                                 <div class="card-statistic-3 m-4">
                                     <div class="card-icon card-icon-large"><i class="fas fa-heartbeat" style="font-size:3em;"></i></div> <!-- Using fa-heartbeat icon -->
                                     <div class="mb-4">
-                                        <h4 class="card-title mb-0">Hert rate</h4>
-                                        <h4 class="text-center fw-bold m-2">120/80</h4>
+                                        <h4 class="card-title mb-0">Heart rate</h4>
+                                        <h4 class="text-center fw-bold m-2 editable" 
+                                            data-id="<?php echo $results->id; ?>" data-field="heart_rate" onclick="editFieldHeartRate(this)"><?php if(!empty($results->heart_rate)){ echo $results->heart_rate;  }else{ echo "NULL";  } ?></h4>
+                                   
+                                        <!-- <h4 class="text-center fw-bold m-2">120/80</h4> -->
                                     </div>
                                 </div>
                             </div>
@@ -466,11 +471,15 @@
                                     <div class="card-icon card-icon-large"><i class="fas fa-thermometer-half" style="font-size:3em;"></i></div> <!-- Using fa-thermometer-half icon -->
                                     <div class="mb-4">
                                         <h4 class="card-title mb-0">Temperature</h4>
-                                        <h4 class="text-center fw-bold m-2">98.6°F</h4> <!-- Example temperature value in Fahrenheit -->
+                                        <h4 class="text-center fw-bold m-2 editable" 
+                                            data-id="<?php echo $results->id; ?>" data-field="temperature" onclick="editFieldTemperature(this)"><?php if(!empty($results->temperature)){ echo $results->temperature;  }else{ echo "NULL";  } ?></h4>
+                                   
+                                        <!-- <h4 class="text-center fw-bold m-2">98.6°F</h4> -->
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="panel-body">
                     </div>
@@ -478,6 +487,7 @@
                 </div>
             </div>
         </div>
+    </div>
 
         <div class="row mt-4">
     <div class="col-md-12">
@@ -508,6 +518,7 @@
     <?php } ?>
     <!-- Datatables Content -->
     <!-- Datatables Content -->
+     <br>
     <div class="block full">
 
           <!-- <div class="block-title">
@@ -620,9 +631,9 @@
         <div class="note-header">
             <div>
             
-                <div class="note-meta-details" id="consultation_details">Kirti Moholkar, 30 Jul 2024, 20:46</div>
-                <div class="note-heading" id="consultation_type">Nurse consultation</div>
-                <div class="consultation-note">Consultation note</div>
+                <div class="note-meta-details" id="consultation_details"></div>
+                <div class="note-heading" id="consultation_type"></div>
+                <div class="consultation-note"></div>
             </div>
             <div class="actions" id="edit_consultation_id" style="margin-left: 164px;">
                 <!-- <a href = "<?php echo site_url('patient/editConsultation'); ?>" >Edit</a>
@@ -641,8 +652,8 @@
         </div>
 
         <div class="note-details">
-            <div class="problem-heading">Free notes</div>
-            <div class="note-content">Headache site, Since: 01/07/2024, Acute, Minor. The patient was happy and did want an MRI.</div>
+            <div class="problem-heading"></div>
+            <div class="note-content"></div>
             <div id="diagram_image"></div>
         </div>
 
@@ -678,17 +689,18 @@
 
 
         <div id="pagination-container">
-    <ul class="note-list" id="noteList">
+    <ul class="note-list" id="noteList" style="padding-left: 0px;">
         <?php
         $rowCount = 0;
         foreach ($list as $rows) :
             $rowCount++;
+            // print_r($rows);die;
         ?>
             <li class="active note-item" onclick="viewConsultationDetails(<?php echo $rows->id; ?>)">
                 <div class="note-title"><?php echo $rows->first_name . ' ' . $rows->last_name; ?></div>
                 <div class="note-meta"><?php echo $rows->create_date; ?></div>
                 <div class="consultation-note"><?php echo $rows->search; ?></div>
-                <div class="consultation-note"><?php echo $rows->type . ' ' . $rows->comment; ?></div>
+                <div class="consultation-note"><?php echo $rows->presenting_type . ', ' . $rows->product_type. ','.$rows->medication_type. ','.$rows->social_type. ','.$rows->family_type. ','.$rows->medical_type. ','.$rows->allergy_type. ','.$rows->examination_type. ','.$rows->problem_type. ','.$rows->comments_type; ?></div>
             </li>
         <?php endforeach; ?>
     </ul>
@@ -816,9 +828,9 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="note-header">
             <div>
             
-                <div class="note-meta-details" id="consultation_details">Kirti Moholkar, 30 Jul 2024, 20:46</div>
-                <div class="note-heading" id="consultation_type">Nurse consultation</div>
-                <div class="consultation-note">Consultation note</div>
+                <div class="note-meta-details" id="consultation_details"></div>
+                <div class="note-heading" id="consultation_type"></div>
+                <div class="consultation-note"></div>
             </div>
             <div class="actions" id="edit_consultation_id" style="margin-left: 164px;">
                 <!-- <a href = "<?php echo site_url('patient/editConsultation'); ?>" >Edit</a>
@@ -837,8 +849,8 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
 
         <div class="note-details">
-            <div class="problem-heading">Free notes</div>
-            <div class="note-content">Headache site, Since: 01/07/2024, Acute, Minor. The patient was happy and did want an MRI.</div>
+            <div class="problem-heading"></div>
+            <div class="note-content"></div>
             <div id="diagram_image"></div>
         </div>
 
@@ -1924,33 +1936,13 @@ $(document).ready(function() {
             success: function(data) {
 
                 var consultationDetails = data.first_name + ' ' + data.last_name + ', ' + data.create_date;
-
-                // Construct the consultation details string with additional data fields
-
-
-// Optionally, insert the details into the HTML element with ID 'consultation_details'
-$('#consultation_details').html(consultationDetails);
-
-
-                // alert(consultationDetails);
-                // $('#consultation_details').html(consultationDetails);
-                // $('#consultation_details').html(consultationDetails);
+                $('#consultation_details').html(consultationDetails);
 
                 var consultationType = data.doctor_name;
 
                 $('#consultation_type').html(consultationType);
 
-    //             var notes = 
-    // data.first_name + ' ' + data.last_name + ', ' +
-    // 'Created on: ' + data.create_date + '\n' +
-    // 'Consultation Type: ' + data.consultation_type + '\n' +
-    // 'Consultation Date: ' + data.consultation_date + '\n' +
-    // 'Presenting Complaint: ' + data.presenting_complaint + '\n' +
-    // 'Comment: ' + data.comment + '\n' +
-    // 'Relationship: ' + data.relationship + '\n' +
-    // 'diagram:';
-   
-   
+    
     var notes = 
     data.first_name + ' ' + data.last_name + ',\n</br> ' +
     '<b>Created on: </b>' + data.create_date + '\n</br>' +
@@ -1976,87 +1968,44 @@ $('#consultation_details').html(consultationDetails);
     '<b>diagram:</b>';
 
 $('.note-content').html(notes);
-var myArray = jQuery.parseJSON(data.diagram_url);
 
-const images = myArray;
+const myArray = jQuery.parseJSON(data.diagram_url);
 
-// Get the container element
-const container = document.getElementById('diagram_image');
+// Check if the array is not empty
+if (myArray && myArray.length > 0) {
+    const images = myArray;
+    const container = document.getElementById('diagram_image');
+    container.innerHTML = '';
 
-// Clear previous images
-container.innerHTML = ''; // Removes all existing images
-
-// Add new images from myArray
-images.forEach(image => {
-    const img = document.createElement('img');
-    img.src = image;
-    
-    // Set width and height
-    img.style.width = '200px';  // Adjust as needed
-    img.style.height = '150px'; // Adjust as needed
-
-    // Append the image to the container
-    container.appendChild(img);
-});
+    // Loop through and render images
+    images.forEach(image => {
+        const img = document.createElement('img');
+        img.src = image;
+        img.style.width = '200px';
+        img.style.height = '150px';
+        container.appendChild(img);
+    });
+} else {
+    // Handle the case where no diagrams are present
+    const container = document.getElementById('diagram_image');
+    container.innerHTML = '<p>No diagrams available</p>';
+}
 
 
-// $('.note-content').html(notes);
 
-//                 var notes = 
-//     data.first_name + ' ' + data.last_name + ', ' +
-//     'Created on: ' + data.create_date + '\n' +
-//     'Consultation Type: ' + data.consultation_type + '\n' +
-//     'Consultation Date: ' + data.consultation_date + '\n' +
-//     'Presenting Complaint: ' + data.presenting_complaint + '\n' +
-//     'Comment: ' + data.comment + '\n' +
-//     'Relationship: ' + data.relationship +
-
-//     data.diagram_url.forEach(function(url) {
-//          'diagram: <img src="'+ url +'" alt="Diagram Image" style="max-width:150px; margin: 5px;">';
+// var myArray = jQuery.parseJSON(data.diagram_url);
+// const images = myArray;
+// const container = document.getElementById('diagram_image');
+// container.innerHTML = '';
+// images.forEach(image => {
+//     const img = document.createElement('img');
+//     img.src = image;
+//     img.style.width = '200px';
+//     img.style.height = '150px';
+//     container.appendChild(img);
 //     });
-   
-// }
 
 
-
-
-// Assuming `data` is the JavaScript object containing the information
-
-// var notes = `
-//     <h3>${data.first_name} ${data.last_name}</h3>
-//     <p><strong>Consultation Date:</strong> ${data.create_date}</p>
-//     <p><strong>Patient ID:</strong> ${data.patient_id}</p>
-//     <p><strong>Facility User ID:</strong> ${data.facility_user_id}</p>
-//     <p><strong>Consultation Type:</strong> ${data.consultation_type}</p>
-//     <p><strong>Consultation Date:</strong> ${data.consultation_date}</p>
-//     <p><strong>Presenting Complaint:</strong> ${data.presenting_complaint}</p>
-//     <p><strong>Comment:</strong> ${data.comment}</p>
-//     <p><strong>Relationship:</strong> ${data.relationship}</p>
-//     <p><strong>Show Summary:</strong> ${data.showSummary ? "Yes" : "No"}</p>
-// `;
-
-// Add images from diagram_url array
-
-// if (data.diagram_url && data.diagram_url.length > 0) {
-//     notes += '<div><strong>Diagram Images:</strong><br>';
-//     data.diagram_url.forEach(function(url) {
-//         notes += `<img src="${url}" alt="Diagram Image" style="max-width:150px; margin: 5px;">`;
-//     });
-//     notes += '</div>';
-// }
-
-// Add additional details as needed
-// notes += `
-//     <p><strong>Status:</strong> ${data.status === 0 ? 'Inactive' : 'Active'}</p>
-// `;
-
-// Display the content in the `#consultation_details` element
-// $('#consultation_details').html(consultationDetails);
-// $('.note-content').html(notes);
-
-
-                // $('.note-content').html(data.presenting_complaint + ', Since: ' + data.since + ', ' + data.condition_type + ', ' + data.condition_significance);
-                
                 // edit consultation 
 
                 var presenting_complaint=  data.presenting_complaint;
@@ -2121,20 +2070,25 @@ images.forEach(image => {
                 var social_condition_significance = data.social_condition_significance;
                 var social_comment = data.social_comment;
  
-                var myArray = jQuery.parseJSON(data.diagram_url);
-                const diagram = document.getElementById('edit_diagram');
-                diagram.innerHTML = ''; // Clears any existing content
+                var myDiagram = jQuery.parseJSON(data.diagram_url);
+                if (myDiagram && myDiagram.length > 0) {
 
-                myArray.forEach(image => {
+                const diagram = document.getElementById('edit_diagram');
+                diagram.innerHTML = ''; 
+                myDiagram.forEach(image => {
                     const img = document.createElement('img');
                     img.src = image;
                     img.style.width = '120px';
                     img.style.height = '120px';
                     img.style.border= '1px dotted gray';
                     img.style.padding= '15px';
-                    diagram.appendChild(img); // Append the image to the 'edit_diagram' container
+                    diagram.appendChild(img);
                 });
-
+                } else {
+                   
+                    const container = document.getElementById('diagram_image');
+                    container.innerHTML = '<p>No diagrams available</p>';
+                }
                 $('#presenting_complaint').val(presenting_complaint);
                 // $('#since').val(since);
                 $('.medication-since').val(medication_since);
@@ -2202,11 +2156,16 @@ images.forEach(image => {
 
                 $(".allergy-severity option[value='" + severity + "']").prop("selected", true);
 
-               
+                if (myDiagram && myDiagram.length > 0) {
+
                 var action = '<button type="button" data-toggle="modal" data-target="#exampleModalEdit" ' +
              'data-whatever="@mdo" data-type="' + data.type + '" data-product_type="' + data.product_type + '" data-medication_type="' + data.medication_type + '" data-social_type="' + data.social_type + '" data-family_type="' + data.family_type + '" data-medical_type="' + data.medical_type + '" data-allergy_type="' + data.allergy_type + '" data-examination_type="' + data.examination_type + '" data-problem_type="' + data.problem_type + '" data-presenting_type="' + data.presenting_type + '" data-comments_type="' + data.comments_type + '" data-diagram_type="' + data.diagram_type + '" data-id="' + data.id + '">Edit</button>';
+                }else{
 
-           
+                    var action = '<button type="button" data-toggle="modal" data-target="#exampleModalEdit" ' +
+                     'data-whatever="@mdo" data-type="' + data.type + '" data-product_type="' + data.product_type + '" data-medication_type="' + data.medication_type + '" data-social_type="' + data.social_type + '" data-family_type="' + data.family_type + '" data-medical_type="' + data.medical_type + '" data-allergy_type="' + data.allergy_type + '" data-examination_type="' + data.examination_type + '" data-problem_type="' + data.problem_type + '" data-presenting_type="' + data.presenting_type + '" data-comments_type="' + data.comments_type + '"  data-id="' + data.id + '">Edit</button>';
+                }
+
 
                     $('#edit_consultation_id').html(action);
                     $('#exampleModalEdit').on('show.bs.modal', function (event) {
