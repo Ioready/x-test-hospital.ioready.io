@@ -9,12 +9,12 @@
     }
 </style>
 <div id="commonModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <<div class="modal-dialog" style="max-width:60%; width: 100%; margin: 0 auto;">
         <div class="modal-content">
             <form class="form-horizontal" role="form" id="editFormAjax" method="post" action="<?php echo base_url('index.php/tutorials/tutorial_update') ?>" enctype="multipart/form-data">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title"><?php echo (isset($title)) ? ucwords($title) : "" ?></h4>
+            <div class="modal-header" style="padding: 15px; border-bottom: 1px solid #ddd;">
+                    <button type="button" class="close" data-dismiss="modal" style="font-size: 1.5rem;">&times;</button>
+                    <h4 class="modal-title" style="font-weight: bold;"><?php echo isset($title) ? ucwords($title) : ''; ?></h4>
                 </div>
                 <div class="modal-body">
                     <div class="loaders">

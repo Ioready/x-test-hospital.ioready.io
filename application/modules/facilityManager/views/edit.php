@@ -1,5 +1,31 @@
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
+
 <!-- Page content -->
+<<<<<<< HEAD
+<div id="page-content" class="container" style="background-color:whitesmoke">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="<?php echo site_url('pwfpanel'); ?>">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
+        </ol>
+    </nav>
+
+    <!-- Form Section -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header">
+            <h3 class="mb-2"><strong><?php echo $title; ?></strong> Panel</h3>
+        </div>
+        <div class="card-body">
+            <form id="editFormAjaxUser" method="post" action="<?php echo base_url('index.php/facilityManager/update'); ?>" enctype="multipart/form-data">
+                <div id="error-box" class="alert alert-danger d-none"></div>
+
+                <div class="mb-3 row">
+                    <label for="hospital_name" class="col-md-3 col-form-label">Hospital Name</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="hospital_name" id="hospital_name" placeholder="Hospital Name" value="<?php echo $results->hospital_name; ?>" required>
+=======
 <div id="page-content">
     <!-- Datatables Header -->
     <ul class="breadcrumb breadcrumb-top">
@@ -20,98 +46,66 @@
                 <form class="form-horizontal" role="form" id="editFormAjaxUser" method="post" action="<?php echo base_url('index.php/facilityManager/update') ?>" enctype="multipart/form-data">
                     <div class="modal-header text-center">
                         <h2 class="modal-title"><i class="fa fa-pencil"></i> <?php echo (isset($title)) ? ucwords($title) : "" ?></h2>
+>>>>>>> f9ec4ca75be17a2af803ff803443840509349bc7
                     </div>
-                   
-                    <div class="alert alert-danger" id="error-box" style="display: none"></div>
-                        <div class="form-body">
-                                <div class="row">
+                </div>
 
-
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Hospital Name</label>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control" name="hospital_name" id="hospital_name" placeholder="Hospital Name" value="<?php echo $results->hospital_name; ?>"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">First Name</label>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" value="<?php echo $results->first_name; ?>"/>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Last Name</label>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" value="<?php echo $results->last_name; ?>"/>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label"><?php echo lang('user_email'); ?></label>
-                                            <div class="col-md-9">
-                                                <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $results->email; ?>" readonly/>
-                                                <?php $user_id = $this->session->userdata('user_id');?>
-                                        <input type="hidden" class="form-control" name="admin_id" id="admin_id" value="<?php echo $user_id;?>"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                        
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label"><?php echo "Current Password"; ?></label>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control" name="current_password" id="current_password" value="<?php echo $results->is_pass_token; ?>" readonly=""/>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12" >
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label"><?php echo lang('new_password'); ?></label>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control" name="new_password" id="new_password"/>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <input type="hidden" name="id" value="<?php echo $results->id; ?>" />
-                                    <input type="hidden" name="password" value="<?php echo $results->password; ?>" />
-                                    <input type="hidden" name="exists_image" value="<?php echo $results->profile_pic; ?>" />
-                                    <div class="space-22"></div>
-                                </div>
-                         </div>
+                <div class="mb-3 row">
+                    <label for="first_name" class="col-md-3 col-form-label">First Name</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" value="<?php echo $results->first_name; ?>" required>
                     </div>
-                    <div class="modal-footer">
-                        <div class="col-md-8 col-md-offset-4">
-                            <button type="submit"  class="btn btn-sm btn-primary" id="submit">Save Changes</button>
-                        </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="last_name" class="col-md-3 col-form-label">Last Name</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" value="<?php echo $results->last_name; ?>" required>
                     </div>
-                </form>
-            </div></div>
+                </div>
 
-    </div>
+                <div class="mb-3 row">
+                    <label for="user_email" class="col-md-3 col-form-label"><?php echo lang('user_email'); ?></label>
+                    <div class="col-md-9">
+                        <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $results->email; ?>" readonly>
+                        <input type="hidden" name="admin_id" value="<?php echo $this->session->userdata('user_id'); ?>">
+                    </div>
+                </div>
 
-    <!-- Datatables Content -->
+                <div class="mb-3 row">
+                    <label for="current_password" class="col-md-3 col-form-label">Current Password</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="current_password" id="current_password" value="<?php echo $results->is_pass_token; ?>" readonly>
+                    </div>
+                </div>
 
+                <div class="mb-3 row">
+                    <label for="new_password" class="col-md-3 col-form-label"><?php echo lang('new_password'); ?></label>
+                    <div class="col-md-9">
+                        <input type="password" class="form-control" name="new_password" id="new_password" placeholder="Enter New Password">
+                    </div>
+                </div>
 
+                <!-- Hidden Fields -->
+                <input type="hidden" name="id" value="<?php echo $results->id; ?>">
+                <input type="hidden" name="password" value="<?php echo $results->password; ?>">
+                <input type="hidden" name="exists_image" value="<?php echo $results->profile_pic; ?>">
 
-
-
-
-
-    <!-- END Datatables Content -->
+                <!-- Submit Button -->
+                <div class="d-flex justify-content-end">
+    <button type="submit" class="btn btn-primary">Save Changes</button>
 </div>
-<!-- END Page Content -->
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Date Picker Script -->
 <script type="text/javascript">
-    $('#date_of_birth').datepicker({
+    $(document).ready(function () {
+       
+        $('#date_of_birth').datepicker({
         startView: 2,
         todayBtn: "linked",
         keyboardNavigation: false,
@@ -123,4 +117,28 @@
     /*    $("#zipcode").select2({
      allowClear: true
      });*/
+
+        // jQuery Validation for form
+        $("#editFormAjaxUser").validate({
+            rules: {
+                hospital_name: "required",
+                first_name: "required",
+                last_name: "required",
+                new_password: {
+                    minlength: 6
+                }
+            },
+            messages: {
+                hospital_name: "Please enter the hospital name",
+                first_name: "Please enter the first name",
+                last_name: "Please enter the last name",
+                new_password: {
+                    minlength: "Password must be at least 6 characters long"
+                }
+            },
+            errorElement: 'div',
+            errorClass: 'text-danger'
+        });
+    });
 </script>
+
