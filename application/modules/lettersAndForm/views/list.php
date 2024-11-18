@@ -394,7 +394,7 @@
                                 <div></div>
                             </div>
 
-                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>" style="margin-left: 1105px;">
+                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>" style="margin-left: 930px;">
                                 <div >
                                     <ul>
                                         
@@ -557,7 +557,7 @@
                                 <div></div>
                             </div>
 
-                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>" style="margin-left: 1105px;">
+                            <div class="menu" id="menuDropdown<?php echo $folder->id;?>" style="margin-left: 930px;">
                                 <div >
                                     <ul>
                                         
