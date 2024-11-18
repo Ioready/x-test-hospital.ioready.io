@@ -224,14 +224,91 @@
             </a>
         </div>
     </div>
-
-    <div class="switch-wrapper m-4">
+    <div class="d-flex justify-content-center align-items-center my-4">
+    <div class="switch-wrapper ">
         <input id="toggle-monthly" type="radio" name="switch" checked>
         <label style="font-size: 1.5rem; margin-bottom: 10px;" for="toggle-monthly">Monthly</label>
         <input style="margin-left: 2rem;" id="toggle-yearly" type="radio" name="switch">    
         <label style="font-size: 1.5rem; margin-bottom: 10px;" for="toggle-yearly">Yearly</label>
         <span class="highlighter"></span>
     </div>
+        </div>
+<!-- 
+<section>
+    <div class="content m-4">
+        <div class="row gy-4">
+            <?php foreach ($all_plan_list as $key => $row) { ?>
+            
+                <?php if ($row->DurationInMonths == 'month') { ?>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card shadow-sm h-100" style="border-radius: 20px; background-color: #FFF;">
+                            <div class="card-body text-center">
+                                <h2 class="fw-bold mb-3"><?php echo ucfirst($row->PlanName); ?></h2>
+                                <div class="icon mb-3" style="height: 94px;">
+                                    <?php if (!empty($row->icons)) { ?>
+                                        <img src="<?php echo base_url($row->icons); ?>" alt="icon" class="img-fluid">
+                                    <?php } else { ?>
+                                        <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="default-icon" class="img-fluid">
+                                    <?php } ?>
+                                </div>
+                                <div class="price">
+                                    <p class="amount fw-bold">$<?php echo $row->Price; ?></p>
+                                    <p class="detail">Admin Per Month</p>
+                                </div>
+                                <div class="description my-3">
+                                    <?php echo $row->plan_description; ?>
+                                </div>
+                                <?php if ($this->ion_auth->is_superAdmin()) { ?>
+                                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="btn btn-sm btn-primary">
+                                        <i class="gi gi-circle_plus"></i> Edit Plan
+                                    </a>
+                                <?php } else if ($this->ion_auth->is_admin()) { ?>
+                                    <a href="<?php echo base_url('make-stripe-payment?id=' . $row->id); ?>" class="btn btn-sm btn-success">
+                                        START FREE 7 DAYS TRIAL
+                                    </a>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+
+             
+                <?php if ($row->DurationInMonths == 'years') { ?>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card shadow-sm h-100" style="border-radius: 20px; background-color: #FFF;">
+                            <div class="card-body text-center">
+                                <h2 class="fw-bold mb-3"><?php echo ucfirst($row->PlanName); ?></h2>
+                                <div class="icon mb-3" style="height: 94px;">
+                                    <?php if (!empty($row->icons)) { ?>
+                                        <img src="<?php echo base_url($row->icons); ?>" alt="icon" class="img-fluid">
+                                    <?php } else { ?>
+                                        <img src="https://i.postimg.cc/2jcfMcf4/hot-air-balloon.png" alt="default-icon" class="img-fluid">
+                                    <?php } ?>
+                                </div>
+                                <div class="price">
+                                    <p class="amount fw-bold">$<?php echo $row->Price; ?></p>
+                                    <p class="detail">Admin Per Year</p>
+                                </div>
+                                <div class="description my-3">
+                                    <?php echo $row->plan_description; ?>
+                                </div>
+                                <?php if ($this->ion_auth->is_superAdmin()) { ?>
+                                    <a href="javascript:void(0)" onclick="open_modal_edit('<?php echo $model; ?>', '<?php echo $row->id; ?>')" class="btn btn-sm btn-primary">
+                                        <i class="gi gi-circle_plus"></i> Edit Plan
+                                    </a>
+                                <?php } else if ($this->ion_auth->is_admin()) { ?>
+                                    <a href="<?php echo base_url('make-stripe-payment?id=' . $row->id); ?>" class="btn btn-sm btn-success">
+                                        START FREE 7 DAYS TRIAL
+                                    </a>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php } ?>
+        </div>
+    </div>
+</section> -->
 
 
 
