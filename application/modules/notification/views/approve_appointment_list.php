@@ -55,7 +55,7 @@
         <a href="<?php echo site_url('pwfpanel'); ?>"><?php echo lang('home'); ?></a>
         </li>
         <li>
-        <a href="<?php echo site_url('notification'); ?>"><?php echo "Notification"; ?></a>
+        <a href="<?php echo site_url('notification/notification_list'); ?>"><?php echo "Notification"; ?></a>
         </li>
         </ul>
         <!-- END Datatables Header -->

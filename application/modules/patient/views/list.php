@@ -319,7 +319,7 @@
                                 <td><?php echo $rowCount; ?></td>
                                 <td><?php echo date('m/d/Y', strtotime($rows->date_of_start_abx)); ?></td>
                                 <td><?php echo $rows->pid; ?></td>
-                                <td><?php echo $rows->patient_name; ?></td>
+                                <td><?php echo $rows->patient_name . ' '. $rows->patient_name; ?></td>
                                 <td><?php echo $rows->care_unit_name; ?></td>
                                 <td><?php echo $rows->doctor_name; ?></td>
                                 <td><?php echo $rows->initial_dx_name; ?></td>

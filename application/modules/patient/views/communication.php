@@ -255,10 +255,9 @@
             <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url($model); ?>"><?php echo $title; ?></a>
+        <a href="<?php echo site_url($this->router->fetch_class()); ?>"><strong>Back</strong></a>
         </li>
     </ul>
-   
     <!-- END Quick Stats -->
     <?php if ($this->ion_auth->is_admin() or $this->ion_auth->is_subAdmin() or $this->ion_auth->is_facilityManager() or $this->ion_auth->is_all_roleslogin()) { ?>
         <div class="block full">

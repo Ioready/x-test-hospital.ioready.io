@@ -7,7 +7,7 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url('facilityManager');?>"><?php echo $title;?></a>
+            <a href="<?php echo site_url('admin');?>"><strong>Back</strong></a>
         </li>
     </ul>
     <!-- END Datatables Header -->

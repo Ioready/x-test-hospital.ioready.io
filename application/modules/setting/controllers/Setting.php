@@ -20,6 +20,7 @@ class Setting extends Common_Controller {
     public function index() {
         $this->data['parent'] = "Settings";
         $this->data['title'] = "Settings";
+        
         $this->load->admin_render('add', $this->data, 'inner_script');
     }
 
@@ -263,6 +264,12 @@ class Setting extends Common_Controller {
      */
     public function setting_add() {
 
+        // print_r($this->input->post());die;
+
+        if ($this->ion_auth->is_superAdmin()) {
+
+        $user_id = $this->session->userdata('user_id');
+
         $allOptions = is_options();
         $image = $this->input->post('site_logo_url');
         $image_login = $this->input->post('loginBackgroud');
@@ -316,7 +323,74 @@ class Setting extends Common_Controller {
                 $this->common_model->customInsert($options);
             }
         }
+
         $response = array('status' => 1, 'message' => lang('setting_success_message'), 'url' => "");
+
+    }else if($this->ion_auth->is_facilityManager()){
+
+        $user_id = $this->session->userdata('user_id');
+       
+
+        $allOptions = is_options();
+        $image = $this->input->post('site_logo_url');
+        $image_login = $this->input->post('loginBackgroud');
+        if (!empty($_FILES['user_image']['name'])) {
+            $this->filedata = $this->commonUploadImage($_POST, 'app', 'user_image');
+            if ($this->filedata['status'] == 1) {
+                $image = 'uploads/app/' . $this->filedata['upload_data']['file_name'];
+                delete_file($this->input->post('site_logo_url'), FCPATH);
+            }
+        }
+        if (!empty($_FILES['login_background']['name'])) {
+            $this->filedata = $this->commonUploadImage($_POST, 'app', 'login_background');
+            if ($this->filedata['status'] == 1) {
+                $image_login = 'uploads/app/' . $this->filedata['upload_data']['file_name'];
+            }
+        }
+        foreach ($allOptions as $rows) {
+            $option = array('table' => SETTING,
+                'where' => array('option_name' => $rows, 'status' => 1),
+                'single' => true,
+            );
+            $is_value = $this->common_model->customGet($option);
+            if (!empty($is_value)) {
+                $options = array('table' => SETTING,
+                    'data' => array(
+                        'option_value' => (isset($_POST[$rows])) ? $_POST[$rows] : "",
+                    ),
+                    'where' => array('option_name' => $rows)
+                );
+                if (!empty($image) && $rows == 'site_logo') {
+                    $options['data']['option_value'] = $image;
+                }
+                if (!empty($image_login) && $rows == 'login_background') {
+                    $options['data']['option_value'] = $image_login;
+                }
+                $this->common_model->customUpdate($options);
+            } else {
+
+                $options = array('table' => SETTING,
+                    'data' => array(
+                        'option_value' => (isset($_POST[$rows])) ? $_POST[$rows] : "",
+                        'option_name' => $rows
+                    )
+                );
+                if (!empty($image) && $rows == 'site_logo') {
+                    $options['data']['option_value'] = $image;
+                }
+                if (!empty($image_login) && $rows == 'login_background') {
+                    $options['data']['option_value'] = $image_login;
+                }
+                $this->common_model->customInsert($options);
+            }
+        }
+
+        $response = array('status' => 1, 'message' => lang('setting_success_message'), 'url' => "");
+
+        }else{
+
+        }
+
         echo json_encode($response);
     }
 

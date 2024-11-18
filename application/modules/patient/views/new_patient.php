@@ -29,7 +29,7 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url('patient');?>">patient</a>
+            <a href="<?php echo site_url('patient');?>"><strong>Back</strong></a>
         </li>
     </ul>
     
@@ -2215,22 +2215,59 @@ document.getElementById("relationship").style.display = "none";
     </style>
 
 <script>
+    $('.select2').select2();
+</script>
+<script>
+
+
+// function getStates(countryId) {
+   
+
+//     $.ajax({
+//         url: 'patient/getStates',
+//         type: 'POST',
+//         dataType: "json",
+//         data: { id: countryId },
+//         success: function(response) {
+//             $data.= '<select id="state" onchange="getCities(this.value)" name="state" class="form-control select2" size="1">';
+//             $data.= '<option value="" disabled selected>Please select</option>';
+//             foreach ($response as $state_list) {
+               
+//                $data.= '<option value="' . $state_list->id_state . '">' . $state_list->state . '</option>';
+//            }
+//             $data.= '</select>';
+//             $('#state_div').html(data);
+            
+//         },
+//         error: function(xhr, status, error) {
+//             // console.error(xhr.responseText);
+//         }
+//     });
+// }
 
 
 function getStates(countryId) {
-   
-
     $.ajax({
         url: 'patient/getStates',
         type: 'POST',
         dataType: "json",
         data: { id: countryId },
         success: function(response) {
-            $('#state_div').html(response);
-            
+            // Build the dropdown dynamically using JavaScript
+            let data = '<select id="state" onchange="getCities(this.value)" name="state" class="form-control select2" size="1">';
+            data += '<option value="" disabled selected>Please select</option>';
+            // Loop through the response to generate options
+            response.forEach(function(state) {
+                data += '<option value="' + state.id_state + '">' + state.state + '</option>';
+            });
+
+            data += '</select>';
+            // Inject the generated dropdown into the HTML
+            $('#state_div').html(data);
         },
         error: function(xhr, status, error) {
-            // console.error(xhr.responseText);
+            console.error('Error:', error);
+            // Handle errors gracefully if needed
         }
     });
 }

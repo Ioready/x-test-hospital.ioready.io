@@ -7,7 +7,8 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url('emailTemplate/letterTemplate');?>">Letters</a>
+        <a href="<?php echo site_url('emailTemplate/letterTemplate');?>"><strong>Back</strong></a>
+         
         </li>
     </ul>
     <!-- END Datatables Header -->
@@ -55,7 +56,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">Create Letter template*</label>
                         <div class="col-md-10">
-                            <textarea id="editor" name="bodies_template"></textarea>
+                            <textarea id="editor1" name="bodies_template"></textarea>
                         </div>
                     </div>
                 </div>

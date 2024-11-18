@@ -1287,11 +1287,11 @@ class Letters extends Common_Controller {
             $messages = (validation_errors()) ? validation_errors() : '';
             $response = array('status' => 0, 'message' => $messages);
         else:
-            $this->filedata['status'] = 1;
+            // $this->filedata['status'] = 1;
 
-            if ($this->filedata['status'] == 0) {
-                $response = array('status' => 1, 'message' => $this->filedata['error']);
-            } else {
+            // if ($this->filedata['status'] == 0) {
+            //     $response = array('status' => 1, 'message' => $this->filedata['error']);
+            // } else {
 
               
                 $options_data = array(
@@ -1312,7 +1312,7 @@ class Letters extends Common_Controller {
                 // print_r($update);die;
                 $response = array('status' => 1, 'message' => "Successfully updated", 'url' => base_url('letters'), 'id' => encoding($this->input->post('id')));
                 
-            }
+            // }
         endif;
 
         echo json_encode($response);

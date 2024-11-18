@@ -7,15 +7,14 @@
             <a href="<?php echo site_url('pwfpanel');?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url('emailTemplate/letterTemplate');?>">Letters</a>
+        <a href="<?php echo site_url('emailTemplate/letterTemplate');?>"><strong>Back</strong></a>
+         
         </li>
     </ul>
     <!-- END Datatables Header -->
 
     <!-- Datatables Content -->
-    
-    
- 
+
     
     <div class="block full">
         <div class="block-title">
@@ -87,7 +86,7 @@
                                 <div class="col-md-12">
                                     <label class="">Create Letter template * </label><br>
                                     <!-- <div class="col-md-12 offset-md-2">                                       -->
-                                    <textarea id="editor" name="bodies_template"></textarea>
+                                    <textarea id="editor1" name="bodies_template"></textarea>
                                     <!-- </div> -->
 
                                     <!-- <input type="file" class="form-control" id="comment" name="comment" rows="3"> -->

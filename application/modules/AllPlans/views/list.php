@@ -18,7 +18,7 @@ display:none;
             <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url($parent); ?>"><?php echo $title; ?></a>
+            <a href="<?php echo site_url($parent); ?>"><strong>All Plans</strong></a>
         </li>
     </ul>
     <!-- Datatables Content -->

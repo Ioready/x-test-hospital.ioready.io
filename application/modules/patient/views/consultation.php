@@ -135,7 +135,7 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .container-data {
@@ -313,7 +313,7 @@
             <a href="<?php echo site_url('pwfpanel'); ?>">Home</a>
         </li>
         <li>
-            <a href="<?php echo site_url($model); ?>"><?php echo $title; ?></a>
+        <a href="<?php echo site_url($this->router->fetch_class()); ?>"><strong>Back</strong></a>
         </li>
     </ul>
    

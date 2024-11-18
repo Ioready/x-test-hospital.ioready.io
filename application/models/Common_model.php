@@ -938,67 +938,70 @@ class Common_model extends MY_Model {
     
     public function fetchAllProducts($query) {
 
-        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-       
-        if($this->ion_auth->is_subAdmin()){
-    
-            $option = array(
-                'table' => ' doctors',
-                'select' => 'doctors.*',
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
                 'join' => array(
-                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
                 ),
-                'where' => array(
-                    'users.delete_status' => 0,
-                    'doctors.user_id'=>$CareUnitID
-                ),
-                'single' => true,
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
             );
     
-            $datadoctors = $this->common_model->customGet($option);
-            $this->db->like('name', $query);
-       
-        $query = $this->db->get('vendor_sale_doctor_product');
+            $authUser = $this->common_model->customGet($optionData);
 
-        } else if ($this->ion_auth->is_facilityManager()) {
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
             
+        }
+            $this->db->where('hospital_id', $hospital_id);
             $this->db->like('name', $query);
             
             $query = $this->db->get('vendor_sale_doctor_product');
-        }
+        
         return $query->result_array(); // Ensure result_array() is used
     }
 
     public function fetchAllProductsItem($query) {
 
-        $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-       
-        if($this->ion_auth->is_subAdmin()){
-    
-            $option = array(
-                'table' => ' doctors',
-                'select' => 'doctors.*',
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
                 'join' => array(
-                    array('users', 'doctors.user_id=users.id', 'left'),
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
                 ),
-                'where' => array(
-                    'users.delete_status' => 0,
-                    'doctors.user_id'=>$CareUnitID
-                ),
-                'single' => true,
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
             );
     
-            $datadoctors = $this->common_model->customGet($option);
-            $this->db->like('name', $query);
-       
-        $query = $this->db->get('vendor_sale_doctor_product');
+            $authUser = $this->common_model->customGet($optionData);
 
-        } else if ($this->ion_auth->is_facilityManager()) {
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
             
+        }
+
+            $this->db->where('hospital_id', $hospital_id);
             $this->db->like('name', $query);
             
             $query = $this->db->get('vendor_sale_doctor_product');
-        }
+        
         return $query->result_array(); // Ensure result_array() is used
     }
 

@@ -176,15 +176,41 @@ class DataOperator extends Common_Controller
     );
     $this->data['countries'] = $this->common_model->customGet($option);
 
+
+    if ($this->ion_auth->is_facilityManager()) {
+        $user_id = $this->session->userdata('user_id');
+    $hospital_id = $user_id;
+    
+    } else if($this->ion_auth->is_all_roleslogin()) {
+        $user_id = $this->session->userdata('user_id');
+        $optionData = array(
+            'table' => USERS . ' as user',
+            'select' => 'user.*,group.name as group_name',
+            'join' => array(
+                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+            ),
+            'order' => array('user.id' => 'DESC'),
+            'where' => array('user.id'=>$user_id),
+            'single'=>true,
+        );
+    
+        $authUser = $this->common_model->customGet($optionData);
+    
+        $hospital_id = $authUser->hospital_id;
+        // 'users.hospital_id'=>$hospital_id
+        
+    }
+
         $option = array(
             'table' => 'care_unit',
-            'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
+            'select' => '*', 'where' => array('facility_user_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
         );
         $this->data['care_unit'] = $this->common_model->customGet($option);
 
         $option = array(
             'table' => 'initial_dx',
-            'select' => '*', 'where' => array('delete_status' => 0), 'order' => array('name' => 'ASC')
+            'select' => '*', 'where' => array('hospital_id'=>$hospital_id,'delete_status' => 0), 'order' => array('name' => 'ASC')
         );
         $this->data['initial_dx'] = $this->common_model->customGet($option);
         
