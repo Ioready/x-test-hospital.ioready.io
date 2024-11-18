@@ -46,7 +46,8 @@ class PatientDocuments extends Common_Controller {
                 array('vendor_sale_users', 'vendor_sale_patient_document_folder.user_id=vendor_sale_users.id', 'left'),
             ),
             
-            'where' => array('vendor_sale_patient_document_folder.patient_id' => $id)
+            'where' => array('vendor_sale_patient_document_folder.patient_id' => $id),
+            'order' => array('vendor_sale_patient_document_folder.id' => 'DESC'),
         );
 
         $this->data['list'] = $this->common_model->customGet($option);
@@ -316,20 +317,44 @@ class PatientDocuments extends Common_Controller {
         $this->form_validation->set_rules('folder_name', "folder_name", 'required|trim');
         if ($this->form_validation->run() == true) {
            
-            $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+            if ($this->ion_auth->is_facilityManager()) {
+                $user_id = $this->session->userdata('user_id');
+            $hospital_id = $user_id;
+    
+            } else if($this->ion_auth->is_all_roleslogin()) {
+                $user_id = $this->session->userdata('user_id');
+                $optionData = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.*,group.name as group_name',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                    ),
+                    'order' => array('user.id' => 'DESC'),
+                    'where' => array('user.id'=>$user_id),
+                    'single'=>true,
+                );
+        
+                $authUser = $this->common_model->customGet($optionData);
+    
+                $hospital_id = $authUser->hospital_id;
+                // 'users.hospital_id'=>$hospital_id
+                
+            }
         
                 $options_data = array(
                    
                     'patient_id' => $this->input->post('patient_id'),
-                    'user_id' => $CareUnitID,
-                    'facility_user_id' => $CareUnitID,
+                    'user_id' => $user_id,
+                    'facility_user_id' => $hospital_id,
                     'folder_name' => $this->input->post('folder_name'),
                     'is_active' => 1,
                     'create_date' => datetime()
                 );
                 $option = array('table' => 'vendor_sale_patient_document_folder', 'data' => $options_data);
                 $this->common_model->customInsert($option);
-$response = array('status' => 1, 'message' => "Successfully added", 'url' =>base_url($this->router->fetch_class()));
+
+                $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base_url($this->router->fetch_class()));
                 
         } else {
             $messages = (validation_errors()) ? validation_errors() : '';
@@ -342,6 +367,32 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
     public function addPatientPdf()
 
         {
+
+            if ($this->ion_auth->is_facilityManager()) {
+                $user_id = $this->session->userdata('user_id');
+            $hospital_id = $user_id;
+    
+            } else if($this->ion_auth->is_all_roleslogin()) {
+                $user_id = $this->session->userdata('user_id');
+                $optionData = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.*,group.name as group_name',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                    ),
+                    'order' => array('user.id' => 'DESC'),
+                    'where' => array('user.id'=>$user_id),
+                    'single'=>true,
+                );
+        
+                $authUser = $this->common_model->customGet($optionData);
+    
+                $hospital_id = $authUser->hospital_id;
+                // 'users.hospital_id'=>$hospital_id
+                
+            }
+
             $this->form_validation->set_rules('folder_id', "folder id", 'required|trim');
             $this->form_validation->set_rules('file', 'File');
     
@@ -384,7 +435,7 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
                    
                             'patient_id' => $this->input->post('patient_id'),
                             'user_id' => $CareUnitID,
-                            'facility_user_id' => $CareUnitID,
+                            'facility_user_id' => $hospital_id,
                             'folder_id' => $this->input->post('folder_id'),
                             'file_name' => $image,
                             'is_active' => 1,
