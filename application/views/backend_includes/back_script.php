@@ -1273,4 +1273,194 @@ bootbox.confirm({
 </script>
 
 
+<script>
+function editField(element) {
+    const currentText = element.innerText;
+    const fieldId = element.getAttribute('data-id');
+    const fieldName = element.getAttribute('data-field');
+
+    // Create an input element for inline editing
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = currentText;
+    input.className = 'form-control';
+    input.onblur = function () {
+        updateField(fieldId, fieldName, input.value, element);
+    };
+    element.innerHTML = '';
+    element.appendChild(input);
+    input.focus();
+}
+
+function updateField(id, field, value, element) {
+    // Send updated value to CodeIgniter using AJAX
+    $.ajax({
+         url: "<?php echo site_url('patient/updatePatientBloodGroup'); ?>",
+        type: 'POST',
+        data: {
+            id: id,
+            field: field,
+            value: value,
+            csrf_token_name: $('input[name="csrf_token_name"]').val() // Include CSRF token if enabled
+        },
+        success: function (response) {
+            const result = JSON.parse(response);
+            if (result.success) {
+                element.innerText = value; // Update UI
+            } else {
+                alert('Failed to update field');
+                element.innerText = element.getAttribute('data-original'); // Revert to original value
+            }
+        },
+        error: function () {
+            alert('An error occurred');
+            element.innerText = element.getAttribute('data-original'); // Revert to original value
+        }
+    });
+
+}
+
+
+function editFieldPressure(element) {
+    const currentText = element.innerText;
+    const fieldId = element.getAttribute('data-id');
+    const fieldName = element.getAttribute('data-field');
+
+    // Create an input element for inline editing
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = currentText;
+    input.className = 'form-control';
+    input.onblur = function () {
+        updateFieldPressure(fieldId, fieldName, input.value, element);
+    };
+    element.innerHTML = '';
+    element.appendChild(input);
+    input.focus();
+}
+
+function updateFieldPressure(id, field, value, element) {
+    // Send updated value to CodeIgniter using AJAX
+    $.ajax({
+         url: "<?php echo site_url('patient/updatePatientBloodPressure'); ?>",
+        type: 'POST',
+        data: {
+            id: id,
+            field: field,
+            value: value,
+            csrf_token_name: $('input[name="csrf_token_name"]').val() // Include CSRF token if enabled
+        },
+        success: function (response) {
+            const result = JSON.parse(response);
+            if (result.success) {
+                element.innerText = value; // Update UI
+            } else {
+                alert('Failed to update field');
+                element.innerText = element.getAttribute('data-original'); // Revert to original value
+            }
+        },
+        error: function () {
+            alert('An error occurred');
+            element.innerText = element.getAttribute('data-original'); // Revert to original value
+        }
+    });
+
+}
+
+
+function editFieldHeartRate(element) {
+    const currentText = element.innerText;
+    const fieldId = element.getAttribute('data-id');
+    const fieldName = element.getAttribute('data-field');
+
+    // Create an input element for inline editing
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = currentText;
+    input.className = 'form-control';
+    input.onblur = function () {
+        updateFieldHeartRate(fieldId, fieldName, input.value, element);
+    };
+    element.innerHTML = '';
+    element.appendChild(input);
+    input.focus();
+}
+
+function updateFieldHeartRate(id, field, value, element) {
+    // Send updated value to CodeIgniter using AJAX
+    $.ajax({
+         url: "<?php echo site_url('patient/updatePatientHeartRate'); ?>",
+        type: 'POST',
+        data: {
+            id: id,
+            field: field,
+            value: value,
+            csrf_token_name: $('input[name="csrf_token_name"]').val() // Include CSRF token if enabled
+        },
+        success: function (response) {
+            const result = JSON.parse(response);
+            if (result.success) {
+                element.innerText = value; // Update UI
+            } else {
+                alert('Failed to update field');
+                element.innerText = element.getAttribute('data-original'); // Revert to original value
+            }
+        },
+        error: function () {
+            alert('An error occurred');
+            element.innerText = element.getAttribute('data-original'); // Revert to original value
+        }
+    });
+
+}
+
+function editFieldTemperature(element) {
+    const currentText = element.innerText;
+    const fieldId = element.getAttribute('data-id');
+    const fieldName = element.getAttribute('data-field');
+
+    // Create an input element for inline editing
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = currentText;
+    input.className = 'form-control';
+    input.onblur = function () {
+        updateFieldeditFieldTemperature(fieldId, fieldName, input.value, element);
+    };
+    element.innerHTML = '';
+    element.appendChild(input);
+    input.focus();
+}
+
+function updateFieldeditFieldTemperature(id, field, value, element) {
+    // Send updated value to CodeIgniter using AJAX
+    $.ajax({
+         url: "<?php echo site_url('patient/updatePatienteditFieldTemperature'); ?>",
+        type: 'POST',
+        data: {
+            id: id,
+            field: field,
+            value: value,
+            csrf_token_name: $('input[name="csrf_token_name"]').val() // Include CSRF token if enabled
+        },
+        success: function (response) {
+            const result = JSON.parse(response);
+            if (result.success) {
+                element.innerText = value; // Update UI
+            } else {
+                alert('Failed to update field');
+                element.innerText = element.getAttribute('data-original'); // Revert to original value
+            }
+        },
+        error: function () {
+            alert('An error occurred');
+            element.innerText = element.getAttribute('data-original'); // Revert to original value
+        }
+    });
+
+}
+</script>
+
+
+
 

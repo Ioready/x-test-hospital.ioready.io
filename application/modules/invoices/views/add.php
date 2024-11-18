@@ -299,7 +299,7 @@
                     </div>
                     <div class="col-sm-3 nopadding">
                         <div class="form-group">
-                            <input type="text" class="form-control product_rate" id="rate" name="rate[]" placeholder="Rate" oninput="calculatePrice(this)" readonly>
+                            <input type="text" class="form-control product_rate" id="rate" name="rate[]" placeholder="Rate" oninput="calculatePrice(this)">
                         </div>
                     </div>
                     <div class="col-sm-3 nopadding">
