@@ -1516,7 +1516,7 @@ document.getElementById('end_time').value = currentHours + ':' + currentMinutes;
 }
 .save-btn:hover{
     /* background-color:#00008B !important; */
-    background:#00008B !important;
+    /* background:#00008B !important; */
 }
 
 </style>

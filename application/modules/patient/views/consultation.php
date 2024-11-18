@@ -518,6 +518,7 @@
     <?php } ?>
     <!-- Datatables Content -->
     <!-- Datatables Content -->
+     <br>
     <div class="block full">
 
           <!-- <div class="block-title">
