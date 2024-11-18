@@ -141,7 +141,7 @@
         .container-data {
            
             display: flex;
-            max-width: 1100px;
+            /* max-width: 1100px; */
             margin: auto;
             background-color: white;
         }
@@ -154,7 +154,7 @@
         .left-panel {
             flex: 1;
             border-right: 1px solid #e5e5e5;
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .left-panel .header {
@@ -688,7 +688,7 @@
 
 
         <div id="pagination-container">
-    <ul class="note-list" id="noteList">
+    <ul class="note-list" id="noteList" style="padding-left: 0px;">
         <?php
         $rowCount = 0;
         foreach ($list as $rows) :
