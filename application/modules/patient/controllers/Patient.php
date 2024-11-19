@@ -2999,7 +2999,7 @@ $CareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
                     array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
                     array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left'),
                     array('patient_communication_relation PCR', 'PCR.user_id=U.id', 'left'),
-                    array('patient_billing_detail PBD', 'PCR.user_id=U.id', 'left'),
+                    array('patient_billing_detail PBD', 'PBD.user_id=U.id', 'left'),
                     array('notifications PNS', 'PNS.user_id=U.id', 'left'),
                     array('user_address UAS', 'UAS.user_id=U.id', 'left'),
                     

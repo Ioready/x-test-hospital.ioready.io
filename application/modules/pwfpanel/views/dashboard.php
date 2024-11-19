@@ -2135,20 +2135,15 @@ li{
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
 
-$(document).ready(function() {
-    
-    // $('#todayAppointmentTable').DataTable({
-    //         "paging": true,
-    //         "searching": true,
-    //         "lengthChange": false,
-    //         "pageLength": 6,
-    //         "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
-    //     });
-    });
-</script>
-<script>
+// $(document).ready(function() {
+//     $('#todayAppointmentTable').DataTable({
+//             "paging": true,
+//             "searching": true,
+//             "lengthChange": false,
+//             "pageLength": 6,
+//             "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
+//         });
 
-$(document).ready(function() {
 
 // $('#todayDoctor').DataTable({
 //             "paging": true,
@@ -2158,19 +2153,13 @@ $(document).ready(function() {
 //             "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
 //         });
 
-    });
-    </script>
-    <script>
-
-$(document).ready(function() {
-        // $('#todayPatient').DataTable({
-        //     "paging": true,
-        //     "searching": true,
-        //     "lengthChange": false,
-        //     "pageLength": 10,
-        //     "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
-        // });
-});
+//         $('#todayPatient').DataTable({
+//             "paging": true,
+//             "lengthChange": false,
+//             "pageLength": 10,
+//             "order": [[0, 'desc']]  // Here, 0 represents the first column (index starts from 0)
+//         });
+// });
 </script>
 
 

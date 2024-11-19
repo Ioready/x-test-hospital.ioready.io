@@ -147,7 +147,7 @@
                                                 <td><?php echo $notification->notification_ids;?></td>
                                                 <td><?php echo $notification->appointment_type.'_'. $notification->clinic_appointment_id;?></td>
                                                 
-                                                    <td><img width="28" height="28" src="<?php echo base_url('/assets/img/user.jpg')?>" class="rounded-circle m-r-5" alt="" style="float:left"> &nbsp;  <?php echo $notification->first_name;?></td>
+                                                    <td><img width="28" height="28" src="<?php echo base_url('/assets/img/user.jpg')?>" class="rounded-circle m-r-5" alt="" style="float:left"> &nbsp;  <?php echo $notification->first_name. ' '.$notification->last_name;?></td>
                                                     <!-- <td><?php //echo $notification->doctor_name;?></td> -->
                                                     <td><?php echo $notification->practitioner_name;?></td>
                                                     <td><?php echo $notification->doctor_name;?></td>
@@ -300,7 +300,7 @@
 								<tr>
                                     <td><?php echo $notification->appointment_type.'_'. $notification->clinic_appointment_id;?></td>
 										<!-- <td>APT0001</td> -->
-										<td><img width="28" height="28" src="<?php echo base_url('/assets/img/user.jpg')?>" class="rounded-circle m-r-5" alt="" style="float:left"> &nbsp;  <?php echo $notification->first_name;?></td>
+										<td><img width="28" height="28" src="<?php echo base_url('/assets/img/user.jpg')?>" class="rounded-circle m-r-5" alt="" style="float:left"> &nbsp;  <?php echo $notification->first_name. ' '.$notification->last_name;?></td>
                                         <!-- <td><?php //echo $notification->doctor_name;?></td> -->
 										<td><?php echo $notification->practitioner_name;?></td>
                                         <td><?php echo $notification->doctor_name;?></td>

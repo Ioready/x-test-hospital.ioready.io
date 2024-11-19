@@ -397,9 +397,9 @@
 
 
 
-        <div class="block-title">
+        <!-- <div class="block-title">
             <h2><strong>Consultation Template</strong> Panel</h2>
-        </div>
+        </div> -->
 
         <!-- <div class="form-body">
             <div class="row">
@@ -427,7 +427,9 @@
         <!-- <form id="addFormAjax" method="post" action="<?php echo base_url($formUrlConsult) ?>" enctype="multipart/form-data">
             <div class="alert alert-danger" id="error-box" style="display: none"></div>
              -->
-
+             <div class="block-title">
+            <h2><strong>Consultation Template</strong> Panel</h2>
+        </div>
             <div class="form-body">
                 <div class="row">
                     <!-- Buttons for Form Sections -->

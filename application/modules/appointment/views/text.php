@@ -208,28 +208,28 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
         
             
         <div class="block full" style="border-radius:12px">
- <div class="block-title" style="display: flex; align-items: center; justify-content: center; padding: 10px; background-color: #e0e7ff; position: relative;">
-    <?php 
-      $all_permission = $this->ion_auth->is_permission();
-    
-      foreach ($all_permission['form_permission'] as $permission) {
-          $menu_view = $permission->menu_view;
-          $menu_create = $permission->menu_create;
-          $menu_update = $permission->menu_update;
-          $menu_delete = $permission->menu_delete;
-          $menu_name = $permission->menu_name;
-  
+            <div class="block-title" style="display: flex; align-items: center; justify-content: center; padding: 10px; background-color: #e0e7ff; position: relative;">
+            <?php 
+            $all_permission = $this->ion_auth->is_permission();
+            
+            foreach ($all_permission['form_permission'] as $permission) {
+                $menu_view = $permission->menu_view;
+                $menu_create = $permission->menu_create;
+                $menu_update = $permission->menu_update;
+                $menu_delete = $permission->menu_delete;
+                $menu_name = $permission->menu_name;
+        
 
-          if ($menu_name == 'Appointment' && $menu_create == '1') {
-    ?>
-        <div style="position: absolute; left: 10px;">
-            <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary" style="display: flex; align-items: center; gap: 5px;">
-                <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
-            </a>
-        </div>
-    <?php 
-        }
-    }
+                if ($menu_name == 'Appointment' && $menu_create == '1') {
+            ?>
+                <div style="position: absolute; left: 10px;">
+                    <a href="<?php echo base_url().'index.php/' . $this->router->fetch_class(); ?>/open_model" class="btn btn-sm btn-primary" style="display: flex; align-items: center; gap: 5px;">
+                        <i class="gi gi-circle_plus"></i> <?php echo $title; ?>
+                    </a>
+                </div>
+            <?php 
+                }
+            }
 
     if ($this->ion_auth->is_facilityManager()) { 
     ?>
@@ -255,25 +255,25 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
             <div class="modal-header text-center" style="display:flex;border-radius:10px; background-color:#f7fbff;  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);border:1px solid #d3d3d3; margin-bottom:20px">
                 <?php if ($this->ion_auth->is_facilityManager()) { ?>
 
-             <div class="col-sm-3 col-lg-3 col-md-3 m-4">
-                <div class="col-md-9">
-                    <select id="viewSelector" onchange="getLocations(this.value)" name="location_appointment" class="form-control select2" size="1">
-                        <option value="0">View By</option>
-                        <option value="practitioner"><b> Practitioner View</b></option>
-                        <option value="location"><b>Location View</option>
-                        <option value="clinic"><b>Clinic View</option>
-                    </select>
- 
+                <div class="col-sm-3 col-lg-3 col-md-3 m-4">
+                    <div class="col-md-9">
+                        <select id="viewSelector" onchange="getLocations(this.value)" name="location_appointment" class="form-control select2" size="1">
+                            <option value="0">View By</option>
+                            <option value="practitioner"><b> Practitioner View</b></option>
+                            <option value="location"><b>Location View</option>
+                            <option value="clinic"><b>Clinic View</option>
+                        </select>
+    
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-sm-6 col-lg-6 col-md-6 m-4">
-                <div class="col-sm-6 col-lg-6 col-md-6 m-4">
-                    <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple"></select>
-                    <!-- <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="form-control select2"></select> -->
+                <div class="col-sm-5 col-lg-5 col-md-5 m-4">
+                    <div class="col-sm-5 col-lg-5 col-md-5 m-4">
+                        <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple"></select>
+                        <!-- <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="form-control select2"></select> -->
 
+                    </div>
                 </div>
-            </div>
             <?php } 
             //else if($this->ion_auth->is_subAdmin()) { 
                 ?>
@@ -294,33 +294,34 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
                     
                     ?>
 
-                <div class="col-sm-3 col-lg-3 col-md-3 m-4">
-                    <div class="col-md-9">
-                        <select id="viewSelector" onchange="getLocations(this.value)" name="location_appointment" class="form-control select2" size="1">
-                            <option value="0">View By</option>
-                            <option value="practitioner"><b> Practitioner View</b></option>
-                            <option value="location"><b>Location View</option>
-                            <option value="clinic"><b>Clinic View</option>
-                        </select>
- 
+                    <div class="col-sm-3 col-lg-3 col-md-3 m-4">
+                        <div class="col-md-9">
+                            <select id="viewSelector" onchange="getLocations(this.value)" name="location_appointment" class="form-control select2" size="1">
+                                <option value="0">View By</option>
+                                <option value="practitioner"><b> Practitioner View</b></option>
+                                <option value="location"><b>Location View</option>
+                                <option value="clinic"><b>Clinic View</option>
+                            </select>
+    
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-sm-6 col-lg-6 col-md-6 m-4">
                     <div class="col-sm-6 col-lg-6 col-md-6 m-4">
-                        <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple"></select>
-        </div>
+                        <div class="col-sm-6 col-lg-6 col-md-6 m-4">
+                            <select id="departmentanddoctordata" name="departmentanddoctordata[]" class="multiselect-ui form-control dropdown-menu" multiple="multiple"></select>
+                        </div>
                     </div>
 
                     
                 <?php } } } ?>
                
-                <div class="form-group save-btn">
-                    <label for="datePicker">Select Date:</label>
-                    <input type="date" id="datePicker" class="form-control">
-                </div>
+                    <div class="form-group save-btn">
+                        <label for="datePicker">Select Date:</label>
+                        <input type="date" id="datePicker" class="form-control">
+                    </div>
             </div> 
             
+
 
             <div class="form-body" >
                 <div class="row">
@@ -502,11 +503,11 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
                                                                     <div id="elementToToggle" class="tab-pane-second d-block" id="pills-1" role="tabpanel" aria-labelledby="pills-home-tab">
                                                                         <ul class="nav nav-pills-second nav-fill nav-tab-appointment active" id="pills-tab" role="tablist">
                                                                             <li class="nav-item-second active">
-                                                                                <a id="autoClickButton" class="nav-link-second active" id="pills-home-tab" data-toggle="pill" data-target="#pills-5" href="#pills-5" role="tab">Clinic Appointment</a>
+                                                                                <a id="autoClickButton" class="nav-link-second active" id="pills-home-tab" data-toggle="pill" data-target="#pills-5" href="#pills-5" role="tab" style="color: var(--bs-nav-link-hover-color);">Clinic Appointment</a>
                                                                                 <div class="underline"></div>
                                                                             </li>
                                                                             <li class="nav-item-second">
-                                                                                <a class="nav-link-second" id="pills-profile-tab" data-toggle="pill" data-target="#pills-6" href="#pills-6" role="tab">Theatre Appointment</a>
+                                                                                <a class="nav-link-second" id="pills-profile-tab" data-toggle="pill" data-target="#pills-6" href="#pills-6" role="tab" style="color: var(--bs-nav-link-hover-color);">Theatre Appointment</a>
                                                                                 <div class="underline"></div>
                                                                             </li>
                                                                         </ul>
