@@ -274,36 +274,18 @@
                          </div>
 
 
-                         <div class="card card0">
+                         <div class="card card0" style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; height:300px; overflow-y:auto">
+    <div style="display: flex;" id="wrapper">
+
+
+                         <div class="card card0" style="width: 100%;background-color: #f8f9fa; border-right: 1px solid #dee2e6; height: 58%;">
                                 <div class="d-flex" id="wrapper">
                                     <!-- Sidebar -->
                                     <div class="bg-light border-right" id="sidebar-wrapper">
                                         <div class="sidebar-heading pt-5 pb-4"><strong>PAY WITH</strong></div>
                                         <div class="list-group list-group-flush customNavMenus"> 
 
-                                            <!-- <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item bg-light active1">
-                                                <div class="list-div my-2">
-                                                    <div class="fa fa-credit-card"></div> &nbsp;&nbsp; Card
-                                                </div>
-                                            </a> 
-                                            <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light active1">
-                                                <div class="list-div my-2">
-                                                    <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
-                                                </div>
-                                            </a> 
-
-                                            <a data-toggle="tab" href="#menu4" id="tab4" class="tabs list-group-item bg-light active1">
-                                                <div class="list-div my-2">
-                                                    <div class="fa fa-money"></div> &nbsp;&nbsp; Cash
-                                                </div>
-                                            </a>
-
-                                            
-                                            <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light active1">
-                                                <div class="list-div my-2">
-                                                    <div class="fa fa-qrcode"></div> &nbsp;&nbsp;&nbsp; Visa QR <span id="new-label">NEW</span>
-                                                </div>
-                                            </a>  -->
+                                           
 
                                     <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item bg-light">
                                         <div class="list-div my-2">
@@ -541,7 +523,8 @@
 
                     <!-- </div> -->
                         
-
+                        </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
