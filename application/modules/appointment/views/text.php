@@ -103,7 +103,7 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
 }
     
     
-   .modal.right .modal-header {background-color:#50caff; color:#fff; height: 33px;}
+   .modal.right .modal-header {background-color:#204b5e;; color:#fff; height: 40px;}
     .modal.right .modal-header::after {content:""; display:inline-block;}
     .modal.right .close {text-shadow:none; opacity:1; color:#ff4d4d; font-size:26px}
 /*  form-control  */
@@ -439,13 +439,17 @@ transition: opacity 0.3s linear, right 0.3s ease-out;
         <div id="form-modal-box"></div>
                 <!-- Modal -->
                 <div class="modal right fade" id="my_modal" role="dialog">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                     
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title"> Appointments</h4>
+                                <button type="button" class="close" data-dismiss="modal" style="position: absolute; top: 25px; right: 25px; font-size: 24px;">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
                             </div>
                                 <div class="modal-body">
                                 <?php 
@@ -1579,7 +1583,7 @@ $(document).ready(function() {
     margin-bottom: 0;
     padding: 0;
     list-style: none;
-    width: 316px;
+    width: 50%;
     border: 1px solid #ddd;
     border-radius: 4px;
     background-color: #f9f9f9;

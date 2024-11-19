@@ -29,9 +29,9 @@ class Pwfpanel extends Common_Controller
         } else {
 
             $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-            // print_r($AdminCareUnitID);die;
+            
 
-            if ($this->ion_auth->is_superAdmin() || $this->ion_auth->is_admin() || $this->ion_auth->is_subAdmin() || $this->ion_auth->is_user()) {
+            if ($this->ion_auth->is_superAdmin() || $this->ion_auth->is_admin()) {
                 // $data['parent'] = "Dashboard";
                 $user_id = $this->session->userdata('user_id');
                 $data['careUnit'] = $this->common_model->customCount(array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
@@ -234,6 +234,7 @@ class Pwfpanel extends Common_Controller
                 // $this->load->admin_render('dashboard', $data);
 
                 if($this->ion_auth->is_all_roleslogin()) {
+
                     $user_id = $this->session->userdata('user_id');
                     $optionData = array(
                         'table' => USERS . ' as user',
@@ -604,8 +605,10 @@ class Pwfpanel extends Common_Controller
              else if ($this->ion_auth->is_vendor()) {
                 $this->load->admin_render('vendorDashboard', $this->data, 'inner_script');
 
-            } else if ($this->ion_auth->is_facilityManager()) {
-
+            } 
+             if ($this->ion_auth->is_facilityManager()) {
+                $user_id = $this->session->userdata('user_id');
+                // print_r($user_id);die;
 
                 if ($this->ion_auth->is_facilityManager()) {
                     $user_id = $this->session->userdata('user_id');
@@ -631,6 +634,7 @@ class Pwfpanel extends Common_Controller
                     // 'users.hospital_id'=>$hospital_id
                     
                 }
+                
                 
                 $date = date("Y-m-d");   
                 $week = $this->input->get('weeks');
@@ -684,14 +688,14 @@ class Pwfpanel extends Common_Controller
                 $data['careUnit'] = $y;
 
 
-                $data['initial_dx'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0) ,$whereClause));
-                $data['initial_rx'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+                $data['initial_dx'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0)));
+                $data['initial_rx'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0)));
                 // $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'doctors.facility_user_id'=>$user_id, 'delete_status' => 0)));
 
                 $data['total_earning'] = $this->common_model->customGet(array(
                     'table' => 'vendor_sale_invoice_pay',
                     'select' => 'pay_amount',
-                    'where' => array('facility_user_id' => $CareUnitID)
+                    'where' => array('facility_user_id' => $hospital_id)
                 ));
                 
                 // Sum the `pay_amount` column in PHP
@@ -902,8 +906,8 @@ class Pwfpanel extends Common_Controller
                 //     'order' => array('user.id' => 'desc'),
                 // );
 
-                $today = date('Y-m-d'); // Assuming you're getting the current date
-                $hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
+                // $today = date('Y-m-d'); // Assuming you're getting the current date
+                // $hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
                 
         //         $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
         //         pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
@@ -924,30 +928,31 @@ class Pwfpanel extends Common_Controller
         //           vendor_sale_clinic_appointment.theatre_date_time DESC,
         //           vendor_sale_clinic_appointment.out_start_time_at DESC,
         //           vendor_sale_clinic_appointment.start_date_availability DESC";
-        $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
-        pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
- FROM vendor_sale_clinic_appointment
- LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
- LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
- LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
- LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
- LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
- WHERE (
-     vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
-     OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
-     OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
-     OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
- )
- ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
-          vendor_sale_clinic_appointment.theatre_date_time DESC,
-          vendor_sale_clinic_appointment.out_start_time_at DESC,
-          vendor_sale_clinic_appointment.start_date_availability DESC";
+
+//         $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
+//         pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+//  FROM vendor_sale_clinic_appointment
+//  LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+//  LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+//  LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+//  LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+//  LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+//  WHERE (
+//      vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
+//      OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
+//      OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
+//      OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
+//  )
+//  ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+//           vendor_sale_clinic_appointment.theatre_date_time DESC,
+//           vendor_sale_clinic_appointment.out_start_time_at DESC,
+//           vendor_sale_clinic_appointment.start_date_availability DESC";
 
 // $result = $this->db->query($sql, array("%$today%", "%$today%", "%$today%", "%$today%", $hospital_id));
-$result = $this->db->query($sql, array("%$today%", "%$today%", "%$today%", "%$today%"));
-$totalAppointment = $result->result();
+// $result = $this->db->query($sql, array("%$today%", "%$today%", "%$today%", "%$today%"));
+// $totalAppointment = $result->result();
 // print_r($totalAppointment);die;
- $data['total_appointment'] = count($totalAppointment);
+//  $data['total_appointment'] = count($totalAppointment);
  
 // $data['total_appointment'] = $result->result();
                 // Assuming you have a customCount method in common_model for counting
@@ -955,32 +960,36 @@ $totalAppointment = $result->result();
                 
                 // print_r($data['total_appointment']);die;
 
-        $AppointmentcurrentDate = date('Y-m-d');
-        $today = date('Y-m-d'); // Assuming you're getting the current date
-        $hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
+        // $AppointmentcurrentDate = date('Y-m-d');
+        // $today = date('Y-m-d'); // Assuming you're getting the current date
+        // $hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
         
-        $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
-        FROM vendor_sale_clinic_appointment
-        LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
-        LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
-        LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
-        LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
-        LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
-        -- WHERE (vendor_sale_clinic_appointment.practitioner IN ($practitionerId) OR vendor_sale_clinic_appointment.theatre_clinician IN ($practitionerId))
-        WHERE (
-            vendor_sale_clinic_appointment.start_date_appointment LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$today%'
-            OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$today%'
-        )
-        ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
-                 vendor_sale_clinic_appointment.theatre_date_time DESC,
-                 vendor_sale_clinic_appointment.out_start_time_at DESC,
-                 vendor_sale_clinic_appointment.start_date_availability DESC";
+        // $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+        // FROM vendor_sale_clinic_appointment
+        // LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+        // LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+        // LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+        // LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+        // LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+        // -- WHERE (vendor_sale_clinic_appointment.practitioner IN ($practitionerId) OR vendor_sale_clinic_appointment.theatre_clinician IN ($practitionerId))
+        // WHERE (
+        //     vendor_sale_clinic_appointment.start_date_appointment LIKE '%$today%'
+        //     OR vendor_sale_clinic_appointment.theatre_date_time LIKE '%$today%'
+        //     OR vendor_sale_clinic_appointment.out_start_time_at LIKE '%$today%'
+        //     OR vendor_sale_clinic_appointment.start_date_availability LIKE '%$today%'
+        // )
+        // ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+        //          vendor_sale_clinic_appointment.theatre_date_time DESC,
+        //          vendor_sale_clinic_appointment.out_start_time_at DESC,
+        //          vendor_sale_clinic_appointment.start_date_availability DESC";
 
-$result = $this->db->query($sql);
+// $result = $this->db->query($sql);
 
-$data['clinic_appointment'] = $result->result();
+// $data['clinic_appointment'] = $result->result();
+
+
+
+
 // print_r($data['clinic_appointment']);die;
         
         // $result = $this->db->query($sql, array("%$today%", "%$today%", "%$today%", "%$today%", $hospital_id));
@@ -996,101 +1005,90 @@ $data['clinic_appointment'] = $result->result();
                 // $data['clinic_appointment'] = $result->result();
 
 
-                $this->load->admin_render('dashboard', $data);
+                $today = date('Y-m-d'); // Assuming you're getting the current date
+$hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
 
-            } else if ($this->ion_auth->is_patient()) {
+$sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
+               pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+        FROM vendor_sale_clinic_appointment
+        LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+        LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+        LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+        LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+        LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+        WHERE (
+            vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
+            OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
+            OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
+            OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
+        )
+        AND U.hospital_id = ?
+        ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+                 vendor_sale_clinic_appointment.theatre_date_time DESC,
+                 vendor_sale_clinic_appointment.out_start_time_at DESC,
+                 vendor_sale_clinic_appointment.start_date_availability DESC";
 
+$result = $this->db->query($sql, array("%$today%", "%$today%", "%$today%", "%$today%", $hospital_id));
+$totalAppointment = $result->result();
 
-                   // $data['parent'] = "Dashboard";
-                   $data['careUnit'] = $this->common_model->customCount(array('table' => 'care_unit', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
-                   $data['initial_dx'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
-                   $data['initial_rx'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
-                   $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
-                   $option = array(
-                       'table' => USERS . ' as user',
-                       'select' => 'user.id',
-                       'join' => array(
-                           array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
-                           array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
-                           array('user_profile UP', 'UP.user_id=user.id', 'left')
-                       ),
-                       'order' => array('user.id' => 'ASC'),
-                       'where' => array(
-                           'user.delete_status' => 0,
-                           'group.id' => 6
-                       ),
-                       'order' => array('user.id' => 'desc'),
-                   );
-                   $data['total_md_steward'] = $this->common_model->customCount($option);
-                   $option = array(
-                       'table' => "patient P",
-                       'select' => "P.id"
-                   );
-                   // print_r($this->data['total_md_steward']);die;
-   
-                   $data['total_patient'] = $this->common_model->customCount($option);
-                   $option = array(
-                       'table' => "patient P",
-                       'select' => "P.id",
-                       'where' => array('DATE(created_date)' => date('Y-m-d'))
-                   );
-   
-                   $data['total_patient_today'] = $this->common_model->customCount($option);
-                //    echo "login";
-                $this->load->admin_render('dashboard', $data);
-            
-        } else if ($this->ion_auth->is_user()) {
+// Assuming you have a customCount method in common_model for counting
+$data['total_appointment'] = $this->common_model->customCount($totalAppointment);
 
 
-            $date = date("Y-m-d");
+                // $result = $this->db->query($sql);
 
-                        $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-                        $week = $this->input->get('weeks');
-                        $month = $this->input->get('month');
-                        $year = $this->input->get('year');
+                // $totalAppointment = $result->result();
 
-                        $whereClause = '';
-                        if (!empty($week)) {
-                            $startDate = date("Y-m-d", strtotime("last monday", strtotime("+$week week")));
-                            $endDate = date("Y-m-d", strtotime("next sunday", strtotime("+$week week")));
-                            $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate'";
-
-                        } elseif (!empty($month) && !empty($year)) {
-                            $startDate = "$year-$month-01";
-                            $endDate = date("Y-m-t", strtotime($startDate)); // Last day of the month
-                            $whereClause = "AND created_date BETWEEN '$startDate' AND '$endDate'";
-                        
-                        } elseif (!empty($year)) {
-                            $whereClause = "AND YEAR(created_date) = '$year'";
-                        
-                        }
-
-
-                        // Construct the SQL query
-                        $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-                        $sql = "SELECT vendor_sale_patient.operator_id 
-                                FROM vendor_sale_patient 
-                                WHERE vendor_sale_patient.doctor_id = $AdminCareUnitID $whereClause";
-                                //  $sql .= $whereClause;
-                        $careunit_facility_counts = $this->common_model->customQuery($sql);
-                        $user_facility_counts = count($careunit_facility_counts);
-                        $data['total_patient_doctors'] = $user_facility_counts;
-
-                $AdminCareUnitID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-                $Sql = "SELECT vendor_sale_patient.operator_id FROM vendor_sale_patient WHERE vendor_sale_patient.doctor_id = $AdminCareUnitID AND  DATE(created_date) = '$date'";
-                $careunit_facility_counts = $this->common_model->customQuery($Sql);
-                $user_facility_counts = count($careunit_facility_counts);
-                $data['total_today_patient_doctors'] = $user_facility_counts;
-
-
-                $data['initial_dx_doctor'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
-                $data['initial_rx_doctor'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
-
-                $this->load->admin_render('dashboard', $data);
+                // // print_r($option);die;
+                // $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
                 
+              
 
-             } else if ($this->ion_auth->is_all_roleslogin()) {
+        $AppointmentcurrentDate = date('Y-m-d');
+        $today = date('Y-m-d'); // Assuming you're getting the current date
+        $hospital_id = (int)$hospital_id; // Assuming $hospital_id is an integer
+        
+        $sql = "SELECT vendor_sale_clinic_appointment.*, U.first_name, U.last_name, UP.address1, UP.city, UP.state, 
+                       pa.name as patient_name, cl.name as clinic_name, cl.clinic_location, pr.name as practitioner_name
+                FROM vendor_sale_clinic_appointment
+                LEFT JOIN vendor_sale_users as U ON vendor_sale_clinic_appointment.location_appointment = U.id
+                LEFT JOIN vendor_sale_patient as pa ON vendor_sale_clinic_appointment.patient = pa.user_id
+                LEFT JOIN vendor_sale_clinic as cl ON vendor_sale_clinic_appointment.location_appointment = cl.id
+                LEFT JOIN vendor_sale_user_profile as UP ON UP.user_id = U.id
+                LEFT JOIN vendor_sale_practitioner as pr ON vendor_sale_clinic_appointment.practitioner = pr.id
+                WHERE (
+                    vendor_sale_clinic_appointment.start_date_appointment LIKE ? 
+                    OR vendor_sale_clinic_appointment.theatre_date_time LIKE ? 
+                    OR vendor_sale_clinic_appointment.out_start_time_at LIKE ? 
+                    OR vendor_sale_clinic_appointment.start_date_availability LIKE ?
+                )
+                AND U.hospital_id = ?
+                ORDER BY vendor_sale_clinic_appointment.start_date_appointment DESC,
+                         vendor_sale_clinic_appointment.theatre_date_time DESC,
+                         vendor_sale_clinic_appointment.out_start_time_at DESC,
+                         vendor_sale_clinic_appointment.start_date_availability DESC";
+        
+        $result = $this->db->query($sql, array("%$today%", "%$today%", "%$today%", "%$today%", $hospital_id));
+        $totalAppointment = $result->result();
+        
+        // Assuming you have a customCount method in common_model for counting
+        $data['total_appointment'] = $this->common_model->customCount($totalAppointment);
+        
+        
+                $data['clinic_appointment'] = $result->result();
+
+
                 
+                
+                $this->load->admin_render('dashboard', $data);
+
+        
+
+             }
+              if ($this->ion_auth->is_all_roleslogin()) {
+                $user_id = $this->session->userdata('user_id');
+                // print_r($user_id);die;
+              
 
                  if($this->ion_auth->is_all_roleslogin()) {
                     $user_id = $this->session->userdata('user_id');
@@ -1112,7 +1110,8 @@ $data['clinic_appointment'] = $result->result();
                     // 'users.hospital_id'=>$hospital_id
                     
                 }
-                
+               
+                // print_r($hospital_id);die;
                 $date = date("Y-m-d");   
                 $week = $this->input->get('weeks');
                 $month = $this->input->get('month');
@@ -1164,11 +1163,12 @@ $data['clinic_appointment'] = $result->result();
                 // $this->data['careUnit'] = $arraySingle;
                 $data['careUnit'] = $y;
 
-
-                $data['initial_dx'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0) ,$whereClause));
-                $data['initial_rx'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('is_active' => 1, 'delete_status' => 0)));
+              
+                
+                $data['initial_dx'] = $this->common_model->customCount(array('table' => 'initial_dx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0)));
+                $data['initial_rx'] = $this->common_model->customCount(array('table' => 'initial_rx', 'select' => 'id,name', 'where' => array('hospital_id'=>$hospital_id,'is_active' => 1, 'delete_status' => 0)));
                 // $data['doctors'] = $this->common_model->customCount(array('table' => 'doctors', 'select' => 'id,name', 'where' => array('is_active' => 1, 'doctors.facility_user_id'=>$user_id, 'delete_status' => 0)));
-
+              
                 $option = array(
                     'table' => USERS . ' as user',
                     'select' => 'user.id',
@@ -1346,7 +1346,85 @@ $data['clinic_appointment'] = $result->result();
 
                
                 
+                // $data['today_patient_list'] = $this->common_model->customGet($optionAppointment);
+
+
+                $optionAppointment = array(
+                    'table' => 'users U',
+                    'select' => 'P.id as patient_id,P.patient_id as pid,P.name as patient_name,P.date_of_start_abx,P.address,P.total_days_of_patient_stay,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.md_patient_status,P.created_date,'
+                        . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_stayward,'
+                        . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
+                        . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.comment,U.email,U.phone',
+                    'join' => array(
+                        // array('patient P', 'U.id=P.md_steward_id','left'),
+                        array('patient P', 'U.id=P.user_id','inner'),
+                        array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
+                        array('doctors DOC', 'DOC.user_id=P.doctor_id', 'left'),
+                        array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
+                        array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
+                        array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
+                        array('culture_source CS', 'CS.name=P.culture_source', 'left'),
+                        array('organism Org', 'Org.name=P.organism', 'left'),
+                        array('precautions Pre', 'Pre.name=P.precautions', 'left'),
+                        array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
+                        array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left')
+                    ),
+                    // 'where'=> array(date('P.created_date')=>$date),
+                    'group_by' => 'pid'
+                );
+                // $this->db->where('DATE(P.created_date)', $date);
+        
+                if (!empty($date)) {
+                    $optionAppointment['where']['DATE(P.created_date)'] = $date;
+                }
+        
+                if (!empty($hospital_id)) {
+                    
+                    $optionAppointment['where']['U.hospital_id'] = $hospital_id;
+                }
+                
+                $careunit_facility_counts= $this->common_model->customGet($optionAppointment);
+                $user_facility_counts = count($careunit_facility_counts);
+                $data['total_patient_today'] = $user_facility_counts;
+
+
+                $totalPatients = array(
+                    'table' => 'users U',
+                    'select' => 'P.id as patient_id,P.patient_id as pid,P.name as patient_name,P.date_of_start_abx,P.address,P.total_days_of_patient_stay,P.room_number,P.symptom_onset,P.md_stayward_consult,P.criteria_met,P.md_stayward_response,P.psa,P.md_patient_status,P.created_date,'
+                        . 'P.care_unit_id,CI.name as care_unit_name,P.doctor_id,P.culture_source,P.organism,P.precautions,CS.name as culture_source_name,Org.name as organism_name,Pre.name as precautions_name,DOC.name as doctor_name,P.md_steward_id,U.first_name as md_stayward,'
+                        . 'PC.initial_rx,IRX.name as initial_rx_name,PC.initial_dx,IDX.name as initial_dx_name,PC.initial_dot,'
+                        . 'PC.new_initial_rx,IRX2.name as new_initial_rx_name,PC.new_initial_dx,IDX2.name as new_initial_dx_name,PC.new_initial_dot,PC.comment,U.email,U.phone',
+                    'join' => array(
+                        // array('patient P', 'U.id=P.md_steward_id','left'),
+                        array('patient P', 'U.id=P.user_id','inner'),
+                        array('care_unit CI', 'CI.id=P.care_unit_id', 'left'),
+                        array('doctors DOC', 'DOC.user_id=P.doctor_id', 'left'),
+                        array('patient_consult PC', 'PC.patient_id=P.id', 'left'),
+                        array('initial_rx IRX', 'IRX.id=PC.initial_rx', 'left'),
+                        array('initial_dx IDX', 'IDX.id=PC.initial_dx', 'left'),
+                        array('culture_source CS', 'CS.name=P.culture_source', 'left'),
+                        array('organism Org', 'Org.name=P.organism', 'left'),
+                        array('precautions Pre', 'Pre.name=P.precautions', 'left'),
+                        array('initial_rx IRX2', 'IRX2.id=PC.new_initial_rx', 'left'),
+                        array('initial_dx IDX2', 'IDX2.id=PC.new_initial_dx', 'left')
+                    ),
+                    // 'where'=> array(date('P.created_date')=>$date),
+                    'group_by' => 'pid'
+                );
+                if (!empty($hospital_id)) {
+                    
+                    $totalPatients['where']['U.hospital_id'] = $hospital_id;
+                }
+                
+                $totalPatient_counts= $this->common_model->customGet($totalPatients);
+                $totalPatientHospital = count($totalPatient_counts);
+
+                $data['total_patient'] = $totalPatientHospital;
+
+               
+                
                 $data['today_patient_list'] = $this->common_model->customGet($optionAppointment);
+
 
                 // $option = array(
                 //     'table' => USERS . ' as user',
@@ -1443,6 +1521,7 @@ $data['total_appointment'] = $this->common_model->customCount($totalAppointment)
 
             } else {
 
+                
                 $this->session->set_flashdata('message', 'You are not authorised to access administration');
                 // echo "not login";
                 redirect('pwfpanel/login', 'refresh');
@@ -1758,6 +1837,7 @@ $data['total_appointment'] = $this->common_model->customCount($totalAppointment)
 
     public function login()
     {
+        
         // echo 'hello user login';die;
         $this->data['title'] = $this->lang->line('login_heading');
         $this->form_validation->set_rules('identity', str_replace(':', '', $this->lang->line('login_identity_label')), 'required');
@@ -1801,7 +1881,10 @@ $data['total_appointment'] = $this->common_model->customCount($totalAppointment)
                         $isAdmin = $this->common_model->customGet($option);
                         
                         redirect('pwfpanel', 'refresh');
-                    }else if($this->ion_auth->is_admin()) {
+
+                    }
+
+                     if($this->ion_auth->is_admin()) {
                         $option = array(
                             'table' => 'users',
                             'select' => 'users.id',
@@ -1816,88 +1899,90 @@ $data['total_appointment'] = $this->common_model->customCount($totalAppointment)
                         );
                         $isAdmin = $this->common_model->customGet($option);
                         redirect('pwfpanel', 'refresh');
-                    } else if ($this->ion_auth->is_subAdmin()) {
-                        $option = array(
-                            'table' => 'users',
-                            'select' => 'users.id,users.care_unit_id',
-                            'join' => array(
-                                'users_groups' => 'users_groups.user_id=users.id',
-                                'groups' => 'groups.id=users_groups.group_id'
-                            ),
-                            'where' => array(
-                                'users.email' => $this->input->post('identity'),
-                                'groups.id' => 4
-                            ),
-                        );
-                        $option = array(
-                            'table' => USERS . ' as user',
-                            'select' => 'user.id,user.first_name,user.last_name,user.email,user.login_id,user.created_on,user.active,group.name as group_name,UP.doc_file,CU.care_unit_code,CU.name,d.facility_user_id',
-                            'join' => array(
-                                array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
-                                array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
-                                array('user_profile UP', 'UP.user_id=user.id', 'left'),
-                                array('care_unit CU', 'CU.id=user.care_unit_id', 'left'),
-                                array('doctors AS d', 'd.user_id = user.id', 'left')
-                            ),
+
+                //     } else if ($this->ion_auth->is_subAdmin()) {
+                //         $option = array(
+                //             'table' => 'users',
+                //             'select' => 'users.id,users.care_unit_id',
+                //             'join' => array(
+                //                 'users_groups' => 'users_groups.user_id=users.id',
+                //                 'groups' => 'groups.id=users_groups.group_id'
+                //             ),
+                //             'where' => array(
+                //                 'users.email' => $this->input->post('identity'),
+                //                 'groups.id' => 4
+                //             ),
+                //         );
+                //         $option = array(
+                //             'table' => USERS . ' as user',
+                //             'select' => 'user.id,user.first_name,user.last_name,user.email,user.login_id,user.created_on,user.active,group.name as group_name,UP.doc_file,CU.care_unit_code,CU.name,d.facility_user_id',
+                //             'join' => array(
+                //                 array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                //                 array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left'),
+                //                 array('user_profile UP', 'UP.user_id=user.id', 'left'),
+                //                 array('care_unit CU', 'CU.id=user.care_unit_id', 'left'),
+                //                 array('doctors AS d', 'd.user_id = user.id', 'left')
+                //             ),
                            
-                            'where' => array('user.email' => $this->input->post('identity') )
+                //             'where' => array('user.email' => $this->input->post('identity') )
                             
-                        );
-                        //print_r($optionds);die;
+                //         );
+                //         //print_r($optionds);die;
                        
-                        $isAdmin = $this->common_model->customGet($option);
-                        $doctorfacility=$isAdmin[0]->facility_user_id;
-                        $option1 = array(
-                            'table' => 'vendor_sale_hospital',
-                            'select' => 'token_uniq',
-                            'where' => array('user_id' =>$doctorfacility),
-                            'single' => true,
-                        );
+                //         $isAdmin = $this->common_model->customGet($option);
+                //         $doctorfacility=$isAdmin[0]->facility_user_id;
+                //         $option1 = array(
+                //             'table' => 'vendor_sale_hospital',
+                //             'select' => 'token_uniq',
+                //             'where' => array('user_id' =>$doctorfacility),
+                //             'single' => true,
+                //         );
                         
 
 
 
-                        $result2 = $this->db->get_where($option1['table'], $option1['where'])->row();
-                        if($this->input->post('uniq_id')!=null){
-                       $tokenid= $result2->token_uniq;
-                       if ($tokenid==$this->input->post('uniq_id')) {
+                //         $result2 = $this->db->get_where($option1['table'], $option1['where'])->row();
+                //         if($this->input->post('uniq_id')!=null){
+                //        $tokenid= $result2->token_uniq;
+                //        if ($tokenid==$this->input->post('uniq_id')) {
                         
                        
-                        if (!empty($isAdmin)) {
-                            $_SESSION['admin_care_unit_id'] = $isAdmin[0]->care_unit_id;
-                            $option = array(
-                                'table' => 'login_session',
-                                'where' => array(
-                                    'user_id' => $isAdmin[0]->id
-                                ),
-                            );
-                            $isLogin = $this->common_model->customGet($option);
-                            if (!empty($isLogin) or empty($isLogin)) {
+                //         if (!empty($isAdmin)) {
+                //             $_SESSION['admin_care_unit_id'] = $isAdmin[0]->care_unit_id;
+                //             $option = array(
+                //                 'table' => 'login_session',
+                //                 'where' => array(
+                //                     'user_id' => $isAdmin[0]->id
+                //                 ),
+                //             );
+                //             $isLogin = $this->common_model->customGet($option);
+                //             if (!empty($isLogin) or empty($isLogin)) {
 
-                                $option = array(
-                                    'table' => 'login_session',
-                                    'data' => array(
-                                        'login_session_key' => get_guid(),
-                                        'user_id' => $isAdmin[0]->id,
-                                        'login_ip' => $_SERVER['REMOTE_ADDR'],
-                                        'last_login' => time()
-                                    ),
-                                );
-                                $this->common_model->customInsert($option);
-                            }
-                        }
-                        redirect('pwfpanel', 'refresh');
-                    }else{
-                        $this->session->set_flashdata('error', 'Please input  token');
+                //                 $option = array(
+                //                     'table' => 'login_session',
+                //                     'data' => array(
+                //                         'login_session_key' => get_guid(),
+                //                         'user_id' => $isAdmin[0]->id,
+                //                         'login_ip' => $_SERVER['REMOTE_ADDR'],
+                //                         'last_login' => time()
+                //                     ),
+                //                 );
+                //                 $this->common_model->customInsert($option);
+                //             }
+                //         }
+                //         redirect('pwfpanel', 'refresh');
+                //     }else{
+                //         $this->session->set_flashdata('error', 'Please input  token');
            
-                        redirect('pwfpanel/login', 'refresh');
-                    }
-                }else {
-                    $this->session->set_flashdata('error', 'Please input  token');
-                    redirect('pwfpanel/login', 'refresh');
-                }
+                //         redirect('pwfpanel/login', 'refresh');
+                //     }
+                // }else {
+                //     $this->session->set_flashdata('error', 'Please input  token');
+                //     redirect('pwfpanel/login', 'refresh');
+                // }
                 
-                    } else if ($this->ion_auth->is_facilityManager()) {
+                    } 
+                    if ($this->ion_auth->is_facilityManager()) {
                         $option = array(
                             'table' => 'users',
                             'select' => 'users.id,users.care_unit_id',
@@ -1925,326 +2010,126 @@ $data['total_appointment'] = $this->common_model->customCount($totalAppointment)
                         //$uniqid=$result->token_uniq
                         if($this->input->post('uniq_id')!=null){
                             
-                        if ($result2->token_uniq== $this->input->post('uniq_id')) {   
+                            if ($result2->token_uniq== $this->input->post('uniq_id')) {   
 
-                        $isAdmin = $this->common_model->customGet($option);
-                        if (!empty($isAdmin)) {
-                            $_SESSION['admin_care_unit_id'] = $isAdmin[0]->care_unit_id;
-                            $option = array(
-                                'table' => 'login_session',
-                                'where' => array(
-                                    'user_id' => $isAdmin[0]->id
-                                ),
-                            );
-                            $isLogin = $this->common_model->customGet($option);
-                            if (!empty($isLogin) or empty($isLogin)) {
+                                    $isAdmin = $this->common_model->customGet($option);
+                                    if (!empty($isAdmin)) {
+                                        $_SESSION['admin_care_unit_id'] = $isAdmin[0]->care_unit_id;
+                                        $option = array(
+                                            'table' => 'login_session',
+                                            'where' => array(
+                                                'user_id' => $isAdmin[0]->id
+                                            ),
+                                        );
+                                        $isLogin = $this->common_model->customGet($option);
+                                        if (!empty($isLogin) or empty($isLogin)) {
 
-                                $option = array(
-                                    'table' => 'login_session',
-                                    'data' => array(
-                                        'login_session_key' => get_guid(),
-                                        'user_id' => $isAdmin[0]->id,
-                                        'login_ip' => $_SERVER['REMOTE_ADDR'],
-                                        'last_login' => time()
-                                    ),
-                                );
-                                $this->common_model->customInsert($option);
+                                            $option = array(
+                                                'table' => 'login_session',
+                                                'data' => array(
+                                                    'login_session_key' => get_guid(),
+                                                    'user_id' => $isAdmin[0]->id,
+                                                    'login_ip' => $_SERVER['REMOTE_ADDR'],
+                                                    'last_login' => time()
+                                                ),
+                                            );
+                                            $this->common_model->customInsert($option);
+                                        }
+                                    }
+                                redirect('pwfpanel', 'refresh');
+
+                            }else{
+                                $this->session->set_flashdata('error', 'Please input  token');
+                                redirect('pwfpanel/login', 'refresh');
                             }
+
+                        }else {
+                            $this->session->set_flashdata('error', 'Please input  token');
+                            redirect('pwfpanel/login', 'refresh');
                         }
-                        redirect('pwfpanel', 'refresh');
-
-                    }else{
-                        $this->session->set_flashdata('error', 'Please input  token');
-                        redirect('pwfpanel/login', 'refresh');
-                    }
-                // }
-
-            }else {
-                $this->session->set_flashdata('error', 'Please input  token');
-                redirect('pwfpanel/login', 'refresh');
-            }
-                } else if ($this->ion_auth->is_user()) {
-                    
-                                            
-                    
-
-                    $option = array(
-                        'table' => 'users',
-                        'select' => 'users.id,users.care_unit_id',
-                        'join' => array(
-                            'users_groups' => 'users_groups.user_id=users.id',
-                            'groups' => 'groups.id=users_groups.group_id'
-                        ),
-                        'where' => array(
-                            'users.email' => $this->input->post('identity'),
-                            'groups.id' => 3
-                        ),
-                    );
-                    $option1 = array(
-                        'table' => 'vendor_sale_hospital',
-                        'select' => 'token_uniq',
-                        'where' => array('email' => $this->input->post('identity')),
-                        'single' => true,
-                    );
-                    
+                    } 
 
 
-
-                    $result2 = $this->db->get_where($option1['table'], $option1['where'])->row();
-                   
-                                      
-                    $isAdmin = $this->common_model->customGet($option);
-                    
-                 
-                    if (!empty($isAdmin)) {
-                        $_SESSION['admin_care_unit_id'] = $isAdmin[0]->care_unit_id;
-                        $option = array(
-                            'table' => 'login_session',
-                            'where' => array(
-                                'user_id' => $isAdmin[0]->id
-                            ),
-                        );
-                        $isLogin = $this->common_model->customGet($option);
-                        
-                        if (!empty($isLogin) or empty($isLogin)) {
-
-                            $option = array(
-                                'table' => 'login_session',
-                                'data' => array(
-                                    'login_session_key' => get_guid(),
-                                    'user_id' => $isAdmin[0]->id,
-                                    'login_ip' => $_SERVER['REMOTE_ADDR'],
-                                    'last_login' => time()
-                                ),
-                            );
-                            $this->common_model->customInsert($option);
-                        }
-                    
-                    
-                        // print_r($isLogin);die;
-
-                    redirect('pwfpanel', 'refresh');
-                    }
-
-                    } else if ($this->ion_auth->is_patient()) {
-
+                    if ($this->ion_auth->is_all_roleslogin()) {
+                            
                         $option = array(
                             'table' => 'users',
-                            'select' => 'users.id,users.care_unit_id',
+                            'select' => 'users.*',
                             'join' => array(
                                 'users_groups' => 'users_groups.user_id=users.id',
                                 'groups' => 'groups.id=users_groups.group_id'
                             ),
                             'where' => array(
                                 'users.email' => $this->input->post('identity'),
-                                'groups.id' => 6
+                                // 'groups.id' => 5
                             ),
+                            'single' => true,
                         );
+                        $isAdmin = $this->common_model->customGet($option);
+
+                       
                         $option1 = array(
                             'table' => 'vendor_sale_hospital',
                             'select' => 'token_uniq',
-                            'where' => array('email' => $this->input->post('identity')),
+                            'where' => array('user_id' => $isAdmin->hospital_id),
                             'single' => true,
                         );
+                        
+                        $result2 = $this->common_model->customGet($option1);
+
+
+                        // $result2 = $this->db->get_where($option1['table'], $option1['where'])->row();
                        
-                        $result2 = $this->db->get_where($option1['table'], $option1['where'])->row();
-                        if ($result2->token_uniq== $this->input->post('uniq_id')) {
-                        
-                        $isAdmin = $this->common_model->customGet($option);
-                        
-                        if (!empty($isAdmin)) {
-                            $_SESSION['admin_care_unit_id'] = $isAdmin[0]->care_unit_id;
-                            $option = array(
-                                'table' => 'login_session',
-                                'where' => array(
-                                    'user_id' => $isAdmin[0]->id
-                                ),
-                            );
-                            $isLogin = $this->common_model->customGet($option);
-                            
-                            if (!empty($isLogin) or empty($isLogin)) {
-                                
-                                $option = array(
-                                    'table' => 'login_session',
-                                    'data' => array(
-                                        'login_session_key' => get_guid(),
-                                        'user_id' => $isAdmin[0]->id,
-                                        'login_ip' => $_SERVER['REMOTE_ADDR'],
-                                        'last_login' => time()
-                                    ),
-                                );
-                                
-                                $this->common_model->customInsert($option);
+                        //$uniqid=$result->token_uniq
+                        if($this->input->post('uniq_id')!=null){
+                           
+                            if ($result2->token_uniq== $this->input->post('uniq_id')) {   
+
+                                   
+                                    if (!empty($isAdmin)) {
+                                        
+                                        $_SESSION['admin_care_unit_id'] = $isAdmin->care_unit_id;
+                                        $option2 = array(
+                                            'table' => 'login_session',
+                                            'where' => array(
+                                                'user_id' => $isAdmin->id
+                                            ),
+                                            'single' => true,
+                                        );
+                                        $isLogin = $this->common_model->customGet($option2);
+                                        
+                                        if (!empty($isLogin) or empty($isLogin)) {
+
+                                            $option3 = array(
+                                                'table' => 'login_session',
+                                                'data' => array(
+                                                    'login_session_key' => get_guid(),
+                                                    'user_id' => $isAdmin->id,
+                                                    'login_ip' => $_SERVER['REMOTE_ADDR'],
+                                                    'last_login' => time()
+                                                ),
+                                            );
+                                            $this->common_model->customInsert($option3);
+                                       
                                 redirect('pwfpanel', 'refresh');
                             }
                         }
-                        redirect('pwfpanel', 'refresh');
-                    }
-                    
-                    if (empty($isAdmin)) {
-                        $this->session->set_flashdata('message', "Incorrect Login");
-                        redirect('pwfpanel/login');
-                    }
-                    $this->session->set_flashdata('message', $this->ion_auth->messages());
 
-                    $code = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
+                            }else{
+                                $this->session->set_flashdata('error', 'Please input  token');
+                                redirect('pwfpanel/login', 'refresh');
+                            }
 
-                    // table update with 2fa code in current user mail id
-                    // Update vendor_sale_users table with 2FA code
-                    $userID = $this->ion_auth->get_user_id();
-
-                    // Retrieve the email from the vendor_sale_users table using the user ID
-                    $query = $this->db->get_where('vendor_sale_users', array('id' => $userID));
-                    $result = $query->row();
-
-                    // Check if a user was found and get the email
-                    $email = isset($result->email) ? $result->email : '';
-
-
-                    $updateData = array(
-                        'twofactor_code' => $code,
-                        'update_on' => date('Y-m-d H:i:s')
-                    );
-                    $this->db->where('id', $userID);
-                    $this->db->update('vendor_sale_users', $updateData);
-                    $isTwoFactorDone = $this->twoFactor($code, $email);
-                    // die('kkk');
-
-                    if ($isTwoFactorDone) {
-
-                        $this->load->view('pwfpanel/2fa', 'refresh');
-                    } else {
-                        $this->session->set_flashdata('message', $this->ion_auth->errors());
-                        redirect('pwfpanel/login', 'refresh');
-                    }
-                    redirect('pwfpanel', 'refresh');
-                
-            } else if ($this->ion_auth->is_all_roleslogin()) {
-                    
-                                            
-                    
-
-                $option = array(
-                    'table' => 'users',
-                    'select' => 'users.id,users.care_unit_id',
-                    'join' => array(
-                        'users_groups' => 'users_groups.user_id=users.id',
-                        'groups' => 'groups.id=users_groups.group_id'
-                    ),
-                    'where' => array(
-                        'users.email' => $this->input->post('identity'),
-                        
-                    ),
-                    // 'where' => array(
-                    //     'users.email' => $this->input->post('identity'),
-                    //     'groups.id' => 3
-                    // ),
-                );
-                $option1 = array(
-                    'table' => 'vendor_sale_hospital',
-                    'select' => 'token_uniq',
-                    'where' => array('email' => $this->input->post('identity')),
-                    'single' => true,
-                );
-                
-
-
-
-                $result2 = $this->db->get_where($option1['table'], $option1['where'])->row();
-               
-                                  
-                $isAdmin = $this->common_model->customGet($option);
-                
-             
-                if (!empty($isAdmin)) {
-                    $_SESSION['admin_care_unit_id'] = $isAdmin[0]->care_unit_id;
-                    $option = array(
-                        'table' => 'login_session',
-                        'where' => array(
-                            'user_id' => $isAdmin[0]->id
-                        ),
-                    );
-                    $isLogin = $this->common_model->customGet($option);
-                    
-                    if (!empty($isLogin) or empty($isLogin)) {
-
-                        $option = array(
-                            'table' => 'login_session',
-                            'data' => array(
-                                'login_session_key' => get_guid(),
-                                'user_id' => $isAdmin[0]->id,
-                                'login_ip' => $_SERVER['REMOTE_ADDR'],
-                                'last_login' => time()
-                            ),
-                        );
-                        $this->common_model->customInsert($option);
-                    }
-                
-                
-                    // print_r($isLogin);die;
-
-                redirect('pwfpanel', 'refresh');
-                }
-
-                } else if ($this->ion_auth->is_patient()) {
-
-                    $option = array(
-                        'table' => 'users',
-                        'select' => 'users.id,users.care_unit_id',
-                        'join' => array(
-                            'users_groups' => 'users_groups.user_id=users.id',
-                            'groups' => 'groups.id=users_groups.group_id'
-                        ),
-                        'where' => array(
-                            'users.email' => $this->input->post('identity'),
-                            'groups.id' => 6
-                        ),
-                    );
-                    $option1 = array(
-                        'table' => 'vendor_sale_hospital',
-                        'select' => 'token_uniq',
-                        'where' => array('email' => $this->input->post('identity')),
-                        'single' => true,
-                    );
-                   
-                    $result2 = $this->db->get_where($option1['table'], $option1['where'])->row();
-                    if ($result2->token_uniq== $this->input->post('uniq_id')) {
-                    
-                    $isAdmin = $this->common_model->customGet($option);
-                    
-                    if (!empty($isAdmin)) {
-                        $_SESSION['admin_care_unit_id'] = $isAdmin[0]->care_unit_id;
-                        $option = array(
-                            'table' => 'login_session',
-                            'where' => array(
-                                'user_id' => $isAdmin[0]->id
-                            ),
-                        );
-                        $isLogin = $this->common_model->customGet($option);
-                        
-                        if (!empty($isLogin) or empty($isLogin)) {
-                            
-                            $option = array(
-                                'table' => 'login_session',
-                                'data' => array(
-                                    'login_session_key' => get_guid(),
-                                    'user_id' => $isAdmin[0]->id,
-                                    'login_ip' => $_SERVER['REMOTE_ADDR'],
-                                    'last_login' => time()
-                                ),
-                            );
-                            
-                            $this->common_model->customInsert($option);
-                            redirect('pwfpanel', 'refresh');
+                        }else {
+                            $this->session->set_flashdata('error', 'Please input  token');
+                            redirect('pwfpanel/login', 'refresh');
                         }
                     }
-                    redirect('pwfpanel', 'refresh');
-                }
                 
-                if (empty($isAdmin)) {
+                } else if (empty($isAdmin)) {
                     $this->session->set_flashdata('message', "Incorrect Login");
                     redirect('pwfpanel/login');
-                }
+                // }
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
 
                 $code = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
@@ -2278,7 +2163,7 @@ $data['total_appointment'] = $this->common_model->customCount($totalAppointment)
                     redirect('pwfpanel/login', 'refresh');
                 }
                 redirect('pwfpanel', 'refresh');
-            }
+            // }
 
                 } else {
                     $this->session->set_flashdata('message', $this->ion_auth->errors());

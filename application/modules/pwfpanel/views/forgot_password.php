@@ -45,7 +45,7 @@
         <style>
             .btn-primary {
                 /*                background-color: #b22b57;*/
-                background: linear-gradient(to right, rgba(71,74,127,1) 0%,rgba(178,43,87,1) 100%);
+                background-color: #1bbae1;
                 border-color: #E47EA0;
                 color: #ffffff;
             }
@@ -56,7 +56,7 @@
             }
 
             .btn-primary:hover {
-                background: linear-gradient(to right, rgba(71,74,127,1) 0%,rgba(178,43,87,1) 100%);
+                background-color: #1bbae1;
                 border-color: #E47EA0;
                 color: #ffffff;
             }
