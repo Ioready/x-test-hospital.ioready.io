@@ -199,7 +199,7 @@ class Notification extends Common_Controller {
                 vendor_sale_clinic_appointment.theatre_date_time AS theatre_start_date_time,
                 vendor_sale_clinic_appointment.type AS appointment_type, 
                 vendor_sale_practitioner.name AS practitioner_name,
-                userss.first_name AS doctor_name 
+                userss.first_name AS doctor_name,userss.last_name AS doctor_last_name 
         FROM vendor_sale_notifications
         LEFT JOIN vendor_sale_users ON vendor_sale_users.id = vendor_sale_notifications.patient_id 
         LEFT JOIN vendor_sale_clinic_appointment ON vendor_sale_clinic_appointment.id = vendor_sale_notifications.clinic_appointment_id 

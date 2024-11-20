@@ -711,7 +711,7 @@ $(document).ready(function() {
     }
 
     .select2-container--default .select2-selection--multiple .select2-selection__choice {
-        background-color: #d9416c;
+        background-color: var(--bs-nav-pills-link-active-bg);
     }
 </style>
 <script>

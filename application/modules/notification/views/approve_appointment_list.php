@@ -55,7 +55,7 @@
         <a href="<?php echo site_url('pwfpanel'); ?>"><?php echo lang('home'); ?></a>
         </li>
         <li>
-        <a href="<?php echo site_url('notification/notification_list'); ?>"><?php echo "Notification"; ?></a>
+        <a href="<?php echo site_url('notification/notification_list'); ?>"><?php echo "Approve Appointment"; ?></a>
         </li>
         </ul>
         <!-- END Datatables Header -->
@@ -150,7 +150,7 @@
                                                     <td><img width="28" height="28" src="<?php echo base_url('/assets/img/user.jpg')?>" class="rounded-circle m-r-5" alt="" style="float:left"> &nbsp;  <?php echo $notification->first_name. ' '.$notification->last_name;?></td>
                                                     <!-- <td><?php //echo $notification->doctor_name;?></td> -->
                                                     <td><?php echo $notification->practitioner_name;?></td>
-                                                    <td><?php echo $notification->doctor_name;?></td>
+                                                    <td><?php echo $notification->doctor_name. ' '.$notification->doctor_last_name;?></td>
                                                     <td><?php if(!empty($appointment_date)){
                                                         echo $appointment_date ?? '';
                                                     }else if(!empty($theatre_admission_date)){
@@ -303,7 +303,7 @@
 										<td><img width="28" height="28" src="<?php echo base_url('/assets/img/user.jpg')?>" class="rounded-circle m-r-5" alt="" style="float:left"> &nbsp;  <?php echo $notification->first_name. ' '.$notification->last_name;?></td>
                                         <!-- <td><?php //echo $notification->doctor_name;?></td> -->
 										<td><?php echo $notification->practitioner_name;?></td>
-                                        <td><?php echo $notification->doctor_name;?></td>
+                                        <td><?php echo $notification->doctor_name. ' '.$notification->doctor_last_name;?></td>
                                         <td><?php echo $appointment_date; ?></td>
 
 										<td>

@@ -44,25 +44,25 @@
         <script src="<?php echo base_url(); ?>backend_asset/admin/js/vendor/modernizr.min.js"></script>
         <style>
             .btn-primary {
-                /*                background-color: #b22b57;*/
+                /*                background-color: #337ab7;*/
                 background-color: #1bbae1;
-                border-color: #E47EA0;
+                border-color: #337ab7;
                 color: #ffffff;
             }
 
             .btn-primary.btn-alt {
-                background-color: #b22b57;
+                background-color: #337ab7;
                 color: #1bbae1;
             }
 
             .btn-primary:hover {
                 background-color: #1bbae1;
-                border-color: #E47EA0;
+                border-color: #337ab7;
                 color: #ffffff;
             }
             .text-primary, .text-primary:hover, a, a:hover, a:focus, a.text-primary, a.text-primary:hover, a.text-primary:focus {
                 color: 
-                    #b22b57;
+                #337ab7;
             }
             body{
                 background-image: url('<?php echo base_url(); ?>backend_asset/admin/img/placeholders/headers/resize-1576043656618694557bg.jpg')

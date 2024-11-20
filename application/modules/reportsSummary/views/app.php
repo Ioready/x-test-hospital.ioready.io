@@ -54,25 +54,25 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.js"></script>
         <style>
             .btn-primary {
-                /*                background-color: #b22b57;*/
+                /*                background-color: #337ab7;*/
                 background: linear-gradient(to right, rgba(71,74,127,1) 0%,rgba(178,43,87,1) 100%);
-                border-color: #E47EA0;
+                border-color: #337ab7;
                 color: #ffffff;
             }
 
             .btn-primary.btn-alt {
-                background-color: #b22b57;
+                background-color: #337ab7;
                 color: #1bbae1;
             }
 
             .btn-primary:hover {
                 background: linear-gradient(to right, rgba(71,74,127,1) 0%,rgba(178,43,87,1) 100%);
-                border-color: #E47EA0;
+                border-color: #337ab7;
                 color: #ffffff;
             }
             .text-primary, .text-primary:hover, a, a:hover, a:focus, a.text-primary, a.text-primary:hover, a.text-primary:focus {
                 color: 
-                    #b22b57;
+                #337ab7;
             }
         </style>
     </head>

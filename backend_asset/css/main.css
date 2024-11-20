@@ -2960,18 +2960,18 @@ fieldset[disabled] .btn-default.active:focus {
 }
 
 .btn-primary {
-    background-color: #b22b57;
+    background-color: #337ab7;
     border-color: #1bbae1;
     color: #ffffff;
 }
 
 .btn-primary.btn-alt {
-    background-color: #b22b57;
+    background-color: #337ab7;
     color: #1bbae1;
 }
 
 .btn-primary:hover {
-    background-color: #b22b57;
+    background-color: #337ab7;
     border-color: #1593b3;
     color: #ffffff;
 }

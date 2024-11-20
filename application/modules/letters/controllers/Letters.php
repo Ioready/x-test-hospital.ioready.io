@@ -1853,11 +1853,35 @@ class Letters extends Common_Controller {
         
         $this->form_validation->set_rules('internal_name', 'internal_name', 'required');
         
-       
-        
         if ($this->form_validation->run() == true) {     
             
+            if ($this->ion_auth->is_facilityManager()) {
+                $user_id = $this->session->userdata('user_id');
+            $hospital_id = $user_id;
+    
+            } else if($this->ion_auth->is_all_roleslogin()) {
+                $user_id = $this->session->userdata('user_id');
+                $optionData = array(
+                    'table' => USERS . ' as user',
+                    'select' => 'user.*,group.name as group_name',
+                    'join' => array(
+                        array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                        array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                    ),
+                    'order' => array('user.id' => 'DESC'),
+                    'where' => array('user.id'=>$user_id),
+                    'single'=>true,
+                );
+        
+                $authUser = $this->common_model->customGet($optionData);
+    
+                $hospital_id = $authUser->hospital_id;
+                // 'users.hospital_id'=>$hospital_id
+                
+            }
+
                  $options_data = array(
+                    'hospital_id'    => $hospital_id,
                     'email_type'    => $this->input->post('internal_name'),
                     'title'         => $this->input->post('internal_name'),
                     'description'   => $this->input->post('internal_name'),

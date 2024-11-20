@@ -201,7 +201,7 @@
                 <?php  }?>
             
 
-            <?php }}}} if($this->ion_auth->is_facilityManager() or $this->ion_auth->is_admin() or $this->ion_auth->is_superAdmin()){?>
+            <?php }}}} if($this->ion_auth->is_facilityManager() or $this->ion_auth->is_admin() or $this->ion_auth->is_superAdmin() or $this->ion_auth->is_permission()){?>
 
                     <div class="block-title">
                         <!-- <h2><strong>Email</strong> Panel</h2> -->
@@ -294,13 +294,15 @@
 </form>
                 <?php  }?>
 
-            <?php }?>
+<?php }?>
 
 
 
             
         <!-- Datatables Content -->
     <div class="block full">
+
+
             <div class="block-title">
             
             <h2><strong>Email Template</strong> Panel</h2>
@@ -351,12 +353,12 @@
                                 <td><?php echo $rowCount; ?></td>            
                                 <!-- <td><?php echo $rows->email_type; ?></td> -->
                                 <td>
-                                <?php echo $rows->header_names; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <?php echo $rows->title; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <?php $image_url = base_url('/uploads/'); ?>
                                 
 
-                               <img width="100" src="<?php if (!empty($rows->logo)) {
-                                    echo $image_url.$rows->logo;
+                               <img width="100" src="<?php if (!empty($rows->image)) {
+                                    echo $image_url.$rows->image;
                                 
                             } else {
                                 echo base_url() . DEFAULT_NO_IMG_PATH;
@@ -398,7 +400,7 @@
 
                                 <td class="actions">
 
-                                    <?php if($rows->active_template != 1 && $rows->is_active == 1) { ?>
+                                    <?php if($rows->active_template=null && $rows->is_active == 1) { ?>
 
                                         <?php //if ($menu_update =='1') { ?>
 
@@ -455,12 +457,12 @@
                             <td><?php echo $rowCount; ?></td>            
                                 <!-- <td><?php echo $rows->email_type; ?></td> -->
                                 <td>
-                                <?php echo $rows->header_names; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <?php echo $rows->title; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <?php $image_url = base_url('/uploads/'); ?>
                                 
 
-                               <img width="100" src="<?php if (!empty($rows->logo)) {
-                                    echo $image_url.$rows->logo;
+                               <img width="100" src="<?php if (!empty($rows->image)) {
+                                    echo $image_url.$rows->image;
                                 
                             } else {
                                 echo $rows->recipient_template;
@@ -468,7 +470,7 @@
                             ?>
                         </td>
 
-                        <!-- Footer Image -->
+           
                         <td style="padding: 10px;">
                             <img src="<?php echo !empty($rows->footer_logo) ? base_url('/uploads/') . $rows->footer_logo : base_url(DEFAULT_NO_IMG_PATH); ?>" alt="Footer Image" style="width: 100px; border-radius: 5px;">
                         </td>
@@ -494,7 +496,7 @@
 
                                         <?php //if ($menu_update =='1') { ?>
 
-                                        <a href="javascript:void(0)" onclick="useTemplate('<?php echo $rows->header_id; ?>')" class="btn save-btn" style="color:white;">Use template</a>
+                                        <a href="javascript:void(0)" onclick="useTemplate('<?php echo $rows->id; ?>')" class="btn save-btn" style="color:white;">Use template</a>
                                         <?php } else { ?>
                                             <button type="button" class="btn btn-success" style="background:green;">Active template</button> 
                                         <?php } ?>
@@ -668,33 +670,59 @@
 //     });
 // }
 
-function useTemplate(id) {
-    // Populate hidden form with data
-    var form = document.getElementById('templateForm_' + id);
-    form.action = '<?php echo base_url('emailTemplate/usedTemplate'); ?>';
+// function useTemplate(id) {
+//     // alert(id);
+//     // Populate hidden form with data
+//     // var form = document.getElementById('templateForm_' + id);
+//     // form.action = '<?php //echo base_url('emailTemplate/usedTemplate'); ?>';
    
+//     $.ajax({
+//         type: 'POST',
+//         url: '<?php echo base_url('emailTemplate/usedTemplate'); ?>',
+//         data: 'id:id', // Serialize form data
+//         success: function(response) {
+//             // Handle success response
+//             // alert(JSON.stringify(response['status'])); // Alert the entire response object as a string
+//             // if (response.status === 1) {
+//                 // alert(response.message); // Show success message
+//                 // if (response.reload) {
+//                     location.reload(); // Reload the window
+//                 // }
+//             // } else {
+//             //     alert(response.message); // Show error message
+//             // }
+//         },
+//         error: function(xhr, status, error) {
+//             // Handle error
+//             console.error(xhr.responseText);
+//         }
+//     });
+// }
+
+function useTemplate(id) {
+
     $.ajax({
         type: 'POST',
-        url: form.action,
-        data: $(form).serialize(), // Serialize form data
+        url: '<?php echo base_url('emailTemplate/usedTemplate'); ?>',
+        data: { id: id }, // Correctly pass the ID as an object
         success: function(response) {
             // Handle success response
-            // alert(JSON.stringify(response['status'])); // Alert the entire response object as a string
-            // if (response.status === 1) {
+            if (response.status === 1) {
                 // alert(response.message); // Show success message
-                // if (response.reload) {
-                    location.reload(); // Reload the window
-                // }
-            // } else {
-            //     alert(response.message); // Show error message
-            // }
+                if (response.reload) {
+                    location.reload(); // Reload the window if required
+                }
+            } else {
+                // alert(response.message); // Show error message
+            }
         },
         error: function(xhr, status, error) {
             // Handle error
-            console.error(xhr.responseText);
+            console.error("Error: " + xhr.responseText);
         }
     });
 }
+
 
 
 </script>

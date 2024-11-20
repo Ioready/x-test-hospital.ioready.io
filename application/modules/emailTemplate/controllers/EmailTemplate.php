@@ -100,20 +100,36 @@ class EmailTemplate extends Common_Controller {
             
         }
 
+        // $alloptionEmailTemplate = [
+        //     'table' => 'vendor_sale_lettel_header',
+        //     'select' => 'vendor_sale_lettel_header.*,vendor_sale_lettel_header.id as header_id,vendor_sale_lettel_header.internal_name as header_names, vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*, vendor_sale_lettel_recipients.*, vendor_sale_lettel_footer.*, vendor_sale_lettel_footer.internal_name as footer_internal_name,vendor_sale_lettel_footer.logo as footer_logo',
+        //     'join' => [
+        //         ['vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id', 'left'],
+        //         ['vendor_sale_lettel_bodies', 'vendor_sale_lettel_header.id=vendor_sale_lettel_bodies.header_id', 'left'],
+        //         ['vendor_sale_lettel_recipients', 'vendor_sale_lettel_bodies.id=vendor_sale_lettel_recipients.body_id', 'left'],
+        //         ['vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id', 'left']
+        //     ],
+        //     'where' => array('vendor_sale_lettel_header.user_id' => $hospital_id),
+            
+        // ];
+    
+        // $this->data['all_template'] = $this->common_model->customGet($alloptionEmailTemplate);
+
         $alloptionEmailTemplate = [
-            'table' => 'vendor_sale_lettel_header',
-            'select' => 'vendor_sale_lettel_header.*,vendor_sale_lettel_header.id as header_id,vendor_sale_lettel_header.internal_name as header_names, vendor_sale_lettel_header.logo as header_logo, vendor_sale_lettel_bodies.*, vendor_sale_lettel_recipients.*, vendor_sale_lettel_footer.*, vendor_sale_lettel_footer.internal_name as footer_internal_name,vendor_sale_lettel_footer.logo as footer_logo',
+            'table' => 'vendor_sale_email_template',
+            'select' => 'vendor_sale_email_template.*',
             'join' => [
-                ['vendor_sale_users', 'vendor_sale_users.id=vendor_sale_lettel_header.user_id', 'left'],
-                ['vendor_sale_lettel_bodies', 'vendor_sale_lettel_header.id=vendor_sale_lettel_bodies.header_id', 'left'],
-                ['vendor_sale_lettel_recipients', 'vendor_sale_lettel_bodies.id=vendor_sale_lettel_recipients.body_id', 'left'],
-                ['vendor_sale_lettel_footer', 'vendor_sale_lettel_recipients.id=vendor_sale_lettel_footer.recipient_id', 'left']
+                ['vendor_sale_users', 'vendor_sale_users.id=vendor_sale_email_template.hospital_id', 'left'],
+                
             ],
-            'where' => array('vendor_sale_lettel_header.user_id' => $hospital_id),
+            'where' => array('vendor_sale_email_template.hospital_id' => $hospital_id),
             
         ];
     
         $this->data['all_template'] = $this->common_model->customGet($alloptionEmailTemplate);
+
+
+        
     // print_r($this->data['all_template']);die;
 
         $optionEmailTemplate = array(
@@ -1387,26 +1403,27 @@ class EmailTemplate extends Common_Controller {
     public function usedTemplate(){
 
         $id = $this->input->post('id');
+        // print_r($id);die;
         if (!empty($id)) {
             
-            $other_update_data = array('active_template' => 0);
+            $other_update_data = array('active_template' => 1);
             $other_update_option = array(
                 'table' => 'vendor_sale_email_template',
                 'data' => $other_update_data,
                 'where_not_in' => array('id' => $id) // Exclude the requested ID
             );
-            $this->common_model->customUpdate($other_update_option);
+            // $this->common_model->customUpdate($other_update_option);
 
-            $update_data = array('active_template' => 1);
+            // $update_data = array('active_template' => 1);
             
-            $update_option = array(
-                'table' => 'vendor_sale_email_template',
-                'data' => $update_data,
-                'where' => array('id' => $id)
-            );
+            // $update_option = array(
+            //     'table' => 'vendor_sale_email_template',
+            //     'data' => $update_data,
+            //     'where' => array('id' => $id)
+            // );
             // print_r($update_option);die;
         //    $this->common_model->customUpdate($update_option);
-           if (!$this->common_model->customUpdate($update_option)) {
+           if (!$this->common_model->customUpdate($other_update_option)) {
             $response = array('status' => 0, 'message' => 'Failed to Update');
         }else{
             $response = array('status' => 1, 'message' => 'Successfully Updated', 'url' => base_url('emailTemplate'));
