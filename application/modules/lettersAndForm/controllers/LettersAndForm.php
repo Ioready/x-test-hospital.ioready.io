@@ -955,47 +955,7 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
         
     }
 
-    if($this->ion_auth->is_all_roleslogin()){
-
-        $option = array(
-            'table' => ' doctors',
-            'select' => 'doctors.*',
-            'join' => array(
-                array('users', 'doctors.user_id=users.id', 'left'),
-            ),
-            
-            'where' => array(
-                'users.delete_status' => 0,
-                'doctors.user_id'=>$CareUnitID
-            ),
-            'single' => true,
-        );
-
-        $datadoctors = $this->common_model->customGet($option);
-
-
-    $option = array(
-            'table' => ' doctors',
-            'select' => 'users.*',
-            'join' => array(
-                array('users', 'doctors.user_id=users.id', 'left'),
-                array('user_profile UP', 'UP.user_id=users.id', 'left'),
-                // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
-                
-            ),
-            
-            'where' => array(
-                'users.delete_status' => 0,
-                // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
-                'users.hospital_id'=>$hospital_id
-            ),
-            'order' => array('users.id' => 'desc'),
-        );
-        $this->data['doctors'] = $this->common_model->customGet($option);
-
-        $this->data['send_mail_template'] = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.*', 'where' => array('user_id' =>$datadoctors->facility_user_id)));
-
-    } else if ($this->ion_auth->is_facilityManager()) {
+    
         
         $option = array(
             'table' => ' doctors',
@@ -1016,7 +976,7 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
         );
         $this->data['doctors'] = $this->common_model->customGet($option);
 
-       $optionData = array('table' => 'send_mail_template', 'select' => 'send_mail_template.description', 'where' => array('user_id' =>$CareUnitID,'app_name'=>$id),
+       $optionData = array('table' => 'send_mail_template', 'select' => 'send_mail_template.description', 'where' => array('user_id' =>$hospital_id,'app_name'=>$id),
        'single' => true,
     );
 
@@ -1024,7 +984,7 @@ $response = array('status' => 1, 'message' => "Successfully added", 'url' =>base
         
         $response= $send_mail_template->description;
         
-    }
+    
 
     echo $response;
 

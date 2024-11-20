@@ -886,6 +886,7 @@ function showForms() {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     min-width: 160px;
     z-index: 1;
+    margin-left: 68px;
   }
 
   .custom-select-box ul {
