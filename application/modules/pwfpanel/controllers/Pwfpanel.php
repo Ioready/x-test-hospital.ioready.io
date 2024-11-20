@@ -596,7 +596,7 @@ class Pwfpanel extends Common_Controller
                 } */ else {
                    
                     // print_r($data);die;
-                    // $this->load->admin_render('dashboard', $data);
+                    $this->load->admin_render('dashboard', $data);
                 }
             
                
