@@ -20,13 +20,97 @@ class Setting extends Common_Controller {
     public function index() {
         $this->data['parent'] = "Settings";
         $this->data['title'] = "Settings";
+
+        if ($this->ion_auth->is_superAdmin()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
         
+        }
+
+       else if ($this->ion_auth->is_admin()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        }
+        else if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+        $optionSetting = array(
+            'table' => 'setting',
+            'select' => 'setting.*',
+            'where'=>array('user_id'=>$hospital_id),
+            'single'=>true,
+        );
+
+        $this->data['list'] = $this->common_model->customGet($optionSetting);
+
         $this->load->admin_render('add', $this->data, 'inner_script');
     }
 
     public function emailSetting() {
         $this->data['parent'] = "Settings";
         $this->data['title'] = "Settings";
+
+        if ($this->ion_auth->is_superAdmin()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        }
+
+       else if ($this->ion_auth->is_admin()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        }
+        else if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+        // print_r($hospital_id);die;
+
         $this->load->admin_render('email_setting', $this->data, 'inner_script');
     }
 
@@ -35,9 +119,47 @@ class Setting extends Common_Controller {
     public function paymentSetting() {
         $this->data['parent'] = "Settings";
         $this->data['title'] = "Settings";
+
+        if ($this->ion_auth->is_superAdmin()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        }
+
+       else if ($this->ion_auth->is_admin()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        }
+        else if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         $optionPayment = array(
             'table' => 'payment_gateway',
             'select' => 'payment_gateway.*',
+            'where'=>array('user_id'=>$hospital_id),
             'single'=>true,
         );
 
@@ -179,6 +301,13 @@ class Setting extends Common_Controller {
     
 
     public function addPaymentSetting() {
+
+
+
+        if ($this->ion_auth->is_superAdmin()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
         $this->data['parent'] = "Settings";
         $this->data['title'] = "Settings";
 
@@ -189,17 +318,125 @@ class Setting extends Common_Controller {
        
         if ($this->form_validation->run() == true) {
 
-        $option = array(
-            'table' => 'payment_gateway',
-            'data' => array(
-                'user_id' => $LoginID,
-                'secret_key' => $this->input->post('secret_key'),
-                'publishable_key' => $this->input->post('publishable_key'),
-            )
-        );
-        $insert_id = $this->common_model->customInsert($option);
-        $response = array('status' => 1, 'message' =>  "Successfully added");
         
+        
+   
+
+    $optionheader = array(
+        'table' => 'payment_gateway',
+        'select' => 'payment_gateway`.*',
+        'where' => array('payment_gateway.user_id' => $hospital_id),
+        'single'=>true,
+
+    );
+
+    $resultdata = $this->common_model->customGet($optionheader);
+    if(!empty($resultdata)){
+
+   
+        $email = strtolower($this->input->post('email'));
+       
+        $additional_data = array(
+            'secret_key' => $this->input->post('secret_key'),
+            'publishable_key' => $this->input->post('publishable_key'),
+        );
+
+        // $update_data = array('active_template' => 1);
+        
+        $update_option = array(
+            'table' => 'payment_gateway',
+            'data' => $additional_data,
+            'where' => array('user_id'=>$hospital_id)
+        );
+       
+             $this->common_model->customUpdate($update_option);                
+            $this->session->set_flashdata('success', 'Successfully updated');
+
+        }else{
+            $option = array(
+                'table' => 'payment_gateway',
+                'data' => array(
+                    'user_id' => $hospital_id,
+                    'secret_key' => $this->input->post('secret_key'),
+                    'publishable_key' => $this->input->post('publishable_key'),
+                )
+            );
+            $insert_id = $this->common_model->customInsert($option);
+            $response = array('status' => 1, 'message' =>  "Successfully added");
+                
+                $this->session->set_flashdata('success', 'Successfully added');
+        }
+    } else {
+        $messages = (validation_errors()) ? validation_errors() : '';
+        $response = array('status' => 0, 'message' => $messages);
+
+    }
+    
+    echo json_encode($response); 
+        
+        } else if ($this->ion_auth->is_admin()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        
+        $this->data['parent'] = "Settings";
+        $this->data['title'] = "Settings";
+
+        $this->form_validation->set_rules('secret_key', lang('secret_key'), 'required');
+        $this->form_validation->set_rules('publishable_key', lang('publishable_key'), 'required');
+        $allData = $this->input->post();
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+       
+        if ($this->form_validation->run() == true) {
+
+        
+        
+   
+
+    $optionheader = array(
+        'table' => 'payment_gateway',
+        'select' => 'payment_gateway`.*',
+        'where' => array('payment_gateway.user_id' => $hospital_id),
+        'single'=>true,
+
+    );
+
+    $resultdata = $this->common_model->customGet($optionheader);
+    if(!empty($resultdata)){
+
+   
+        $email = strtolower($this->input->post('email'));
+       
+        $additional_data = array(
+            'secret_key' => $this->input->post('secret_key'),
+            'publishable_key' => $this->input->post('publishable_key'),
+        );
+
+        // $update_data = array('active_template' => 1);
+        
+        $update_option = array(
+            'table' => 'payment_gateway',
+            'data' => $additional_data,
+            'where' => array('user_id'=>$hospital_id)
+        );
+       
+             $this->common_model->customUpdate($update_option);                
+            $this->session->set_flashdata('success', 'Successfully updated');
+
+        }else{
+            $option = array(
+                'table' => 'payment_gateway',
+                'data' => array(
+                    'user_id' => $hospital_id,
+                    'secret_key' => $this->input->post('secret_key'),
+                    'publishable_key' => $this->input->post('publishable_key'),
+                )
+            );
+            $insert_id = $this->common_model->customInsert($option);
+            $response = array('status' => 1, 'message' =>  "Successfully added");
+                
+                $this->session->set_flashdata('success', 'Successfully added');
+        }
     } else {
         $messages = (validation_errors()) ? validation_errors() : '';
         $response = array('status' => 0, 'message' => $messages);
@@ -207,6 +444,165 @@ class Setting extends Common_Controller {
     }
     
     echo json_encode($response);
+
+        } else if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        
+        $this->data['parent'] = "Settings";
+        $this->data['title'] = "Settings";
+
+        $this->form_validation->set_rules('secret_key', lang('secret_key'), 'required');
+        $this->form_validation->set_rules('publishable_key', lang('publishable_key'), 'required');
+        $allData = $this->input->post();
+        $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+       
+        if ($this->form_validation->run() == true) {
+
+        
+        
+   
+
+    $optionheader = array(
+        'table' => 'payment_gateway',
+        'select' => 'payment_gateway`.*',
+        'where' => array('payment_gateway.user_id' => $hospital_id),
+        'single'=>true,
+
+    );
+
+    $resultdata = $this->common_model->customGet($optionheader);
+    if(!empty($resultdata)){
+
+   
+        $email = strtolower($this->input->post('email'));
+       
+        $additional_data = array(
+            'secret_key' => $this->input->post('secret_key'),
+            'publishable_key' => $this->input->post('publishable_key'),
+        );
+
+        // $update_data = array('active_template' => 1);
+        
+        $update_option = array(
+            'table' => 'payment_gateway',
+            'data' => $additional_data,
+            'where' => array('user_id'=>$hospital_id)
+        );
+       
+             $this->common_model->customUpdate($update_option);                
+            $this->session->set_flashdata('success', 'Successfully updated');
+
+        }else{
+            $option = array(
+                'table' => 'payment_gateway',
+                'data' => array(
+                    'user_id' => $hospital_id,
+                    'secret_key' => $this->input->post('secret_key'),
+                    'publishable_key' => $this->input->post('publishable_key'),
+                )
+            );
+            $insert_id = $this->common_model->customInsert($option);
+            $response = array('status' => 1, 'message' =>  "Successfully added");
+                
+                $this->session->set_flashdata('success', 'Successfully added');
+        }
+    } else {
+        $messages = (validation_errors()) ? validation_errors() : '';
+        $response = array('status' => 0, 'message' => $messages);
+
+    }
+    
+    echo json_encode($response);
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+           
+
+           
+            $this->data['parent'] = "Settings";
+            $this->data['title'] = "Settings";
+    
+            $this->form_validation->set_rules('secret_key', lang('secret_key'), 'required');
+            $this->form_validation->set_rules('publishable_key', lang('publishable_key'), 'required');
+            $allData = $this->input->post();
+            $LoginID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+           
+            if ($this->form_validation->run() == true) {
+    
+            
+            
+       
+
+        $optionheader = array(
+            'table' => 'payment_gateway',
+            'select' => 'payment_gateway`.*',
+            'where' => array('payment_gateway.user_id' => $hospital_id),
+            'single'=>true,
+
+        );
+
+        $resultdata = $this->common_model->customGet($optionheader);
+        if(!empty($resultdata)){
+
+       
+            $email = strtolower($this->input->post('email'));
+           
+            $additional_data = array(
+                'secret_key' => $this->input->post('secret_key'),
+                'publishable_key' => $this->input->post('publishable_key'),
+            );
+
+            // $update_data = array('active_template' => 1);
+            
+            $update_option = array(
+                'table' => 'payment_gateway',
+                'data' => $additional_data,
+                'where' => array('user_id'=>$hospital_id)
+            );
+           
+                 $this->common_model->customUpdate($update_option);                
+                $this->session->set_flashdata('success', 'Successfully updated');
+
+            }else{
+                $option = array(
+                    'table' => 'payment_gateway',
+                    'data' => array(
+                        'user_id' => $hospital_id,
+                        'secret_key' => $this->input->post('secret_key'),
+                        'publishable_key' => $this->input->post('publishable_key'),
+                    )
+                );
+                $insert_id = $this->common_model->customInsert($option);
+                $response = array('status' => 1, 'message' =>  "Successfully added");
+                    
+                    $this->session->set_flashdata('success', 'Successfully added');
+            }
+        } else {
+            $messages = (validation_errors()) ? validation_errors() : '';
+            $response = array('status' => 0, 'message' => $messages);
+    
+        }
+        
+        echo json_encode($response);
+        
+        }
 
     }
 
@@ -267,8 +663,45 @@ class Setting extends Common_Controller {
         // print_r($this->input->post());die;
 
         if ($this->ion_auth->is_superAdmin()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        }
 
-        $user_id = $this->session->userdata('user_id');
+       else if ($this->ion_auth->is_admin()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        }
+        else if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
+        if ($this->ion_auth->is_superAdmin()) {
+
+        $user_id = $hospital_id;
+        // $user_id = $this->session->userdata('user_id');
 
         $allOptions = is_options();
         $image = $this->input->post('site_logo_url');
@@ -288,7 +721,7 @@ class Setting extends Common_Controller {
         }
         foreach ($allOptions as $rows) {
             $option = array('table' => SETTING,
-                'where' => array('option_name' => $rows, 'status' => 1),
+                'where' => array('user_id'=>$user_id,'option_name' => $rows, 'status' => 1),
                 'single' => true,
             );
             $is_value = $this->common_model->customGet($option);
@@ -297,7 +730,7 @@ class Setting extends Common_Controller {
                     'data' => array(
                         'option_value' => (isset($_POST[$rows])) ? $_POST[$rows] : "",
                     ),
-                    'where' => array('option_name' => $rows)
+                    'where' => array('user_id'=>$user_id,'option_name' => $rows)
                 );
                 if (!empty($image) && $rows == 'site_logo') {
                     $options['data']['option_value'] = $image;
@@ -308,12 +741,15 @@ class Setting extends Common_Controller {
                 $this->common_model->customUpdate($options);
             } else {
 
+               
                 $options = array('table' => SETTING,
                     'data' => array(
+                        'user_id' => $user_id,
                         'option_value' => (isset($_POST[$rows])) ? $_POST[$rows] : "",
                         'option_name' => $rows
                     )
                 );
+                
                 if (!empty($image) && $rows == 'site_logo') {
                     $options['data']['option_value'] = $image;
                 }
@@ -328,8 +764,7 @@ class Setting extends Common_Controller {
 
     }else if($this->ion_auth->is_facilityManager()){
 
-        $user_id = $this->session->userdata('user_id');
-       
+        $user_id = $hospital_id;
 
         $allOptions = is_options();
         $image = $this->input->post('site_logo_url');
@@ -349,7 +784,7 @@ class Setting extends Common_Controller {
         }
         foreach ($allOptions as $rows) {
             $option = array('table' => SETTING,
-                'where' => array('option_name' => $rows, 'status' => 1),
+                'where' => array('user_id'=>$user_id,'option_name' => $rows, 'status' => 1),
                 'single' => true,
             );
             $is_value = $this->common_model->customGet($option);
@@ -358,7 +793,7 @@ class Setting extends Common_Controller {
                     'data' => array(
                         'option_value' => (isset($_POST[$rows])) ? $_POST[$rows] : "",
                     ),
-                    'where' => array('option_name' => $rows)
+                    'where' => array('user_id'=>$user_id,'option_name' => $rows)
                 );
                 if (!empty($image) && $rows == 'site_logo') {
                     $options['data']['option_value'] = $image;
@@ -371,6 +806,7 @@ class Setting extends Common_Controller {
 
                 $options = array('table' => SETTING,
                     'data' => array(
+                        'user_id' => $user_id,
                         'option_value' => (isset($_POST[$rows])) ? $_POST[$rows] : "",
                         'option_name' => $rows
                     )
@@ -396,9 +832,11 @@ class Setting extends Common_Controller {
 
     public function setting_email_add()
     {
-       
-        $this->load->library('form_validation');
+        if ($this->ion_auth->is_superAdmin()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
 
+        $this->load->library('form_validation');
     // Set validation rules
     $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
 
@@ -407,27 +845,317 @@ class Setting extends Common_Controller {
         $this->session->set_flashdata('error', validation_errors());
         redirect('setting/emailSetting');
     }else{
+        $optionheader = array(
+            'table' => 'vendor_sale_email_host',
+            'select' => 'vendor_sale_email_host`.*',
+            'where' => array('vendor_sale_email_host.user_id' => $hospital_id),
+            'single'=>true,
+
+        );
+
+        $resultdata = $this->common_model->customGet($optionheader);
+        if(!empty($resultdata)){
+
+       
             $email = strtolower($this->input->post('email'));
            
             $additional_data = array(
+                // 'user_id' => $hospital_id,
                 'mail_driver' => $this->input->post('mail_driver'),
                 'Mail_Host' => $this->input->post('Mail_Host'),
                 'mail_port' =>$this->input->post('mail_port'),
                 'email'=>$email,
-                
                 'password' => $this->input->post('password'),
                 'encryption' => $this->input->post('encryption'),
                 'from_address' => $this->input->post('from_address'),
                 'name' => $this->input->post('name'),
                 'created_on' => date('Y-m-d H:i:s')
             );
+
+            // $update_data = array('active_template' => 1);
             
-                $this->db->insert('vendor_sale_email_host', $additional_data);
-                $this->session->set_flashdata('success', "Successfully added");
+            $update_option = array(
+                'table' => 'vendor_sale_email_host',
+                'data' => $additional_data,
+                'where' => array('user_id'=>$hospital_id)
+            );
+           
+                 $this->common_model->customUpdate($update_option);                
+                $this->session->set_flashdata('success', 'Successfully updated');
+
+            }else{
+                $email = strtolower($this->input->post('email'));
+           
+                $additional_data = array(
+                    'user_id' => $hospital_id,
+                    'mail_driver' => $this->input->post('mail_driver'),
+                    'Mail_Host' => $this->input->post('Mail_Host'),
+                    'mail_port' =>$this->input->post('mail_port'),
+                    'email'=>$email,
+                    'password' => $this->input->post('password'),
+                    'encryption' => $this->input->post('encryption'),
+                    'from_address' => $this->input->post('from_address'),
+                    'name' => $this->input->post('name'),
+                    'created_on' => date('Y-m-d H:i:s')
+                );
                 
-                $this->session->set_flashdata('success', 'Successfully added');
+                    $this->db->insert('vendor_sale_email_host', $additional_data);
+    
+                    // $this->session->set_flashdata('success', "Successfully added");
+                    
+                    $this->session->set_flashdata('success', 'Successfully added');
+            }
         redirect('setting/emailSetting');
         } 
+        
+        } else if ($this->ion_auth->is_admin()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        $this->load->library('form_validation');
+    // Set validation rules
+    $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+
+    if ($this->form_validation->run() == FALSE) {
+        // Form validation failed, redirect back to the form with errors
+        $this->session->set_flashdata('error', validation_errors());
+        redirect('setting/emailSetting');
+    }else{
+        $optionheader = array(
+            'table' => 'vendor_sale_email_host',
+            'select' => 'vendor_sale_email_host`.*',
+            'where' => array('vendor_sale_email_host.user_id' => $hospital_id),
+            'single'=>true,
+
+        );
+
+        $resultdata = $this->common_model->customGet($optionheader);
+        if(!empty($resultdata)){
+
+       
+            $email = strtolower($this->input->post('email'));
+           
+            $additional_data = array(
+                // 'user_id' => $hospital_id,
+                'mail_driver' => $this->input->post('mail_driver'),
+                'Mail_Host' => $this->input->post('Mail_Host'),
+                'mail_port' =>$this->input->post('mail_port'),
+                'email'=>$email,
+                'password' => $this->input->post('password'),
+                'encryption' => $this->input->post('encryption'),
+                'from_address' => $this->input->post('from_address'),
+                'name' => $this->input->post('name'),
+                'created_on' => date('Y-m-d H:i:s')
+            );
+
+            // $update_data = array('active_template' => 1);
+            
+            $update_option = array(
+                'table' => 'vendor_sale_email_host',
+                'data' => $additional_data,
+                'where' => array('user_id'=>$hospital_id)
+            );
+           
+                 $this->common_model->customUpdate($update_option);                
+                $this->session->set_flashdata('success', 'Successfully updated');
+
+            }else{
+                $email = strtolower($this->input->post('email'));
+           
+                $additional_data = array(
+                    'user_id' => $hospital_id,
+                    'mail_driver' => $this->input->post('mail_driver'),
+                    'Mail_Host' => $this->input->post('Mail_Host'),
+                    'mail_port' =>$this->input->post('mail_port'),
+                    'email'=>$email,
+                    'password' => $this->input->post('password'),
+                    'encryption' => $this->input->post('encryption'),
+                    'from_address' => $this->input->post('from_address'),
+                    'name' => $this->input->post('name'),
+                    'created_on' => date('Y-m-d H:i:s')
+                );
+                
+                    $this->db->insert('vendor_sale_email_host', $additional_data);
+    
+                    // $this->session->set_flashdata('success', "Successfully added");
+                    
+                    $this->session->set_flashdata('success', 'Successfully added');
+            }
+        redirect('setting/emailSetting');
+        } 
+        
+        } else if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+
+        $this->load->library('form_validation');
+    // Set validation rules
+    $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+
+    if ($this->form_validation->run() == FALSE) {
+        // Form validation failed, redirect back to the form with errors
+        $this->session->set_flashdata('error', validation_errors());
+        redirect('setting/emailSetting');
+    }else{
+        $optionheader = array(
+            'table' => 'vendor_sale_email_host',
+            'select' => 'vendor_sale_email_host`.*',
+            'where' => array('vendor_sale_email_host.user_id' => $hospital_id),
+            'single'=>true,
+
+        );
+
+        $resultdata = $this->common_model->customGet($optionheader);
+        if(!empty($resultdata)){
+
+       
+            $email = strtolower($this->input->post('email'));
+           
+            $additional_data = array(
+                // 'user_id' => $hospital_id,
+                'mail_driver' => $this->input->post('mail_driver'),
+                'Mail_Host' => $this->input->post('Mail_Host'),
+                'mail_port' =>$this->input->post('mail_port'),
+                'email'=>$email,
+                'password' => $this->input->post('password'),
+                'encryption' => $this->input->post('encryption'),
+                'from_address' => $this->input->post('from_address'),
+                'name' => $this->input->post('name'),
+                'created_on' => date('Y-m-d H:i:s')
+            );
+
+            // $update_data = array('active_template' => 1);
+            
+            $update_option = array(
+                'table' => 'vendor_sale_email_host',
+                'data' => $additional_data,
+                'where' => array('user_id'=>$hospital_id)
+            );
+           
+                 $this->common_model->customUpdate($update_option);                
+                $this->session->set_flashdata('success', 'Successfully updated');
+
+            }else{
+                $email = strtolower($this->input->post('email'));
+           
+                $additional_data = array(
+                    'user_id' => $hospital_id,
+                    'mail_driver' => $this->input->post('mail_driver'),
+                    'Mail_Host' => $this->input->post('Mail_Host'),
+                    'mail_port' =>$this->input->post('mail_port'),
+                    'email'=>$email,
+                    'password' => $this->input->post('password'),
+                    'encryption' => $this->input->post('encryption'),
+                    'from_address' => $this->input->post('from_address'),
+                    'name' => $this->input->post('name'),
+                    'created_on' => date('Y-m-d H:i:s')
+                );
+                
+                    $this->db->insert('vendor_sale_email_host', $additional_data);
+    
+                    // $this->session->set_flashdata('success', "Successfully added");
+                    
+                    $this->session->set_flashdata('success', 'Successfully added');
+            }
+        redirect('setting/emailSetting');
+        } 
+
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+           
+
+            $this->load->library('form_validation');
+    // Set validation rules
+    $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+
+    if ($this->form_validation->run() == FALSE) {
+        // Form validation failed, redirect back to the form with errors
+        $this->session->set_flashdata('error', validation_errors());
+        redirect('setting/emailSetting');
+    }else{
+
+        $optionheader = array(
+            'table' => 'vendor_sale_email_host',
+            'select' => 'vendor_sale_email_host`.*',
+            'where' => array('vendor_sale_email_host.user_id' => $hospital_id),
+            'single'=>true,
+
+        );
+
+        $resultdata = $this->common_model->customGet($optionheader);
+        if(!empty($resultdata)){
+
+       
+            $email = strtolower($this->input->post('email'));
+           
+            $additional_data = array(
+                // 'user_id' => $hospital_id,
+                'mail_driver' => $this->input->post('mail_driver'),
+                'Mail_Host' => $this->input->post('Mail_Host'),
+                'mail_port' =>$this->input->post('mail_port'),
+                'email'=>$email,
+                'password' => $this->input->post('password'),
+                'encryption' => $this->input->post('encryption'),
+                'from_address' => $this->input->post('from_address'),
+                'name' => $this->input->post('name'),
+                'created_on' => date('Y-m-d H:i:s')
+            );
+
+            // $update_data = array('active_template' => 1);
+            
+            $update_option = array(
+                'table' => 'vendor_sale_email_host',
+                'data' => $additional_data,
+                'where' => array('user_id'=>$hospital_id)
+            );
+           
+                 $this->common_model->customUpdate($update_option);                
+                $this->session->set_flashdata('success', 'Successfully updated');
+
+            }else{
+                $email = strtolower($this->input->post('email'));
+           
+                $additional_data = array(
+                    'user_id' => $hospital_id,
+                    'mail_driver' => $this->input->post('mail_driver'),
+                    'Mail_Host' => $this->input->post('Mail_Host'),
+                    'mail_port' =>$this->input->post('mail_port'),
+                    'email'=>$email,
+                    'password' => $this->input->post('password'),
+                    'encryption' => $this->input->post('encryption'),
+                    'from_address' => $this->input->post('from_address'),
+                    'name' => $this->input->post('name'),
+                    'created_on' => date('Y-m-d H:i:s')
+                );
+                
+                    $this->db->insert('vendor_sale_email_host', $additional_data);
+    
+                    // $this->session->set_flashdata('success', "Successfully added");
+                    
+                    $this->session->set_flashdata('success', 'Successfully added');
+            }
+        redirect('setting/emailSetting');
+        } 
+            
+        }
+
+    
     }
 
     public function sending_mail_test()

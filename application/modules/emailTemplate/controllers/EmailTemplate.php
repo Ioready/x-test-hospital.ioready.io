@@ -161,7 +161,7 @@ class EmailTemplate extends Common_Controller {
             $optionEmailTem = array(
                 'table' => 'vendor_sale_email_template',
                 'select' => 'vendor_sale_email_template.*',
-                'where' => array('active_template' => '1'), 
+                'where' => array('hospital_id'=>$hospital_id,'active_template' => '1'), 
                 'single'=>true,
             );
         // }
@@ -1402,28 +1402,55 @@ class EmailTemplate extends Common_Controller {
 
     public function usedTemplate(){
 
+
+        if ($this->ion_auth->is_facilityManager()) {
+            $user_id = $this->session->userdata('user_id');
+        $hospital_id = $user_id;
+        
+        } else if($this->ion_auth->is_all_roleslogin()) {
+            $user_id = $this->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*,group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id'=>$user_id),
+                'single'=>true,
+            );
+        
+            $authUser = $this->common_model->customGet($optionData);
+        
+            $hospital_id = $authUser->hospital_id;
+            // 'users.hospital_id'=>$hospital_id
+            
+        }
+
         $id = $this->input->post('id');
         // print_r($id);die;
         if (!empty($id)) {
             
-            $other_update_data = array('active_template' => 1);
+            $other_update_data = array('active_template' => 0);
             $other_update_option = array(
                 'table' => 'vendor_sale_email_template',
                 'data' => $other_update_data,
+                'where'=>array('hospital_id'=>$hospital_id),
                 'where_not_in' => array('id' => $id) // Exclude the requested ID
             );
-            // $this->common_model->customUpdate($other_update_option);
+            $this->common_model->customUpdate($other_update_option);
 
-            // $update_data = array('active_template' => 1);
+            $update_data = array('active_template' => 1);
             
-            // $update_option = array(
-            //     'table' => 'vendor_sale_email_template',
-            //     'data' => $update_data,
-            //     'where' => array('id' => $id)
-            // );
+            $update_option = array(
+                'table' => 'vendor_sale_email_template',
+                'data' => $update_data,
+                'where' => array('hospital_id'=>$hospital_id,'id' => $id)
+            );
             // print_r($update_option);die;
         //    $this->common_model->customUpdate($update_option);
-           if (!$this->common_model->customUpdate($other_update_option)) {
+           if (!$this->common_model->customUpdate($update_option)) {
             $response = array('status' => 0, 'message' => 'Failed to Update');
         }else{
             $response = array('status' => 1, 'message' => 'Successfully Updated', 'url' => base_url('emailTemplate'));

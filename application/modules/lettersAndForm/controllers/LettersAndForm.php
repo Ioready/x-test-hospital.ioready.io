@@ -126,51 +126,7 @@ class LettersAndForm extends Common_Controller {
             
         }
 
-    //         if($this->ion_auth->is_all_roleslogin()){
-
-    //             $option = array(
-    //                 'table' => ' doctors',
-    //                 'select' => 'doctors.*',
-    //                 'join' => array(
-    //                     array('users', 'doctors.user_id=users.id', 'left'),
-    //                 ),
-                    
-    //                 'where' => array(
-    //                     'users.delete_status' => 0,
-    //                     'doctors.user_id'=>$CareUnitID
-    //                     // 'users.hospital_id'=>$hospital_id
-    //                 ),
-    //                 'single' => true,
-    //             );
-
-    //     $datadoctors = $this->common_model->customGet($option);
-
-
-    // $option = array(
-    //         'table' => ' doctors',
-    //         'select' => 'users.*',
-    //         'join' => array(
-    //             array('users', 'doctors.user_id=users.id', 'left'),
-    //             array('user_profile UP', 'UP.user_id=users.id', 'left'),
-    //             // array('doctors_qualification', 'doctors_qualification.user_id=users.id', 'left'),
-                
-    //         ),
-            
-    //         'where' => array(
-    //             'users.delete_status' => 0,
-    //             // 'doctors.facility_user_id'=>$datadoctors->facility_user_id
-    //             // 'users.hospital_id'=>$hospital_id
-    //         ),
-    //         'order' => array('users.id' => 'desc'),
-    //     );
-    //     $this->data['doctors'] = $this->common_model->customGet($option);
-        
-
-    //     $this->data['send_mail_template'] = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.*', 'where' => array('user_id' =>$datadoctors->facility_user_id)));
-
-        
-
-    // } else if ($this->ion_auth->is_facilityManager()) {
+   
         
         $option = array(
             'table' => ' doctors',
@@ -192,7 +148,7 @@ class LettersAndForm extends Common_Controller {
         $this->data['doctors'] = $this->common_model->customGet($option);
 
         // $send_mail_template = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.app_name', 'where' => array('user_id' =>$CareUnitID)));
-        $send_mail_template = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.app_name'));
+        $send_mail_template = $this->common_model->customGet(array('table' => 'send_mail_template', 'select' => 'send_mail_template.app_name', 'where'=>array('user_id'=>$hospital_id)));
         // print_r($send_mail_template);die;
        $template_name =[];
         foreach($send_mail_template as $key=>$datavalues){

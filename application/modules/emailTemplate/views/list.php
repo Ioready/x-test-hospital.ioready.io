@@ -455,24 +455,13 @@
                             ?>
                             <tr>
                             <td><?php echo $rowCount; ?></td>            
-                                <!-- <td><?php echo $rows->email_type; ?></td> -->
+                               
                                 <td>
                                 <?php echo $rows->title; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <?php $image_url = base_url('/uploads/'); ?>
-                                
-
-                               <img width="100" src="<?php if (!empty($rows->image)) {
-                                    echo $image_url.$rows->image;
-                                
-                            } else {
-                                echo $rows->recipient_template;
-                            }
-                            ?>
-                        </td>
-
-           
+                               </td>
                         <td style="padding: 10px;">
-                            <img src="<?php echo !empty($rows->footer_logo) ? base_url('/uploads/') . $rows->footer_logo : base_url(DEFAULT_NO_IMG_PATH); ?>" alt="Footer Image" style="width: 100px; border-radius: 5px;">
+                            <img src="<?php echo !empty($rows->image) ? base_url('/uploads/') . $rows->image : base_url(DEFAULT_NO_IMG_PATH); ?>" alt="Footer Image" style="width: 100px; border-radius: 5px;">
                         </td>
 
                         <!-- Action Buttons -->
@@ -707,14 +696,14 @@ function useTemplate(id) {
         data: { id: id }, // Correctly pass the ID as an object
         success: function(response) {
             // Handle success response
-            if (response.status === 1) {
+            // if (response.status === 1) {
                 // alert(response.message); // Show success message
                 if (response.reload) {
                     location.reload(); // Reload the window if required
                 }
-            } else {
+            // } else {
                 // alert(response.message); // Show error message
-            }
+            // }
         },
         error: function(xhr, status, error) {
             // Handle error

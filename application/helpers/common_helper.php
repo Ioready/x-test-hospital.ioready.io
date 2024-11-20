@@ -42,14 +42,120 @@ if (!function_exists('commonCountHelper')) {
 /**
  * [get common configure ]
  */
+// if (!function_exists('getConfig')) {
+
+  
+    
+//     function getConfig($key) {
+
+       
+//         if ($this->ion_auth->is_superAdmin()) {
+//             $user_id = $this->session->userdata('user_id');
+//         $hospital_id = $user_id;
+        
+//         }
+    
+//        else if ($this->ion_auth->is_admin()) {
+//             $user_id = $this->session->userdata('user_id');
+//         $hospital_id = $user_id;
+        
+//         }
+//         else if ($this->ion_auth->is_facilityManager()) {
+//             $user_id = $this->session->userdata('user_id');
+//         $hospital_id = $user_id;
+        
+//         } else if($this->ion_auth->is_all_roleslogin()) {
+//             $user_id = $this->session->userdata('user_id');
+//             $optionData = array(
+//                 'table' => USERS . ' as user',
+//                 'select' => 'user.*,group.name as group_name',
+//                 'join' => array(
+//                     array(USER_GROUPS . ' as ugroup', 'ugroup.user_id=user.id', 'left'),
+//                     array(GROUPS . ' as group', 'group.id=ugroup.group_id', 'left')
+//                 ),
+//                 'order' => array('user.id' => 'DESC'),
+//                 'where' => array('user.id'=>$user_id),
+//                 'single'=>true,
+//             );
+        
+//             $authUser = $this->common_model->customGet($optionData);
+        
+//             $hospital_id = $authUser->hospital_id;
+//             // 'users.hospital_id'=>$hospital_id
+            
+//         }
+
+//         $ci = get_instance();
+//         // $option = array('table' => SETTING,
+//         //     'where' => array('user_id'=>$hospital_id,'option_name' => $key, 'status' => 1),
+//         //     'single' => true,
+//         // );
+//         $option = array('table' => SETTING,
+//         'where' => array('option_name' => $key, 'status' => 1),
+//         'single' => true,
+//     );
+//         $is_result = $ci->common_model->customGet($option);
+//         if (!empty($is_result)) {
+//             return $is_result->option_value;
+//         } else {
+//             return false;
+//         }
+//     }
+
+// }
+
 if (!function_exists('getConfig')) {
 
     function getConfig($key) {
+        // Get the CodeIgniter instance
         $ci = get_instance();
-        $option = array('table' => SETTING,
-            'where' => array('option_name' => $key, 'status' => 1),
+        
+        // Load necessary libraries or helpers if not already loaded
+        $ci->load->library('ion_auth'); // Ensure Ion Auth library is loaded
+        $ci->load->model('common_model'); // Ensure common_model is loaded
+
+        // $hospital_id = null; // Initialize hospital_id
+
+      
+        // Check roles and determine hospital_id
+        if ($ci->ion_auth->is_superAdmin()) {
+            $hospital_id = $ci->session->userdata('user_id');
+        } else if ($ci->ion_auth->is_admin()) {
+            $hospital_id = $ci->session->userdata('user_id');
+        } else if ($ci->ion_auth->is_facilityManager()) {
+            $hospital_id = $ci->session->userdata('user_id');
+        } else if ($ci->ion_auth->is_all_roleslogin()) {
+            $user_id = $ci->session->userdata('user_id');
+            $optionData = array(
+                'table' => USERS . ' as user',
+                'select' => 'user.*, group.name as group_name',
+                'join' => array(
+                    array(USER_GROUPS . ' as ugroup', 'ugroup.user_id = user.id', 'left'),
+                    array(GROUPS . ' as group', 'group.id = ugroup.group_id', 'left')
+                ),
+                'order' => array('user.id' => 'DESC'),
+                'where' => array('user.id' => $user_id),
+                'single' => true,
+            );
+
+            $authUser = $ci->common_model->customGet($optionData);
+            if ($authUser) {
+                $hospital_id = $authUser->hospital_id;
+            }
+        }
+
+       
+        // Fetch the configuration value
+        $option = array(
+            'table' => SETTING,
+            'where' => array(
+                'user_id' => $hospital_id, // Include hospital_id if applicable
+                'option_name' => $key,
+                'status' => 1
+            ),
             'single' => true,
         );
+
         $is_result = $ci->common_model->customGet($option);
         if (!empty($is_result)) {
             return $is_result->option_value;
@@ -57,8 +163,8 @@ if (!function_exists('getConfig')) {
             return false;
         }
     }
-
 }
+
 
 /**
  * [get common configure ]

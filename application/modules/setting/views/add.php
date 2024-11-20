@@ -104,7 +104,7 @@
                                                                 <div class="col-md-9">
                                                                     <div class="profile_content edit_img">
                                                                         <div class="file_btn file_btn_logo">
-                                                                            <input type="file"  class="input_img2 p-4 " id="user_image" name="user_image" style="display: inline-block; border:3px solid black;border-radius:10px ;width:40%;>
+                                                                            <input type="file"  class="input_img2 p-4 " id="user_image" name="user_image" style="display: inline-block; border:3px solid black;border-radius:10px ;width:40%;">
                                                                             <span class="glyphicon input_img2 logo_btn" style="display: block;">
                                                                                 <div id="show_company_img"></div>
                                                                                 <span class="ceo_logo">
