@@ -596,7 +596,7 @@ class Pwfpanel extends Common_Controller
                 } */ else {
                    
                     // print_r($data);die;
-                    $this->load->admin_render('dashboard', $data);
+                    // $this->load->admin_render('dashboard', $data);
                 }
             
                
@@ -606,7 +606,7 @@ class Pwfpanel extends Common_Controller
                 $this->load->admin_render('vendorDashboard', $this->data, 'inner_script');
 
             } 
-             if ($this->ion_auth->is_facilityManager()) {
+             else if ($this->ion_auth->is_facilityManager()) {
                 $user_id = $this->session->userdata('user_id');
                 // print_r($user_id);die;
 
@@ -1085,7 +1085,7 @@ $data['total_appointment'] = $this->common_model->customCount($totalAppointment)
         
 
              }
-              if ($this->ion_auth->is_all_roleslogin()) {
+             else if ($this->ion_auth->is_all_roleslogin()) {
                 $user_id = $this->session->userdata('user_id');
                 // print_r($user_id);die;
               
